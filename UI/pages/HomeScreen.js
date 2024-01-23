@@ -9,6 +9,7 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import styles, {home_style} from '../style.js'
 
 // REPLACE this with data pulled from the database
 const list_data = ["tomato sauce", "potatoes", "cherries", "chicken", "bread crumbs"]
@@ -21,7 +22,7 @@ type ListProps = {
 const ListElement = (props: ListProps) => {
 // text component for one element in the shopping list
     return (
-        <Text>
+        <Text style={home_style.listItem}>
             {props.item}
         </Text>
     )
