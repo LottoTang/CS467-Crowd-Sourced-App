@@ -45,8 +45,17 @@ const ShoppingList = () => {
 function HomeScreen() {
 // the Home screen itself with its components
   return (
-    <SafeAreaView>
-        <ShoppingList />
+    <SafeAreaView style={styles.app}>
+        <View style={styles.container}>
+            <View  style={{maxHeight: '85%'}}>
+                <ShoppingList />
+                <Text style={home_style.addButton}>+</Text>
+            </View>
+
+            <View style={styles.bottom}>
+                <Text style={home_style.shopButton}>Go Shopping!</Text>
+            </View>
+        </View>
     </SafeAreaView>
   );
 };
