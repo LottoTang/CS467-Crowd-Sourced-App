@@ -10,9 +10,11 @@ import {
   View,
 } from 'react-native';
 import styles, {home_style} from '../style.js'
+import NavigationBar from '../components/NavigationBar.js'
 
 // REPLACE this with data pulled from the database
-const list_data = ["tomato sauce", "potatoes", "cherries", "chicken", "bread crumbs"]
+const list_data = ["tomato sauce", "potatoes", "cherries", "chicken", "bread crumbs", "tuna", "bell peppers", "coffee", "peanuts"]
+const short_list = ["tomato sauce", "potatoes", "cherries", "chicken"]
 
 
 type ListProps = {
@@ -31,8 +33,8 @@ const ListElement = (props: ListProps) => {
 const ShoppingList = () => {
 // list component for the whole shopping list
     return(
-        <FlatList
-            data={list_data}
+        <FlatList style={{marginTop: 10}}
+            data={short_list}
             renderItem = {
                 ({item}) =>
                 <ListElement item={item} />
@@ -45,8 +47,19 @@ const ShoppingList = () => {
 function HomeScreen() {
 // the Home screen itself with its components
   return (
-    <SafeAreaView>
-        <ShoppingList />
+    <SafeAreaView style={styles.app}>
+        <View style={styles.container}>
+            <View  style={{maxHeight: '85%'}}>
+                <ShoppingList />
+                <Text style={home_style.addButton}>+</Text>
+            </View>
+
+            <View style={styles.bottom}>
+                <Text style={home_style.shopButton}>Go Shopping!</Text>
+            </View>
+        </View>
+
+        <NavigationBar />
     </SafeAreaView>
   );
 };
