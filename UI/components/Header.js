@@ -24,7 +24,10 @@ const headerFunc = ({navigation, route, options, back}) => {
                         style={header_style.text}
                     >Back
                 </Text>
-                <Text style={header_style.text}>Username</Text>
+                <View style={styles.row}>
+                    <Text style={header_style.number}>3</Text>
+                    <Text style={header_style.text}>Username</Text>
+                </View>
             </View>
             <Text style={header_style.title}>{title}</Text>
         </SafeAreaView>
@@ -53,14 +56,29 @@ const header_style = StyleSheet.create({
     },
     text: {
         textAlign: 'center',
+        padding: 3,
 
         borderWidth: 1,
         borderColor: styles.color3.color,
 
         color: styles.color1.color
     },
+    number: {
+        textAlign: 'center',
+        paddingLeft: 7,
+        paddingRight: 7,
+        paddingTop: 4,
+
+        borderWidth: 1,
+        borderColor: styles.color1.color,
+        borderRadius: 20,
+
+        fontFamily: 'Ultra-Regular',
+        color: styles.color1.color
+    },
     title: {
         fontSize: 30,
+        fontWeight: 'bold',
 
         padding: 12,
         marginLeft: 12,
