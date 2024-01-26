@@ -1,15 +1,19 @@
 // Creating the first reducer
 
-export default function shoppingReducer(state, action){
-    switch (action.type){
-        case "shoppingList/add_item":
-            return [
-                ...state,
-                {
+import { createSlice } from "@reduxjs/toolkit";
 
-                }
-            ]
-        default:
-            return state;
+export const shoppingReducer = createSlice({
+    name: 'shoppingList',
+    initialState: {
+        listContent: []
+    },
+    reducers: {
+        addItem : (state, action)=>{
+            state.listContent.push(action.payload)
+        }
     }
-}
+});
+
+export const {addItem} = shoppingReducer.actions;
+
+export default shoppingReducer.reducer;

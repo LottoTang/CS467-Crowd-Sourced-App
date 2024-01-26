@@ -1,4 +1,4 @@
-import { createSlice, configureStore } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import shoppingReducer from '../reducers/reducers';
 
 const store = configureStore({
