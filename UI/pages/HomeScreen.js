@@ -2,19 +2,16 @@ import React from 'react';
 import {
   SafeAreaView,
   FlatList,
-  ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
   View,
 } from 'react-native';
-import styles, {home_style} from '../style.js'
-import NavigationBar from '../components/NavigationBar.js'
+import styles from '../style.js';
+import NavigationBar from '../components/NavigationBar.js';
 
-// REPLACE this with data pulled from the database
-const list_data = ["tomato sauce", "potatoes", "cherries", "chicken", "bread crumbs", "tuna", "bell peppers", "coffee", "peanuts"]
-const short_list = ["tomato sauce", "potatoes", "cherries", "chicken"]
+// TODO: replace this with data pulled from the database
+const list_data = ["tomato sauce", "potatoes", "cherries", "chicken"]
+const long_list = ["tomato sauce", "potatoes", "cherries", "chicken", "bread crumbs", "tuna", "bell peppers", "coffee", "peanuts"]
 
 
 type ListProps = {
@@ -34,7 +31,7 @@ const ShoppingList = () => {
 // list component for the whole shopping list
     return(
         <FlatList style={{marginTop: 10}}
-            data={short_list}
+            data={list_data}
             renderItem = {
                 ({item}) =>
                 <ListElement item={item} />
@@ -65,3 +62,56 @@ function HomeScreen() {
 };
 
 export default HomeScreen;
+
+
+
+const home_style = StyleSheet.create({
+   listItem: {
+        padding: 12,
+        margin: 6,
+
+        borderWidth: 1,
+        borderRadius: 5,
+        borderColor: styles.borderColor.color,
+
+        fontFamily: styles.fontMedium.fontFamily,
+
+        color: styles.textColor.color,
+        backgroundColor: styles.itemBackground.color
+   },
+   addButton: {
+        alignSelf: 'flex-end',
+        paddingLeft: 26,
+        paddingRight: 24,
+        margin: 6,
+
+        fontSize: 24,
+        fontFamily: styles.fontBold.fontFamily,
+
+        borderWidth: 1,
+        borderRadius: 15,
+        borderColor: styles.borderColor.color,
+
+        color: styles.secondaryTextColor.color,
+        backgroundColor: styles.secondaryItemBackground.color
+   },
+   shopButton: {
+        alignSelf: 'center',
+        padding: 12,
+        margin: 6,
+
+        textAlign: 'center',
+        fontSize: 24,
+        fontFamily: styles.fontBold.fontFamily,
+
+        width: '80%',
+        minHeight: '9.75%',
+
+        borderWidth: 1,
+        borderRadius: 20,
+        borderColor: styles.borderColor.color,
+
+        color: styles.secondaryTextColor.color,
+        backgroundColor: styles.secondaryItemBackground.color
+   }
+});

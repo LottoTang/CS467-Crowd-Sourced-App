@@ -31,20 +31,18 @@ export default NavigationBar;
 const nav_style = StyleSheet.create({
     button: {
         textAlign: 'center',
+        fontFamily: styles.fontRegular.fontFamily,
 
         width: '33.3333%',
         padding: 12,
 
-        color: styles.color1.color,
-        backgroundColor: styles.color3.color,
-
-        borderWidth: 1,
-        borderColor: styles.color3.color
+        color: styles.textColor.color,
+        backgroundColor: styles.footerColor.color
     },
     bar: {
         flex: 1,
         marginTop: 20,
         alignItems: 'center',
-        minWidth: '100%'
+        minWidth: '100%',
     }
 });
