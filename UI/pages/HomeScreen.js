@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import NavigationBar from '../components/NavigationBar.js';
-import styles from '../style.js';
+import styles, {item_style} from '../style.js';
 
 
 const ShoppingList = () => {
@@ -16,10 +16,10 @@ const ShoppingList = () => {
     const list_data = ["tomato sauce", "potatoes", "cherries", "chicken"]
     const long_list = ["tomato sauce", "potatoes", "cherries", "chicken", "bread crumbs", "tuna", "bell peppers", "coffee", "peanuts"]
     return(
-        <FlatList style={{marginTop: 10}}
-            data={long_list}
+        <FlatList
+            data={list_data}
             renderItem = { ({item}) =>
-                <Text style={home_style.listItem}>
+                <Text style={item_style.style}>
                     {item}
                 </Text>
             }
@@ -28,18 +28,26 @@ const ShoppingList = () => {
 }
 
 
-function HomeScreen() {
+function HomeScreen({navigation}) {
 // the Home screen itself with its components
   return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
             <View  style={{maxHeight: '85%'}}>
                 <ShoppingList />
-                <Text style={home_style.addButton}>+</Text>
+                <Text
+                        style={home_style.addButton}
+                        onPress={() =>
+                            navigation.navigate('Add Items')
+                        }>
+                    +
+                </Text>
             </View>
 
             <View style={styles.bottom}>
-                <Text style={home_style.shopButton}>Go Shopping!</Text>
+                <Text style={home_style.shopButton}>
+                    Go Shopping!
+                </Text>
             </View>
         </View>
 
@@ -54,19 +62,6 @@ export default HomeScreen;
 
 
 const home_style = StyleSheet.create({
-   listItem: {
-       color: styles.textColor.color,
-       fontFamily: styles.fontMedium.fontFamily,
-
-       borderWidth: 1,
-       borderRadius: 5,
-       borderColor: styles.borderColor.color,
-
-       padding: 12,
-       margin: 6,
-
-       backgroundColor: styles.itemBackground.color
-   },
    addButton: {
        fontSize: 24,
        color: styles.secondaryTextColor.color,

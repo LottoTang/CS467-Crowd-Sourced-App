@@ -45,6 +45,8 @@ const header_style = StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: styles.borderColor.color,
 
+        marginBottom: 10,
+
         backgroundColor: styles.headerColor.color,
     },
     wideRow: {

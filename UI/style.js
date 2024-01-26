@@ -63,8 +63,6 @@ const styles = StyleSheet.create({
     app: {
         width: '100%',
         height: '100%',
-
-        backgroundColor: colors.color6.color,
     },
     container: {
         width: '95%',
@@ -83,7 +81,24 @@ const styles = StyleSheet.create({
     }
 });
 
+const item_style = StyleSheet.create({
+   style: {
+       color: styles.textColor.color,
+       fontFamily: styles.fontMedium.fontFamily,
+
+       borderWidth: 1,
+       borderRadius: 5,
+       borderColor: styles.borderColor.color,
+
+       padding: 12,
+       margin: 6,
+
+       backgroundColor: styles.itemBackground.color
+   }
+})
+
 export default styles;
+export {item_style}
 
 
 
