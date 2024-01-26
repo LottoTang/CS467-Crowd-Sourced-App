@@ -8,13 +8,18 @@ import {
   Text,
   useColorScheme,
   View,
+  Button,
+  Pressable
 } from 'react-native';
 import styles, {home_style} from '../style.js'
 import NavigationBar from '../components/NavigationBar.js'
+import { useState } from 'react';
 
 // REPLACE this with data pulled from the database
 const list_data = ["tomato sauce", "potatoes", "cherries", "chicken", "bread crumbs", "tuna", "bell peppers", "coffee", "peanuts"]
 const short_list = ["tomato sauce", "potatoes", "cherries", "chicken"]
+
+const testing_list = [{title: "tomato sauce"}, {title: "potatoes"}, {title: "cherries"}];
 
 
 type ListProps = {
@@ -32,12 +37,19 @@ const ListElement = (props: ListProps) => {
 
 const ShoppingList = () => {
 // list component for the whole shopping list
+
+    const buttonFunction = ({item})=> {
+        <Button style={home_style.listItem} title={item.title} onPress={()=>alert(item.title)}/>
+    };
+
     return(
         <FlatList style={{marginTop: 10}}
-            data={short_list}
+            data={testing_list}
             renderItem = {
                 ({item}) =>
-                <ListElement item={item} />
+                <Pressable onPress={()=>alert(item.title)}>
+                    <ListElement item={item.title}/>
+                </Pressable>
             }
         />
     )
