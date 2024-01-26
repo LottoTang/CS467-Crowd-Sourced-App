@@ -1,8 +1,8 @@
 // Creating the first reducer
 
-export default function reducers(state, action){
+export default function shoppingReducer(state, action){
     switch (action.type){
-        case "addShoppingList":
+        case "shoppingList/add_item":
             return [
                 ...state,
                 {

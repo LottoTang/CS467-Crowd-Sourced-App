@@ -35,12 +35,10 @@ const ListElement = (props: ListProps) => {
     )
 }
 
-const ShoppingList = () => {
+const ShoppingList = ({ navigation }) => {
 // list component for the whole shopping list
 
-    const buttonFunction = ({item})=> {
-        <Button style={home_style.listItem} title={item.title} onPress={()=>alert(item.title)}/>
-    };
+    // Making item text pressable so we can navigate to the item page once it has been built
 
     return(
         <FlatList style={{marginTop: 10}}
@@ -56,18 +54,24 @@ const ShoppingList = () => {
 }
 
 
-function HomeScreen() {
+function HomeScreen({navigation}) {
 // the Home screen itself with its components
+
+// Adding temp functionality for Go Shopping and + buttons so we can navigate to the new pages
   return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
             <View  style={{maxHeight: '85%'}}>
                 <ShoppingList />
-                <Text style={home_style.addButton}>+</Text>
+                <Pressable onPress={()=> navigation.navigate("Testing")}>
+                    <Text style={home_style.addButton}>+</Text>
+                </Pressable>
             </View>
 
             <View style={styles.bottom}>
-                <Text style={home_style.shopButton}>Go Shopping!</Text>
+                <Pressable onPress={()=>navigation.navigate("Testing")}>
+                    <Text style={home_style.shopButton}>Go Shopping!</Text>
+                </Pressable>
             </View>
         </View>
 
