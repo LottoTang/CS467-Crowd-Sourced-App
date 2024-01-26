@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import NavigationBar from '../components/NavigationBar.js';
 import styles from '../style.js';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
 const ShoppingList = ({ navigation }) => {

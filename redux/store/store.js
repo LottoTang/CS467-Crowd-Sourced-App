@@ -1,9 +1,10 @@
+// This is the store file
+
 import { configureStore } from '@reduxjs/toolkit';
-import shoppingReducer from '../reducers/reducers';
+import { homepageReducer } from '../reducers/reducers';
 
 const store = configureStore({
-    reducer: shoppingReducer
+    reducer: homepageReducer,
 })
-//store.dispatch({type: "shoppingList/add_item"});
 
 export default store;
