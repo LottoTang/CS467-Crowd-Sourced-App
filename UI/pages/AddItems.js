@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import NavigationBar from '../components/NavigationBar.js';
-import styles, {item_style} from '../style.js';
+import styles, {item_style, text_styles} from '../style.js';
 
 
 
@@ -17,9 +17,10 @@ function AddItems() {
   return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
+            <Text style={text_styles.smallTitle}>Search</Text>
             <TextInput
                 style={item_style.style}
-                defaultValue='Search'
+                placeholder='Search for an item'
             />
         </View>
 
@@ -34,17 +35,4 @@ export default AddItems;
 
 
 const add_style = StyleSheet.create({
-   listItem: {
-       color: styles.textColor.color,
-       fontFamily: styles.fontMedium.fontFamily,
-
-       borderWidth: 1,
-       borderRadius: 5,
-       borderColor: styles.borderColor.color,
-
-       padding: 12,
-       margin: 6,
-
-       backgroundColor: styles.itemBackground.color
-   },
 });

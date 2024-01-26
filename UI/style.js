@@ -97,8 +97,30 @@ const item_style = StyleSheet.create({
    }
 })
 
+const text_styles = {
+    button: {
+        fontSize: 24,
+        color: styles.secondaryTextColor.color,
+        fontFamily: styles.fontBold.fontFamily,
+        textAlign: 'center',
+
+        borderWidth: 1,
+        borderColor: styles.borderColor.color,
+
+        backgroundColor: styles.secondaryItemBackground.color
+    },
+    smallTitle: {
+        fontSize: 20,
+        color: styles.textColor.color,
+        fontFamily: styles.fontBold.fontFamily,
+
+        marginLeft: 8,
+        marginTop: 4,
+    }
+}
+
 export default styles;
-export {item_style}
+export {item_style, text_styles}
 
 
 

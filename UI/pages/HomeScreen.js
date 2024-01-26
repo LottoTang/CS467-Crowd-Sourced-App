@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import NavigationBar from '../components/NavigationBar.js';
-import styles, {item_style} from '../style.js';
+import styles, {item_style, text_styles} from '../style.js';
 
 
 const ShoppingList = () => {
@@ -36,7 +36,7 @@ function HomeScreen({navigation}) {
             <View  style={{maxHeight: '85%'}}>
                 <ShoppingList />
                 <Text
-                        style={home_style.addButton}
+                        style={[home_style.addButton, text_styles.button]}
                         onPress={() =>
                             navigation.navigate('Add Items')
                         }>
@@ -45,7 +45,7 @@ function HomeScreen({navigation}) {
             </View>
 
             <View style={styles.bottom}>
-                <Text style={home_style.shopButton}>
+                <Text style={[home_style.shopButton, text_styles.button]}>
                     Go Shopping!
                 </Text>
             </View>
@@ -63,40 +63,24 @@ export default HomeScreen;
 
 const home_style = StyleSheet.create({
    addButton: {
-       fontSize: 24,
-       color: styles.secondaryTextColor.color,
-       fontFamily: styles.fontBold.fontFamily,
-
-       borderWidth: 1,
        borderRadius: 15,
-       borderColor: styles.borderColor.color,
 
        paddingLeft: 26,
        paddingRight: 24,
        margin: 6,
 
        alignSelf: 'flex-end',
-
-       backgroundColor: styles.secondaryItemBackground.color
    },
    shopButton: {
-       fontSize: 24,
-       color: styles.secondaryTextColor.color,
-       fontFamily: styles.fontBold.fontFamily,
-       textAlign: 'center',
-
        width: '80%',
        minHeight: '9.75%',
 
        borderWidth: 1,
        borderRadius: 20,
-       borderColor: styles.borderColor.color,
 
        padding: 12,
        margin: 6,
 
        alignSelf: 'center',
-
-       backgroundColor: styles.secondaryItemBackground.color
    }
 });
