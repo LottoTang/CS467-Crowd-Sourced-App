@@ -16,7 +16,7 @@ const headerFunc = ({navigation, route, options, back}) => {
 
     return(
         <SafeAreaView style={header_style.header}>
-            <View style={header_style.ends}>
+            <View style={header_style.wideRow}>
                 <Text onPress={navigation.goBack} style={header_style.text}>
                     Back
                 </Text>
@@ -36,51 +36,52 @@ const headerFunc = ({navigation, route, options, back}) => {
 export default headerFunc;
 
 
+
 const header_style = StyleSheet.create({
     header: {
-        height: 113,
         minWidth: '100%',
+        height: 113,
+
+        borderBottomWidth: 1,
+        borderColor: styles.borderColor.color,
 
         backgroundColor: styles.headerColor.color,
-        borderBottomWidth: 1,
-        borderColor: styles.borderColor.color
     },
-    ends: {
+    wideRow: {
+        width: '93%',
+        marginTop: 10,
+
         flexDirection: 'row',
         flexWrap: 'wrap',
 
         justifyContent: 'space-between',
         alignSelf: 'center',
-
-        width: '93%',
-        marginTop: 10,
     },
     text: {
-        textAlign: 'center',
+        color: styles.secondaryTextColor.color,
         fontFamily: styles.fontRegular.fontFamily,
+        textAlign: 'center',
 
         padding: 4,
-        color: styles.secondaryTextColor.color,
     },
     number: {
+        fontSize: 13,
+        color: styles.secondaryTextColor.color,
+        fontFamily: 'Ultra-Regular',
         textAlign: 'center',
-        paddingLeft: 7,
-        paddingRight: 8,
-        paddingTop: 6,
 
         borderWidth: 2,
         borderRadius: 20,
         borderColor: styles.secondaryTextColor.color,
 
-        color: styles.secondaryTextColor.color,
-        fontFamily: 'Ultra-Regular',
-        fontSize: 13
+        paddingLeft: 7,
+        paddingRight: 8,
+        paddingTop: 6,
     },
     title: {
         fontSize: 30,
-        fontFamily: styles.fontBold.fontFamily,
-
         color: styles.secondaryTextColor.color,
+        fontFamily: styles.fontBold.fontFamily,
 
         padding: 12,
         paddingTop: 0,

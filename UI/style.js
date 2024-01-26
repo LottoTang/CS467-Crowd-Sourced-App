@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
         color: colors.color6.color
     },
 
+
     fontRegular: {
         fontFamily: 'Kanit-Medium'
     },
@@ -60,16 +61,17 @@ const styles = StyleSheet.create({
 
 
     app: {
-        height: '100%',
         width: '100%',
-        backgroundColor: colors.color6.color
+        height: '100%',
+
+        backgroundColor: colors.color6.color,
     },
     container: {
-        alignSelf: 'center',
+        width: '95%',
         height: '90%',
-        width: '95%'
-    },
 
+        alignSelf: 'center',
+    },
 
     bottom: {
         flex: 1,

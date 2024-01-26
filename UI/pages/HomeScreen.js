@@ -6,35 +6,22 @@ import {
   Text,
   View,
 } from 'react-native';
-import styles from '../style.js';
 import NavigationBar from '../components/NavigationBar.js';
+import styles from '../style.js';
 
-// TODO: replace this with data pulled from the database
-const list_data = ["tomato sauce", "potatoes", "cherries", "chicken"]
-const long_list = ["tomato sauce", "potatoes", "cherries", "chicken", "bread crumbs", "tuna", "bell peppers", "coffee", "peanuts"]
-
-
-type ListProps = {
-    item: string;
-};
-
-const ListElement = (props: ListProps) => {
-// text component for one element in the shopping list
-    return (
-        <Text style={home_style.listItem}>
-            {props.item}
-        </Text>
-    )
-}
 
 const ShoppingList = () => {
 // list component for the whole shopping list
+    // TODO: replace this with data pulled from the database
+    const list_data = ["tomato sauce", "potatoes", "cherries", "chicken"]
+    const long_list = ["tomato sauce", "potatoes", "cherries", "chicken", "bread crumbs", "tuna", "bell peppers", "coffee", "peanuts"]
     return(
         <FlatList style={{marginTop: 10}}
-            data={list_data}
-            renderItem = {
-                ({item}) =>
-                <ListElement item={item} />
+            data={long_list}
+            renderItem = { ({item}) =>
+                <Text style={home_style.listItem}>
+                    {item}
+                </Text>
             }
         />
     )
@@ -56,7 +43,7 @@ function HomeScreen() {
             </View>
         </View>
 
-        <NavigationBar />
+        <NavigationBar/>
     </SafeAreaView>
   );
 };
@@ -65,53 +52,56 @@ export default HomeScreen;
 
 
 
+
 const home_style = StyleSheet.create({
    listItem: {
-        padding: 12,
-        margin: 6,
+       color: styles.textColor.color,
+       fontFamily: styles.fontMedium.fontFamily,
 
-        borderWidth: 1,
-        borderRadius: 5,
-        borderColor: styles.borderColor.color,
+       borderWidth: 1,
+       borderRadius: 5,
+       borderColor: styles.borderColor.color,
 
-        fontFamily: styles.fontMedium.fontFamily,
+       padding: 12,
+       margin: 6,
 
-        color: styles.textColor.color,
-        backgroundColor: styles.itemBackground.color
+       backgroundColor: styles.itemBackground.color
    },
    addButton: {
-        alignSelf: 'flex-end',
-        paddingLeft: 26,
-        paddingRight: 24,
-        margin: 6,
+       fontSize: 24,
+       color: styles.secondaryTextColor.color,
+       fontFamily: styles.fontBold.fontFamily,
 
-        fontSize: 24,
-        fontFamily: styles.fontBold.fontFamily,
+       borderWidth: 1,
+       borderRadius: 15,
+       borderColor: styles.borderColor.color,
 
-        borderWidth: 1,
-        borderRadius: 15,
-        borderColor: styles.borderColor.color,
+       paddingLeft: 26,
+       paddingRight: 24,
+       margin: 6,
 
-        color: styles.secondaryTextColor.color,
-        backgroundColor: styles.secondaryItemBackground.color
+       alignSelf: 'flex-end',
+
+       backgroundColor: styles.secondaryItemBackground.color
    },
    shopButton: {
-        alignSelf: 'center',
-        padding: 12,
-        margin: 6,
+       fontSize: 24,
+       color: styles.secondaryTextColor.color,
+       fontFamily: styles.fontBold.fontFamily,
+       textAlign: 'center',
 
-        textAlign: 'center',
-        fontSize: 24,
-        fontFamily: styles.fontBold.fontFamily,
+       width: '80%',
+       minHeight: '9.75%',
 
-        width: '80%',
-        minHeight: '9.75%',
+       borderWidth: 1,
+       borderRadius: 20,
+       borderColor: styles.borderColor.color,
 
-        borderWidth: 1,
-        borderRadius: 20,
-        borderColor: styles.borderColor.color,
+       padding: 12,
+       margin: 6,
 
-        color: styles.secondaryTextColor.color,
-        backgroundColor: styles.secondaryItemBackground.color
+       alignSelf: 'center',
+
+       backgroundColor: styles.secondaryItemBackground.color
    }
 });
