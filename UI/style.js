@@ -1,28 +1,78 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 
-const styles = StyleSheet.create({
-    // text color
+const colors = StyleSheet.create({
     color1: {
-        color: '#6750A4'
+        color: 'black'
     },
-    //background color
     color2: {
-        color: '#958DA5'
+        color: 'white'
     },
-    // border color
     color3: {
-        color: '#B58392'
+        color: '#62c4c4'
     },
+    color4: {
+        color: '#159292'
+    },
+    color5: {
+        color: '#008080'
+    },
+    color6: {
+        color: '#d2dbdb'
+    },
+})
+
+const styles = StyleSheet.create({
+    textColor: {
+        color: colors.color1.color
+    },
+    itemBackground: {
+        color: colors.color2.color
+    },
+    borderColor: {
+        color: colors.color5.color
+    },
+    footerColor: {
+        color: colors.color3.color
+    },
+    headerColor: {
+        color: colors.color4.color
+    },
+    secondaryTextColor: {
+        color: colors.color2.color
+    },
+    secondaryItemBackground: {
+        color: colors.color5.color
+    },
+    backgroundColor: {
+        color: colors.color6.color
+    },
+
+
+    fontRegular: {
+        fontFamily: 'Kanit-Medium'
+    },
+    fontMedium: {
+        fontFamily: 'Kanit-SemiBold'
+    },
+    fontBold: {
+        fontFamily: 'Maitree-SemiBold'
+    },
+
+
     app: {
+        width: '100%',
         height: '100%',
-        width: '100%'
+
+        backgroundColor: colors.color6.color,
     },
     container: {
-        alignSelf: 'center',
+        width: '95%',
         height: '90%',
-        width: '95%'
+
+        alignSelf: 'center',
     },
+
     bottom: {
         flex: 1,
         justifyContent: 'flex-end'
@@ -33,54 +83,7 @@ const styles = StyleSheet.create({
     }
 });
 
-const home_style = StyleSheet.create({
-   listItem: {
-        padding: 12,
-        margin: 6,
-
-        borderWidth: 1,
-        borderRadius: 5,
-        borderColor: styles.color3.color,
-
-        color: styles.color1.color,
-        backgroundColor: styles.color2.color
-   },
-   addButton: {
-        alignSelf: 'flex-end',
-        paddingLeft: 26,
-        paddingRight: 24,
-        margin: 6,
-
-        fontSize: 24,
-
-        borderWidth: 1,
-        borderRadius: 15,
-        borderColor: styles.color3.color,
-
-        color: styles.color1.color,
-        backgroundColor: styles.color2.color
-   },
-   shopButton: {
-        alignSelf: 'center',
-        padding: 12,
-        margin: 6,
-
-        textAlign: 'center',
-        fontSize: 24,
-        width: '85%',
-        minHeight: '9.75%',
-
-        borderWidth: 1,
-        borderRadius: 20,
-        borderColor: styles.color3.color,
-
-        color: styles.color1.color,
-        backgroundColor: styles.color2.color
-   }
-});
-
 export default styles;
-export {home_style};
 
 
 
