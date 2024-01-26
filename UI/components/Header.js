@@ -1,12 +1,8 @@
 import React from 'react';
 import {
   SafeAreaView,
-  FlatList,
-  ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
   View,
 } from 'react-native';
 import {getHeaderTitle} from '@react-navigation/elements';
@@ -15,21 +11,24 @@ import styles from '../style.js';
 const headerFunc = ({navigation, route, options, back}) => {
 // the Header at the top of each screen, including back button, title, and username
     const title = getHeaderTitle(options, route.name);
+    //TODO: set name and level based on passed in user data
+    const user = {name: "Username", level: 4}
 
     return(
         <SafeAreaView style={header_style.header}>
-            <View style={header_style.ends}>
-                <Text
-                        onPress={navigation.goBack}
-                        style={header_style.text}
-                    >Back
+            <View style={header_style.wideRow}>
+                <Text onPress={navigation.goBack} style={header_style.text}>
+                    Back
                 </Text>
+
                 <View style={styles.row}>
-                    <Text style={header_style.number}>3</Text>
-                    <Text style={header_style.text}>Username</Text>
+                    <Text style={header_style.number}>{user.level}</Text>
+                    <Text style={header_style.text}> {user.name}</Text>
                 </View>
             </View>
-            <Text style={header_style.title}>{title}</Text>
+            <Text style={header_style.title}>
+                {title}
+            </Text>
         </SafeAreaView>
     )
 }
@@ -37,56 +36,56 @@ const headerFunc = ({navigation, route, options, back}) => {
 export default headerFunc;
 
 
+
 const header_style = StyleSheet.create({
     header: {
-        height: 120,
         minWidth: '100%',
+        height: 113,
 
-        backgroundColor: styles.color3.color,
+        borderBottomWidth: 1,
+        borderColor: styles.borderColor.color,
+
+        backgroundColor: styles.headerColor.color,
     },
-    ends: {
+    wideRow: {
+        width: '93%',
+        marginTop: 10,
+
         flexDirection: 'row',
         flexWrap: 'wrap',
 
         justifyContent: 'space-between',
         alignSelf: 'center',
-
-        width: '93%',
-        marginTop: 10,
     },
     text: {
+        color: styles.secondaryTextColor.color,
+        fontFamily: styles.fontRegular.fontFamily,
         textAlign: 'center',
-        padding: 3,
 
-        borderWidth: 1,
-        borderColor: styles.color3.color,
-
-        color: styles.color1.color
+        padding: 4,
     },
     number: {
-        textAlign: 'center',
-        paddingLeft: 7,
-        paddingRight: 7,
-        paddingTop: 4,
-
-        borderWidth: 1,
-        borderColor: styles.color1.color,
-        borderRadius: 20,
-
+        fontSize: 13,
+        color: styles.secondaryTextColor.color,
         fontFamily: 'Ultra-Regular',
-        color: styles.color1.color
+        textAlign: 'center',
+
+        borderWidth: 2,
+        borderRadius: 20,
+        borderColor: styles.secondaryTextColor.color,
+
+        paddingLeft: 7,
+        paddingRight: 8,
+        paddingTop: 6,
     },
     title: {
         fontSize: 30,
-        fontWeight: 'bold',
+        color: styles.secondaryTextColor.color,
+        fontFamily: styles.fontBold.fontFamily,
 
         padding: 12,
+        paddingTop: 0,
         marginLeft: 12,
         marginTop: 16,
-
-        borderWidth: 1,
-        borderColor: styles.color3.color,
-
-        color: styles.color1.color
     }
 });
