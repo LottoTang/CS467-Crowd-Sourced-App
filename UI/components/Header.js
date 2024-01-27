@@ -16,7 +16,7 @@ const headerFunc = ({navigation, route, options, back}) => {
 
     return(
         <SafeAreaView style={header_style.header}>
-            <View style={header_style.wideRow}>
+            <View style={top_row}>
                 <Text onPress={navigation.goBack} style={header_style.text}>
                     Back
                 </Text>
@@ -45,17 +45,13 @@ const header_style = StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: styles.borderColor.color,
 
+        marginBottom: 10,
+
         backgroundColor: styles.headerColor.color,
     },
-    wideRow: {
+    topButtons: {
         width: '93%',
         marginTop: 10,
-
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-
-        justifyContent: 'space-between',
-        alignSelf: 'center',
     },
     text: {
         color: styles.secondaryTextColor.color,
@@ -89,3 +85,5 @@ const header_style = StyleSheet.create({
         marginTop: 16,
     }
 });
+
+const top_row = [styles.wideRow, header_style.topButtons];

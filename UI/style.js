@@ -63,8 +63,6 @@ const styles = StyleSheet.create({
     app: {
         width: '100%',
         height: '100%',
-
-        backgroundColor: colors.color6.color,
     },
     container: {
         width: '95%',
@@ -80,10 +78,73 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         flexWrap: 'wrap'
+    },
+    wideRow: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+
+        justifyContent: 'space-between',
+        alignSelf: 'center',
     }
 });
 
+const text_styles = StyleSheet.create({
+    itemText: {
+        color: styles.textColor.color,
+        fontFamily: styles.fontMedium.fontFamily,
+    },
+    button: {
+        fontSize: 24,
+        color: styles.secondaryTextColor.color,
+        fontFamily: styles.fontBold.fontFamily,
+        textAlign: 'center',
+
+        borderWidth: 1,
+        borderColor: styles.borderColor.color,
+
+        backgroundColor: styles.secondaryItemBackground.color
+    },
+    smallTitle: {
+        fontSize: 20,
+        color: styles.textColor.color,
+        fontFamily: styles.fontBold.fontFamily,
+
+        marginLeft: 8,
+        marginTop: 4,
+    }
+});
+
+
+const item_style = [
+    StyleSheet.create({
+       style: {
+           borderWidth: 1,
+           borderRadius: 5,
+           borderColor: styles.borderColor.color,
+
+           padding: 12,
+           margin: 6,
+
+           backgroundColor: styles.itemBackground.color
+       }
+    }).style,
+    text_styles.itemText
+];
+
+const add_button = [
+    StyleSheet.create({
+        style: {
+            borderRadius: 15,
+
+            paddingLeft: 26,
+            paddingRight: 24,
+        }
+    }).style,
+    text_styles.button
+];
+
 export default styles;
+export {item_style, text_styles, add_button}
 
 
 
@@ -91,4 +152,41 @@ export default styles;
 /**
  * STYLE WORDS
  stackoverflow.com/questions/34311756/list-of-react-native-stylesheet-properties-and-options
+ */
+
+
+/**
+ * STYLE ORGANIZATION
+ Text:
+    size
+    color
+    font
+    weight
+    alignment
+
+ Width
+ Height
+
+ Borders:
+    width
+    radius
+    color
+
+ Padding:
+    left
+    right
+    top
+    bottom
+ Margins:
+    "
+
+ Flex:
+    direction
+    wrap
+ Alignment:
+    justify
+    align
+
+ Background
+
  */

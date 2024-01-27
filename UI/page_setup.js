@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import headerFunc from './components/Header.js';
 import HomeScreen from './pages/HomeScreen.js';
+import AddItems from './pages/AddItems.js';
 
 // Intermediate pages to test functionality until you create the actual view
 import TestingPage from './pages/TestPages/TestingPage.js';
@@ -23,6 +24,7 @@ function pageSetup() {
           component={HomeScreen}
           options={{title: 'Your Shopping List'}}
         />
+
 
 
         <Stack.Screen name="Testing"
@@ -46,6 +48,11 @@ function pageSetup() {
           options={{title: "Test Store Rec"}}
         />
 
+        <Stack.Screen
+          name="Add Items"
+          component={AddItems}
+          options={{title: ''}}
+        />
     </Stack.Navigator>
   );
 };
