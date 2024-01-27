@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import NavigationBar from '../components/NavigationBar.js';
-import styles from '../style.js';
+import styles, {item_style, text_styles, add_button} from '../style.js';
 
 
 const ShoppingList = () => {
@@ -16,10 +16,10 @@ const ShoppingList = () => {
     const list_data = ["tomato sauce", "potatoes", "cherries", "chicken"]
     const long_list = ["tomato sauce", "potatoes", "cherries", "chicken", "bread crumbs", "tuna", "bell peppers", "coffee", "peanuts"]
     return(
-        <FlatList style={{marginTop: 10}}
-            data={long_list}
+        <FlatList
+            data={list_data}
             renderItem = { ({item}) =>
-                <Text style={home_style.listItem}>
+                <Text style={item_style}>
                     {item}
                 </Text>
             }
@@ -28,18 +28,26 @@ const ShoppingList = () => {
 }
 
 
-function HomeScreen() {
+function HomeScreen({navigation}) {
 // the Home screen itself with its components
   return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
             <View  style={{maxHeight: '85%'}}>
                 <ShoppingList />
-                <Text style={home_style.addButton}>+</Text>
+                <Text
+                        style={addButton}
+                        onPress={() =>
+                            navigation.navigate('Add Items')
+                        }>
+                    +
+                </Text>
             </View>
 
             <View style={styles.bottom}>
-                <Text style={home_style.shopButton}>Go Shopping!</Text>
+                <Text style={shopButton}>
+                    Go Shopping!
+                </Text>
             </View>
         </View>
 
@@ -54,54 +62,23 @@ export default HomeScreen;
 
 
 const home_style = StyleSheet.create({
-   listItem: {
-       color: styles.textColor.color,
-       fontFamily: styles.fontMedium.fontFamily,
-
-       borderWidth: 1,
-       borderRadius: 5,
-       borderColor: styles.borderColor.color,
-
-       padding: 12,
-       margin: 6,
-
-       backgroundColor: styles.itemBackground.color
-   },
    addButton: {
-       fontSize: 24,
-       color: styles.secondaryTextColor.color,
-       fontFamily: styles.fontBold.fontFamily,
-
-       borderWidth: 1,
-       borderRadius: 15,
-       borderColor: styles.borderColor.color,
-
-       paddingLeft: 26,
-       paddingRight: 24,
        margin: 6,
-
        alignSelf: 'flex-end',
-
-       backgroundColor: styles.secondaryItemBackground.color
    },
    shopButton: {
-       fontSize: 24,
-       color: styles.secondaryTextColor.color,
-       fontFamily: styles.fontBold.fontFamily,
-       textAlign: 'center',
-
        width: '80%',
        minHeight: '9.75%',
 
        borderWidth: 1,
        borderRadius: 20,
-       borderColor: styles.borderColor.color,
 
        padding: 12,
        margin: 6,
 
        alignSelf: 'center',
-
-       backgroundColor: styles.secondaryItemBackground.color
    }
 });
+
+const addButton = add_button.concat(home_style.addButton);
+const shopButton = [home_style.shopButton, text_styles.button]
