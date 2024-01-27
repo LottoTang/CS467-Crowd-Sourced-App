@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import NavigationBar from '../components/NavigationBar.js';
-import styles, {item_style, text_styles} from '../style.js';
+import styles, {item_style, text_styles, add_button} from '../style.js';
 
 
 const ShoppingList = () => {
@@ -19,7 +19,7 @@ const ShoppingList = () => {
         <FlatList
             data={list_data}
             renderItem = { ({item}) =>
-                <Text style={item_style.style}>
+                <Text style={item_style}>
                     {item}
                 </Text>
             }
@@ -36,7 +36,7 @@ function HomeScreen({navigation}) {
             <View  style={{maxHeight: '85%'}}>
                 <ShoppingList />
                 <Text
-                        style={[home_style.addButton, text_styles.button]}
+                        style={addButton}
                         onPress={() =>
                             navigation.navigate('Add Items')
                         }>
@@ -45,7 +45,7 @@ function HomeScreen({navigation}) {
             </View>
 
             <View style={styles.bottom}>
-                <Text style={[home_style.shopButton, text_styles.button]}>
+                <Text style={shopButton}>
                     Go Shopping!
                 </Text>
             </View>
@@ -63,12 +63,7 @@ export default HomeScreen;
 
 const home_style = StyleSheet.create({
    addButton: {
-       borderRadius: 15,
-
-       paddingLeft: 26,
-       paddingRight: 24,
        margin: 6,
-
        alignSelf: 'flex-end',
    },
    shopButton: {
@@ -84,3 +79,6 @@ const home_style = StyleSheet.create({
        alignSelf: 'center',
    }
 });
+
+const addButton = add_button.concat(home_style.addButton);
+const shopButton = [home_style.shopButton, text_styles.button]
