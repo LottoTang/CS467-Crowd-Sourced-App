@@ -60,7 +60,7 @@ function HomeScreen({navigation}) {
             </View>
 
             <View style={styles.bottom}>
-                <Pressable onPress={()=>navigation.navigate("Testing")}>
+                <Pressable onPress={()=>navigation.navigate("TestStoreRec")}>
                     <Text style={home_style.shopButton}>Go Shopping!</Text>
                 </Pressable>
             </View>

@@ -8,8 +8,9 @@ import { getBrandsList } from '../../../redux/funtionality/helperFunctions';
 const TestViewProduct = () => {
 
     const product = useSelector(state=> state.selectedItem);
+    const brandOptions = useSelector(state => state.allItems);
 
-    const brands = getBrandsList(product.name);
+    const brands = getBrandsList(product.name, brandOptions);
 
   if (!product) {
     return <Text>No product selected</Text>;
@@ -24,12 +25,13 @@ const TestViewProduct = () => {
         <FlatList
           data = {brands}
           renderItem={({item})=>(
-            <Text>{item.brandName}</Text>
+
+            <Text style={styles.brandOptions}>{item}</Text>
           )}
           />
       </View>
       <Text style={styles.storeCategory}>
-        Stores
+        Stores placeholder for when live feed is ready for store recommendations
       </Text>
     </View>
   );
@@ -50,6 +52,12 @@ const styles = StyleSheet.create({
   storeCategory: {
     fontSize: 30,
     fontWeight: "bold"
+  },
+  brandOptions: {
+    fontSize: 20,
+    margin: 10,
+    backgroundColor: "green",
+    color: "white"
   }
 });
 

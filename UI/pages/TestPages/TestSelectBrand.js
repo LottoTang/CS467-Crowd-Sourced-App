@@ -3,14 +3,17 @@ import { View, Text, TouchableOpacity, StyleSheet, Pressable } from 'react-nativ
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { addItemInShoppingList } from '../../../redux/actions/actions';
+import { useSelector } from 'react-redux';
+import { getBrandsList } from '../../../redux/funtionality/helperFunctions';
 
 const BrandSelector = ({route}) => {
   const [selectedBrand, setSelectedBrand] = useState(null);
   const {product, otherParam} = route.params;
 
-  const brands = ['Brand A', 'Brand B', 'Brand C'];
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const state = useSelector(state=>state.allItems);
+  const brands = getBrandsList(product, state);
 
   const onSelectBrand = (brand) => {
     setSelectedBrand(brand);

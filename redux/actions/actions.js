@@ -1,6 +1,6 @@
 // File to handle all actions for redux
 
-import { ADD_ITEM, VIEW_ITEM, NEW_SHOPPING_LIST } from "./actionTypes";
+import { ADD_ITEM, VIEW_ITEM, NEW_SHOPPING_LIST, STORE_RECOMMENDATIONS } from "./actionTypes";
 import { testNewShoppingList } from "../../testData/testingData";
 
 const addItemInShoppingList = (name, brand) => {

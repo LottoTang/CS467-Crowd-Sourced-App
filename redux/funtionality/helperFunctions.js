@@ -46,26 +46,87 @@ const brandsList = [
     { item_id: "123", store_id: "Walmart", name: "tomato sauce", brand: "Brand5", category: "groceries", price: 2.99 },
 ]
 
+export const sampleData = [
+    { item_id: "123", store_id: "Walmart", name: "tomato sauce", brand: "Brand2", category: "groceries", price: 3.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Walmart", name: "tomato sauce", brand: "Brand3", category: "groceries", price: 4.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Walmart", name: "tomato sauce", brand: "Brand4", category: "groceries", price: 5.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Walmart", name: "tomato sauce", brand: "Brand5", category: "groceries", price: 6.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Shoprite", name: "tomato", brand: "Brand1", category: "groceries", price: 2.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Shoprite", name: "tomato", brand: "Brand2", category: "groceries", price: 3.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Shoprite", name: "tomato", brand: "Brand4", category: "groceries", price: 5.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Shoprite", name: "tomato", brand: "Brand5", category: "groceries", price: 6.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "ACME", name: "tomato juice", brand: "Brand1", category: "groceries", price: 2.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "ACME", name: "tomato juice", brand: "Brand2", category: "groceries", price: 3.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "ACME", name: "tomato juice", brand: "Brand3", category: "groceries", price: 4.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "ACME", name: "tomato juice", brand: "Brand4", category: "groceries", price: 5.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "ACME", name: "tomato juice", brand: "Brand5", category: "groceries", price: 5.99, barcode: "14141241241241222" },
+]
 
-function recommendedStores(shoppingList){
 
-    // create object of stores
-    const storesList = {};
+function recommendedStoresForTotalShoppingList(shoppingList, sampleData){
 
-    // list of items in shopping list
-    const itemsList = [];
-    for (let item in shoppingList){
-        itemsList.push(shoppingList[item].item_id);
+    // create object of objects of stores->need to track 
+    // 1. how many items were found, 
+    // 2. store name and 
+    // 3. total cost
+    const storesObj = {};
+
+    // Capture list of stores 
+    const storesList = [];
+    for (let input in sampleData){
+        if (!storesList.includes(sampleData[input].store_id)){
+            storesList.push(sampleData[input].store_id);
+            storesObj[sampleData[input].store_id] = { storeName: sampleData[input].store_id, itemsFound: 0, totalCost: 0};
+        }
     }
 
     // Iterate through every item in the list to for each store and calculate the total
+    for (let record in sampleData){
+        for (let product in shoppingList){   
+            if (sampleData[record].name == shoppingList[product].name && sampleData[record].brand == shoppingList[product].brand ){
+                const storeName = sampleData[record].store_id;
+                storesObj[storeName] = {...storesObj[storeName], itemsFound: storesObj[storeName].itemsFound + 1,  totalCost: storesObj[storeName].totalCost + sampleData[record].price};
+            }
+        }
+    }
 
+    //Sort stores based on price
+    let listOfRecommendations = Object.entries(storesObj);
+    listOfRecommendations.sort((a,b) => a[1].totalCost - b[1].totalCost);
 
-    // add store to the object
+    let sortedList = [];
+    for (let i=0; i< listOfRecommendations.length; i++){
+        sortedList.push({storeName: listOfRecommendations[i][1].storeName, totalCost: listOfRecommendations[i][1].totalCost, numItems: listOfRecommendations[i][1].itemsFound });
+    }
+
+    return sortedList;
+
 }
 
-// Method to return recommended items
-function giveSuggestedItems(shoppingList){
+// Method to return recommended items -> DONE
+function giveSuggestedItems(shoppingList, targetItem){
+
+    const similarItems = [];
+
+    // get words in item user gave
+    const targets = targetItem.split(" ");
+
+    // Iterate throuh all items in database
+    for (let item in shoppingList){
+        
+        //split the words in the item from main list 
+        let words = shoppingList[item].name.split(" ");
+
+        // check if there is a match for each word in item list with target item
+        for (let target in targets){
+            if (words.includes(targets[target])){
+                if (!similarItems.includes(shoppingList[item].name)){
+                    similarItems.push(shoppingList[item].name);
+                }
+            }
+        }
+    }
+    return similarItems;
 
 }
 
@@ -75,18 +136,24 @@ function getListOfStores(ListOfBrands){
 
 }
 
-// Get list of brands
-function getBrandsList(targetItem){
+// Get list of brands -> DONE
+function getBrandsList(targetItem, sampleData){
     let listOfBrands = [];
-    for (let item in brandsList){
-        if (brandsList[item].name == targetItem)
-        listOfBrands.push({brandName: brandsList[item].brand});
+    const selection = targetItem.toString().trimEnd();
+    for (let item in sampleData){
+        
+        if (sampleData[item].name == selection){
+            
+            listOfBrands.push(sampleData[item].brand);
+        }
     }
-
+    //console.log(listOfBrands);
     return listOfBrands;
 }
 
 
-//console.log(getBrandsList("tomato sauce", brandsList));
+//console.log(getBrandsList("tomato sauce", sampleData));
+//console.log(giveSuggestedItems(sampleData, "tomato sauce"));
 
-export { getBrandsList }
+
+export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList }

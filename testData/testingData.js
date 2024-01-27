@@ -81,31 +81,31 @@ export const testList = [
     {
         item_id: "123",
         name: "tomato sauce",
-        brand: "Barilla",
+        brand: "Brand1",
         category: "groceries",
     },
     {
         item_id: "456",
         name: "potatoes",
-        brand: "Shoprite",
+        brand: "Brand2",
         category: "groceries",
     },
     {
         item_id: "789",
         name: "cherries",
-        brand: "Nature",
+        brand: "Brand3",
         category: "fruits",
     },
     {
         item_id: "111",
         name: "chicken",
-        brand: "Tyson",
+        brand: "Brand4",
         category: "Meats",
     },
     {
         item_id: "122",
         name: "bread crumbs",
-        brand: "Knorr",
+        brand: "Brand1",
         category: "groceries",
     },
     {
@@ -137,11 +137,11 @@ export const testList = [
 export const testList2 = [
     {
         name: "tomato sauce",
-        brand: "Barilla",
+        brand: "Brand1",
     },
     {
         name: "potatoes",
-        brand: "Shoprite",
+        brand: "Bowl and Basket",
     },
     {
         name: "cherries",
@@ -161,7 +161,7 @@ export const testList2 = [
     },
     {
         name: "bell peppers",
-        brand: "Shoprite",
+        brand: "Bowl and Basket",
     },
     {
         name: "coffee",
@@ -169,7 +169,15 @@ export const testList2 = [
     },
     {
         name: "peanuts",
-        brand: "Shoprite",
+        brand: "Bowl and Basket",
+    },
+    {
+        name: "tomato",
+        brand: "Brand2",
+    },
+    {
+        name: "tomato juice",
+        brand: "Brand5",
     },
 ]
 
@@ -187,4 +195,50 @@ export const brandsList = [
     { item_id: "123", store_id: "Walmart", name: "tomato sauce", brand: "Brand3", category: "groceries", price: 2.99 },
     { item_id: "123", store_id: "Walmart", name: "tomato sauce", brand: "Brand4", category: "groceries", price: 2.99 },
     { item_id: "123", store_id: "Walmart", name: "tomato sauce", brand: "Brand5", category: "groceries", price: 2.99 },
+]
+
+export const sampleData = [
+    { item_id: "123", store_id: "Walmart", name: "tomato sauce", brand: "Brand1", category: "groceries", price: 2.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Walmart", name: "tomato sauce", brand: "Brand2", category: "groceries", price: 3.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Walmart", name: "tomato sauce", brand: "Brand3", category: "groceries", price: 4.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Walmart", name: "tomato sauce", brand: "Brand4", category: "groceries", price: 5.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Walmart", name: "tomato sauce", brand: "Brand5", category: "groceries", price: 6.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Walmart", name: "tomato", brand: "Brand1", category: "groceries", price: 2.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Walmart", name: "tomato", brand: "Brand2", category: "groceries", price: 3.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Walmart", name: "tomato", brand: "Brand3", category: "groceries", price: 4.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Walmart", name: "tomato", brand: "Brand4", category: "groceries", price: 5.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Walmart", name: "tomato", brand: "Brand5", category: "groceries", price: 6.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Walmart", name: "tomato juice", brand: "Brand1", category: "groceries", price: 2.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Walmart", name: "tomato juice", brand: "Brand2", category: "groceries", price: 3.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Walmart", name: "tomato juice", brand: "Brand3", category: "groceries", price: 4.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Walmart", name: "tomato juice", brand: "Brand4", category: "groceries", price: 5.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Walmart", name: "tomato juice", brand: "Brand5", category: "groceries", price: 6.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Shoprite", name: "tomato", brand: "Brand1", category: "groceries", price: 2.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Shoprite", name: "tomato", brand: "Brand21", category: "groceries", price: 3.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Shoprite", name: "tomato", brand: "Brand3", category: "groceries", price: 4.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Shoprite", name: "tomato", brand: "Brand4", category: "groceries", price: 5.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Shoprite", name: "tomato", brand: "Brand5", category: "groceries", price: 6.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Shoprite", name: "tomato sauce", brand: "Brand1", category: "groceries", price: 2.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Shoprite", name: "tomato sauce", brand: "Brand42", category: "groceries", price: 3.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Shoprite", name: "tomato sauce", brand: "Brand3", category: "groceries", price: 4.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Shoprite", name: "tomato sauce", brand: "Brand4", category: "groceries", price: 5.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Shoprite", name: "tomato sauce", brand: "Brand5", category: "groceries", price: 6.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Shoprite", name: "tomato juice", brand: "Brand1", category: "groceries", price: 2.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Shoprite", name: "tomato juice", brand: "Brand52", category: "groceries", price: 3.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Shoprite", name: "tomato juice", brand: "Brand3", category: "groceries", price: 4.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Shoprite", name: "tomato juice", brand: "Brand4", category: "groceries", price: 5.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Shoprite", name: "tomato juice", brand: "Brand5", category: "groceries", price: 6.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "ACME", name: "tomato juice", brand: "Brand1", category: "groceries", price: 3.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "ACME", name: "tomato juice", brand: "Brand2", category: "groceries", price: 4.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "ACME", name: "tomato juice", brand: "Brand3", category: "groceries", price: 5.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "ACME", name: "tomato juice", brand: "Brand4", category: "groceries", price: 6.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "ACME", name: "tomato juice", brand: "Brand5", category: "groceries", price: 8.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "ACME", name: "tomato sauce", brand: "Brand2", category: "groceries", price: 1.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "ACME", name: "tomato sauce", brand: "Brand3", category: "groceries", price: 9.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "ACME", name: "tomato sauce", brand: "Brand4", category: "groceries", price: 9.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "ACME", name: "tomato", brand: "Brand1", category: "groceries", price: 2.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "ACME", name: "tomato", brand: "Brand2", category: "groceries", price: 3.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "ACME", name: "tomato", brand: "Brand3", category: "groceries", price: 4.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "ACME", name: "tomato", brand: "Brand4", category: "groceries", price: 5.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "ACME", name: "tomato", brand: "Brand5", category: "groceries", price: 6.99, barcode: "14141241241241222" },
 ]

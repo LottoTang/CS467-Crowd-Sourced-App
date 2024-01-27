@@ -1,7 +1,7 @@
 // Creating the first reducer
 
 import { ADD_ITEM } from "../actions/actionTypes";
-import { testItemsList, testList2 } from "../../testData/testingData";
+import { testItemsList, testList2, sampleData } from "../../testData/testingData";
 
 
 // Using test list now until database connection is ready
@@ -11,6 +11,7 @@ const initialState = {
     userId: 123,
     shoppingList: testList2,
     selectedItem: null,
+    allItems: sampleData,
 };
 
 

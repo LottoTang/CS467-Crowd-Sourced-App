@@ -3,10 +3,13 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import headerFunc from './components/Header.js';
 import HomeScreen from './pages/HomeScreen.js';
+
+// Intermediate pages to test functionality until you create the actual view
 import TestingPage from './pages/TestPages/TestingPage.js';
 import { AddItemForm } from './pages/TestPages/TestAddItem.js';
 import { TestViewProduct } from './pages/TestPages/TestViewProduct.js';
 import { BrandSelector } from './pages/TestPages/TestSelectBrand.js';
+import { TestStoreRec } from './pages/TestPages/TestStoreRec.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +40,10 @@ function pageSetup() {
         <Stack.Screen name="TestViewProduct"
           component={TestViewProduct}
           options={{title: "Test View Item"}}
+        />
+        <Stack.Screen name="TestStoreRec"
+          component={TestStoreRec}
+          options={{title: "Test Store Rec"}}
         />
 
     </Stack.Navigator>
