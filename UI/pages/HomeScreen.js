@@ -12,21 +12,34 @@ import NavigationBar from '../components/NavigationBar.js';
 import styles from '../style.js';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { viewSelectedItem } from '../../redux/actions/actions.js';
+import { useNavigation } from '@react-navigation/native';
 
 
-const ShoppingList = ({ navigation }) => {
+const ShoppingList = () => {
 // list component for the whole shopping list
     // TODO: replace this with data pulled from the database
-    const list_data = ["tomato sauce", "potatoes", "cherries", "chicken"]
-    const long_list = ["tomato sauce", "potatoes", "cherries", "chicken", "bread crumbs", "tuna", "bell peppers", "coffee", "peanuts"]
+    
+    // populate the list with items in the state. Right now using fake data 
+    const state = useSelector((state)=> state.shoppingList);
+    const dispatch = useDispatch();
+    const navigation = useNavigation();
+
+    const handleSelectedItem = (item)=>{
+        dispatch(viewSelectedItem(item));
+        navigation.navigate('TestViewProduct');
+    };
+    
     return(
         <FlatList style={{marginTop: 10}}
-            data={long_list}
-            renderItem = { ({item}) =>
-                <Text style={home_style.listItem}>
-                    {item}
-                </Text>
-            }
+            data={state}
+            renderItem = { ({item}) =>(
+                <Pressable onPress={()=> handleSelectedItem(item)}>
+                    <Text style={home_style.listItem}>
+                        {item.name}
+                    </Text>
+                </Pressable>
+            )}
         />
     )
 }
@@ -41,7 +54,7 @@ function HomeScreen({navigation}) {
         <View style={styles.container}>
             <View  style={{maxHeight: '85%'}}>
                 <ShoppingList />
-                <Pressable onPress={()=> navigation.navigate("Testing")}>
+                <Pressable onPress={()=> navigation.navigate("TestAddItem")}>
                     <Text style={home_style.addButton}>+</Text>
                 </Pressable>
             </View>

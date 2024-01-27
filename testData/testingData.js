@@ -2,9 +2,7 @@
 // from the database once connection is completed 
 
 // Item test data
-const long_list = ["tomato sauce", "potatoes", "cherries", "chicken", "bread crumbs", "tuna", "bell peppers", "coffee", "peanuts"]
-
-export const testShoppingList = [
+export const testItemsList = [
     {
         item_id: "123",
         store_id: "Shoprite",
@@ -78,3 +76,10 @@ export const testShoppingList = [
         price: 4.99
     },
 ];
+
+
+export const testNewShoppingList = {
+    shoppingListId: "123",
+    userID: "1122445",
+    shoppingList: []
+};
