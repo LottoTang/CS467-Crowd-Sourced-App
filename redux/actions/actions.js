@@ -3,10 +3,10 @@
 import { ADD_ITEM, VIEW_ITEM, NEW_SHOPPING_LIST } from "./actionTypes";
 import { testNewShoppingList } from "../../testData/testingData";
 
-const addItemInShoppingList = (item_id, store_id, name, brand, category, price) => {
+const addItemInShoppingList = (name, brand) => {
     return {
         type: ADD_ITEM,
-        payload: {item_id, store_id, name, brand, category, price},
+        payload: {name, brand},
     };
 };
 

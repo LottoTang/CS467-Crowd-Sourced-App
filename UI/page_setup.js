@@ -6,6 +6,7 @@ import HomeScreen from './pages/HomeScreen.js';
 import TestingPage from './pages/TestPages/TestingPage.js';
 import { AddItemForm } from './pages/TestPages/TestAddItem.js';
 import { TestViewProduct } from './pages/TestPages/TestViewProduct.js';
+import { BrandSelector } from './pages/TestPages/TestSelectBrand.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,10 @@ function pageSetup() {
         <Stack.Screen name="TestAddItem"
           component={AddItemForm}
           options={{title: "Test Add Item"}}
+        />
+        <Stack.Screen name="TestBrandSelect"
+          component={BrandSelector}
+          options={{title: "Test Select Brand"}}
         />
         <Stack.Screen name="TestViewProduct"
           component={TestViewProduct}
