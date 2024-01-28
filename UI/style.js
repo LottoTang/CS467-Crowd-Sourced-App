@@ -20,11 +20,17 @@ const colors = StyleSheet.create({
     color6: {
         color: '#d2dbdb'
     },
+    color7: {
+        color: '#0e5858'
+    },
 })
 
 const styles = StyleSheet.create({
     textColor: {
         color: colors.color1.color
+    },
+    highlightText: {
+        color: colors.color7.color
     },
     itemBackground: {
         color: colors.color2.color
@@ -63,10 +69,12 @@ const styles = StyleSheet.create({
     app: {
         width: '100%',
         height: '100%',
+
+        backgroundColor: colors.color6.color
     },
     container: {
         width: '95%',
-        height: '90%',
+        height: '96%',
 
         alignSelf: 'center',
     },

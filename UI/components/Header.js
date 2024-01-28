@@ -10,12 +10,16 @@ import styles from '../style.js';
 
 const headerFunc = ({navigation, route, options, back}) => {
 // the Header at the top of each screen, including back button, title, and username
-    const title = getHeaderTitle(options, route.name);
     //TODO: set name and level based on passed in user data
     const user = {name: "Username", level: 4}
 
+    const title = getHeaderTitle(options, route.name);
+
+    let header_height = 123
+    if (title == "") header_height = 63
+
     return(
-        <SafeAreaView style={header_style.header}>
+        <SafeAreaView style={[header_style.header, {height: header_height}]}>
             <View style={top_row}>
                 <Text onPress={navigation.goBack} style={header_style.text}>
                     Back
@@ -40,12 +44,9 @@ export default headerFunc;
 const header_style = StyleSheet.create({
     header: {
         minWidth: '100%',
-        height: 113,
 
-        borderBottomWidth: 1,
-        borderColor: styles.borderColor.color,
-
-        marginBottom: 10,
+        borderBottomWidth: 10,
+        borderColor: styles.backgroundColor.color,
 
         backgroundColor: styles.headerColor.color,
     },

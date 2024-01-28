@@ -65,8 +65,8 @@
 40-->/Users/sara/ReactNative Projects/Crowd-Sourced-Shopping-App/android/app/src/main/AndroidManifest.xml:14:9-41
 41            android:launchMode="singleTask"
 41-->/Users/sara/ReactNative Projects/Crowd-Sourced-Shopping-App/android/app/src/main/AndroidManifest.xml:16:9-40
-42            android:windowSoftInputMode="adjustResize" >
-42-->/Users/sara/ReactNative Projects/Crowd-Sourced-Shopping-App/android/app/src/main/AndroidManifest.xml:17:9-51
+42            android:windowSoftInputMode="adjustPan" >
+42-->/Users/sara/ReactNative Projects/Crowd-Sourced-Shopping-App/android/app/src/main/AndroidManifest.xml:17:9-48
 43            <intent-filter>
 43-->/Users/sara/ReactNative Projects/Crowd-Sourced-Shopping-App/android/app/src/main/AndroidManifest.xml:19:9-22:25
 44                <action android:name="android.intent.action.MAIN" />
