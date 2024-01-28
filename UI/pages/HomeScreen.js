@@ -4,8 +4,7 @@ import {
   FlatList,
   StyleSheet,
   Text,
-  View,
-  Pressable
+  View
 } from 'react-native';
 import NavigationBar from '../components/NavigationBar.js';
 import styles, {item_style, text_styles, add_button} from '../style.js';
@@ -33,11 +32,9 @@ const ShoppingList = () => {
         <FlatList
             data={state}
             renderItem = { ({item}) =>(
-                <Pressable onPress={()=> handleSelectedItem(item)}>
-                    <Text style={item_style}>
-                        {item.name}
-                    </Text>
-                </Pressable>
+                <Text style={item_style} onPress={()=> handleSelectedItem(item)}>
+                    {item.name}
+                </Text>
             )}
         />
     )
@@ -61,11 +58,9 @@ function HomeScreen({navigation}) {
             </View>
 
             <View style={styles.bottom}>
-                <Pressable onPress={()=>navigation.navigate("TestStoreRec")}>
-                <Text style={shopButton}>
+                <Text style={shopButton} onPress={()=>navigation.navigate("TestStoreRec")}>
                     Go Shopping!
                 </Text>
-                </Pressable>
             </View>
         </View>
 
