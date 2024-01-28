@@ -16,7 +16,7 @@ import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 
-const SuggestionList = ({suggestions}) => {
+const SuggestionList = ({suggestions, search}) => {
 // list component for the suggestion list, including title
     // TODO: replace this with data pulled from querying database
 
@@ -31,10 +31,24 @@ const SuggestionList = ({suggestions}) => {
         navigation.navigate('TestBrandSelect', {product: text});
     }
 
+    let text = "Search for an item to see suggestions"
+    if (suggestions.length == 0 && search != '') text = "No items found"
+
+    if (suggestions.length == 0 || search == '') {
+        return (
+            <View style={add_style.suggestionList}>
+                <Text style={text_styles.smallTitle}>Suggestions</Text>
+                <Text style={[text_styles.itemText, {paddingLeft: 16, paddingTop: 8}]}>
+                    {text}
+                </Text>
+            </View>
+        )
+    }
+
     return(
         <View style={add_style.suggestionList}>
             <Text style={text_styles.smallTitle}>Suggestions</Text>
-            
+
             <FlatList
                 data={suggestions}
                 keyExtractor={(item, index)=> index.toString()}
@@ -81,7 +95,7 @@ function AddItems() {
                 value={productName}
                 onChangeText={handleInputChange}
             />
-            <SuggestionList suggestions={suggestedItems} />
+            <SuggestionList suggestions={suggestedItems} search={productName} />
         </View>
         <NavigationBar/>
     </SafeAreaView>
