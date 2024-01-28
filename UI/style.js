@@ -63,6 +63,8 @@ const styles = StyleSheet.create({
     app: {
         width: '100%',
         height: '100%',
+
+        backgroundColor: colors.color6.color
     },
     container: {
         width: '95%',

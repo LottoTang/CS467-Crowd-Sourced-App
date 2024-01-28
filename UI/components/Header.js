@@ -40,12 +40,10 @@ export default headerFunc;
 const header_style = StyleSheet.create({
     header: {
         minWidth: '100%',
-        height: 113,
+        height: 123,
 
-        borderBottomWidth: 1,
-        borderColor: styles.borderColor.color,
-
-        marginBottom: 10,
+        borderBottomWidth: 10,
+        borderColor: styles.backgroundColor.color,
 
         backgroundColor: styles.headerColor.color,
     },
