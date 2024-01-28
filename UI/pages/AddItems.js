@@ -8,7 +8,6 @@ import {
   View,
   Pressable
 } from 'react-native';
-import NavigationBar from '../components/NavigationBar.js';
 import { useState } from 'react';
 import styles, {item_style, text_styles, add_button} from '../style.js';
 import { giveSuggestedItems } from '../../redux/funtionality/helperFunctions.js';
@@ -17,6 +16,17 @@ import { useNavigation } from '@react-navigation/native';
 
 
 const ItemComponent = ({item}) => {
+    const navigation = useNavigation();
+
+    const handleAddItem = (item) => {
+        // Go to select brand page
+        navigation.navigate('TestBrandSelect', {product: item});
+    };
+
+    const handleRecommendation = (text)=>{
+        navigation.navigate('TestBrandSelect', {product: text});
+    }
+
     return (
         <View style={suggestion}>
             <Text style={add_style.suggestionText}>
@@ -33,18 +43,7 @@ const ItemComponent = ({item}) => {
 
 const SuggestionList = ({suggestions, search}) => {
 // list component for the suggestion list, including title
-    // TODO: replace this with data pulled from querying database
-
-    const navigation = useNavigation();
-
-    const handleAddItem = (item) => {
-        // Go to select brand page
-        navigation.navigate('TestBrandSelect', {product: item});
-    };
-
-    const handleRecommendation = (text)=>{
-        navigation.navigate('TestBrandSelect', {product: text});
-    }
+    // TODO: replace the list with data pulled from querying database
 
     // leave a message for user when suggestions list is empty
     let msg = "Search for an item to see suggestions"
@@ -121,7 +120,6 @@ function AddItems() {
             <SuggestionList suggestions={suggestedItems} search={productName} />
             <CreateItem suggestions={suggestedItems} product={productName}/>
         </View>
-        <NavigationBar/>
     </SafeAreaView>
   );
 };

@@ -6,7 +6,6 @@ import {
   Text,
   View
 } from 'react-native';
-import NavigationBar from '../components/NavigationBar.js';
 import styles, {item_style, text_styles, add_button} from '../style.js';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -46,7 +45,7 @@ function HomeScreen({navigation}) {
   return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
-            <View  style={{maxHeight: '85%'}}>
+            <View  style={{maxHeight: '79%'}}>
                 <ShoppingList />
                 <Text
                         style={addButton}
@@ -63,8 +62,6 @@ function HomeScreen({navigation}) {
                 </Text>
             </View>
         </View>
-
-        <NavigationBar/>
     </SafeAreaView>
   );
 };
@@ -78,6 +75,7 @@ const home_style = StyleSheet.create({
    addButton: {
        margin: 6,
        alignSelf: 'flex-end',
+       marginTop: 12
    },
    shopButton: {
        width: '80%',
