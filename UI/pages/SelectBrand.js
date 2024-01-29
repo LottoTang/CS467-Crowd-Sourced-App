@@ -2,28 +2,17 @@ import React from 'react';
 import {
   SafeAreaView,
   FlatList,
+  Pressable,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import styles, {item_style, text_styles, check_box} from '../style.js';
-
-
-const CheckedBox = () => {
-    return (
-        <Icon
-            name="check-square"
-            size={26}
-            color={styles.borderColor.color}
-            style={check_box.full}
-        />
-    );
-};
+import styles, {item_style, text_styles} from '../style.js';
 
 
 const ItemComponent = ({item}) => {
@@ -31,30 +20,32 @@ const ItemComponent = ({item}) => {
     const navigation = useNavigation();
 
     const [selected, setSelected] = useState(false);
+    const [icon, setIcon] = useState("checkbox-blank-outline");
 
     const handleSelectBrand = (item) => {
         setSelected(!selected)
-        return;
     };
 
-    if (selected) {
-        return (
-            <View style={item_style} onPress={()=> handleSelectBrand(item)}>
-                <Text style={text_styles.itemText}>
-                    {item}
-                </Text>
-                <CheckedBox />
-            </View>
-        )
-    };
+    useEffect(() => {
+        if (selected) {
+            setIcon("checkbox-marked")
+        } else {
+            setIcon("checkbox-blank-outline")
+        };
+    }, [selected]);
 
     return (
-        <View style={item_style} onPress={()=> handleSelectBrand(item)}>
+        <Pressable style={item_style} onPress={() => handleSelectBrand()}>
             <Text style={text_styles.itemText}>
                 {item}
             </Text>
-            <View style={check_box.empty}></View>
-        </View>
+            <Icon
+                name={icon}
+                size={26}
+                color={styles.secondaryItemBackground.color}
+                style={{alignSelf: 'center'}}
+            />
+        </Pressable>
     )
 }
 
