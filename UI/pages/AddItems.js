@@ -108,7 +108,7 @@ function AddItems() {
             <View style={item_style}>
                 <TextInput
                     style={search_text}
-                    placeholder='Search for an item at the store'
+                    placeholder='Search for an item'
                     value={productName}
                     onChangeText={handleInputChange}
                 />

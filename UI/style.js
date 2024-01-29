@@ -143,7 +143,7 @@ const item_style = [
        }
     }).style,
     styles.wideRow
-]
+];
 
 const add_button = [
     StyleSheet.create({
@@ -157,8 +157,29 @@ const add_button = [
     text_styles.button
 ];
 
+const check_box = StyleSheet.create({
+    empty: {
+        width: '6.5%',
+        height: '75%',
+
+        borderWidth: 1,
+        borderRadius: 5,
+        borderColor: styles.borderColor.color,
+
+        padding: 9,
+
+        alignSelf: 'center',
+    },
+    full: {
+        width: '6.5%',
+        height: '88%',
+
+        alignSelf: 'center'
+    }
+});
+
 export default styles;
-export {item_style, text_styles, add_button}
+export {item_style, text_styles, add_button, check_box}
 
 
 

@@ -9,26 +9,51 @@ import {
 } from 'react-native';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-import styles, {item_style, text_styles, add_button} from '../style.js';
+import styles, {item_style, text_styles, check_box} from '../style.js';
+
+
+const CheckedBox = () => {
+    return (
+        <Icon
+            name="check-square"
+            size={26}
+            color={styles.borderColor.color}
+            style={check_box.full}
+        />
+    );
+};
 
 
 const ItemComponent = ({item}) => {
 // item component that represents one brand
     const navigation = useNavigation();
 
+    const [selected, setSelected] = useState(false);
+
     const handleSelectBrand = (item) => {
+        setSelected(!selected)
         return;
     };
 
+    if (selected) {
+        return (
+            <View style={item_style} onPress={()=> handleSelectBrand(item)}>
+                <Text style={text_styles.itemText}>
+                    {item}
+                </Text>
+                <CheckedBox />
+            </View>
+        )
+    };
+
     return (
-        <View style={item_style}>
+        <View style={item_style} onPress={()=> handleSelectBrand(item)}>
             <Text style={text_styles.itemText}>
                 {item}
             </Text>
-            <Text style={button} onPress={()=> handleSelectBrand(item)}>
-                +
-            </Text>
+            <View style={check_box.empty}></View>
         </View>
     )
 }
@@ -90,6 +115,3 @@ const brand_style = StyleSheet.create({
         fontFamily: styles.fontBold.fontFamily,
     },
 });
-
-
-const button = add_button.concat({fontSize: 16});
