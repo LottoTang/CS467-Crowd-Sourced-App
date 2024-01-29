@@ -31,9 +31,11 @@ const ShoppingList = () => {
         <FlatList
             data={state}
             renderItem = { ({item}) =>(
-                <Text style={item_style} onPress={()=> handleSelectedItem(item)}>
-                    {item.name}
-                </Text>
+                <View style={item_style}>
+                    <Text style={text_styles.itemText} onPress={()=> handleSelectedItem(item)}>
+                        {item.name}
+                    </Text>
+                </View>
             )}
         />
     )

@@ -100,6 +100,9 @@ const text_styles = StyleSheet.create({
     itemText: {
         color: styles.textColor.color,
         fontFamily: styles.fontMedium.fontFamily,
+
+        paddingTop: 4,
+        paddingBottom: 4,
     },
     button: {
         fontSize: 24,
@@ -122,22 +125,25 @@ const text_styles = StyleSheet.create({
     }
 });
 
-
 const item_style = [
     StyleSheet.create({
        style: {
+           width: '96.5%',
+
            borderWidth: 1,
            borderRadius: 5,
            borderColor: styles.borderColor.color,
 
-           padding: 12,
+           padding: 9,
+           paddingLeft: 12,
+           paddingRight: 12,
            margin: 6,
 
            backgroundColor: styles.itemBackground.color
        }
     }).style,
-    text_styles.itemText
-];
+    styles.wideRow
+]
 
 const add_button = [
     StyleSheet.create({

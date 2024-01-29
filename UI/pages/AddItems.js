@@ -6,7 +6,6 @@ import {
   Text,
   TextInput,
   View,
-  Pressable
 } from 'react-native';
 import { useState } from 'react';
 import styles, {item_style, text_styles, add_button} from '../style.js';
@@ -16,27 +15,22 @@ import { useNavigation } from '@react-navigation/native';
 
 
 const ItemComponent = ({item}) => {
+// item component that represents one suggested item
     const navigation = useNavigation();
 
     const handleAddItem = (item) => {
         // Go to select brand page
-        navigation.navigate('TestBrandSelect', {product: item});
+        navigation.navigate('Select Brand', {product: item});
     };
 
-    const handleRecommendation = (text)=>{
-        navigation.navigate('TestBrandSelect', {product: text});
-    }
-
     return (
-        <View style={suggestion}>
-            <Text style={add_style.suggestionText}>
+        <View style={item_style}>
+            <Text style={text_styles.itemText}>
                 {item}
             </Text>
-            <Pressable onPress={()=> handleRecommendation(item)}>
-                <Text style={button} onPress={()=> handleAddItem(item)}>
-                    +
-                </Text>
-            </Pressable>
+            <Text style={button} onPress={()=> handleAddItem(item)}>
+                +
+            </Text>
         </View>
     )
 }
@@ -111,12 +105,14 @@ function AddItems() {
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
             <Text style={text_styles.smallTitle}>Search</Text>
-            <TextInput
-                style={search_bar}
-                placeholder='Search for an item'
-                value={productName}
-                onChangeText={handleInputChange}
-            />
+            <View style={item_style}>
+                <TextInput
+                    style={search_text}
+                    placeholder='Search for an item at the store'
+                    value={productName}
+                    onChangeText={handleInputChange}
+                />
+            </View>
             <SuggestionList suggestions={suggestedItems} search={productName} />
             <CreateItem suggestions={suggestedItems} product={productName}/>
         </View>
@@ -134,22 +130,12 @@ const add_style = StyleSheet.create({
         maxHeight: '60%',
         marginTop: 12,
     },
-    suggestionText: {
-        color: text_styles.itemText.color,
-        fontFamily: text_styles.itemText.fontFamily,
-
-        paddingTop: 4,
-        paddingBottom: 4
-    },
-    suggestionBox: {
-        width: '96.5%',
-
-        padding: 8,
-        paddingLeft: 12,
-        paddingRight: 12,
-    },
+    searchText: {
+        width: '100%',
+        paddingTop: 0,
+        paddingBottom: 0,
+    }
 });
 
-const search_bar = item_style.concat({padding: 9})
-const suggestion = item_style.concat(styles.wideRow, add_style.suggestionBox);
+const search_text = [text_styles.itemText, add_style.searchText]
 const button = add_button.concat({fontSize: 16});
