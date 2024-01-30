@@ -12,13 +12,10 @@ import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import styles, {item_style, text_styles} from '../style.js';
+import styles, {item_style, text_styles, add_button} from '../style.js';
 
-
-const ItemComponent = ({item}) => {
+const ItemComponent = ({item, func=() => {}}) => {
 // item component that represents one brand
-    const navigation = useNavigation();
-
     const [selected, setSelected] = useState(false);
     const [icon, setIcon] = useState("checkbox-blank-outline");
 
@@ -27,11 +24,9 @@ const ItemComponent = ({item}) => {
     };
 
     useEffect(() => {
-        if (selected) {
-            setIcon("checkbox-marked")
-        } else {
-            setIcon("checkbox-blank-outline")
-        };
+        func(selected)
+        if (selected) setIcon("checkbox-marked")
+        else setIcon("checkbox-blank-outline")
     }, [selected]);
 
     return (
@@ -46,8 +41,8 @@ const ItemComponent = ({item}) => {
                 style={{alignSelf: 'center'}}
             />
         </Pressable>
-    )
-}
+    );
+};
 
 const BrandList = () => {
 // list component for the brand list
@@ -60,8 +55,17 @@ const BrandList = () => {
         navigation.navigate('Select Brand', {product: item});
     };
 
+    const [anyBrand, setAny] = useState(false)
+    const [greyedOut, setGrey] = useState([]);
+
+    useEffect(() => {
+        if (anyBrand) setGrey([brand_style.greyed])
+        else setGrey([])
+    }, [anyBrand]);
+
     return (
         <View>
+            <ItemComponent item={"Any brand"} func={setAny} />
             <FlatList
                 data={brands}
                 keyExtractor={(item, index)=> index.toString()}
@@ -69,6 +73,7 @@ const BrandList = () => {
                     <ItemComponent item={item} />
                 }
             />
+            <View style={greyedOut}></View>
         </View>
     )
 }
@@ -85,12 +90,28 @@ function SelectBrand({route}) {
         item_name = item_name.concat(letter, word.slice(1, word.length), " ")
     };
 
+    const navigation = useNavigation();
+    const handlePress = ()=>{
+        navigation.navigate('Home');
+    }
+
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
             <Text style={brand_style.title}>{item_name}</Text>
+
             <Text style={text_styles.smallTitle}>Brand(s):</Text>
-            <BrandList />
+            <View  style={{maxHeight: '62%'}}>
+                <BrandList />
+            </View>
+
+            <View style={styles.bottom}>
+                <Text
+                        style={addButton}
+                        onPress={() => handlePress()}>
+                    +
+                </Text>
+            </View>
         </View>
     </SafeAreaView>
     );
@@ -105,4 +126,19 @@ const brand_style = StyleSheet.create({
         color: styles.textColor.color,
         fontFamily: styles.fontBold.fontFamily,
     },
+    addButton: {
+        margin: 6,
+        alignSelf: 'flex-end',
+        marginTop: 12
+    },
+    greyed: {
+        backgroundColor: 'rgba(210,219,219,.6)',
+        height: '85%',
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 60,
+    },
 });
+
+const addButton = add_button.concat(brand_style.addButton);
