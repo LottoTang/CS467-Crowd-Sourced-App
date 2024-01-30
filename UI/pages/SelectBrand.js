@@ -125,19 +125,24 @@ const brand_style = StyleSheet.create({
         fontSize: 30,
         color: styles.textColor.color,
         fontFamily: styles.fontBold.fontFamily,
+
+        marginLeft: 6,
     },
     addButton: {
         margin: 6,
+        marginTop: 12,
+
         alignSelf: 'flex-end',
-        marginTop: 12
     },
     greyed: {
-        backgroundColor: 'rgba(210,219,219,.6)',
         height: '85%',
+
         position: 'absolute',
         left: 0,
         right: 0,
         top: 60,
+
+        backgroundColor: 'rgba(210,219,219,.6)',
     },
 });
 
