@@ -44,16 +44,10 @@ const ItemComponent = ({item, func=() => {}}) => {
 
 const CheckList = ({items, type="product"}) => {
 // list component composed of items with a checkbox
-    const [anyItem, setAny] = useState(false)
-    const [greyedOut, setGrey] = useState([]);
+    const [anyItem, setAny] = useState(false);
 
-    let showAny = true
-    if (type == "product") showAny = false
-
-    useEffect(() => {
-        if (anyItem) setGrey([check_style.greyed])
-        else setGrey([])
-    }, [anyItem]);
+    let showAny = true;
+    if (type == "product") showAny = false;
 
     return (
         <View>
@@ -67,7 +61,9 @@ const CheckList = ({items, type="product"}) => {
                     <ItemComponent item={item} />
                 }
             />
-            <View style={greyedOut}></View>
+            { anyItem ? (
+                <View style={check_style.greyed}></View>
+            ) : null}
         </View>
     );
 };

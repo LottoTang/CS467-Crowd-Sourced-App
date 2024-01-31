@@ -2,6 +2,7 @@ import React from 'react';
 import {
   SafeAreaView,
   FlatList,
+  Pressable,
   StyleSheet,
   Text,
   View
@@ -15,7 +16,6 @@ import { useNavigation } from '@react-navigation/native';
 
 const ShoppingList = () => {
 // list component for the whole shopping list
-    // TODO: replace this with data pulled from the database
 
     // populate the list with items in the state. Right now using fake data 
     const state = useSelector((state)=> state.shoppingList);
@@ -31,11 +31,11 @@ const ShoppingList = () => {
         <FlatList
             data={state}
             renderItem = { ({item}) =>(
-                <View style={item_style}>
-                    <Text style={text_styles.itemText} onPress={()=> handleSelectedItem(item)}>
+                <Pressable style={item_style} onPress={()=> handleSelectedItem(item)}>
+                    <Text style={text_styles.itemText}>
                         {item.name}
                     </Text>
-                </View>
+                </Pressable>
             )}
         />
     )
