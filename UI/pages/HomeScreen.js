@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   Pressable
 } from 'react-native';
 import NavigationBar from '../components/NavigationBar.js';
@@ -15,12 +14,15 @@ import { useSelector } from 'react-redux';
 import { viewSelectedItem } from '../../redux/actions/actions.js';
 import { useNavigation } from '@react-navigation/native';
 import styles, {item_style, text_styles, add_button} from '../style.js';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { viewSelectedItem } from '../../redux/actions/actions.js';
+import { useNavigation } from '@react-navigation/native';
 
 
 const ShoppingList = () => {
 // list component for the whole shopping list
     // TODO: replace this with data pulled from the database
-    
     // populate the list with items in the state. Right now using fake data 
     const state = useSelector((state)=> state.shoppingList);
     const dispatch = useDispatch();
@@ -30,18 +32,16 @@ const ShoppingList = () => {
         dispatch(viewSelectedItem(item));
         navigation.navigate('TestViewProduct');
     };
-    
     return(
         <FlatList
             data={state}
             renderItem = { ({item}) =>(
                 <Pressable onPress={()=> handleSelectedItem(item)}>
-                    <Text style={home_style.listItem}>
+                    <Text style={item_style}>
                         {item.name}
                     </Text>
                 </Pressable>
             )}
-
         />
     )
 }
@@ -64,7 +64,9 @@ function HomeScreen({navigation}) {
 
             <View style={styles.bottom}>
                 <Pressable onPress={()=>navigation.navigate("TestStoreRec")}>
-                    <Text style={shopButton}>Go Shopping!</Text>
+                <Text style={shopButton}>
+                    Go Shopping!
+                </Text>
                 </Pressable>
             </View>
         </View>
