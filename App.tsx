@@ -13,12 +13,11 @@ import store from './redux/store/store.js';
 import { Provider } from 'react-redux';
 
 import pageSetup from './UI/page_setup.js'
-import styles from './UI/style.js'
 
 function App(): React.JSX.Element {
   return (
     <Provider store={store}>
-    <NavigationContainer screenOptions={{contentStyle: {backgroundColor: styles.backgroundColor.color}}}>
+    <NavigationContainer>
         {pageSetup()}
     </NavigationContainer>
     </Provider>
