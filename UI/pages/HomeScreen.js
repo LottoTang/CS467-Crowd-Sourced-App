@@ -4,10 +4,11 @@ import {
   FlatList,
   StyleSheet,
   Text,
-  View
+  View,
+  Pressable
 } from 'react-native';
 
-import NavigationBar from '../components/NavigationBar.js';
+
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { viewSelectedItem } from '../../redux/actions/actions.js';
