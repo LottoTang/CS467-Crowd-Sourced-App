@@ -42,10 +42,13 @@ const ItemComponent = ({item, func=() => {}}) => {
     );
 };
 
-const CheckList = ({items, type}) => {
+const CheckList = ({items, type="product"}) => {
 // list component composed of items with a checkbox
     const [anyItem, setAny] = useState(false)
     const [greyedOut, setGrey] = useState([]);
+
+    let showAny = true
+    if (type == "product") showAny = false
 
     useEffect(() => {
         if (anyItem) setGrey([check_style.greyed])
@@ -54,7 +57,9 @@ const CheckList = ({items, type}) => {
 
     return (
         <View>
-            <ItemComponent item={`Any ${type}`} func={setAny} />
+            { showAny ? (
+                <ItemComponent item={`Any ${type}`} func={setAny} />
+            ) : null}
             <FlatList
                 data={items}
                 keyExtractor={(item, index)=> index.toString()}

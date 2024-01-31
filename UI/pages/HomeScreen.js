@@ -24,7 +24,7 @@ const ShoppingList = () => {
 
     const handleSelectedItem = (item)=>{
         dispatch(viewSelectedItem(item));
-        navigation.navigate('TestViewProduct');
+        navigation.navigate('View Item');
     };
 
     return(
