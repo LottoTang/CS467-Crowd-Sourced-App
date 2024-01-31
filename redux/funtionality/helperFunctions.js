@@ -62,6 +62,26 @@ export const sampleData = [
     { item_id: "123", store_id: "ACME", name: "tomato juice", brand: "Brand5", category: "groceries", price: 5.99, barcode: "14141241241241222" },
 ]
 
+function helperSearchStoreItems(storeName, item, brand, productsList){
+    // Helper method to check if a store has an item. Returns the price if it has it otherwise it is 0
+
+    const anyBrand = brand == "Any brand" ? true : false;
+    
+    for (let product in productsList){
+
+        if (anyBrand){
+            if (productsList[product].store_id == storeName && productsList[product].name == item){
+                return productsList[product].price;
+            }
+        } else {
+            if (productsList[product].store_id == storeName && productsList[product].name == item && productsList[product].brand == brand){
+                return productsList[product].price;
+            }
+        }
+    }
+    return 0;
+}
+
 
 function recommendedStoresForTotalShoppingList(shoppingList, sampleData){
 
@@ -70,7 +90,6 @@ function recommendedStoresForTotalShoppingList(shoppingList, sampleData){
     // 2. store name and 
     // 3. total cost
     const storesObj = {};
-    const listItemsFound = [];
 
     // Capture list of stores 
     const storesList = [];
@@ -81,21 +100,15 @@ function recommendedStoresForTotalShoppingList(shoppingList, sampleData){
         }
     }
 
-    // Iterate through every item in the list to for each store and calculate the total
-    for (let product in shoppingList){ 
-        for (let record in sampleData){  
-            if (sampleData[record].name == shoppingList[product].name && 
-                (sampleData[record].brand == shoppingList[product].brand || shoppingList[product].brand == "Any brand")){
-                const storeName = sampleData[record].store_id;
-                if (shoppingList[product].brand == "Any brand"){
-                    if (!(listItemsFound.includes(shoppingList[product].name))){
-                
-                        storesObj[storeName] = {...storesObj[storeName], itemsFound: storesObj[storeName].itemsFound + 1,  totalCost: storesObj[storeName].totalCost + sampleData[record].price};
-                    }
-                } else {
+    for (let product in shoppingList){
+        for (let retailer in storesList){
 
-                    storesObj[storeName] = {...storesObj[storeName], itemsFound: storesObj[storeName].itemsFound + 1,  totalCost: storesObj[storeName].totalCost + sampleData[record].price};
-                }
+            let storeName = storesList[retailer];
+            // helper method returns the price of the product
+            let hasItem = helperSearchStoreItems(storeName, shoppingList[product].name, shoppingList[product].brand, sampleData);
+
+            if (hasItem > 0){
+                storesObj[storeName] = {...storesObj[storeName], itemsFound: storesObj[storeName].itemsFound + 1, totalCost: storesObj[storeName].totalCost + hasItem};
             }
         }
     }
