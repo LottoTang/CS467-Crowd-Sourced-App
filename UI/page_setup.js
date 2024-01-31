@@ -25,29 +25,6 @@ function pageSetup() {
           options={{title: 'Your Shopping List'}}
         />
 
-
-
-        <Stack.Screen name="Testing"
-          component={TestingPage}
-          options={{title: 'Testing Page'}}
-        />
-        <Stack.Screen name="TestAddItem"
-          component={AddItemForm}
-          options={{title: "Test Add Item"}}
-        />
-        <Stack.Screen name="TestBrandSelect"
-          component={BrandSelector}
-          options={{title: "Test Select Brand"}}
-        />
-        <Stack.Screen name="TestViewProduct"
-          component={TestViewProduct}
-          options={{title: "Test View Item"}}
-        />
-        <Stack.Screen name="TestStoreRec"
-          component={TestStoreRec}
-          options={{title: "Test Store Rec"}}
-        />
-
         <Stack.Screen
           name="Add Items"
           component={AddItems}
