@@ -64,9 +64,15 @@
 40            android:label="@string/app_name"
 40-->C:\Users\Konstantinos\Desktop\Oregon State University\CS 467\latest_pull\CS467-Crowd-Sourced-App\android\app\src\main\AndroidManifest.xml:14:9-41
 41            android:launchMode="singleTask"
+<<<<<<< HEAD
 41-->C:\Users\Konstantinos\Desktop\Oregon State University\CS 467\latest_pull\CS467-Crowd-Sourced-App\android\app\src\main\AndroidManifest.xml:16:9-40
 42            android:windowSoftInputMode="adjustResize" >
 42-->C:\Users\Konstantinos\Desktop\Oregon State University\CS 467\latest_pull\CS467-Crowd-Sourced-App\android\app\src\main\AndroidManifest.xml:17:9-51
+=======
+41-->/Users/sara/ReactNative Projects/Crowd-Sourced-Shopping-App/android/app/src/main/AndroidManifest.xml:16:9-40
+42            android:windowSoftInputMode="adjustPan" >
+42-->/Users/sara/ReactNative Projects/Crowd-Sourced-Shopping-App/android/app/src/main/AndroidManifest.xml:17:9-48
+>>>>>>> 2bfbb571b27d186e998b99266bb07cc0934290c1
 43            <intent-filter>
 43-->C:\Users\Konstantinos\Desktop\Oregon State University\CS 467\latest_pull\CS467-Crowd-Sourced-App\android\app\src\main\AndroidManifest.xml:19:9-22:25
 44                <action android:name="android.intent.action.MAIN" />

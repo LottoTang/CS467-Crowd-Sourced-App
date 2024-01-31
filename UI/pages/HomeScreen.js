@@ -4,11 +4,10 @@ import {
   FlatList,
   StyleSheet,
   Text,
-  View,
-  Pressable
+  View
 } from 'react-native';
-import NavigationBar from '../components/NavigationBar.js';
 
+import NavigationBar from '../components/NavigationBar.js';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { viewSelectedItem } from '../../redux/actions/actions.js';
@@ -33,11 +32,11 @@ const ShoppingList = () => {
         <FlatList
             data={state}
             renderItem = { ({item}) =>(
-                <Pressable onPress={()=> handleSelectedItem(item)}>
-                    <Text style={item_style}>
+                <View style={item_style}>
+                    <Text style={text_styles.itemText} onPress={()=> handleSelectedItem(item)}>
                         {item.name}
                     </Text>
-                </Pressable>
+                </View>
             )}
         />
     )
@@ -51,7 +50,7 @@ function HomeScreen({navigation}) {
   return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
-            <View  style={{maxHeight: '85%'}}>
+            <View  style={{maxHeight: '79%'}}>
                 <ShoppingList />
 
                 <Pressable onPress={()=> navigation.navigate("Add Items")}>
@@ -60,15 +59,11 @@ function HomeScreen({navigation}) {
             </View>
 
             <View style={styles.bottom}>
-                <Pressable onPress={()=>navigation.navigate("TestStoreRec")}>
-                <Text style={shopButton}>
+                <Text style={shopButton} onPress={()=>navigation.navigate("TestStoreRec")}>
                     Go Shopping!
                 </Text>
-                </Pressable>
             </View>
         </View>
-
-        <NavigationBar/>
     </SafeAreaView>
   );
 };
@@ -82,6 +77,7 @@ const home_style = StyleSheet.create({
    addButton: {
        margin: 6,
        alignSelf: 'flex-end',
+       marginTop: 12
    },
    shopButton: {
        width: '80%',

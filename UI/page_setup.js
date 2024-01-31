@@ -1,58 +1,54 @@
 import * as React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {View} from 'react-native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import headerFunc from './components/Header.js';
-import HomeScreen from './pages/HomeScreen.js';
-import AddItems from './pages/AddItems.js';
+import ShoppingTab from './tabs/ShoppingTab.js';
+import ScanTab from './tabs/ScanTab.js';
+import LiveFeedTab from './tabs/LiveFeedTab.js';
 
-// Intermediate pages to test functionality until you create the actual view
-import TestingPage from './pages/TestPages/TestingPage.js';
-import { AddItemForm } from './pages/TestPages/TestAddItem.js';
-import { TestViewProduct } from './pages/TestPages/TestViewProduct.js';
-import { BrandSelector } from './pages/TestPages/TestSelectBrand.js';
-import { TestStoreRec } from './pages/TestPages/TestStoreRec.js';
+import styles from './style.js';
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 // Added a testing page to test navigation functionality
 
 function pageSetup() {
-  return (
-    <Stack.Navigator screenOptions={{header: headerFunc}}>
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{title: 'Your Shopping List'}}
-        />
-
-        <Stack.Screen
-          name="Add Items"
-          component={AddItems}
-          options={{title: ''}}
-        />
-
-        <Stack.Screen name="Testing"
-          component={TestingPage}
-          options={{title: 'Testing Page'}}
-        />
-        <Stack.Screen name="TestAddItem"
-          component={AddItemForm}
-          options={{title: "Test Add Item"}}
-        />
-        <Stack.Screen name="TestBrandSelect"
-          component={BrandSelector}
-          options={{title: "Test Select Brand"}}
-        />
-        <Stack.Screen name="TestViewProduct"
-          component={TestViewProduct}
-          options={{title: "Test View Item"}}
-        />
-        <Stack.Screen name="TestStoreRec"
-          component={TestStoreRec}
-          options={{title: "Test Store Rec"}}
-        />
-    </Stack.Navigator>
-  );
+    return (
+        <Tab.Navigator screenOptions={nav_options}>
+            <Tab.Screen
+                name="Shopping List"
+                component={ShoppingTab}
+                />
+            <Tab.Screen
+                name="Scan Barcode"
+                component={ScanTab}
+            />
+            <Tab.Screen
+                name="Live Feed"
+                component={LiveFeedTab}
+            />
+        </Tab.Navigator>
+    )
 };
 
 export default pageSetup;
+
+
+
+const nav_options = {
+    header: () => <View style={{height: 0}} />,
+    showIcon: false,
+    tabBarStyle: {
+        backgroundColor: styles.footerColor.color,
+        height: 45,
+    },
+    tabBarLabelStyle: {
+        fontSize: 14,
+        fontFamily: styles.fontRegular.fontFamily,
+        padding: 12,
+    },
+    tabBarActiveTintColor: styles.secondaryTextColor.color,
+    tabBarInactiveTintColor: styles.highlightText.color,
+    tabBarActiveBackgroundColor: styles.headerColor.color,
+    tabBarIconStyle: {display: 'none'}
+}
