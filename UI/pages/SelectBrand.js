@@ -5,82 +5,25 @@ import {
   Pressable,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import styles, {item_style, text_styles, add_button} from '../style.js';
+import styles, {text_styles, add_button} from '../style.js';
+import CheckList from '../components/CheckList.js'
 
-const ItemComponent = ({item, func=() => {}}) => {
-// item component that represents one brand
-    const [selected, setSelected] = useState(false);
-    const [icon, setIcon] = useState("checkbox-blank-outline");
+import { getBrandsList } from '../../redux/funtionality/helperFunctions';
 
-    const handleSelectBrand = (item) => {
-        setSelected(!selected)
-    };
-
-    useEffect(() => {
-        func(selected)
-        if (selected) setIcon("checkbox-marked")
-        else setIcon("checkbox-blank-outline")
-    }, [selected]);
-
-    return (
-        <Pressable style={item_style} onPress={() => handleSelectBrand()}>
-            <Text style={text_styles.itemText}>
-                {item}
-            </Text>
-            <Icon
-                name={icon}
-                size={26}
-                color={styles.secondaryItemBackground.color}
-                style={{alignSelf: 'center'}}
-            />
-        </Pressable>
-    );
-};
-
-const BrandList = () => {
-// list component for the brand list
-    // TODO: replace the list with data pulled from querying database
-    const brands = ["Rao's", "Pomi"]
-
-    const navigation = useNavigation();
-    const handleAddItem = (item) => {
-        // Go to select brand page
-        navigation.navigate('Select Brand', {product: item});
-    };
-
-    const [anyBrand, setAny] = useState(false)
-    const [greyedOut, setGrey] = useState([]);
-
-    useEffect(() => {
-        if (anyBrand) setGrey([brand_style.greyed])
-        else setGrey([])
-    }, [anyBrand]);
-
-    return (
-        <View>
-            <ItemComponent item={"Any brand"} func={setAny} />
-            <FlatList
-                data={brands}
-                keyExtractor={(item, index)=> index.toString()}
-                renderItem = { ({item}) =>
-                    <ItemComponent item={item} />
-                }
-            />
-            <View style={greyedOut}></View>
-        </View>
-    )
-}
 
 function SelectBrand({route}) {
 // the Select Brand screen itself with its components
     const {product} = route.params;
+
+    const state = useSelector(state=>state.allItems);
+    const brands = getBrandsList(product, state);
 
     // for the page title, capitalize the first letter of the item
     const words = product.split(" ");
@@ -102,7 +45,7 @@ function SelectBrand({route}) {
 
             <Text style={text_styles.smallTitle}>Brand(s):</Text>
             <View  style={{maxHeight: '62%'}}>
-                <BrandList />
+                <CheckList items={brands} type="brand" />
             </View>
 
             <View style={styles.bottom}>
@@ -133,16 +76,6 @@ const brand_style = StyleSheet.create({
         marginTop: 12,
 
         alignSelf: 'flex-end',
-    },
-    greyed: {
-        height: '85%',
-
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 60,
-
-        backgroundColor: 'rgba(210,219,219,.6)',
     },
 });
 
