@@ -241,4 +241,11 @@ export const sampleData = [
     { item_id: "123", store_id: "ACME", name: "tomato", brand: "Brand3", category: "groceries", price: 4.99, barcode: "14141241241241222" },
     { item_id: "123", store_id: "ACME", name: "tomato", brand: "Brand4", category: "groceries", price: 5.99, barcode: "14141241241241222" },
     { item_id: "123", store_id: "ACME", name: "tomato", brand: "Brand5", category: "groceries", price: 6.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "ACME", name: "pizza", brand: "Rao's", category: "groceries", price: 6.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "ACME", name: "pizza", brand: "Brand5", category: "groceries", price: 7.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Harris Teeter", name: "pizza", brand: "Rao's", category: "groceries", price: 6.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Harris Teeter", name: "tomato", brand: "Pomi", category: "groceries", price: 9.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Walmart", name: "pizza", brand: "Pomi", category: "groceries", price: 6.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Wawa", name: "pizza", brand: "Pomi", category: "groceries", price: 10, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Wawa", name: "pizza", brand: "Brand5", category: "groceries", price: 2.99, barcode: "14141241241241222" },
 ]

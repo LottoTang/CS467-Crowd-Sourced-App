@@ -70,6 +70,7 @@ function recommendedStoresForTotalShoppingList(shoppingList, sampleData){
     // 2. store name and 
     // 3. total cost
     const storesObj = {};
+    const listItemsFound = [];
 
     // Capture list of stores 
     const storesList = [];
@@ -81,11 +82,20 @@ function recommendedStoresForTotalShoppingList(shoppingList, sampleData){
     }
 
     // Iterate through every item in the list to for each store and calculate the total
-    for (let record in sampleData){
-        for (let product in shoppingList){   
-            if (sampleData[record].name == shoppingList[product].name && sampleData[record].brand == shoppingList[product].brand ){
+    for (let product in shoppingList){ 
+        for (let record in sampleData){  
+            if (sampleData[record].name == shoppingList[product].name && 
+                (sampleData[record].brand == shoppingList[product].brand || shoppingList[product].brand == "Any brand")){
                 const storeName = sampleData[record].store_id;
-                storesObj[storeName] = {...storesObj[storeName], itemsFound: storesObj[storeName].itemsFound + 1,  totalCost: storesObj[storeName].totalCost + sampleData[record].price};
+                if (shoppingList[product].brand == "Any brand"){
+                    if (!(listItemsFound.includes(shoppingList[product].name))){
+                
+                        storesObj[storeName] = {...storesObj[storeName], itemsFound: storesObj[storeName].itemsFound + 1,  totalCost: storesObj[storeName].totalCost + sampleData[record].price};
+                    }
+                } else {
+
+                    storesObj[storeName] = {...storesObj[storeName], itemsFound: storesObj[storeName].itemsFound + 1,  totalCost: storesObj[storeName].totalCost + sampleData[record].price};
+                }
             }
         }
     }
@@ -96,7 +106,11 @@ function recommendedStoresForTotalShoppingList(shoppingList, sampleData){
 
     let sortedList = [];
     for (let i=0; i< listOfRecommendations.length; i++){
-        sortedList.push({storeName: listOfRecommendations[i][1].storeName, totalCost: listOfRecommendations[i][1].totalCost, numItems: listOfRecommendations[i][1].itemsFound });
+
+        // Exclude stores with no items
+        if (listOfRecommendations[i][1].itemsFound > 0){
+            sortedList.push({storeName: listOfRecommendations[i][1].storeName, totalCost: listOfRecommendations[i][1].totalCost, numItems: listOfRecommendations[i][1].itemsFound });
+        }
     }
 
     return sortedList;
@@ -130,7 +144,7 @@ function giveSuggestedItems(shoppingList, targetItem){
 
 }
 
-// Get all Stores that have an item
+// Get all Stores that have an item functionality
 function getListOfStores(ListOfBrands){
 
 

@@ -11,16 +11,23 @@ import {
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItemInShoppingList, selectBrandItem, dropSelectedBrand } from '../../redux/actions/actions.js';
 
 import styles, {item_style, text_styles, add_button} from '../style.js';
+
 
 const ItemComponent = ({item, func=() => {}}) => {
 // item component that represents one brand
     const [selected, setSelected] = useState(false);
     const [icon, setIcon] = useState("checkbox-blank-outline");
 
+    // Set up connection with store to dispatch signal 
+    const dispatch = useDispatch();
+
     const handleSelectBrand = (item) => {
         setSelected(!selected)
+        dispatch(selectBrandItem(item));
     };
 
     useEffect(() => {
@@ -30,7 +37,7 @@ const ItemComponent = ({item, func=() => {}}) => {
     }, [selected]);
 
     return (
-        <Pressable style={item_style} onPress={() => handleSelectBrand()}>
+        <Pressable style={item_style} onPress={() => handleSelectBrand(item)}>
             <Text style={text_styles.itemText}>
                 {item}
             </Text>
@@ -82,6 +89,10 @@ function SelectBrand({route}) {
 // the Select Brand screen itself with its components
     const {product} = route.params;
 
+    // Set up connection with store to dispatch signal 
+    const dispatch = useDispatch();
+    const state = useSelector(state=> state.selectedBrand);
+
     // for the page title, capitalize the first letter of the item
     const words = product.split(" ");
     let item_name = ''
@@ -92,6 +103,8 @@ function SelectBrand({route}) {
 
     const navigation = useNavigation();
     const handlePress = ()=>{
+        dispatch(addItemInShoppingList(product, state));
+        dispatch(dropSelectedBrand());
         navigation.navigate('Home');
     }
 
