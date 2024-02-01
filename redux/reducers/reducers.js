@@ -1,6 +1,5 @@
 // Creating the first reducer
 
-import { ADD_ITEM } from "../actions/actionTypes";
 import { testItemsList, testList2, sampleData } from "../../testData/testingData";
 
 
@@ -12,6 +11,7 @@ const initialState = {
     shoppingList: testList2,
     selectedItem: null,
     allItems: sampleData,
+    selectedBrand: null,
 };
 
 
@@ -38,6 +38,16 @@ const homepageReducer = (state= initialState, action) =>{
                 userId: action.payload.userId,
                 shoppingList: action.payload.shoppingList
             };
+        case "SELECTED_BRAND":
+            return {
+                ...state,
+                selectedBrand: action.payload
+            }
+        case "DROP_SELECTED_BRAND":
+            return {
+                ...state,
+                selectedBrand: null,
+            }
         default:
             return state;
     }

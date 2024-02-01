@@ -10,6 +10,8 @@ import styles from './style.js';
 
 const Tab = createBottomTabNavigator();
 
+// Added a testing page to test navigation functionality
+
 function pageSetup() {
     return (
         <Tab.Navigator screenOptions={nav_options}>
