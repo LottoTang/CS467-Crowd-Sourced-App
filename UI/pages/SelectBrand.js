@@ -9,8 +9,9 @@ import {
 } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItemInShoppingList, selectBrandItem, dropSelectedBrand } from '../../redux/actions/actions.js';
 
 import styles, {text_styles, add_button} from '../style.js';
 import CheckList from '../components/CheckList.js'
@@ -23,11 +24,24 @@ function SelectBrand({route}) {
 // the Select Brand screen itself with its components
     const {product} = route.params;
 
-    const state = useSelector(state=>state.allItems);
-    const brands = getBrandsList(product, state);
+    const brands = getBrandsList(product, useSelector(state=>state.allItems));
+
+    // Set up connection with store to dispatch signal
+    const dispatch = useDispatch();
+    const state = useSelector(state=> state.selectedBrand);
+
+    // for the page title, capitalize the first letter of the item
+    const words = product.split(" ");
+    let item_name = ''
+    for (const word of words) {
+        const letter = word[0].toUpperCase()
+        item_name = item_name.concat(letter, word.slice(1, word.length), " ")
+    };
 
     const navigation = useNavigation();
     const handlePress = ()=>{
+        dispatch(addItemInShoppingList(product, state));
+        dispatch(dropSelectedBrand());
         navigation.navigate('Home');
     }
 

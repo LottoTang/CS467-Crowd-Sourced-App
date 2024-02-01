@@ -7,18 +7,24 @@ import {
   View,
 } from 'react-native';
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { selectBrandItem } from '../../redux/actions/actions.js';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles, {item_style, text_styles,} from '../style.js';
 
 
-const ItemComponent = ({item, func=() => {}}) => {
+const ItemComponent = ({item, type, func=() => {}}) => {
 // item component that contains name of one item and a checkbox
     const [selected, setSelected] = useState(false);
     const [icon, setIcon] = useState("checkbox-blank-outline");
 
+    // Set up connection with store to dispatch signal
+    const dispatch = useDispatch();
+
     const handleSelectItem = (item) => {
         setSelected(!selected)
+        if (type == "brand") dispatch(selectBrandItem(item));
     };
 
     useEffect(() => {
@@ -52,13 +58,13 @@ const CheckList = ({items, type="product"}) => {
     return (
         <View>
             { showAny ? (
-                <ItemComponent item={`Any ${type}`} func={setAny} />
+                <ItemComponent item={`Any ${type}`} type={type} func={setAny}/>
             ) : null}
             <FlatList
                 data={items}
                 keyExtractor={(item, index)=> index.toString()}
                 renderItem = { ({item}) =>
-                    <ItemComponent item={item} />
+                    <ItemComponent item={item} type={type}/>
                 }
             />
             { anyItem ? (

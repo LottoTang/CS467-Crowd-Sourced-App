@@ -37,5 +37,7 @@ com.templateproject.app-packageDebugResources-35 /Users/sara/ReactNative Project
 com.templateproject.app-merged_res-36 /Users/sara/ReactNative Projects/Crowd-Sourced-Shopping-App/android/app/build/intermediates/merged_res/debug
 com.templateproject.app-debug-37 /Users/sara/ReactNative Projects/Crowd-Sourced-Shopping-App/android/app/src/debug/res
 com.templateproject.app-main-38 /Users/sara/ReactNative Projects/Crowd-Sourced-Shopping-App/android/app/src/main/res
-com.templateproject.app-packaged_res-39 /Users/sara/ReactNative Projects/Crowd-Sourced-Shopping-App/node_modules/react-native-safe-area-context/android/build/intermediates/packaged_res/debug
-com.templateproject.app-packaged_res-40 /Users/sara/ReactNative Projects/Crowd-Sourced-Shopping-App/node_modules/react-native-screens/android/build/intermediates/packaged_res/debug
+com.templateproject.app-packaged_res-39 /Users/sara/ReactNative Projects/Crowd-Sourced-Shopping-App/node_modules/@react-native-picker/picker/android/build/intermediates/packaged_res/debug
+com.templateproject.app-packaged_res-40 /Users/sara/ReactNative Projects/Crowd-Sourced-Shopping-App/node_modules/react-native-safe-area-context/android/build/intermediates/packaged_res/debug
+com.templateproject.app-packaged_res-41 /Users/sara/ReactNative Projects/Crowd-Sourced-Shopping-App/node_modules/react-native-screens/android/build/intermediates/packaged_res/debug
+com.templateproject.app-packaged_res-42 /Users/sara/ReactNative Projects/Crowd-Sourced-Shopping-App/node_modules/react-native-vector-icons/android/build/intermediates/packaged_res/debug

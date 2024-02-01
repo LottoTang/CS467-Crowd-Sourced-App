@@ -62,8 +62,28 @@ export const sampleData = [
     { item_id: "123", store_id: "ACME", name: "tomato juice", brand: "Brand5", category: "groceries", price: 5.99, barcode: "14141241241241222" },
 ]
 
+function helperSearchStoreItems(storeName, item, brand, productsList){
+    // Helper method to check if a store has an item. Returns the price if it has it otherwise it is 0
 
-function recommendedStoresForTotalShoppingList(shoppingList, sampleData){
+    const anyBrand = brand == "Any brand" ? true : false;
+    
+    for (let product in productsList){
+
+        if (anyBrand){
+            if (productsList[product].store_id == storeName && productsList[product].name == item){
+                return productsList[product].price;
+            }
+        } else {
+            if (productsList[product].store_id == storeName && productsList[product].name == item && productsList[product].brand == brand){
+                return productsList[product].price;
+            }
+        }
+    }
+    return 0;
+}
+
+
+function recommendedStoresForTotalShoppingList(shoppingList, sampleData, ranking="price"){
 
     // create object of objects of stores->need to track 
     // 1. how many items were found, 
@@ -80,23 +100,36 @@ function recommendedStoresForTotalShoppingList(shoppingList, sampleData){
         }
     }
 
-    // Iterate through every item in the list to for each store and calculate the total
-    for (let record in sampleData){
-        for (let product in shoppingList){   
-            if (sampleData[record].name == shoppingList[product].name && sampleData[record].brand == shoppingList[product].brand ){
-                const storeName = sampleData[record].store_id;
-                storesObj[storeName] = {...storesObj[storeName], itemsFound: storesObj[storeName].itemsFound + 1,  totalCost: storesObj[storeName].totalCost + sampleData[record].price};
+    for (let product in shoppingList){
+        for (let retailer in storesList){
+
+            let storeName = storesList[retailer];
+            // helper method returns the price of the product
+            let hasItem = helperSearchStoreItems(storeName, shoppingList[product].name, shoppingList[product].brand, sampleData);
+
+            if (hasItem > 0){
+                storesObj[storeName] = {...storesObj[storeName], itemsFound: storesObj[storeName].itemsFound + 1, totalCost: storesObj[storeName].totalCost + hasItem};
             }
         }
     }
 
-    //Sort stores based on price
     let listOfRecommendations = Object.entries(storesObj);
-    listOfRecommendations.sort((a,b) => a[1].totalCost - b[1].totalCost);
+
+    if (ranking == "price"){
+        //Sort stores based on price
+        listOfRecommendations.sort((a,b) => a[1].totalCost - b[1].totalCost);
+    } else {
+        // sort stores based on items found 
+        listOfRecommendations.sort((a,b) => b[1].itemsFound - a[1].itemsFound);
+    }
 
     let sortedList = [];
     for (let i=0; i< listOfRecommendations.length; i++){
-        sortedList.push({storeName: listOfRecommendations[i][1].storeName, totalCost: listOfRecommendations[i][1].totalCost, numItems: listOfRecommendations[i][1].itemsFound });
+
+        // Exclude stores with no items
+        if (listOfRecommendations[i][1].itemsFound > 0){
+            sortedList.push({storeName: listOfRecommendations[i][1].storeName, totalCost: listOfRecommendations[i][1].totalCost, numItems: listOfRecommendations[i][1].itemsFound });
+        }
     }
 
     return sortedList;
@@ -130,7 +163,7 @@ function giveSuggestedItems(shoppingList, targetItem){
 
 }
 
-// Get all Stores that have an item
+// Get all Stores that have an item functionality
 function getListOfStores(ListOfBrands){
 
 

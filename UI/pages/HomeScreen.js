@@ -26,7 +26,6 @@ const ShoppingList = () => {
         dispatch(viewSelectedItem(item));
         navigation.navigate('View Item');
     };
-
     return(
         <FlatList
             data={state}
@@ -44,18 +43,17 @@ const ShoppingList = () => {
 
 function HomeScreen({navigation}) {
 // the Home screen itself with its components
+
+// Adding temp functionality for Go Shopping and + buttons so we can navigate to the new pages
   return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
             <View  style={{maxHeight: '79%'}}>
                 <ShoppingList />
-                <Text
-                        style={addButton}
-                        onPress={() =>
-                            navigation.navigate('Add Items')
-                        }>
-                    +
-                </Text>
+
+                <Pressable onPress={()=> navigation.navigate("Add Items")}>
+                    <Text style={addButton}>+</Text>
+                </Pressable>
             </View>
 
             <View style={styles.bottom}>
