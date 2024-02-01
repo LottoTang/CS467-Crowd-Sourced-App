@@ -83,7 +83,7 @@ function helperSearchStoreItems(storeName, item, brand, productsList){
 }
 
 
-function recommendedStoresForTotalShoppingList(shoppingList, sampleData){
+function recommendedStoresForTotalShoppingList(shoppingList, sampleData, ranking="price"){
 
     // create object of objects of stores->need to track 
     // 1. how many items were found, 
@@ -113,9 +113,15 @@ function recommendedStoresForTotalShoppingList(shoppingList, sampleData){
         }
     }
 
-    //Sort stores based on price
     let listOfRecommendations = Object.entries(storesObj);
-    listOfRecommendations.sort((a,b) => a[1].totalCost - b[1].totalCost);
+
+    if (ranking == "price"){
+        //Sort stores based on price
+        listOfRecommendations.sort((a,b) => a[1].totalCost - b[1].totalCost);
+    } else {
+        // sort stores based on items found 
+        listOfRecommendations.sort((a,b) => b[1].itemsFound - a[1].itemsFound);
+    }
 
     let sortedList = [];
     for (let i=0; i< listOfRecommendations.length; i++){

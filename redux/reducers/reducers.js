@@ -1,6 +1,5 @@
 // Creating the first reducer
 
-import { ADD_ITEM } from "../actions/actionTypes";
 import { testItemsList, testList2, sampleData } from "../../testData/testingData";
 
 
