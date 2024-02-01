@@ -6,6 +6,7 @@ import headerFunc from '../components/Header.js';
 import HomeScreen from '../pages/HomeScreen.js';
 import AddItems from '../pages/AddItems.js';
 import SelectBrand from '../pages/SelectBrand.js';
+import ViewItem from '../pages/ViewItem.js';
 
 // Intermediate pages to test functionality until you create the actual view
 import TestingPage from '../pages/TestPages/TestingPage.js';
@@ -33,6 +34,11 @@ const ShoppingTab = () => {
             <Stack.Screen
               name="Select Brand"
               component={SelectBrand}
+              options={{title: ''}}
+            />
+            <Stack.Screen
+              name="View Item"
+              component={ViewItem}
               options={{title: ''}}
             />
 
