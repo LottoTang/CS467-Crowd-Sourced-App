@@ -25,7 +25,8 @@ export const testItemsList = [
         name: "tomato sauce",
         brand: "Rao's",
         category: "groceries",
-        price: 5.49
+        price: 5.49,
+        sale: "50¢ off",
     },
     {
         item_id: "123",

@@ -16,11 +16,32 @@ import {testItemsList} from '../../testData/testingData.js'
 const ItemComponent = ({item}) => {
 // store component that contains name of the store, brand, price, sale info, and update info
 
+    const time = "4 hours"
+    const user = "shoppingpro50"
+
     return (
-        <View style={item_style}>
-            <Text style={text_styles.itemText}>
-                {item.store_id}
-            </Text>
+        <View style={[item_style]}>
+            <View style={[styles.wide_row, {alignSelf: 'center'}]}>
+                <Text style={[text_styles.smallTitle, {marginLeft: 0, marginTop: 0}]}>
+                    {item.store_id}
+                </Text>
+                <Text style={[text_styles.itemText, {paddingTop: 0, paddingBottom: 0}]}>
+                    {item.brand}
+                </Text>
+                <Text style={[text_styles.footnote, {paddingTop: 0}]}>
+                    Last updated {time} ago by {user}
+                </Text>
+            </View>
+            <View style={{alignSelf: 'center'}}>
+                { item.sale ? (
+                    <Text style={[text_styles.itemText, {paddingBottom: 0, color: styles.headerColor.color}]}>
+                        Sale: {item.sale}!!
+                    </Text>
+                ) : null}
+                <Text style={[text_styles.smallTitle, {marginTop: 0, alignSelf: 'flex-end'}]}>
+                    ${item.price}
+                </Text>
+            </View>
         </View>
     );
 };

@@ -122,7 +122,12 @@ const text_styles = StyleSheet.create({
 
         marginLeft: 8,
         marginTop: 4,
-    }
+    },
+    footnote: {
+        fontSize: 11,
+        color: styles.textColor.color,
+        fontFamily: styles.fontRegular.fontFamily,
+    },
 });
 
 const item_style = [
