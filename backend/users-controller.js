@@ -87,4 +87,7 @@ usersRouter.get("/logout", authChecker, (req, res) => {
 });
 
 
-module.exports = usersRouter;
+module.exports = {
+  usersRouter,
+  authChecker
+};
