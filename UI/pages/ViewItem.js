@@ -28,7 +28,7 @@ function ViewItem() {
 
     const brands = getBrandsList(product.name, brandOptions);
     // TODO: get this data from the database or state, a list of only brands that were previously selected
-    const selectedBrands = ["Barilla", "Rao's"]
+    const selectedBrands = ["Barilla", "Rao's", "Brand2", "Brand5", "Any brand"]
 
     if (!product) {
         return <Text>No product selected</Text>;
@@ -41,7 +41,7 @@ function ViewItem() {
 
             <Text style={text_styles.smallTitle}>Brand(s):</Text>
             <View  style={{height: '26%', marginBottom: 71}}>
-                <CheckList items={brands} type="brand" />
+                <CheckList items={brands} type="brand" preselected={selectedBrands}/>
             </View>
             <Text style={text_styles.smallTitle}>Store(s):</Text>
             <View style={{height: '40%'}}>

@@ -14,9 +14,9 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles, {item_style, text_styles,} from '../style.js';
 
 
-const ItemComponent = ({item, type, func=() => {}}) => {
+const ItemComponent = ({item, type, func=()=>{}, preselected=false}) => {
 // item component that contains name of one item and a checkbox
-    const [selected, setSelected] = useState(false);
+    const [selected, setSelected] = useState(preselected);
     const [icon, setIcon] = useState("checkbox-blank-outline");
 
     // Set up connection with store to dispatch signal
@@ -48,9 +48,9 @@ const ItemComponent = ({item, type, func=() => {}}) => {
     );
 };
 
-const CheckList = ({items, type="product"}) => {
+const CheckList = ({items, type="product", preselected=[]}) => {
 // list component composed of items with a checkbox
-    const [anyItem, setAny] = useState(false);
+    const [anyItem, setAny] = useState((preselected == `Any ${type}`));
 
     let showAny = true;
     if (type == "product") showAny = false;
@@ -58,13 +58,14 @@ const CheckList = ({items, type="product"}) => {
     return (
         <View>
             { showAny ? (
-                <ItemComponent item={`Any ${type}`} type={type} func={setAny}/>
+                <ItemComponent item={`Any ${type}`} type={type} func={setAny}
+                               preselected={preselected.includes(`Any ${type}`)}/>
             ) : null}
             <FlatList
                 data={items}
                 keyExtractor={(item, index)=> index.toString()}
                 renderItem = { ({item}) =>
-                    <ItemComponent item={item} type={type}/>
+                    <ItemComponent item={item} type={type} preselected={preselected.includes(item)}/>
                 }
             />
             { anyItem ? (

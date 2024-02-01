@@ -16,6 +16,7 @@ import {testItemsList} from '../../testData/testingData.js'
 const ItemComponent = ({item}) => {
 // store component that contains name of the store, brand, price, sale info, and update info
 
+    // TODO: replace this with data from the database; not sure how it's going to be pulled
     const time = "4 hours"
     const user = "shoppingpro50"
 
