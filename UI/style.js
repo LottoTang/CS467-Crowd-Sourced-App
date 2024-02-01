@@ -93,6 +93,10 @@ const styles = StyleSheet.create({
 
         justifyContent: 'space-between',
         alignSelf: 'center',
+    },
+    horizontalList: {
+        maxWidth: '94%',
+        marginLeft: 10
     }
 });
 
