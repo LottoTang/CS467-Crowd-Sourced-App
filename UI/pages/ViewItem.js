@@ -34,6 +34,13 @@ function ViewItem() {
         return <Text>No product selected</Text>;
     }
 
+    const navigation = useNavigation();
+
+    const handleEditItem = (item) => {
+        // Go to select brand page
+        navigation.navigate('Select Brand', {product: item, preselected: selected_brands});
+    };
+
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
@@ -42,7 +49,7 @@ function ViewItem() {
             <View style={{marginRight: 10}}>
                 <View style={styles.row}>
                     <Text style={text_styles.smallTitle}>Brands Selected:</Text>
-                    <Pressable style={{alignSelf: 'center'}}>
+                    <Pressable style={{alignSelf: 'center'}} onPress={() => handleEditItem(product.name)}>
                         <Icon
                             name={"edit"}
                             size={26}

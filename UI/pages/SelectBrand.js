@@ -22,7 +22,8 @@ import { capitalizeTitle } from '../ui_helpers.js'
 
 function SelectBrand({route}) {
 // the Select Brand screen itself with its components
-    const {product} = route.params;
+    let {product, preselected} = route.params;
+    if (preselected == null) preselected = []
 
     const brands = getBrandsList(product, useSelector(state=>state.allItems));
 
@@ -44,7 +45,7 @@ function SelectBrand({route}) {
 
             <Text style={text_styles.smallTitle}>Brand(s):</Text>
             <View  style={{maxHeight: '62%'}}>
-                <CheckList items={brands} type="brand" />
+                <CheckList items={brands} type="brand" preselected={preselected}/>
             </View>
 
             <View style={styles.bottom}>
