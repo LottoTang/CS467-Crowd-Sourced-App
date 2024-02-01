@@ -11,7 +11,7 @@ import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItemInShoppingList, selectBrandItem, dropSelectedBrand } from '../../redux/actions/actions.js';
+import { addItemInShoppingList, dropSelectedBrand } from '../../redux/actions/actions.js';
 
 import styles, {text_styles, add_button} from '../style.js';
 import CheckList from '../components/CheckList.js'
@@ -29,14 +29,6 @@ function SelectBrand({route}) {
     // Set up connection with store to dispatch signal
     const dispatch = useDispatch();
     const state = useSelector(state=> state.selectedBrand);
-
-    // for the page title, capitalize the first letter of the item
-    const words = product.split(" ");
-    let item_name = ''
-    for (const word of words) {
-        const letter = word[0].toUpperCase()
-        item_name = item_name.concat(letter, word.slice(1, word.length), " ")
-    };
 
     const navigation = useNavigation();
     const handlePress = ()=>{
