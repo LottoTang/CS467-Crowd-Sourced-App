@@ -85,7 +85,8 @@ const styles = StyleSheet.create({
     },
     row: {
         flexDirection: 'row',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
     },
     wideRow: {
         flexDirection: 'row',
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     horizontalList: {
-        maxWidth: '94%',
+        maxWidth: '96%',
         marginLeft: 10
     }
 });

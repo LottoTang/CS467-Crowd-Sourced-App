@@ -28,7 +28,7 @@ function ViewItem() {
 
     const brands = getBrandsList(product.name, brandOptions);
     // TODO: get this data from the database or state, a list of only brands that were previously selected
-    const selected_brands = ["Barilla", "Rao's", "Brand2", "Brand5", "Any brand", "Barilla", "Rao's", "Brand2", "Brand5", "Any brand"]
+    const selected_brands = ["Barilla", "Rao's", "Brand2", "Brand5"]
 
     if (!product) {
         return <Text>No product selected</Text>;
@@ -39,25 +39,33 @@ function ViewItem() {
         <View style={styles.container}>
             <Text style={view_style.title}>{capitalizeTitle(product.name)}</Text>
 
-            <View style={[styles.row, {justifyContent: 'space-between'}]}>
-                <Text style={text_styles.smallTitle}>Brands Selected:</Text>
-                <Icon
-                    name={"edit"}
-                    size={26}
-                    color={styles.secondaryItemBackground.color}
-                    style={{alignSelf: 'center', marginRight: 9}}
+            <View style={{marginRight: 10}}>
+                <View style={styles.row}>
+                    <Text style={text_styles.smallTitle}>Brands Selected:</Text>
+                    <Pressable style={{alignSelf: 'center'}}>
+                        <Icon
+                            name={"edit"}
+                            size={26}
+                            color={styles.secondaryItemBackground.color}
+                        />
+                    </Pressable>
+                </View>
+                <FlatList
+                    data={selected_brands}
+                    horizontal={true}
+                    style={styles.horizontalList}
+                    keyExtractor={(item, index)=> index.toString()}
+                    renderItem = { ({item}) =>
+                        <Text style={text_styles.itemText}>{item}    </Text>
+                    }
                 />
+                <View style={[styles.row, {marginTop: 12}]}>
+                    <Text style={text_styles.smallTitle}>Store(s):</Text>
+                    <Pressable style={{alignSelf: 'flex-end'}}>
+                        <Text style={[add_button, {fontSize: 13}]}>Sort</Text>
+                    </Pressable>
+                </View>
             </View>
-            <FlatList
-                data={selected_brands}
-                horizontal={true}
-                style={styles.horizontalList}
-                keyExtractor={(item, index)=> index.toString()}
-                renderItem = { ({item}) =>
-                    <Text style={text_styles.itemText}>{item}    </Text>
-                }
-            />
-            <Text style={[text_styles.smallTitle, {marginTop: 12}]}>Store(s):</Text>
             <View style={{height: '70%'}}>
                 <StoresList product={product} brands={selected_brands} />
             </View>
