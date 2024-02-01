@@ -2,24 +2,21 @@ import React from 'react';
 import {
   SafeAreaView,
   FlatList,
+  Pressable,
   StyleSheet,
   Text,
-  View,
-  Pressable
+  View
 } from 'react-native';
-
-
+import styles, {item_style, text_styles, add_button} from '../style.js';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { viewSelectedItem } from '../../redux/actions/actions.js';
 import { useNavigation } from '@react-navigation/native';
-import styles, {item_style, text_styles, add_button} from '../style.js';
-
 
 
 const ShoppingList = () => {
 // list component for the whole shopping list
-    // TODO: replace this with data pulled from the database
+
     // populate the list with items in the state. Right now using fake data 
     const state = useSelector((state)=> state.shoppingList);
     const dispatch = useDispatch();
@@ -27,17 +24,17 @@ const ShoppingList = () => {
 
     const handleSelectedItem = (item)=>{
         dispatch(viewSelectedItem(item));
-        navigation.navigate('TestViewProduct');
+        navigation.navigate('View Item');
     };
     return(
         <FlatList
             data={state}
             renderItem = { ({item}) =>(
-                <View style={item_style}>
-                    <Text style={text_styles.itemText} onPress={()=> handleSelectedItem(item)}>
+                <Pressable style={item_style} onPress={()=> handleSelectedItem(item)}>
+                    <Text style={text_styles.itemText}>
                         {item.name}
                     </Text>
-                </View>
+                </Pressable>
             )}
         />
     )

@@ -79,8 +79,12 @@ const CreateItem = ({suggestions, product}) => {
     // TODO: a function may need to be passed to the ItemComponent to add the item to the database
     return (
         <View style={styles.bottom}>
-            <Text style={text_styles.smallTitle}>Create an item for "{product}"</Text>
-            <ItemComponent item={product} />
+            <View style={styles.row}>
+                <Text style={[text_styles.smallTitle, {alignSelf: 'center', paddingRight: 8}]}>Create </Text>
+                <View style={{width: '78%'}} >
+                    <ItemComponent item={product} />
+                </View>
+            </View>
         </View>
     )
 }
@@ -127,7 +131,7 @@ export default AddItems;
 
 const add_style = StyleSheet.create({
     suggestionList: {
-        maxHeight: '60%',
+        maxHeight: '66%',
         marginTop: 12,
     },
     searchText: {
