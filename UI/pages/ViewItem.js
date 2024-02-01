@@ -2,6 +2,7 @@ import React from 'react';
 import {
   SafeAreaView,
   FlatList,
+  Modal,
   Pressable,
   StyleSheet,
   Text,
@@ -12,7 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Feather';
 
-import styles, {item_style, text_styles, add_button} from '../style.js';
+import styles, {item_style, text_styles, add_button, popup_style} from '../style.js';
 import CheckList from '../components/CheckList.js'
 import StoresList from '../components/StoresWithItem.js'
 
@@ -41,10 +42,38 @@ function ViewItem() {
         navigation.navigate('Select Brand', {product: item, preselected: selected_brands});
     };
 
+    const [popup, setPopup] = useState(false)
+    const closePopup = (selection=null) => {
+        // if (selection)... TODO: add code for sorting here
+        setPopup(false)
+    }
+
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
             <Text style={view_style.title}>{capitalizeTitle(product.name)}</Text>
+
+            <Modal
+                animationType="slide"
+                visible={popup}
+                transparent={true}
+                onRequestClose={() => closePopup()}
+            >
+                <View style={popup_style.background}>
+                    <View style={popup_style.style}>
+                        <Text style={text_styles.smallTitle}>Sort by:</Text>
+                        <Pressable style={item_style} onPress={() => closePopup("Price")} >
+                            <Text style={text_styles.itemText}>Price</Text>
+                        </Pressable>
+                        <Pressable style={item_style} onPress={() => closePopup("Store")} >
+                            <Text style={text_styles.itemText}>Store</Text>
+                        </Pressable>
+                        <Pressable style={item_style} onPress={() => closePopup("Brand")} >
+                            <Text style={text_styles.itemText}>Brand</Text>
+                        </Pressable>
+                    </View>
+                </View>
+            </Modal>
 
             <View style={{marginRight: 10}}>
                 <View style={styles.row}>
@@ -68,7 +97,7 @@ function ViewItem() {
                 />
                 <View style={[styles.row, {marginTop: 12}]}>
                     <Text style={text_styles.smallTitle}>Store(s):</Text>
-                    <Pressable style={{alignSelf: 'flex-end'}}>
+                    <Pressable style={{alignSelf: 'flex-end'}} onPress={() => setPopup(true)}>
                         <Text style={[add_button, {fontSize: 13}]}>Sort</Text>
                     </Pressable>
                 </View>

@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     horizontalList: {
         maxWidth: '96%',
         marginLeft: 10
-    }
+    },
 });
 
 const text_styles = StyleSheet.create({
@@ -167,8 +167,26 @@ const add_button = [
     text_styles.button
 ];
 
+const popup_style = StyleSheet.create({
+    style: {
+        width: '95%',
+        height: '60%',
+        borderTopLeftRadius: 40,
+        borderTopRightRadius: 40,
+        backgroundColor: styles.itemBackground.color,
+        alignSelf: 'center',
+        padding: 20
+    },
+    background: {
+        height: '100%',
+        backgroundColor: `${styles.backgroundColor.color}80`,
+        flex: 1,
+        justifyContent: 'flex-end',
+    }
+})
+
 export default styles;
-export {item_style, text_styles, add_button}
+export {item_style, text_styles, add_button, popup_style}
 
 
 
