@@ -37,12 +37,7 @@ com.templateproject.app-packageDebugResources-35 C:\Users\Konstantinos\Desktop\O
 com.templateproject.app-merged_res-36 C:\Users\Konstantinos\Desktop\Oregon State University\CS 467\latest_pull\CS467-Crowd-Sourced-App\android\app\build\intermediates\merged_res\debug
 com.templateproject.app-debug-37 C:\Users\Konstantinos\Desktop\Oregon State University\CS 467\latest_pull\CS467-Crowd-Sourced-App\android\app\src\debug\res
 com.templateproject.app-main-38 C:\Users\Konstantinos\Desktop\Oregon State University\CS 467\latest_pull\CS467-Crowd-Sourced-App\android\app\src\main\res
-<<<<<<< HEAD
-com.templateproject.app-packaged_res-39 C:\Users\Konstantinos\Desktop\Oregon State University\CS 467\latest_pull\CS467-Crowd-Sourced-App\node_modules\react-native-safe-area-context\android\build\intermediates\packaged_res\debug
-com.templateproject.app-packaged_res-40 C:\Users\Konstantinos\Desktop\Oregon State University\CS 467\latest_pull\CS467-Crowd-Sourced-App\node_modules\react-native-screens\android\build\intermediates\packaged_res\debug
-=======
 com.templateproject.app-packaged_res-39 C:\Users\Konstantinos\Desktop\Oregon State University\CS 467\latest_pull\CS467-Crowd-Sourced-App\node_modules\@react-native-picker\picker\android\build\intermediates\packaged_res\debug
 com.templateproject.app-packaged_res-40 C:\Users\Konstantinos\Desktop\Oregon State University\CS 467\latest_pull\CS467-Crowd-Sourced-App\node_modules\react-native-safe-area-context\android\build\intermediates\packaged_res\debug
 com.templateproject.app-packaged_res-41 C:\Users\Konstantinos\Desktop\Oregon State University\CS 467\latest_pull\CS467-Crowd-Sourced-App\node_modules\react-native-screens\android\build\intermediates\packaged_res\debug
 com.templateproject.app-packaged_res-42 C:\Users\Konstantinos\Desktop\Oregon State University\CS 467\latest_pull\CS467-Crowd-Sourced-App\node_modules\react-native-vector-icons\android\build\intermediates\packaged_res\debug
->>>>>>> 28e7b432656d0bf94fdcfbb6fcef11c84bb2ce76
