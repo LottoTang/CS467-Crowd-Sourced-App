@@ -12,6 +12,46 @@ export const testItemsList = [
         price: 4.99
     },
     {
+        item_id: "123",
+        store_id: "Half Food's",
+        name: "tomato sauce",
+        brand: "Rao's",
+        category: "groceries",
+        price: 5.99
+    },
+    {
+        item_id: "123",
+        store_id: "Shoprite",
+        name: "tomato sauce",
+        brand: "Rao's",
+        category: "groceries",
+        price: 5.49
+    },
+    {
+        item_id: "123",
+        store_id: "Shawn's",
+        name: "tomato sauce",
+        brand: "Pomi",
+        category: "groceries",
+        price: 3.99
+    },
+    {
+        item_id: "123",
+        store_id: "Shawn's",
+        name: "tomato sauce",
+        brand: "Barilla",
+        category: "groceries",
+        price: 4.59
+    },
+    {
+        item_id: "123",
+        store_id: "Shawn's",
+        name: "tomato sauce",
+        brand: "Rao's",
+        category: "groceries",
+        price: 5.69
+    },
+    {
         item_id: "456",
         store_id: "Shoprite",
         name: "potatoes",

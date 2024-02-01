@@ -16,6 +16,7 @@ import styles, {text_styles, add_button} from '../style.js';
 import CheckList from '../components/CheckList.js'
 
 import { getBrandsList } from '../../redux/funtionality/helperFunctions';
+import { capitalizeTitle } from '../ui_helpers.js'
 
 
 function SelectBrand({route}) {
@@ -25,14 +26,6 @@ function SelectBrand({route}) {
     const state = useSelector(state=>state.allItems);
     const brands = getBrandsList(product, state);
 
-    // for the page title, capitalize the first letter of the item
-    const words = product.split(" ");
-    let item_name = ''
-    for (const word of words) {
-        const letter = word[0].toUpperCase()
-        item_name = item_name.concat(letter, word.slice(1, word.length), " ")
-    };
-
     const navigation = useNavigation();
     const handlePress = ()=>{
         navigation.navigate('Home');
@@ -41,7 +34,7 @@ function SelectBrand({route}) {
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
-            <Text style={brand_style.title}>{item_name}</Text>
+            <Text style={brand_style.title}>{capitalizeTitle(product)}</Text>
 
             <Text style={text_styles.smallTitle}>Brand(s):</Text>
             <View  style={{maxHeight: '62%'}}>

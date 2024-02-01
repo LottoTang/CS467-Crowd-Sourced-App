@@ -14,8 +14,10 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles, {item_style, text_styles, add_button} from '../style.js';
 import CheckList from '../components/CheckList.js'
+import StoresList from '../components/StoresWithItem.js'
 
 import { getBrandsList } from '../../redux/funtionality/helperFunctions';
+import { capitalizeTitle } from '../ui_helpers.js'
 
 
 function ViewItem() {
@@ -25,27 +27,25 @@ function ViewItem() {
     const brandOptions = useSelector(state => state.allItems);
 
     const brands = getBrandsList(product.name, brandOptions);
+    // TODO: get this data from the database or state, a list of only brands that were previously selected
+    const selectedBrands = ["Barilla", "Rao's"]
 
     if (!product) {
         return <Text>No product selected</Text>;
     }
 
-    // for the page title, capitalize the first letter of the item
-    const words = product.name.split(" ");
-    let item_name = ''
-    for (const word of words) {
-        const letter = word[0].toUpperCase()
-        item_name = item_name.concat(letter, word.slice(1, word.length), " ")
-    };
-
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
-            <Text style={view_style.title}>{item_name}</Text>
+            <Text style={view_style.title}>{capitalizeTitle(product.name)}</Text>
 
             <Text style={text_styles.smallTitle}>Brand(s):</Text>
-            <View  style={{maxHeight: '30%'}}>
+            <View  style={{height: '26%', marginBottom: 71}}>
                 <CheckList items={brands} type="brand" />
+            </View>
+            <Text style={text_styles.smallTitle}>Store(s):</Text>
+            <View style={{height: '40%'}}>
+                <StoresList product={product} brands={selectedBrands} />
             </View>
         </View>
     </SafeAreaView>
