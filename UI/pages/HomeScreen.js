@@ -4,19 +4,22 @@ import {
   FlatList,
   StyleSheet,
   Text,
-  View
+  View,
+  Pressable
 } from 'react-native';
-import styles, {item_style, text_styles, add_button} from '../style.js';
+
+
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { viewSelectedItem } from '../../redux/actions/actions.js';
 import { useNavigation } from '@react-navigation/native';
+import styles, {item_style, text_styles, add_button} from '../style.js';
+
 
 
 const ShoppingList = () => {
 // list component for the whole shopping list
     // TODO: replace this with data pulled from the database
-
     // populate the list with items in the state. Right now using fake data 
     const state = useSelector((state)=> state.shoppingList);
     const dispatch = useDispatch();
@@ -26,7 +29,6 @@ const ShoppingList = () => {
         dispatch(viewSelectedItem(item));
         navigation.navigate('TestViewProduct');
     };
-
     return(
         <FlatList
             data={state}
@@ -44,18 +46,17 @@ const ShoppingList = () => {
 
 function HomeScreen({navigation}) {
 // the Home screen itself with its components
+
+// Adding temp functionality for Go Shopping and + buttons so we can navigate to the new pages
   return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
             <View  style={{maxHeight: '79%'}}>
                 <ShoppingList />
-                <Text
-                        style={addButton}
-                        onPress={() =>
-                            navigation.navigate('Add Items')
-                        }>
-                    +
-                </Text>
+
+                <Pressable onPress={()=> navigation.navigate("Add Items")}>
+                    <Text style={addButton}>+</Text>
+                </Pressable>
             </View>
 
             <View style={styles.bottom}>

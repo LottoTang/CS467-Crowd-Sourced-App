@@ -1,6 +1,8 @@
 import React from "react";
 import { View, FlatList, Text, StyleSheet } from 'react-native';
+import { Picker } from "@react-native-picker/picker";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 import { recommendedStoresForTotalShoppingList } from "../../../redux/funtionality/helperFunctions";
 
 
@@ -8,12 +10,20 @@ const TestStoreRec = () =>{
 
     const allItems = useSelector(state => state.allItems);
     const shoppingList = useSelector(state => state.shoppingList);
+    const [ranking, setRanking] = useState("price");
 
-    const recommendedStores = recommendedStoresForTotalShoppingList(shoppingList, allItems);
+    const recommendedStores = recommendedStoresForTotalShoppingList(shoppingList, allItems, ranking);
 
 
     return (
         <View>
+            <Text>Ranking Type</Text>
+            <Picker 
+                selectedValue = {ranking}
+                onValueChange = {(itemValue, itemIndex) => setRanking(itemValue)}>
+                <Picker.Item label="Price" value="price"/>
+                <Picker.Item label="Items Found" value="items"/>
+            </Picker>
             <FlatList
                 data={recommendedStores}
                 renderItem={({item})=>(
