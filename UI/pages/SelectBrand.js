@@ -24,37 +24,24 @@ function SelectBrand({route}) {
 // the Select Brand screen itself with its components
     let {product, preselected} = route.params;
     if (preselected == null) preselected = []
-    
-    // Boolean to check if we are altering an item or adding a new one
-    const editMode = preselected.length > 0 ? true : false;
 
+    const [selected_brands, setSelectedItems] = useState(preselected)
+
+    // TODO: const brands = getBrandsList(product), where func retrieves from database
     const brands = getBrandsList(product, useSelector(state=>state.allItems));
 
     // Set up connection with store to dispatch signal
     const dispatch = useDispatch();
 
-    let state;
-    // Edit item if edit mode, add from scratch if new item
-    
-    if (editMode) {
-        state = preselected;
-        dispatch(setEditingItem(editMode));
-    } else {
-        state = useSelector(state=> state.selectedBrand);
-    } 
-
-
     const navigation = useNavigation();
     const handlePress = ()=>{
-        if (!editMode){
-            dispatch(addItemInShoppingList(product, state));
-        } else { 
-            dispatch(editItemInShoppingList(product, state)); 
-            dispatch(setEditingItem(false));
-        }
-        dispatch(resetSelectedBrand());
+        // TODO: replace dispatch function with function that accesses database
+        dispatch(addItemInShoppingList(product, selected_brands));
         navigation.navigate('Home');
     }
+
+    // params to be passed to the CheckList
+    const data = [brands, "brand", selected_brands, setSelectedItems]
     
     return (
     <SafeAreaView style={styles.app}>
@@ -63,7 +50,7 @@ function SelectBrand({route}) {
 
             <Text style={text_styles.smallTitle}>Brand(s):</Text>
             <View  style={{maxHeight: '62%'}}>
-                <CheckList items={brands} type="brand" preselected={preselected} />
+                <CheckList data={data} />
             </View>
 
             <View style={styles.bottom}>
