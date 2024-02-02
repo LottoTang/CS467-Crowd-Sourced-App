@@ -1,12 +1,14 @@
 // File to handle all actions for redux
 
 import { ADD_ITEM, VIEW_ITEM, NEW_SHOPPING_LIST, STORE_RECOMMENDATIONS, SELECTED_BRAND, DROP_SELECTED_BRAND } from "./actionTypes";
+import { RESET_BRANDS_LIST } from "./actionTypes";
 import { testNewShoppingList } from "../../testData/testingData";
 
 const addItemInShoppingList = (name, brand) => {
+    //console.log(brand);
     return {
         type: ADD_ITEM,
-        payload: {name, brand},
+        payload: {name: name, brand: brand},
     };
 };
 
@@ -31,11 +33,18 @@ const selectBrandItem = (brand) => {
     }
 }
 
-const dropSelectedBrand = () => {
+const dropSelectedBrand = (selectedBrand) => {
     return {
         type: DROP_SELECTED_BRAND,
-        payload: null,
+        payload: selectedBrand,
     }
 }
 
-export {addItemInShoppingList, viewSelectedItem, createNewShoppingList, selectBrandItem, dropSelectedBrand};
+const resetSelectedBrand = () => {
+    return {
+        type: RESET_BRANDS_LIST,
+        payload: [],
+    }
+}
+
+export {addItemInShoppingList, viewSelectedItem, createNewShoppingList, selectBrandItem, dropSelectedBrand, resetSelectedBrand};

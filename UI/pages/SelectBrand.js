@@ -11,7 +11,7 @@ import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItemInShoppingList, dropSelectedBrand } from '../../redux/actions/actions.js';
+import { addItemInShoppingList, resetSelectedBrand } from '../../redux/actions/actions.js';
 
 import styles, {text_styles, add_button} from '../style.js';
 import CheckList from '../components/CheckList.js'
@@ -34,7 +34,7 @@ function SelectBrand({route}) {
     const navigation = useNavigation();
     const handlePress = ()=>{
         dispatch(addItemInShoppingList(product, state));
-        dispatch(dropSelectedBrand());
+        dispatch(resetSelectedBrand());
         navigation.navigate('Home');
     }
 

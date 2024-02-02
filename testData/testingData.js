@@ -178,47 +178,47 @@ export const testList = [
 export const testList2 = [
     {
         name: "tomato sauce",
-        brand: "Brand1",
+        brand: ["Brand1"],
     },
     {
         name: "potatoes",
-        brand: "Bowl and Basket",
+        brand: ["Bowl and Basket"],
     },
     {
         name: "cherries",
-        brand: "Nature",
+        brand: ["Nature"],
     },
     {
         name: "chicken",
-        brand: "Tyson",
+        brand: ["Tyson"],
     },
     {
         name: "bread crumbs",
-        brand: "Knorr",
+        brand: ["Knorr"],
     },
     {
         name: "tuna",
-        brand: "Gordons",
+        brand: ["Gordons"],
     },
     {
         name: "bell peppers",
-        brand: "Bowl and Basket",
+        brand: ["Bowl and Basket"],
     },
     {
         name: "coffee",
-        brand: "Lavazza",
+        brand: ["Lavazza"],
     },
     {
         name: "peanuts",
-        brand: "Bowl and Basket",
+        brand: ["Bowl and Basket"],
     },
     {
         name: "tomato",
-        brand: "Brand2",
+        brand: ["Brand2"],
     },
     {
         name: "tomato juice",
-        brand: "Brand5",
+        brand: ["Brand5"],
     },
 ]
 
@@ -289,4 +289,13 @@ export const sampleData = [
     { item_id: "123", store_id: "Walmart", name: "pizza", brand: "Pomi", category: "groceries", price: 6.99, barcode: "14141241241241222" },
     { item_id: "123", store_id: "Wawa", name: "pizza", brand: "Pomi", category: "groceries", price: 10, barcode: "14141241241241222" },
     { item_id: "123", store_id: "Wawa", name: "pizza", brand: "Brand5", category: "groceries", price: 2.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Wawa", name: "fish", brand: "Brand1", category: "groceries", price: 2.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Wawa", name: "fish", brand: "Brand2", category: "groceries", price: 2.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Wawa", name: "fish", brand: "Brand3", category: "groceries", price: 2.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Wawa", name: "veal", brand: "Brand1", category: "groceries", price: 2.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Wawa", name: "veal", brand: "Brand2", category: "groceries", price: 2.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Wawa", name: "veal", brand: "Brand3", category: "groceries", price: 2.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Wawa", name: "soda", brand: "Brand1", category: "groceries", price: 2.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Wawa", name: "soda", brand: "Brand2", category: "groceries", price: 2.99, barcode: "14141241241241222" },
+    { item_id: "123", store_id: "Wawa", name: "soda", brand: "Brand3", category: "groceries", price: 2.99, barcode: "14141241241241222" },
 ]
