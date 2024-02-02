@@ -1,7 +1,7 @@
 // File to handle all actions for redux
 
 import { ADD_ITEM, VIEW_ITEM, NEW_SHOPPING_LIST, STORE_RECOMMENDATIONS, SELECTED_BRAND, DROP_SELECTED_BRAND } from "./actionTypes";
-import { RESET_BRANDS_LIST } from "./actionTypes";
+import { RESET_BRANDS_LIST, EDIT_ITEM, EDITING } from "./actionTypes";
 import { testNewShoppingList } from "../../testData/testingData";
 
 const addItemInShoppingList = (name, brand) => {
@@ -10,6 +10,20 @@ const addItemInShoppingList = (name, brand) => {
         type: ADD_ITEM,
         payload: {name: name, brand: brand},
     };
+};
+
+const editItemInShoppingList = (name, brand) =>{
+    return {
+        type: EDIT_ITEM,
+        payload: {name, brand},
+    }
+};
+
+const setEditingItem = (value) =>{
+    return {
+        type: EDITING,
+        payload: value,
+    }
 };
 
 const viewSelectedItem = (item) =>{
@@ -48,3 +62,4 @@ const resetSelectedBrand = () => {
 }
 
 export {addItemInShoppingList, viewSelectedItem, createNewShoppingList, selectBrandItem, dropSelectedBrand, resetSelectedBrand};
+export {editItemInShoppingList, setEditingItem };

@@ -33,6 +33,7 @@ const ItemComponent = ({item, type, func=()=>{}, preselected=false}) => {
         }
     };
 
+
     useEffect(() => {
         func(selected)
         if (selected) setIcon("checkbox-marked");
@@ -54,24 +55,24 @@ const ItemComponent = ({item, type, func=()=>{}, preselected=false}) => {
     );
 };
 
-const CheckList = ({items, type="product", preselected=[]}) => {
+const CheckList = ({items, type="product", preselected=[]} ) => {
 // list component composed of items with a checkbox
     const [anyItem, setAny] = useState((preselected == `Any ${type}`));
 
     let showAny = true;
     if (type == "product") showAny = false;
-
+    
     return (
         <View>
             { showAny ? (
                 <ItemComponent item={`Any ${type}`} type={type} func={setAny}
-                               preselected={preselected.includes(`Any ${type}`)}/>
+                               preselected={preselected.includes(`Any ${type}`)} />
             ) : null}
             <FlatList
                 data={items}
                 keyExtractor={(item, index)=> index.toString()}
                 renderItem = { ({item}) =>
-                    <ItemComponent item={item} type={type} preselected={preselected.includes(item)}/>
+                    <ItemComponent item={item} type={type} preselected={preselected.includes(item)} />
                 }
             />
             { anyItem ? (

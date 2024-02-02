@@ -11,7 +11,7 @@ import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItemInShoppingList, resetSelectedBrand } from '../../redux/actions/actions.js';
+import { addItemInShoppingList, resetSelectedBrand, editItemInShoppingList, setEditingItem } from '../../redux/actions/actions.js';
 
 import styles, {text_styles, add_button} from '../style.js';
 import CheckList from '../components/CheckList.js'
@@ -24,20 +24,38 @@ function SelectBrand({route}) {
 // the Select Brand screen itself with its components
     let {product, preselected} = route.params;
     if (preselected == null) preselected = []
+    
+    // Boolean to check if we are altering an item or adding a new one
+    const editMode = preselected.length > 0 ? true : false;
 
     const brands = getBrandsList(product, useSelector(state=>state.allItems));
 
     // Set up connection with store to dispatch signal
     const dispatch = useDispatch();
-    const state = useSelector(state=> state.selectedBrand);
+
+    let state;
+    // Edit item if edit mode, add from scratch if new item
+    
+    if (editMode) {
+        state = preselected;
+        dispatch(setEditingItem(editMode));
+    } else {
+        state = useSelector(state=> state.selectedBrand);
+    } 
+
 
     const navigation = useNavigation();
     const handlePress = ()=>{
-        dispatch(addItemInShoppingList(product, state));
+        if (!editMode){
+            dispatch(addItemInShoppingList(product, state));
+        } else { 
+            dispatch(editItemInShoppingList(product, state)); 
+            dispatch(setEditingItem(false));
+        }
         dispatch(resetSelectedBrand());
         navigation.navigate('Home');
     }
-
+    
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
@@ -45,7 +63,7 @@ function SelectBrand({route}) {
 
             <Text style={text_styles.smallTitle}>Brand(s):</Text>
             <View  style={{maxHeight: '62%'}}>
-                <CheckList items={brands} type="brand" preselected={preselected}/>
+                <CheckList items={brands} type="brand" preselected={preselected} />
             </View>
 
             <View style={styles.bottom}>

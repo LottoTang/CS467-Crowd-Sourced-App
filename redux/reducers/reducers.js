@@ -12,6 +12,7 @@ const initialState = {
     selectedItem: null,
     allItems: sampleData,
     selectedBrand: [],
+    editingItem: false,
 };
 
 
@@ -56,6 +57,18 @@ const homepageReducer = (state= initialState, action) =>{
             return {
                 ...state,
                 selectedBrand: action.payload,
+            }
+        case "EDIT_ITEM":
+            const adjList = state.shoppingList.filter(item => item.name !== action.payload.name);
+            adjList.push(action.payload);
+            return {
+                ... state,
+                shoppingList: adjList,
+            }
+        case "EDITTING":
+            return {
+                ...state,
+                editingItem: action.payload,
             }
         default:
             return state;

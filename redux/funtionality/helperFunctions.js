@@ -164,8 +164,23 @@ function giveSuggestedItems(shoppingList, targetItem){
 }
 
 // Get all Stores that have an item functionality
-function getListOfStores(ListOfBrands){
+function getListOfStores(item, brands, sampleData){
     // TODO
+
+    const storesList = [];
+    const storesFound = [];
+
+    for (let row in sampleData){
+        if (sampleData[row].name == item && brands.includes(sampleData[row].brand)){
+            if (!storesFound.includes(sampleData[row].store_id)){
+                const storeName = sampleData[row].store_id;
+                storesFound.push(storeName);
+                storesList.push({totalCost: sampleData[row].price, retailer: storeName})
+            }
+        }
+    }
+
+    return storesList;
 
 
 }
@@ -206,4 +221,4 @@ function getSelectedBrandsForItem(item, shoppingList){
 //console.log(giveSuggestedItems(sampleData, "tomato sauce"));
 
 
-export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForItem }
+export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForItem, getListOfStores }
