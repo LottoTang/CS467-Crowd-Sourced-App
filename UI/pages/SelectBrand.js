@@ -1,17 +1,16 @@
 import React from 'react';
 import {
   SafeAreaView,
-  FlatList,
   Pressable,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItemInShoppingList, resetSelectedBrand, editItemInShoppingList, setEditingItem } from '../../redux/actions/actions.js';
+import { addItemInShoppingList } from '../../redux/actions/actions.js';
 
 import styles, {text_styles, add_button} from '../style.js';
 import CheckList from '../components/CheckList.js'

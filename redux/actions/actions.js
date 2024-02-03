@@ -12,20 +12,6 @@ const addItemInShoppingList = (name, brand) => {
     };
 };
 
-const editItemInShoppingList = (name, brand) =>{
-    return {
-        type: EDIT_ITEM,
-        payload: {name, brand},
-    }
-};
-
-const setEditingItem = (value) =>{
-    return {
-        type: EDITING,
-        payload: value,
-    }
-};
-
 const viewSelectedItem = (item) =>{
     return {
         type: VIEW_ITEM,
@@ -40,26 +26,4 @@ const createNewShoppingList = () =>{
     };
 };
 
-const selectBrandItem = (brand) => {
-    return {
-        type: SELECTED_BRAND,
-        payload: brand,
-    }
-}
-
-const dropSelectedBrand = (selectedBrand) => {
-    return {
-        type: DROP_SELECTED_BRAND,
-        payload: selectedBrand,
-    }
-}
-
-const resetSelectedBrand = () => {
-    return {
-        type: RESET_BRANDS_LIST,
-        payload: [],
-    }
-}
-
-export {addItemInShoppingList, viewSelectedItem, createNewShoppingList, selectBrandItem, dropSelectedBrand, resetSelectedBrand};
-export {editItemInShoppingList, setEditingItem };
+export {addItemInShoppingList, viewSelectedItem, createNewShoppingList};

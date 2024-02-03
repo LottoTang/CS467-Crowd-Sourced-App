@@ -7,8 +7,7 @@ import {
   View,
 } from 'react-native';
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectBrandItem, dropSelectedBrand } from '../../redux/actions/actions.js';
+import { useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles, {item_style, text_styles,} from '../style.js';
