@@ -39,37 +39,7 @@ const homepageReducer = (state= initialState, action) =>{
                 userId: action.payload.userId,
                 shoppingList: action.payload.shoppingList
             };
-        case "SELECTED_BRAND":
-            return {
-                ...state,
-                selectedBrand:
-                [
-                    ...state.selectedBrand, action.payload
-                ]
-            }
-        case "DROP_SELECTED_BRAND":
-            const newList = state.selectedBrand.filter(item => item !== action.payload);
-            return {
-                ...state,
-                selectedBrand: newList,
-            }
-        case "RESET_BRANDS_LIST":
-            return {
-                ...state,
-                selectedBrand: action.payload,
-            }
-        case "EDIT_ITEM":
-            const adjList = state.shoppingList.filter(item => item.name !== action.payload.name);
-            adjList.push(action.payload);
-            return {
-                ... state,
-                shoppingList: adjList,
-            }
-        case "EDITTING":
-            return {
-                ...state,
-                editingItem: action.payload,
-            }
+
         default:
             return state;
     }

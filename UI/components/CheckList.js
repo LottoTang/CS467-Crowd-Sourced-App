@@ -7,15 +7,16 @@ import {
   View,
 } from 'react-native';
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectBrandItem, dropSelectedBrand } from '../../redux/actions/actions.js';
+import { useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles, {item_style, text_styles,} from '../style.js';
 
 
-const ItemComponent = ({item, type, func=()=>{}, preselected=false}) => {
+const ItemComponent = ({item, func=()=>{}, preselected=false, data}) => {
 // item component that contains name of one item and a checkbox
+    const [items, type, selected_items, setSelectedItems] = data
+
     const [selected, setSelected] = useState(preselected);
     const [icon, setIcon] = useState("checkbox-blank-outline");
     
@@ -23,13 +24,17 @@ const ItemComponent = ({item, type, func=()=>{}, preselected=false}) => {
     const dispatch = useDispatch();
 
     const handleSelectItem = (item) => {
-        setSelected(!selected); 
-        if (type == "brand"){
-            if (selected == false){
-                dispatch(selectBrandItem(item));
-            } else {
-                dispatch(dropSelectedBrand(item));
-            }
+        setSelected(!selected);
+        if (!selected) {
+            items_copy = selected_items.slice()
+            items_copy.push(item)
+            setSelectedItems(items_copy)
+        }
+        else {
+            idx = selected_items.indexOf(item)
+            items_copy = selected_items.slice()
+            items_copy.splice(idx, 1)
+            setSelectedItems(items_copy)
         }
     };
 
@@ -55,9 +60,14 @@ const ItemComponent = ({item, type, func=()=>{}, preselected=false}) => {
     );
 };
 
-const CheckList = ({items, type="product", preselected=[]} ) => {
+const CheckList = ({data}) => {
 // list component composed of items with a checkbox
-    const [anyItem, setAny] = useState((preselected == `Any ${type}`));
+
+    // retrieve the data passed to component
+    const [items, type, selected_items] = data
+
+    // preset to false if selected_items != any items
+    const [anyItem, setAny] = useState((selected_items == `Any ${type}`));
 
     let showAny = true;
     if (type == "product") showAny = false;
@@ -65,14 +75,14 @@ const CheckList = ({items, type="product", preselected=[]} ) => {
     return (
         <View>
             { showAny ? (
-                <ItemComponent item={`Any ${type}`} type={type} func={setAny}
-                               preselected={preselected.includes(`Any ${type}`)} />
+                <ItemComponent item={`Any ${type}`} func={setAny}
+                               preselected={selected_items.includes(`Any ${type}`)} data={data}/>
             ) : null}
             <FlatList
                 data={items}
                 keyExtractor={(item, index)=> index.toString()}
                 renderItem = { ({item}) =>
-                    <ItemComponent item={item} type={type} preselected={preselected.includes(item)} />
+                    <ItemComponent item={item} preselected={selected_items.includes(item)} data={data} />
                 }
             />
             { anyItem ? (
