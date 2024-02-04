@@ -15,9 +15,9 @@ const {createItem, getItemByID} = require("./items-model.js");
 itemsRouter.use(bodyParser.json());
 
 
-itemsRouter.get("/", async (req, res) => {
+itemsRouter.get("/:id", async (req, res) => {
     try {
-        let foundItem = await getItemByID(req.query.id);
+        let foundItem = await getItemByID(req.params.id);
         console.log(foundItem);
         res.status(200).json(foundItem);
     } catch (error) {
@@ -32,7 +32,7 @@ itemsRouter.post("/", async (req, res) => {
     // createItem(req.body.store_name, req.body.name, req.body.product_type,  req.body.brand, req.body.category, req.body.price, req.body.barcode)
     // res.status(201).json()
     try {
-        let newItem = await createItem(req.body.store_name, req.body.name, req.body.product_type,  req.body.brand, req.body.category, req.body.price, req.body.barcode);
+        let newItem = await createItem(req.body.store_name, req.body.product_type, req.body.name,  req.body.brand, req.body.category, req.body.price, req.body.barcode_id, req.body.promotion_id);
         res.status(201).json(newItem);
     } catch (error) {
         console.error(error);
@@ -40,6 +40,28 @@ itemsRouter.post("/", async (req, res) => {
     }
 })  
 
+itemsRouter.patch("/", async (req, res) => {
+    // Things that can be changed: promotion_id and price
+    const keys = Object.keys(req.body)
+    const reqLength = Object.keys(req.body).length
+    let promotion_change = false;
+    let price_change = false;
+
+    let new_promotion = null;
+    let new_price = null;
+    
+    for (let i = 0; i < reqLength; i++) {
+        if (keys[i] === "promotion") {
+            promotion_change = true
+            new_promotion = req.body.promotion_id
+        }
+        if (keys[i] === "price") {
+            price_change = true
+            new_price = req.body.price
+        }
+    }
+    updateItem();
+}) 
 
 
 module.exports = {itemsRouter};
