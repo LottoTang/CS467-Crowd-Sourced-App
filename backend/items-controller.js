@@ -33,7 +33,6 @@ itemsRouter.post("/", async (req, res) => {
     // res.status(201).json()
     try {
         let newItem = await createItem(req.body.store_name, req.body.name, req.body.product_type,  req.body.brand, req.body.category, req.body.price, req.body.barcode);
-        console.log(newItem);
         res.status(201).json(newItem);
     } catch (error) {
         console.error(error);

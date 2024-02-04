@@ -46,7 +46,7 @@ const createItem = async (store_name, product_type, name, brand, category, price
   });
   return item.save()
   .then(item => {
-    console.log('Entry saved successfully:', item);
+    // console.log('Entry saved successfully:', item);
     return item;
   })
   .catch(error => {
