@@ -1,93 +1,150 @@
+// Course: CS467 - Capstone
+// Topic: Crowded-Sourced Shopping App - Backend (User Controller)
+// Author: Long To Lotto Tang
+// Creation Date: 1/29/2024
+// Remarks: Auth0 Default: Login (users/login); Logout (users/logout)
 
-require("dotenv").config();
-const express = require("express");
-const session = require("express-session");
-const axios = require("axios");
-const db = require("./users-model.js");
-const app = express();
+require('dotenv').config();
+const express = require('express');
+const db = require('./users-model.js');
+const {auth, requiresAuth} = require('express-openid-connect');
+const asyncHandler = require('express-async-handler');
+const bodyParser = require('body-parser');
 
 const usersRouter = express.Router();
+const jsonParser = bodyParser.json();
 
 // Utility Functions
-const stringGenerator = (num) => {
-  let characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  let result = "";
-  let charactersLength = characters.length;
-  for (let i = 0; i < num; i++) {
+const stringGenerator = numChar => {
+  const characters =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var result = '';
+  const charactersLength = characters.length;
+  for (var i = 0; i < numChar; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   return result;
 };
 
-// Middleware
-const authChecker = (req, res, next) => {
-  if (req.session.isLoggedIn) {
-    next();
-  } else {
-    console.log("Not Authenticated");
-    return res.redirect("/user");
-  }
-};
+usersRouter.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Internal Server Error');
+});
 
-const options = {
+const USERS_BASE_URL = 'http://localhost:3000/users';
+
+const config = {
+  authRequired: false,
+  auth0Logout: true,
+  baseURL: USERS_BASE_URL,
+  clientID: process.env.AUTH0_CLIENT_ID,
+  issuerBaseURL: `https://${process.env.AUTH0_DOMAIN}`,
   secret: stringGenerator(20),
-  name: "isLoggedIn",
-  saveUninitialized: false,
-  resave: true,
 };
 
-usersRouter.use(session(options));
+usersRouter.use(auth(config));
 
-usersRouter.get("/", (req, res) => {
-  if (req.session.isLoggedIn) {
-    res.send("You are logged in!");
-  } else {
-    res.send("You are not logged in!");
-  }
-});
+usersRouter.get(
+  '/',
+  asyncHandler(async (req, res) => {
+    if (req.oidc.isAuthenticated()) {
+      // Check if new user/existing user
+      const document = await db.findUserByAuthSub(req.oidc.user.sub);
+      if (!document) {
+        // Tell the frontend to redirect to fill in information page
+        res.status(200).send('Tell frontend to go to information page.');
+      } else {
+        // Existing user, return the data
+        res.status(200).send(document);
+      }
+    } else res.send('Logged Out');
+  }),
+);
 
-usersRouter.get("/login", (req, res) => {
-  const state = stringGenerator(20);
-  const scope = "openid%20profile%20email";
-  const loginURL = `https://cs467-crowd-sourced-app.us.auth0.com/authorize?response_type=code&client_id=${process.env.CLIENT_ID}&redirect_uri=http://localhost:3000/user/auth-token&scope=${scope}&state=${state}`;
-  res.redirect(loginURL);
-});
-
-usersRouter.get("/auth-token", async (req, res) => {
-  const authCode = req.query.code;
-  const options = {
-    method: "POST",
-    url: "https://cs467-crowd-sourced-app.us.auth0.com/oauth/token",
-    headers: { "content-type": "application/x-www-form-urlencoded" },
-    data: new URLSearchParams({
-      grant_type: "authorization_code",
-      client_id: process.env.CLIENT_ID,
-      client_secret: process.env.SECRET,
-      code: authCode,
-      redirect_uri: "http://localhost:3000/user/auth-token",
-    }),
-  };
-  try {
-    const query = await axios.request(options);
-    if (query) {
-      req.session.isLoggedIn = true;
-      res.redirect("/user");
+// CREATE: Create a User to database
+usersRouter.post(
+  '/',
+  requiresAuth(),
+  jsonParser,
+  asyncHandler(async (req, res) => {
+    const userInfo = req.oidc.user;
+    const fullname = req.body.fullname;
+    const username = req.body.username;
+    const city = req.body.city;
+    const state = req.body.state;
+    // Data Validation: req.body entry is not empty
+    if (!fullname || !username || !city || !state) {
+      return res
+        .status(400)
+        .send({Error: 'Missing one of the required fields.'});
     }
-  } catch (err) {
-    console.log("Error:", err);
-  }
-});
+    const user = await db.createUsers(
+      userInfo.sub,
+      userInfo.email,
+      fullname,
+      username,
+      city,
+      state,
+    );
+    res.status(201).send(user);
+  }),
+);
 
-usersRouter.get("/logout", authChecker, (req, res) => {
-  req.session.destroy(() => {
-    console.log("Session destroyed!");
-    res.redirect("/user");
-  });
-});
+// READ: Read a User's profile (Users can see other's profile)
+usersRouter.get(
+  '/:_id',
+  requiresAuth(),
+  asyncHandler(async (req, res) => {
+    const userID = req.params._id;
+    const document = await db.findUserById(userID);
+    res.status(200).send(document);
+  }),
+);
 
+// UPDATE: Update User's personal particulars (Only User himself can modify)
+usersRouter.patch(
+  '/:_id',
+  requiresAuth(),
+  jsonParser,
+  asyncHandler(async (req, res) => {
+    const userID = req.params._id;
+    const document = await db.findUserById(userID);
+    if (document.auth_sub === req.oidc.user.sub) {
+      const update = {};
+      if (req.body.fullname) update.fullname = req.body.fullname;
+      if (req.body.username) update.username = req.body.username;
+      if (req.body.city) update.city = req.body.city;
+      if (req.body.state) update.state = req.body.state;
+      const updateCount = await db.updateUser({_id: userID}, update);
+      // return the number of modified item (Expected: 1)
+      res.status(200).send({updateCount: updateCount});
+    } else {
+      res.status(401).send({Error: 'Unauthorized operation.'});
+    }
+  }),
+);
 
-module.exports = {
-  usersRouter,
-  authChecker
-};
+// UPDATE: Update User's shopping_list_item (Temporary Code)
+usersRouter.patch(
+  '/shopping-list-item/:_id',
+  requiresAuth(),
+  jsonParser,
+  asyncHandler(async (req, res) => {
+    const userID = req.params._id;
+    const document = db.findUserById(userID);
+    const shoppingListItem = req.body;
+    if (document.auth_sub === req.oidc.user.sub) {
+      const parsedShoppingListItem =
+        await db.parseShoppingListItem(shoppingListItem);
+      // Update shopping_list_item to database
+      const update = {};
+      update.shopping_list_item = parsedShoppingListItem;
+      const updateCount = await db.updateUser({_id: userID}, update);
+      res.status(200).send({updateCount: updateCount});
+    } else {
+      res.status(401).send({Error: 'Unauthorized operation.'});
+    }
+  }),
+);
+
+module.exports = {usersRouter};
