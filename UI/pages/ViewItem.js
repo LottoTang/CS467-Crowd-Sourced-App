@@ -31,7 +31,7 @@ function ViewItem() {
     const item_ids = shoppingList[product]
     const items = getItemsList(item_ids, allItems)
 
-    const selected_brands = getSelectedBrandsForProduct(product, items);
+    const selected_brands = getSelectedBrandsForProduct(items);
 
     if (!product) {
         return <Text>No product selected</Text>;
@@ -105,7 +105,7 @@ function ViewItem() {
                 </View>
             </View>
             <View style={{height: '70%'}}>
-                <StoresList product={product} brands={selected_brands} items={items}/>
+                <StoresList items={items}/>
             </View>
         </View>
     </SafeAreaView>

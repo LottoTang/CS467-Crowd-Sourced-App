@@ -176,8 +176,8 @@ function getBrandsList(targetItem, products){
     }
 }
 
-// Get list of brands selected for a product
-function getSelectedBrandsForProduct(product, items){
+// Get list of brands selected for a product based on the items corresponding to the product
+function getSelectedBrandsForProduct(items){
     const brands = new Set()
     for (let item of items){
         brands.add(item.brand)

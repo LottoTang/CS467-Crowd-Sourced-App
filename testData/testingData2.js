@@ -96,7 +96,7 @@ for (const product_id of Object.keys(products)){
                     store: store_id,
                     product: product_id,
                     brand: brand,
-                    price: ((Math.floor(Math.random()*1000) + 1) / 100),
+                    price: ((Math.floor(Math.random()*900) + 100) / 100),
                     promotion: promotion_id
                 }
                 i += 1
@@ -147,3 +147,10 @@ function generateShoppingList() {
 }
 
 export {products, stores, promotions, items, generateShoppingList}
+
+
+
+shopping_list_looks_like = {
+    "tomato": ["item_id1", "item_id2", "item_id3"],
+    "potato": ["item_id1", "item_id2", "item_id3"]
+}

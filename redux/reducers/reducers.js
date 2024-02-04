@@ -23,7 +23,6 @@ const homepageReducer = (state= initialState, action) =>{
         case "ADD_ITEM":
             const new_list = {...state.shoppingList}
             const items = []
-            console.log(action.payload.brands)
             for (const item_id of Object.keys(state.allItems)){
                 const item = state.allItems[item_id]
                 const product = state.products[item.product].name
@@ -31,7 +30,6 @@ const homepageReducer = (state= initialState, action) =>{
                     if (action.payload.brands.includes(item.brand)) items.push(item_id)
                 }
             }
-            console.log(items)
             new_list[action.payload.name] = items
             return {
                 ...state,
