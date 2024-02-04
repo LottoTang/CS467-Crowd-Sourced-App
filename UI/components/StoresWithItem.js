@@ -7,7 +7,8 @@ import {
 } from 'react-native';
 import { useState, useEffect } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import { getListOfStores } from '../../redux/funtionality/helperFunctions.js';
+import { useSelector } from 'react-redux';
 import styles, {item_style, text_styles,} from '../style.js';
 
 import {testItemsList} from '../../testData/testingData.js'
@@ -58,10 +59,13 @@ const StoresList = ({product, brands}) => {
         }
     }
 
+    const storesData = useSelector(state => state.allItems);
+    const storeDetails = getListOfStores(product, brands, storesData);
+
     return (
         <View>
             <FlatList
-                data={list_data}
+                data={storeDetails}
                 keyExtractor={(item, index)=> index.toString()}
                 renderItem = { ({item}) =>
                     <ItemComponent item={item} />

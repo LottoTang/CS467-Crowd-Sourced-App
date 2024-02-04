@@ -11,7 +11,8 @@ const initialState = {
     shoppingList: testList2,
     selectedItem: null,
     allItems: sampleData,
-    selectedBrand: null,
+    selectedBrand: [],
+    editingItem: false,
 };
 
 
@@ -38,16 +39,7 @@ const homepageReducer = (state= initialState, action) =>{
                 userId: action.payload.userId,
                 shoppingList: action.payload.shoppingList
             };
-        case "SELECTED_BRAND":
-            return {
-                ...state,
-                selectedBrand: action.payload
-            }
-        case "DROP_SELECTED_BRAND":
-            return {
-                ...state,
-                selectedBrand: null,
-            }
+
         default:
             return state;
     }

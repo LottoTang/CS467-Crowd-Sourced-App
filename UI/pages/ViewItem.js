@@ -16,7 +16,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import styles, {item_style, text_styles, add_button, popup_style} from '../style.js';
 import CheckList from '../components/CheckList.js'
 import StoresList from '../components/StoresWithItem.js'
-
+import { getSelectedBrandsForItem, getListOfStores } from '../../redux/funtionality/helperFunctions';
 import { getBrandsList } from '../../redux/funtionality/helperFunctions';
 import { capitalizeTitle } from '../ui_helpers.js'
 
@@ -26,10 +26,13 @@ function ViewItem() {
     const product = useSelector(state=> state.selectedItem);
 
     const brandOptions = useSelector(state => state.allItems);
-
-    const brands = getBrandsList(product.name, brandOptions);
+    const shoppingList = useSelector(state => state.shoppingList);
+    
+    const brands = getBrandsList(product.name, brandOptions); 
     // TODO: get this data from the database or state, a list of only brands that were previously selected
-    const selected_brands = ["Barilla", "Rao's", "Brand2", "Brand5"]
+    const selected_brands = getSelectedBrandsForItem(product.name, shoppingList);
+    const allItems = useSelector(state => state.allItems);
+    const storesList = getListOfStores(product.name, product.brand, allItems);
 
     if (!product) {
         return <Text>No product selected</Text>;
@@ -103,7 +106,7 @@ function ViewItem() {
                 </View>
             </View>
             <View style={{height: '70%'}}>
-                <StoresList product={product} brands={selected_brands} />
+                <StoresList product={product.name} brands={selected_brands} />
             </View>
         </View>
     </SafeAreaView>
