@@ -18,7 +18,7 @@ const ShoppingList = () => {
 // list component for the whole shopping list
 
     // populate the list with items in the state. Right now using fake data 
-    const state = useSelector((state)=> state.shoppingList);
+    const shopping_list = useSelector((state)=> state.shoppingList);
     const dispatch = useDispatch();
     const navigation = useNavigation();
 
@@ -28,11 +28,11 @@ const ShoppingList = () => {
     };
     return(
         <FlatList
-            data={state}
+            data={Object.keys(shopping_list)}
             renderItem = { ({item}) =>(
                 <Pressable style={item_style} onPress={()=> handleSelectedItem(item)}>
                     <Text style={text_styles.itemText}>
-                        {item.name}
+                        {item}
                     </Text>
                 </Pressable>
             )}

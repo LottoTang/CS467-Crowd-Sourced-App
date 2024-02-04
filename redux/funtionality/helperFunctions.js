@@ -137,24 +137,24 @@ function recommendedStoresForTotalShoppingList(shoppingList, sampleData, ranking
 }
 
 // Method to return recommended items -> DONE
-function giveSuggestedItems(shoppingList, targetItem){
-
+function giveSuggestedItems(products, targetItem){
     const similarItems = [];
 
     // get words in item user gave
     const targets = targetItem.split(" ");
 
-    // Iterate throuh all items in database
-    for (let item in shoppingList){
+    // Iterate through all items in database
+    for (let product_id of Object.keys(products)){
+        product = products[product_id].name
         
         //split the words in the item from main list 
-        let words = shoppingList[item].name.split(" ");
+        let words = product.split(" ");
 
         // check if there is a match for each word in item list with target item
         for (let target in targets){
             if (words.includes(targets[target])){
-                if (!similarItems.includes(shoppingList[item].name)){
-                    similarItems.push(shoppingList[item].name);
+                if (!similarItems.includes(product)){
+                    similarItems.push(product);
                 }
             }
         }
@@ -163,57 +163,34 @@ function giveSuggestedItems(shoppingList, targetItem){
 
 }
 
-// Get all Stores that have an item functionality
-function getListOfStores(item, brands, sampleData){
-    // TODO
-
-    const storesList = [];
-    const storesFound = [];
-
-    for (let row in sampleData){
-        if (sampleData[row].name == item && brands.includes(sampleData[row].brand)){
-            if (!storesFound.includes(sampleData[row].store_id)){
-                const storeName = sampleData[row].store_id;
-                storesFound.push(storeName);
-                storesList.push({totalCost: sampleData[row].price, retailer: storeName})
-            }
-        }
-    }
-
-    return storesList;
-
-
-}
-
 // Get list of brands -> DONE
-function getBrandsList(targetItem, sampleData){
+function getBrandsList(targetItem, products){
     let listOfBrands = [];
     const selection = targetItem.toString().trimEnd();
-    for (let item in sampleData){
-        
-        if (sampleData[item].name == selection){
-            if (!(listOfBrands.includes(sampleData[item].brand))){            
-                listOfBrands.push(sampleData[item].brand);
-            }
-
+    for (let product_id of Object.keys(products)){
+        if (products[product_id].name == selection){
+            return products[product_id].brands
         }
     }
-    //console.log(listOfBrands);
-    return listOfBrands;
 }
 
-// Get list of brands selected for an item
-function getSelectedBrandsForItem(item, shoppingList){
-    
-    for (let product in shoppingList){
-        //console.log(shoppingList[product].name);
-        if (shoppingList[product].name == item){
-            return shoppingList[product].brand;
-        }
+// Get list of brands selected for a product
+function getSelectedBrandsForProduct(product, items){
+    const brands = new Set()
+    for (let item of items){
+        brands.add(item.brand)
     }
+    return Array.from(brands);
 
-    return [];
+}
 
+// given a list of item ids, retrieves the items from the collection of all items
+function getItemsList(item_ids, allItems) {
+    const items = []
+    for (const id of item_ids){
+        items.push(allItems[id])
+    }
+    return items
 }
 
 
@@ -221,4 +198,4 @@ function getSelectedBrandsForItem(item, shoppingList){
 //console.log(giveSuggestedItems(sampleData, "tomato sauce"));
 
 
-export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForItem, getListOfStores }
+export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForProduct, getItemsList }
