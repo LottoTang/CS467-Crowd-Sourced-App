@@ -22,20 +22,24 @@ import { capitalizeTitle } from '../ui_helpers.js'
 function SelectBrand({route}) {
 // the Select Brand screen itself with its components
     let {product, preselected} = route.params;
-    if (preselected == null) preselected = []
+    if (preselected == undefined) preselected = []
 
     const [selected_brands, setSelectedItems] = useState(preselected)
 
     // TODO: const brands = getBrandsList(product), where func retrieves from database
-    const brands = getBrandsList(product, useSelector(state=>state.allItems));
+    const allProducts = useSelector(state => state.products);
+    const brands = getBrandsList(product, allProducts);
 
     // Set up connection with store to dispatch signal
     const dispatch = useDispatch();
 
     const navigation = useNavigation();
     const handlePress = ()=>{
+        let selected = selected_brands
+        if (selected_brands.includes("Any brand")) selected = brands
+
         // TODO: replace dispatch function with function that accesses database
-        dispatch(addItemInShoppingList(product, selected_brands));
+        dispatch(addItemInShoppingList(product, selected));
         navigation.navigate('Home');
     }
 
