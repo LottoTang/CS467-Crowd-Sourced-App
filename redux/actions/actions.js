@@ -4,16 +4,15 @@ import { ADD_ITEM, VIEW_ITEM, NEW_SHOPPING_LIST, STORE_RECOMMENDATIONS} from "./
 import { testNewShoppingList } from "../../testData/testingData";
 
 // Use to add an item in shopping list
-const addItemInShoppingList = (name, brand) => {
+const addItemInShoppingList = (name, brands) => {
     //console.log(brand);
     return {
         type: ADD_ITEM,
-        payload: {name: name, brand: brand},
+        payload: {name: name, brands: brands},
     };
 };
 
 const viewSelectedItem = (item) =>{
-    //console.log(item);
     return {
         type: VIEW_ITEM,
         payload: item,
