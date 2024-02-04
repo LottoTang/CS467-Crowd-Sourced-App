@@ -1,41 +1,44 @@
 // Course: CS467 - Capstone
-// Topic: Crowded-Sourced Shopping App - Backend (Model)
+// Topic: Crowded-Sourced Shopping App - Backend (Users Model)
 // Author: Long To Lotto Tang
 // Creation Date: 1/29/2024
 
-require("dotenv").config();
-const { auth } = require("express-openid-connect");
-const mongoose = require("mongoose");
+require('dotenv').config();
+const mongoose = require('mongoose');
 
-// Connect to the Atlas cluster or local MongoDB
-mongoose.connect(process.env.MONGODB_CONNECT_STRING, { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_CONNECT_STRING, {useNewUrlParser: true});
 const db = mongoose.connection;
 
-// Confirm that the database has connected
-db.once("open", () => {
-  console.log("Successfully connected to MongoDB using Mongoose.");
+db.once('open', () => {
+  console.log('Successfully connected to MongoDB using Mongoose.');
 });
 
-// Create model
-
-// Users - CRUD
+// Users Schema
 const usersSchema = new mongoose.Schema({
-  user_id: { type: String, required: true },
-  shopping_list_id: { type: Array, required: true },
-  email: { type: String, required: true },
-  fullname: { type: String, required: true },
-  username: { type: String, required: true },
-  city: { type: String, required: true },
-  state: { type: String, required: true },
-  shopping_level: { type: Number, required: true },
+  auth_sub: {type: String, required: true},
+  shopping_list_item: {type: Object, required: true},
+  email: {type: String, required: true},
+  fullname: {type: String, required: true},
+  username: {type: String, required: true},
+  city: {type: String, required: true},
+  state: {type: String, required: true},
+  shopping_level: {type: Number, required: true},
 });
 
-const Users = mongoose.model("Users", usersSchema, "Users");
+const Users = mongoose.model('Users', usersSchema, 'Users');
 
-const createUsers = async (auth_id, email, fullname, username, city, state) => {
+// CREATE: Create Users
+const createUsers = async (
+  auth_sub,
+  email,
+  fullname,
+  username,
+  city,
+  state,
+) => {
   const users = new Users({
-    user_id: auth_id,
-    shopping_list_id: [],
+    auth_sub: auth_sub,
+    shopping_list_item: {},
     email: email,
     fullname: fullname,
     username: username,
@@ -46,18 +49,54 @@ const createUsers = async (auth_id, email, fullname, username, city, state) => {
   return users.save();
 };
 
-const findUserById = async (_id) => {
-  const query = await Users.findbyId(_id);
-  return query.exec();
+// READ: Find by _id or auth_sub
+const findUserById = async _id => {
+  const document = await Users.findById(_id).exec();
+  return document;
 };
 
+const findUserByAuthSub = async auth_sub => {
+  const document = await Users.findOne({auth_sub: auth_sub}).exec();
+  return document;
+};
+
+// UPDATE: Update a User; Return number of modified data (expected: 1)
 const updateUser = async (filter, update) => {
   const result = await Users.updateOne(filter, update);
   return result.modifiedCount;
 };
 
+// UPDATE: Update the shopping_level (Not Yet Implemented)
+const updateUserShoppingLevel = async auth_sub => {
+  return;
+};
+
+// UTILITY FUNCTION: Parse shopping_list_item with documents (NOT YET TESTED)
+// Expected input: {"tomato sauce": ["brandA, brandB"]}
+// Expected output: {"tomato sauce": [{document1}, {document2}]}
+const parseShoppingListItem = async body => {
+  const shoppingListItems = Object.entries(body);
+  const shoppingList = {};
+  for (const [name, brand] of shoppingListItems) {
+    // User selected specific brand(s)
+    if (brand) {
+      for (brandName of brand) {
+        const collection = await Items.find({name: name, brand: brandName});
+        shoppingList[name] = collection;
+      }
+    } else {
+      // User did not select any brand
+      const collection = await Items.find({name: name});
+      shoppingList[name] = collection;
+    }
+  }
+  return shoppingList;
+};
+
 module.exports = {
   createUsers,
   findUserById,
+  findUserByAuthSub,
   updateUser,
+  parseShoppingListItem,
 };
