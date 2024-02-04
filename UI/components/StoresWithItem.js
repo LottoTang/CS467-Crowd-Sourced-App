@@ -50,7 +50,7 @@ const ItemComponent = ({item}) => {
                     </Text>
                 ) : null}
                 <Text style={[text_styles.smallTitle, {marginTop: 0, alignSelf: 'flex-end'}]}>
-                    ${item.price}
+                    {item.price.toLocaleString('en', {style: "currency", currency: "USD"})}
                 </Text>
             </View>
         </View>
