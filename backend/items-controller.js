@@ -17,7 +17,7 @@ itemsRouter.use(bodyParser.json());
 
 itemsRouter.get("/", async (req, res) => {
     try {
-        let foundItem = await getItemByID("65bea853828537b356370e35");
+        let foundItem = await getItemByID(req.query.id);
         console.log(foundItem);
         res.status(200).json(foundItem);
     } catch (error) {
