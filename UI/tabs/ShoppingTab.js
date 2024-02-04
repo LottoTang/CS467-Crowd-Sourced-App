@@ -14,6 +14,7 @@ import { AddItemForm } from '../pages/TestPages/TestAddItem.js';
 import { TestViewProduct } from '../pages/TestPages/TestViewProduct.js';
 import { BrandSelector } from '../pages/TestPages/TestSelectBrand.js';
 import { TestStoreRec } from '../pages/TestPages/TestStoreRec.js';
+import { TestMissingItems } from '../pages/TestPages/TestMissingItems.js';
 
 
 const Stack = createNativeStackNavigator();
@@ -61,6 +62,10 @@ const ShoppingTab = () => {
             <Stack.Screen name="TestStoreRec"
               component={TestStoreRec}
               options={{title: "Test Store Rec"}}
+            />
+            <Stack.Screen name="TestMissingItems"
+              component={TestMissingItems}
+              options={{title: "Test Missing Items"}}
             />
         </Stack.Navigator>
     )

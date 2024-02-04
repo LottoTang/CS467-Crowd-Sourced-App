@@ -6,9 +6,9 @@ import {
   View,
 } from 'react-native';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import { getListOfStores } from '../../redux/funtionality/helperFunctions.js';
+import { useSelector } from 'react-redux';
 import styles, {item_style, text_styles,} from '../style.js';
 
 import {testItemsList} from '../../testData/testingData.js'

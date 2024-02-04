@@ -3,6 +3,7 @@
 import { ADD_ITEM, VIEW_ITEM, NEW_SHOPPING_LIST, STORE_RECOMMENDATIONS} from "./actionTypes";
 import { testNewShoppingList } from "../../testData/testingData";
 
+// Use to add an item in shopping list
 const addItemInShoppingList = (name, brands) => {
     //console.log(brand);
     return {
@@ -18,6 +19,7 @@ const viewSelectedItem = (item) =>{
     };
 };
 
+// create new shopping list
 const createNewShoppingList = () =>{
     return {
         type: NEW_SHOPPING_LIST,
