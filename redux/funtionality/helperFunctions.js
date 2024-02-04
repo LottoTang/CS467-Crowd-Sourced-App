@@ -118,7 +118,9 @@ function recommendedStoresForTotalShoppingList(shoppingList, sampleData, ranking
     if (ranking == "price"){
         //Sort stores based on price
         listOfRecommendations.sort((a,b) => a[1].totalCost - b[1].totalCost);
-    } else {
+    } else if (ranking == "store_name"){
+        listOfRecommendations.sort((a,b) => b[1].storeName - a[1].storeName);
+    } else if (ranking == "items"){
         // sort stores based on items found 
         listOfRecommendations.sort((a,b) => b[1].itemsFound - a[1].itemsFound);
     }
@@ -131,7 +133,8 @@ function recommendedStoresForTotalShoppingList(shoppingList, sampleData, ranking
             sortedList.push({storeName: listOfRecommendations[i][1].storeName, totalCost: listOfRecommendations[i][1].totalCost, numItems: listOfRecommendations[i][1].itemsFound });
         }
     }
-
+    
+    //console.log(sortedList);
     return sortedList;
 
 }
@@ -164,24 +167,99 @@ function giveSuggestedItems(shoppingList, targetItem){
 }
 
 // Get all Stores that have an item functionality
-function getListOfStores(ListOfBrands){
+function getListOfStores(item, brands, sampleData){
+
+    const storesList = [];
+    const storesFound = [];
+
+    for (let row in sampleData){
+        if (sampleData[row].name == item && brands.includes(sampleData[row].brand)){
+            if (!storesFound.includes(sampleData[row].store_id)){
+                const storeName = sampleData[row].store_id;
+                storesFound.push(storeName);
+                storesList.push({price: sampleData[row].price, store_id: storeName, brand: sampleData[row].brand});
+            }
+        }
+    }
+
+    return storesList;
 
 
 }
 
-// Get list of brands -> DONE
+// Get list of brands available for an item in all stores-> DONE
 function getBrandsList(targetItem, sampleData){
     let listOfBrands = [];
     const selection = targetItem.toString().trimEnd();
     for (let item in sampleData){
         
         if (sampleData[item].name == selection){
-            
-            listOfBrands.push(sampleData[item].brand);
+            if (!(listOfBrands.includes(sampleData[item].brand))){            
+                listOfBrands.push(sampleData[item].brand);
+            }
+
         }
     }
     //console.log(listOfBrands);
     return listOfBrands;
+}
+
+// Get list of brands selected for an item
+function getSelectedBrandsForItem(item, shoppingList){
+    
+    for (let product in shoppingList){
+        //console.log(shoppingList[product].name);
+        if (shoppingList[product].name == item){
+            return shoppingList[product].brand;
+        }
+    }
+
+    return [];
+
+}
+
+//Helper method to extract items available and items missing from the shopping list in a particular store
+function getShoppingListItemsInStore(shoppingList, storeName, allItems){
+
+    const breakdown = {itemsAvailable: [], itemsMissing: []};
+    
+    // First capture the items available
+    for (let product in allItems){
+        if (allItems[product].store_id === storeName){
+            for (let item in shoppingList){
+
+                if (shoppingList[item].name === allItems[product].name){
+             
+                        if (allItems[product].brand == shoppingList[item].brand && !(breakdown.itemsAvailable.includes(shoppingList[item].name))){
+
+                            breakdown.itemsAvailable.push(shoppingList[item].name);
+                        } 
+                    
+                }
+            }
+        }
+    }
+
+    // Capture missing items
+
+    for (let missingItem in shoppingList){
+        if (!breakdown.itemsAvailable.includes(shoppingList[missingItem].name)) breakdown.itemsMissing.push(shoppingList[missingItem].name);
+    }
+
+    return breakdown;
+
+}
+
+// Get dictionary with brand and product name details for a selected item in the shopping list
+function getProductInShoppingListDetails(itemName, shoppingList){
+
+    let productDetails = {};
+    for (let product in shoppingList){
+        if (shoppingList[product].name == itemName){
+            productDetails.product = {name: itemName, brand: shoppingList[product].brand};
+        }
+    }
+    return productDetails;
 }
 
 
@@ -189,4 +267,5 @@ function getBrandsList(targetItem, sampleData){
 //console.log(giveSuggestedItems(sampleData, "tomato sauce"));
 
 
-export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList }
+export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForItem, getListOfStores }
+export { getShoppingListItemsInStore, getProductInShoppingListDetails }
