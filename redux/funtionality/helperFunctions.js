@@ -202,15 +202,16 @@ function getShoppingListItemsInStore(shoppingList, storeName, allItems){
 
     // First capture the items available
     for (let product in allItems){
-        if (allItems[product].store_id == storeName){
+        if (allItems[product].store_id === storeName){
             for (let item in shoppingList){
 
-                if (shoppingList[item].name == allItems[product].name){
-                    let brands = allItems[product].brand;
-                    if (brands.includes(shoppingList[item].brand)){
+                if (shoppingList[item].name === allItems[product].name){
 
-                        breakdown.itemsAvailable.push(shoppingList[item].name);
-                    }
+                        if (allItems[product].brand == shoppingList[item].brand && !(breakdown.itemsAvailable.includes(shoppingList[item].name))){
+
+                            breakdown.itemsAvailable.push(shoppingList[item].name);
+                        }
+
                 }
             }
         }
@@ -221,7 +222,6 @@ function getShoppingListItemsInStore(shoppingList, storeName, allItems){
     for (let missingItem in shoppingList){
         if (!breakdown.itemsAvailable.includes(shoppingList[missingItem].name)) breakdown.itemsMissing.push(shoppingList[missingItem].name);
     }
-
 
     return breakdown;
 
