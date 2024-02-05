@@ -57,7 +57,7 @@ function HomeScreen({navigation}) {
             </View>
 
             <View style={styles.bottom}>
-                <Text style={shopButton} onPress={()=>navigation.navigate("TestStoreRec")}>
+                <Text style={shopButton} onPress={()=>navigation.navigate("View Store Recs")}>
                     Go Shopping!
                 </Text>
             </View>

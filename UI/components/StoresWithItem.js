@@ -31,7 +31,7 @@ const ItemComponent = ({item}) => {
     if (promotion) promotion_type = promotion.promotion_type
 
     return (
-        <View style={[item_style]}>
+        <View style={item_style}>
             <View style={[styles.wide_row, {alignSelf: 'center'}]}>
                 <Text style={[text_styles.smallTitle, {marginLeft: 0, marginTop: 0}]}>
                     {store.name}
