@@ -9,7 +9,7 @@ const itemsRouter = express.Router();
 const bodyParser = require('body-parser');
 
 const {authChecker} = require("./users-controller.js");
-const {createItem, getItemByID} = require("./items-model.js");
+const {createItem, getItemByID, updateItem} = require("./items-model.js");
 
 // use body parser to parse json requests
 itemsRouter.use(bodyParser.json());
@@ -40,27 +40,37 @@ itemsRouter.post("/", async (req, res) => {
     }
 })  
 
-itemsRouter.patch("/", async (req, res) => {
+itemsRouter.patch("/:id", async (req, res) => {
     // Things that can be changed: promotion_id and price
-    const keys = Object.keys(req.body)
-    const reqLength = Object.keys(req.body).length
-    let promotion_change = false;
-    let price_change = false;
+    // const keys = Object.keys(req.body)
+    // const reqLength = Object.keys(req.body).length
+    // let promotion_change = false;
+    // let price_change = false;
 
-    let new_promotion = null;
-    let new_price = null;
+    // let new_promotion = null;
+    // let new_price = null;
+
+    let updatedItem;
     
-    for (let i = 0; i < reqLength; i++) {
-        if (keys[i] === "promotion") {
-            promotion_change = true
-            new_promotion = req.body.promotion_id
-        }
-        if (keys[i] === "price") {
-            price_change = true
-            new_price = req.body.price
-        }
+    // for (let i = 0; i < reqLength; i++) {
+    //     if (keys[i] === "promotion") {
+    //         promotion_change = true
+    //         new_promotion = req.body.promotion_id
+    //     }
+    //     if (keys[i] === "price") {
+    //         price_change = true
+    //         new_price = req.body.price
+    //     }
+    // }
+
+    try {
+        updatedPromotion = await updateItem(req.params.id, req.body.price, req.body.promotion_id);
+        res.status(201).json(newItem);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Something went wrong' });
     }
-    updateItem();
+
 }) 
 
 

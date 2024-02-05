@@ -71,11 +71,20 @@ const getItemByID = async (item_id) => {
   }
 };
 
-updateItem = async (item_id) => {
+updateItem= async (item_id, new_price, new_promotion) => {
+  if (new_price !== null) {
+    let this_item = await Items.updateOne({ _id: item_id}, {"$set": {"price": "new_price"}} );
+  }
+  if (new_promotion !== null) {
+    // will be query once promotion table in place
+    let this_item = await Items.updateOne({ _id: item_id}, {"$set": {"promotion": "new_promotion"}} );
+  }
 
 }
 
+
 module.exports = {
   createItem,
-  getItemByID
+  getItemByID,
+  updateItem
 };
