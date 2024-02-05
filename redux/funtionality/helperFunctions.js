@@ -120,7 +120,9 @@ function recommendedStoresForTotalShoppingList(shoppingList, sampleData, ranking
     if (ranking == "price"){
         //Sort stores based on price
         listOfRecommendations.sort((a,b) => a[1].totalCost - b[1].totalCost);
-    } else {
+    } else if (ranking == "store_name"){
+        listOfRecommendations.sort((a,b) => b[1].storeName - a[1].storeName);
+    } else if (ranking == "items"){
         // sort stores based on items found 
         listOfRecommendations.sort((a,b) => b[1].itemsFound - a[1].itemsFound);
     }
@@ -139,24 +141,24 @@ function recommendedStoresForTotalShoppingList(shoppingList, sampleData, ranking
 }
 
 // Method to return recommended items -> DONE
-function giveSuggestedItems(shoppingList, targetItem){
-
+function giveSuggestedItems(products, targetItem){
     const similarItems = [];
 
     // get words in item user gave
     const targets = targetItem.split(" ");
 
-    // Iterate throuh all items in database
-    for (let item in shoppingList){
+    // Iterate through all items in database
+    for (let product_id of Object.keys(products)){
+        product = products[product_id].name
         
         //split the words in the item from main list 
-        let words = shoppingList[item].name.split(" ");
+        let words = product.split(" ");
 
         // check if there is a match for each word in item list with target item
         for (let target in targets){
             if (words.includes(targets[target])){
-                if (!similarItems.includes(shoppingList[item].name)){
-                    similarItems.push(shoppingList[item].name);
+                if (!similarItems.includes(product)){
+                    similarItems.push(product);
                 }
             }
         }
@@ -165,25 +167,78 @@ function giveSuggestedItems(shoppingList, targetItem){
 
 }
 
-// Get all Stores that have an item functionality
-function getListOfStores(ListOfBrands){
+// Get list of brands -> DONE
+function getBrandsList(targetItem, products){
+    let listOfBrands = [];
+    const selection = targetItem.toString().trimEnd();
+    for (let product_id of Object.keys(products)){
+        if (products[product_id].name == selection){
+            return products[product_id].brands
+        }
+    }
+}
 
+// Get list of brands selected for a product based on the items corresponding to the product
+function getSelectedBrandsForProduct(items){
+    const brands = new Set()
+    for (let item of items){
+        brands.add(item.brand)
+    }
+    return Array.from(brands);
 
 }
 
-// Get list of brands -> DONE
-function getBrandsList(targetItem, sampleData){
-    let listOfBrands = [];
-    const selection = targetItem.toString().trimEnd();
-    for (let item in sampleData){
-        
-        if (sampleData[item].name == selection){
-            
-            listOfBrands.push(sampleData[item].brand);
+// given a list of item ids, retrieves the items from the collection of all items
+function getItemsList(item_ids, allItems) {
+    const items = []
+    for (const id of item_ids){
+        items.push(allItems[id])
+    }
+    return items
+}
+
+//Helper method to extract items available and items missing from the shopping list in a particular store
+function getShoppingListItemsInStore(shoppingList, storeName, allItems){
+
+    const breakdown = {itemsAvailable: [], itemsMissing: []};
+
+    // First capture the items available
+    for (let product in allItems){
+        if (allItems[product].store_id === storeName){
+            for (let item in shoppingList){
+
+                if (shoppingList[item].name === allItems[product].name){
+
+                        if (allItems[product].brand == shoppingList[item].brand && !(breakdown.itemsAvailable.includes(shoppingList[item].name))){
+
+                            breakdown.itemsAvailable.push(shoppingList[item].name);
+                        }
+
+                }
+            }
         }
     }
-    //console.log(listOfBrands);
-    return listOfBrands;
+
+    // Capture missing items
+
+    for (let missingItem in shoppingList){
+        if (!breakdown.itemsAvailable.includes(shoppingList[missingItem].name)) breakdown.itemsMissing.push(shoppingList[missingItem].name);
+    }
+
+    return breakdown;
+
+}
+
+// Get dictionary with brand and product name details for a selected item in the shopping list
+function getProductInShoppingListDetails(itemName, shoppingList){
+
+    let productDetails = {};
+    for (let product in shoppingList){
+        if (shoppingList[product].name == itemName){
+            productDetails.product = {name: itemName, brand: shoppingList[product].brand};
+        }
+    }
+    return productDetails;
 }
 
 
@@ -191,4 +246,5 @@ function getBrandsList(targetItem, sampleData){
 //console.log(giveSuggestedItems(sampleData, "tomato sauce"));
 
 
-export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList }
+export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForProduct, getItemsList }
+export { getShoppingListItemsInStore, getProductInShoppingListDetails }

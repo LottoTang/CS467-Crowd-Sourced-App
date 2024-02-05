@@ -6,6 +6,7 @@ import headerFunc from '../components/Header.js';
 import HomeScreen from '../pages/HomeScreen.js';
 import AddItems from '../pages/AddItems.js';
 import SelectBrand from '../pages/SelectBrand.js';
+import ViewItem from '../pages/ViewItem.js';
 
 // Intermediate pages to test functionality until you create the actual view
 import TestingPage from '../pages/TestPages/TestingPage.js';
@@ -13,6 +14,7 @@ import { AddItemForm } from '../pages/TestPages/TestAddItem.js';
 import { TestViewProduct } from '../pages/TestPages/TestViewProduct.js';
 import { BrandSelector } from '../pages/TestPages/TestSelectBrand.js';
 import { TestStoreRec } from '../pages/TestPages/TestStoreRec.js';
+import { TestMissingItems } from '../pages/TestPages/TestMissingItems.js';
 
 
 const Stack = createNativeStackNavigator();
@@ -35,6 +37,11 @@ const ShoppingTab = () => {
               component={SelectBrand}
               options={{title: ''}}
             />
+            <Stack.Screen
+              name="View Item"
+              component={ViewItem}
+              options={{title: ''}}
+            />
 
             <Stack.Screen name="Testing"
               component={TestingPage}
@@ -55,6 +62,10 @@ const ShoppingTab = () => {
             <Stack.Screen name="TestStoreRec"
               component={TestStoreRec}
               options={{title: "Test Store Rec"}}
+            />
+            <Stack.Screen name="TestMissingItems"
+              component={TestMissingItems}
+              options={{title: "Test Missing Items"}}
             />
         </Stack.Navigator>
     )

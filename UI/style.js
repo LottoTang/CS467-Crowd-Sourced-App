@@ -85,7 +85,8 @@ const styles = StyleSheet.create({
     },
     row: {
         flexDirection: 'row',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
     },
     wideRow: {
         flexDirection: 'row',
@@ -93,7 +94,11 @@ const styles = StyleSheet.create({
 
         justifyContent: 'space-between',
         alignSelf: 'center',
-    }
+    },
+    horizontalList: {
+        maxWidth: '96%',
+        marginLeft: 10
+    },
 });
 
 const text_styles = StyleSheet.create({
@@ -122,7 +127,12 @@ const text_styles = StyleSheet.create({
 
         marginLeft: 8,
         marginTop: 4,
-    }
+    },
+    footnote: {
+        fontSize: 11,
+        color: styles.textColor.color,
+        fontFamily: styles.fontRegular.fontFamily,
+    },
 });
 
 const item_style = [
@@ -157,8 +167,26 @@ const add_button = [
     text_styles.button
 ];
 
+const popup_style = StyleSheet.create({
+    style: {
+        width: '95%',
+        height: '60%',
+        borderTopLeftRadius: 40,
+        borderTopRightRadius: 40,
+        backgroundColor: styles.itemBackground.color,
+        alignSelf: 'center',
+        padding: 20
+    },
+    background: {
+        height: '100%',
+        backgroundColor: `${styles.backgroundColor.color}80`,
+        flex: 1,
+        justifyContent: 'flex-end',
+    }
+})
+
 export default styles;
-export {item_style, text_styles, add_button}
+export {item_style, text_styles, add_button, popup_style}
 
 
 
@@ -193,6 +221,8 @@ export {item_style, text_styles, add_button}
     bottom
  Margins:
     "
+
+ Position
 
  Flex:
     direction

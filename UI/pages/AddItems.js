@@ -12,6 +12,7 @@ import styles, {item_style, text_styles, add_button} from '../style.js';
 import { giveSuggestedItems } from '../../redux/funtionality/helperFunctions.js';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 const ItemComponent = ({item}) => {
@@ -23,14 +24,26 @@ const ItemComponent = ({item}) => {
         navigation.navigate('Select Brand', {product: item});
     };
 
+    const shoppingList = useSelector((state)=> state.shoppingList);
+
+    if (item in shoppingList) {
+        return (
+              <View style={item_style}>
+                  <Text style={text_styles.itemText}>{item}</Text>
+                  <Icon
+                      name={"check"}
+                      size={26}
+                      color={styles.secondaryItemBackground.color}
+                      style={{alignSelf: 'center', paddingRight: 16}}
+                  />
+              </View>
+        )
+    }
+
     return (
         <View style={item_style}>
-            <Text style={text_styles.itemText}>
-                {item}
-            </Text>
-            <Text style={button} onPress={()=> handleAddItem(item)}>
-                +
-            </Text>
+            <Text style={text_styles.itemText}>{item}</Text>
+            <Text style={button} onPress={()=> handleAddItem(item)}>+</Text>
         </View>
     )
 }
@@ -79,8 +92,12 @@ const CreateItem = ({suggestions, product}) => {
     // TODO: a function may need to be passed to the ItemComponent to add the item to the database
     return (
         <View style={styles.bottom}>
-            <Text style={text_styles.smallTitle}>Create an item for "{product}"</Text>
-            <ItemComponent item={product} />
+            <View style={styles.row}>
+                <Text style={[text_styles.smallTitle, {alignSelf: 'center', paddingRight: 8}]}>Create </Text>
+                <View style={{width: '78%'}} >
+                    <ItemComponent item={product} />
+                </View>
+            </View>
         </View>
     )
 }
@@ -88,8 +105,8 @@ const CreateItem = ({suggestions, product}) => {
 
 function AddItems() {
 // the Add Item screen itself with its components
-    const state = useSelector((state)=>state.allItems);
-    const allItems = state;
+    const state = useSelector((state)=>state.products);
+    const allProducts = state;
     const [suggestedItems, setSuggestedItems] = useState('');
     const [productName, setProductName] = useState('');
 
@@ -97,7 +114,7 @@ function AddItems() {
     // Because we don't have access to the database it works with Tomato and Tomato Sauce inputs from the test data
     const handleInputChange = (text)=>{
         setProductName(text);
-        const filterData = giveSuggestedItems(allItems, text);
+        const filterData = giveSuggestedItems(allProducts, text);
         setSuggestedItems(filterData);
     }
 
@@ -127,7 +144,7 @@ export default AddItems;
 
 const add_style = StyleSheet.create({
     suggestionList: {
-        maxHeight: '60%',
+        maxHeight: '66%',
         marginTop: 12,
     },
     searchText: {
