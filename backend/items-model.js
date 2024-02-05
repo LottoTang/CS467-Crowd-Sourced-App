@@ -71,15 +71,14 @@ const getItemByID = async (item_id) => {
   }
 };
 
-updateItem= async (item_id, new_price, new_promotion, price_change, promotion_change) => {
+const updateItem = async (item_id, new_price, new_promotion, price_change, promotion_change) => {
   if (price_change === true) {
     await Items.updateOne({ _id: item_id}, {"$set": {"price": new_price}} );
   }
   if (promotion_change === true) {
     // will be query once promotion table in place
-    await Items.updateOne({ _id: item_id}, {"$set": {"promotion": "new_promotion"}} );
+    await Items.updateOne({ _id: item_id}, {"$set": {"promotion_id": new_promotion}} );
   }
-
 }
 
 

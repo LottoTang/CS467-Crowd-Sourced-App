@@ -18,7 +18,6 @@ itemsRouter.use(bodyParser.json());
 itemsRouter.get("/:id", async (req, res) => {
     try {
         let foundItem = await getItemByID(req.params.id);
-        console.log(foundItem);
         res.status(200).json(foundItem);
     } catch (error) {
         console.error(error);
