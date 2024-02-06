@@ -20,11 +20,12 @@ const itemsSchema = new mongoose.Schema({
   brand: { type: String, required: true },
   category: { type: String, required: true },
   price: { type: Number, required: true },
-  barcode: { type: String }
+  barcode_id: { type: String },
+  promotion_id: { type: String }
 }, { versionKey: false });
 
 const Items = mongoose.model("Items", itemsSchema, "Items");
-const createItem = async (store_name, product_type, name, brand, category, price, barcode) => {
+const createItem = async (store_name, product_type, name, brand, category, price, barcode_id, promotion_id) => {
 
   // check that store exists
   // let store_value = get by name store store function
@@ -42,7 +43,8 @@ const createItem = async (store_name, product_type, name, brand, category, price
     brand: brand,
     category: category,
     price: price,
-    barcode: barcode
+    barcode_id: barcode_id,
+    promotion_id: promotion_id
   });
   return item.save()
   .then(item => {
@@ -67,10 +69,21 @@ const getItemByID = async (item_id) => {
     console.error('Error finding entry:', error);
     throw error; // Rethrow the error if needed
   }
-
 };
+
+const updateItem = async (item_id, new_price, new_promotion, price_change, promotion_change) => {
+  if (price_change === true) {
+    await Items.updateOne({ _id: item_id}, {"$set": {"price": new_price}} );
+  }
+  if (promotion_change === true) {
+    // will be query once promotion table in place
+    await Items.updateOne({ _id: item_id}, {"$set": {"promotion_id": new_promotion}} );
+  }
+}
+
 
 module.exports = {
   createItem,
-  getItemByID
+  getItemByID,
+  updateItem
 };

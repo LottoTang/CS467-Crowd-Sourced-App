@@ -1,5 +1,8 @@
 // The purpose of this document is to contain helper methods for the app
 
+// import data from test file 2
+import { items, products, stores, promotions } from "../../testData/testingData2";
+
 // Test data
 const testData = [
     { item_id: "123", store_id: "Shoprite", name: "tomato sauce", brand: "Barilla", category: "groceries", price: 4.99 },
@@ -109,6 +112,7 @@ function recommendedStoresForTotalShoppingList(shoppingList, sampleData, ranking
 
             if (hasItem > 0){
                 storesObj[storeName] = {...storesObj[storeName], itemsFound: storesObj[storeName].itemsFound + 1, totalCost: storesObj[storeName].totalCost + hasItem};
+
             }
         }
     }
@@ -239,10 +243,132 @@ function getProductInShoppingListDetails(itemName, shoppingList){
     return productDetails;
 }
 
+// Helper method to get the minimum price for an item in a store in the list of items
+function getLowestPriceItem(itemsList, storeId, items){
+    
+    let lowestPrice = 10000; 
 
-//console.log(getBrandsList("tomato sauce", sampleData));
-//console.log(giveSuggestedItems(sampleData, "tomato sauce"));
+    // Iterate through the list of items
+    for (let item in itemsList){
+        
+        // Check if available in target store
+        if (items[itemsList[item]].store == storeId){
+            if (items[itemsList[item]].price < lowestPrice){
+                lowestPrice = items[itemsList[item]].price;
+            }
+        }
+    }
 
+    return lowestPrice;
+}
+
+
+// Method to return stores, number of items and total cost - Adjusted based on latest database schema
+function getGoShoppingList(shoppingList, items, stores){
+
+    const storeDetails = {};
+
+    // Get total number of items in shopping list
+    let itemsListed = 0;
+    for (let rec in shoppingList){
+        itemsListed += 1;
+    }
+
+    // Capture the name off each store
+    for (let store in stores){
+        if (!(store in storeDetails)){
+            storeDetails[store] = {name: stores[store].name, totalCost: 0, numItems: 0, itemsInSL: itemsListed};
+        }
+    }
+
+    // Iterate through every item in the shopping list
+    for (let shoppingItem in shoppingList){
+        
+        // Capture all brands selected for an item in the shopping list
+        const listBrands = shoppingList[shoppingItem];
+        //Get lowest price for an item in each store
+
+        for (let store in stores){
+            const lowestPrice = getLowestPriceItem(listBrands, store, items);
+
+            if (lowestPrice < 10000){
+                storeDetails[store].totalCost = storeDetails[store].totalCost + lowestPrice;
+                storeDetails[store].numItems = storeDetails[store].numItems + 1;
+            }
+        }
+       
+    }
+    
+    return storeDetails;
+    
+}
+
+// Provide a ranking of stores by number of items found, store name and total cost
+// takes as input the output of the getGoShoppingList function
+function getStoresSorting(inputObject, sorting){
+
+    let sortedList = Object.values(inputObject);
+
+    if (sorting == "price"){
+        sortedList.sort((a, b) => a.totalCost - b.totalCost);
+    } else if (sorting == "items"){
+        sortedList.sort((a, b) => b.numItems - a.numItems);
+    } else if (sorting == "store_name"){
+        sortedList.sort((a, b) => {
+            const nameA = a.name.toUpperCase();
+            const nameB = b.name.toUpperCase();
+
+            if (nameA < nameB){
+                return -1;
+            } else if (nameA > nameB){
+                return 1;
+            } else {
+                return 1
+            }
+        });
+    }
+
+    return sortedList;
+
+}
+
+// Function to sort a list of store options for a selected item by price, brand and store
+function getItemSorting(items, sorting, stores){
+
+    if (sorting == "Price"){
+        items.sort((a, b) => a.price - b.price);
+    } else if (sorting == "Brand"){
+        items.sort((a, b) => {
+            const prodA = a.brand.toUpperCase();
+            const prodB = b.brand.toUpperCase();
+
+            if (prodA < prodB){
+                return -1;
+            } else if (prodA > prodB){
+                return 1;
+            } else {
+                return 0;
+            }
+        })
+    } else if (sorting == "Store"){
+        items.sort((a, b) => {
+
+            const nameA = stores[a.store].name.toUpperCase();
+            const nameB = stores[b.store].name.toUpperCase();
+
+            if (nameA < nameB){
+                return -1;
+            } else if (nameA > nameB){
+                return 1;
+            } else {
+                return 0;
+            }
+
+        })
+    }
+
+    return items;
+}   
 
 export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForProduct, getItemsList }
-export { getShoppingListItemsInStore, getProductInShoppingListDetails }
+export { getShoppingListItemsInStore, getProductInShoppingListDetails, getGoShoppingList, getStoresSorting, getItemSorting }

@@ -73,8 +73,12 @@ possible_promotions = ["50% off", "20% off", "50¢ off", "$1 off", "Buy 1 Get 1 
 for (const idx in possible_promotions){
     promotions[idx] = {   promotion_type: possible_promotions[idx],
                             // start between 0 and 5 days before today, end 0-5 days after today
-                            start_time: (new Date(+new Date() - 86400000 * Math.floor(Math.random()*5))).getTime(),
-                            end_time: (new Date(+new Date() + 86400000 * Math.floor(Math.random()*5))).getTime() }
+                            // Used Date.now() method instead of new Date due to returning error otherwise
+                            //start_time : Date.now() - 86400000 * Math.floor(Math.random() * 5),
+                            //end_time : Date.now() + 86400000 * Math.floor(Math.random() * 5) }
+
+                            start_time: new Date(+new Date() - 86400000 * Math.floor(Math.random()*5)),
+                            end_time: new Date(+new Date() + 86400000 * Math.floor(Math.random()*5)) }
 }
 
 const items = {}
