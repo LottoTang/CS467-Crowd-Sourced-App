@@ -1,8 +1,7 @@
 import React from 'react';
 import {
   SafeAreaView,
-  ScrollView,
-  FlatList,
+  SectionList,
   Modal,
   Pressable,
   StyleSheet,
@@ -42,37 +41,6 @@ const ItemComponent = ({item, data}) => {
     );
 };
 
-function CheckList({data}) {
-    item_data = data.splice(3, 2)
-    const [items, title, size, setSelected] = data
-
-    const clearSelected = () => {
-        // TODO: create function that removes checked off items from list (right now only visual)
-        setSelected([])
-    };
-
-    return(
-        <View>
-            { items.length > 0 ? (
-            <Text style={text_styles.smallTitle}>{title}</Text>
-            ) : null}
-            <View  style={{maxHeight: {size}}}>
-                <FlatList
-                    data={items}
-                    keyExtractor={(item, index)=> index.toString()}
-                    renderItem = { ({item}) =>
-                        <ItemComponent item={item} data={item_data} />
-                    }
-                />
-            </View>
-            { title == "Checked off" && items.length > 0 ? (
-                <Pressable onPress={()=> clearSelected()}>
-                    <Text style={addButton}>Clear</Text>
-                </Pressable>
-            ) : null}
-        </View>
-    );
-}
 
 function ItemsAtStore() {
 // the View Items at Specified Store screen itself with its components
@@ -80,10 +48,8 @@ function ItemsAtStore() {
     const shopping_list = useSelector((state)=> state.shoppingList);
     const products = Object.keys(shopping_list)
 
-    const items_missing = ["tomato juice", "peanuts"]
 
-    const [unselected_products, setUnselectedItems] = useState(products.filter(product => !items_missing.includes(product)))
-    const [selected_products, setSelectedItems] = useState([])
+    const items_missing = ["tomato juice", "peanuts"]
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
@@ -92,6 +58,12 @@ function ItemsAtStore() {
         dispatch(viewSelectedItem(item));
         navigation.navigate('View Item');
     };
+
+
+    const [unselected_products, setUnselectedItems] = useState(
+            products.filter(product => !items_missing.includes(product))
+            )
+    const [selected_products, setSelectedItems] = useState([])
 
     const handleSelect = (item, isSelected) => {
         if (isSelected) {
@@ -109,20 +81,57 @@ function ItemsAtStore() {
         }
     }
 
-    list_data_1 = [items_missing, "Items Missing at this Store", '40%', null, handleViewMissing]
-    list_data_2 = [unselected_products, "Shopping List", '90%', false, handleSelect]
-    list_data_3 = [selected_products, "Checked off", '90%', true, handleSelect, setSelectedItems]
+    const clearSelected = () => {
+        // TODO: create function that removes checked off items from list (right now only visual)
+        setSelectedItems([])
+    };
 
-    const list_data = [list_data_1, list_data_2, list_data_3]
+
+    const list_data = [
+        {
+            title: "Items Missing at this Store",
+            data: items_missing,
+            selected: null,
+            func: handleViewMissing
+        },
+        {
+            title: "Shopping List",
+            data: unselected_products,
+            selected: false,
+            func: handleSelect
+        },
+        {
+            title: "Checked off",
+            data: selected_products,
+            selected: true,
+            func: handleSelect
+        }
+    ]
 
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container} >
-            <FlatList
-                data={[0, 1, 2]}
+            <SectionList
+                sections={list_data}
                 keyExtractor={(item, index)=> index.toString()}
-                renderItem = { ({item}) =>
-                    <CheckList data={list_data[item]} />
+                renderItem = { ({item, section}) =>
+                    <ItemComponent item={item} data={[section.selected, section.func]} />
+                }
+                renderSectionHeader={ ({section: {title, data}}) => (
+                    <View>
+                        { data.length > 0 ? (
+                        <Text style={text_styles.smallTitle}>{title}</Text>
+                        ) : null}
+                    </View>
+                )}
+                ListFooterComponent={
+                    <View>
+                        { selected_products.length > 0 ? (
+                            <Pressable onPress={()=> clearSelected()} >
+                                <Text style={addButton}>Clear</Text>
+                            </Pressable>
+                        ) : null}
+                    </View>
                 }
             />
         </View>
@@ -131,6 +140,7 @@ function ItemsAtStore() {
 };
 
 export default ItemsAtStore;
+
 
 const store_items_style = StyleSheet.create({
    addButton: {
