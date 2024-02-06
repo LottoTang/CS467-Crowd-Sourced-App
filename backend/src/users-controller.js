@@ -8,7 +8,6 @@ require('dotenv').config();
 const express = require('express');
 const db = require('./users-model.js');
 const {auth, requiresAuth} = require('express-openid-connect');
-const asyncHandler = require('express-async-handler');
 const bodyParser = require('body-parser');
 
 const usersRouter = express.Router();
@@ -26,11 +25,6 @@ const stringGenerator = numChar => {
   return result;
 };
 
-usersRouter.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Internal Server Error');
-});
-
 const USERS_BASE_URL = 'http://localhost:3000/users';
 
 const config = {
@@ -44,11 +38,10 @@ const config = {
 
 usersRouter.use(auth(config));
 
-usersRouter.get(
-  '/',
-  asyncHandler(async (req, res) => {
-    if (req.oidc.isAuthenticated()) {
-      // Check if new user/existing user
+usersRouter.get('/', async (req, res) => {
+  if (req.oidc.isAuthenticated()) {
+    // Check if new or existing user
+    try {
       const document = await db.findUserByAuthSub(req.oidc.user.sub);
       if (!document) {
         // Tell the frontend to redirect to fill in information page
@@ -57,27 +50,25 @@ usersRouter.get(
         // Existing user, return the data
         res.status(200).send(document);
       }
-    } else res.send('Logged Out');
-  }),
-);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    }
+  } else res.send('Logged Out');
+});
 
 // CREATE: Create a User to database
-usersRouter.post(
-  '/',
-  requiresAuth(),
-  jsonParser,
-  asyncHandler(async (req, res) => {
-    const userInfo = req.oidc.user;
-    const fullname = req.body.fullname;
-    const username = req.body.username;
-    const city = req.body.city;
-    const state = req.body.state;
-    // Data Validation: req.body entry is not empty
-    if (!fullname || !username || !city || !state) {
-      return res
-        .status(400)
-        .send({Error: 'Missing one of the required fields.'});
-    }
+usersRouter.post('/', requiresAuth(), jsonParser, async (req, res) => {
+  const userInfo = req.oidc.user;
+  const fullname = req.body.fullname;
+  const username = req.body.username;
+  const city = req.body.city;
+  const state = req.body.state;
+  // Data Validation: req.body entry is not empty
+  if (!fullname || !username || !city || !state) {
+    return res.status(400).send({Error: 'Missing one of the required fields.'});
+  }
+  try {
     const user = await db.createUsers(
       userInfo.sub,
       userInfo.email,
@@ -87,64 +78,75 @@ usersRouter.post(
       state,
     );
     res.status(201).send(user);
-  }),
-);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 // READ: Read a User's profile (Users can see other's profile)
-usersRouter.get(
-  '/:_id',
-  requiresAuth(),
-  asyncHandler(async (req, res) => {
-    const userID = req.params._id;
+usersRouter.get('/:_id', async (req, res) => {
+  const userID = req.params._id;
+  try {
     const document = await db.findUserById(userID);
     res.status(200).send(document);
-  }),
-);
+  } catch (err) {
+    console.error(err);
+    res.status(404).send({Error: 'No user with this users._id exists.'});
+  }
+});
 
-// UPDATE: Update User's personal particulars (Only User himself can modify)
-usersRouter.patch(
-  '/:_id',
-  requiresAuth(),
-  jsonParser,
-  asyncHandler(async (req, res) => {
-    const userID = req.params._id;
+// UPDATE: Update User's personal particulars
+usersRouter.patch('/:_id', jsonParser, async (req, res) => {
+  const userID = req.params._id;
+  try {
     const document = await db.findUserById(userID);
-    if (document.auth_sub === req.oidc.user.sub) {
-      const update = {};
-      if (req.body.fullname) update.fullname = req.body.fullname;
-      if (req.body.username) update.username = req.body.username;
-      if (req.body.city) update.city = req.body.city;
-      if (req.body.state) update.state = req.body.state;
+    const update = {};
+    if (req.body.fullname) update.fullname = req.body.fullname;
+    if (req.body.username) update.username = req.body.username;
+    if (req.body.city) update.city = req.body.city;
+    if (req.body.state) update.state = req.body.state;
+    try {
       const updateCount = await db.updateUser({_id: userID}, update);
       // return the number of modified item (Expected: 1)
       res.status(200).send({updateCount: updateCount});
-    } else {
-      res.status(401).send({Error: 'Unauthorized operation.'});
+    } catch (err) {
+      console.error(err);
+      res.status(500).send({Error: 'Internal Server Error'});
     }
-  }),
-);
+  } catch (err) {
+    console.error(err);
+    res.status(404).send({Error: 'No user with this users._id exists.'});
+  }
+});
 
 // UPDATE: Update User's shopping_list_item (Temporary Code)
-usersRouter.patch(
-  '/shopping-list-item/:_id',
-  requiresAuth(),
-  jsonParser,
-  asyncHandler(async (req, res) => {
-    const userID = req.params._id;
-    const document = db.findUserById(userID);
+usersRouter.patch('/shopping-list-item/:_id', jsonParser, async (req, res) => {
+  const userID = req.params._id;
+  try {
+    const document = await db.findUserById(userID);
     const shoppingListItem = req.body;
-    if (document.auth_sub === req.oidc.user.sub) {
+    try {
       const parsedShoppingListItem =
         await db.parseShoppingListItem(shoppingListItem);
       // Update shopping_list_item to database
       const update = {};
       update.shopping_list_item = parsedShoppingListItem;
-      const updateCount = await db.updateUser({_id: userID}, update);
-      res.status(200).send({updateCount: updateCount});
-    } else {
-      res.status(401).send({Error: 'Unauthorized operation.'});
+      try {
+        const updateCount = await db.updateUser({_id: userID}, update);
+        res.status(200).send({updateCount: updateCount});
+      } catch (err) {
+        console.error(err);
+        res.status(500).send({Error: 'Internal Server Error'});
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).send({Error: 'Internal Server Error'});
     }
-  }),
-);
+  } catch (err) {
+    console.error(err);
+    res.status(404).send({Error: 'No user with this users._id exists.'});
+  }
+});
 
 module.exports = {usersRouter};
