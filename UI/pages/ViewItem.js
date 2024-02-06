@@ -17,8 +17,9 @@ import styles, {item_style, text_styles, add_button, popup_style} from '../style
 import CheckList from '../components/CheckList.js'
 import StoresList from '../components/StoresWithItem.js'
 import { getSelectedBrandsForProduct, getItemsList } from '../../redux/funtionality/helperFunctions';
-import { getBrandsList } from '../../redux/funtionality/helperFunctions';
+import { getBrandsList, getItemSorting } from '../../redux/funtionality/helperFunctions';
 import { capitalizeTitle } from '../ui_helpers.js'
+import { stores } from '../../testData/testingData2.js';
 
 
 function ViewItem() {
@@ -32,6 +33,8 @@ function ViewItem() {
     const items = getItemsList(item_ids, allItems)
 
     const selected_brands = getSelectedBrandsForProduct(items);
+    //let sortedResult = getItemSorting(items, "Price");
+    const [sortedResult, setSortedResult] = useState(getItemSorting(items, "Price", stores));
 
     if (!product) {
         return <Text>No product selected</Text>;
@@ -48,7 +51,10 @@ function ViewItem() {
     const closePopup = (selection=null) => {
         // if (selection)... TODO: add code for sorting here
         setPopup(false)
+        const newSortedList = getItemSorting(items, selection, stores);
+        setSortedResult(newSortedList);
     }
+
 
     return (
     <SafeAreaView style={styles.app}>
@@ -105,7 +111,7 @@ function ViewItem() {
                 </View>
             </View>
             <View style={{height: '70%'}}>
-                <StoresList items={items}/>
+                <StoresList items={sortedResult}/>
             </View>
         </View>
     </SafeAreaView>

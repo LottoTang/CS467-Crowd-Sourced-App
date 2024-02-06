@@ -6,7 +6,7 @@ import { useState } from "react";
 import { recommendedStoresForTotalShoppingList } from "../../../redux/funtionality/helperFunctions";
 import { useNavigation } from "@react-navigation/native";
 import { items, stores, products, promotions } from "../../../testData/testingData2";
-import { getGoShoppingList } from "../../../redux/funtionality/helperFunctions";
+import { getGoShoppingList, getStoresSorting } from "../../../redux/funtionality/helperFunctions";
 
 
 const TestStoreRec = () =>{
@@ -17,7 +17,8 @@ const TestStoreRec = () =>{
     const navigation = useNavigation();
 
     const storesBreakdown = getGoShoppingList(shoppingList, items, stores);
-    const data = Object.values(storesBreakdown);
+    const rankedData = getStoresSorting(storesBreakdown, ranking);
+    //const data = Object.values(storesBreakdown);
 
     const handleStore = (item)=>{
         navigation.navigate("TestMissingItems", {shoppingList: item});
@@ -35,7 +36,7 @@ const TestStoreRec = () =>{
                 <Picker.Item label="Store" value="store_name"/>
             </Picker>
             <FlatList
-                data={data}
+                data={rankedData}
                 renderItem={({item})=>(
                     <View>
                         <Pressable onPress={()=>handleStore(item)}>
