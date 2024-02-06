@@ -11,10 +11,12 @@ import {
 import { useState } from 'react';
 import styles, {item_style, text_styles, add_button, popup_style} from '../style.js';
 import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 
 const ItemComponent = ({store_id, allStores}) => {
 // store component that contains name of the store, number of items found, and total cost
+    const navigation = useNavigation();
 
     const store = allStores[store_id]
 
@@ -23,7 +25,7 @@ const ItemComponent = ({store_id, allStores}) => {
     const total = 20.57
 
     return (
-        <View style={[item_style]}>
+        <Pressable style={[item_style]} onPress={()=>navigation.navigate("View Items at Store") } >
             <View style={[styles.wide_row, {alignSelf: 'center'}]}>
                 <Text style={[text_styles.smallTitle, {marginLeft: 0, marginTop: 0}]}>
                     {store.name}
@@ -40,7 +42,7 @@ const ItemComponent = ({store_id, allStores}) => {
                     {total.toLocaleString('en', {style: "currency", currency: "USD"})}
                 </Text>
             </View>
-        </View>
+        </Pressable>
     );
 };
 

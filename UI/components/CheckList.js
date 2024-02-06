@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles, {item_style, text_styles,} from '../style.js';
+import { removeItemFromArray } from '../ui_helpers.js'
 
 
 const ItemComponent = ({item, func=()=>{}, preselected=false, data}) => {
@@ -31,10 +32,7 @@ const ItemComponent = ({item, func=()=>{}, preselected=false, data}) => {
             setSelectedItems(items_copy)
         }
         else {
-            idx = selected_items.indexOf(item)
-            items_copy = selected_items.slice()
-            items_copy.splice(idx, 1)
-            setSelectedItems(items_copy)
+            setSelectedItems(removeItemFromArray(item, selected_items));
         }
     };
 
