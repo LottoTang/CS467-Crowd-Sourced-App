@@ -1,3 +1,4 @@
+// react imports
 import React from 'react';
 import {
   SafeAreaView,
@@ -6,6 +7,8 @@ import {
   View,
 } from 'react-native';
 import {getHeaderTitle} from '@react-navigation/elements';
+
+// style imports
 import styles from '../style.js';
 
 const headerFunc = ({navigation, route, options, back}) => {

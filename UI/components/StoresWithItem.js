@@ -1,3 +1,4 @@
+// react imports
 import React from 'react';
 import {
   FlatList,
@@ -5,13 +6,11 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useState, useEffect } from 'react';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { getListOfStores } from '../../redux/funtionality/helperFunctions.js';
 import { useSelector } from 'react-redux';
-import styles, {item_style, text_styles,} from '../style.js';
 
-import {testItemsList} from '../../testData/testingData.js'
+// style imports
+import styles, {item_style, text_styles,} from '../style.js';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 const ItemComponent = ({item}) => {
@@ -31,7 +30,7 @@ const ItemComponent = ({item}) => {
     if (promotion) promotion_type = promotion.promotion_type
 
     return (
-        <View style={[item_style]}>
+        <View style={item_style}>
             <View style={[styles.wide_row, {alignSelf: 'center'}]}>
                 <Text style={[text_styles.smallTitle, {marginLeft: 0, marginTop: 0}]}>
                     {store.name}
@@ -50,7 +49,7 @@ const ItemComponent = ({item}) => {
                     </Text>
                 ) : null}
                 <Text style={[text_styles.smallTitle, {marginTop: 0, alignSelf: 'flex-end'}]}>
-                    ${item.price}
+                    {item.price.toLocaleString('en', {style: "currency", currency: "USD"})}
                 </Text>
             </View>
         </View>
