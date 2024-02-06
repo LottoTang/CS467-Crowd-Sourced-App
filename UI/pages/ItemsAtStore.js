@@ -53,14 +53,15 @@ function ItemsAtStore({route}) {
 
     const shopping_list = useSelector(state => state.shoppingList);
     const allItems = useSelector(state => state.allItems);
+    const allStores = useSelector(state => state.allStores);
 
     // collect dictionary of items available/missing
-    const breakdown_items = getShoppingListItemsInStore(shopping_list, store.name, allItems);
+    const breakdown_items = getShoppingListItemsInStore(shopping_list, store.name, allItems, allStores);
     const items_found = breakdown_items.itemsAvailable;
     const items_missing = breakdown_items.itemsMissing;
 
     const dispatch = useDispatch();
-    const navigation = useNavigation();
+    const navigation = useNavigation(); 
 
     const handleViewMissing = (item)=>{
         dispatch(viewSelectedItem(item));
