@@ -39,8 +39,9 @@ function ViewItem() {
     const items = getItemsList(item_ids, allItems)
 
     const selected_brands = getSelectedBrandsForProduct(items);
-    //let sortedResult = getItemSorting(items, "Price");
-    const [sortedResult, setSortedResult] = useState(getItemSorting(items, "Price", stores));
+
+    const [ranking, setRanking] = useState("price");
+    const rankedData = getItemSorting(items, ranking, stores);
 
     if (!product) {
         return <Text>No product selected</Text>;
@@ -62,10 +63,8 @@ function ViewItem() {
     ]
 
     const closePopup = (selection=null) => {
-        // if (selection)... TODO: add code for sorting here
+        setRanking(selection.value)
         setPopup(false)
-        const newSortedList = getItemSorting(items, selection, stores);
-        setSortedResult(newSortedList);
     }
 
 
@@ -103,7 +102,7 @@ function ViewItem() {
                 </View>
             </View>
             <View style={{height: '70%'}}>
-                <StoresList items={sortedResult}/>
+                <StoresList items={rankedData}/>
             </View>
         </View>
     </SafeAreaView>

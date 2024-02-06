@@ -335,9 +335,9 @@ function getStoresSorting(inputObject, sorting){
 // Function to sort a list of store options for a selected item by price, brand and store
 function getItemSorting(items, sorting, stores){
 
-    if (sorting == "Price"){
+    if (sorting == "price"){
         items.sort((a, b) => a.price - b.price);
-    } else if (sorting == "Brand"){
+    } else if (sorting == "brand"){
         items.sort((a, b) => {
             const prodA = a.brand.toUpperCase();
             const prodB = b.brand.toUpperCase();
@@ -350,7 +350,7 @@ function getItemSorting(items, sorting, stores){
                 return 0;
             }
         })
-    } else if (sorting == "Store"){
+    } else if (sorting == "store"){
         items.sort((a, b) => {
 
             const nameA = stores[a.store].name.toUpperCase();

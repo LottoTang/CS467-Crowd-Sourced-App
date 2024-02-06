@@ -83,7 +83,7 @@ function PopUp({setRanking}) {
     }
 
     const closePopup = (selection=null) => {
-        if (popup_type == "Sort") setRanking(selection)
+        if (popup_type == "Sort") setRanking(selection.value)
         setPopup(false)
     }
 
