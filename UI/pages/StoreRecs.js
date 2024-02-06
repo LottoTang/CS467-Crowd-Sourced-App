@@ -9,11 +9,12 @@ import {
   View,
 } from 'react-native';
 import { useState } from 'react';
-import styles, {item_style, text_styles, add_button, popup_style} from '../style.js';
+import styles, {item_style, text_styles, add_button} from '../style.js';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { items, stores, products, promotions } from "../../testData/testingData2";
 import { getGoShoppingList, getStoresSorting } from "../../redux/funtionality/helperFunctions";
+import PopupModal from '../components/PopupModal.js'
 
 
 const ItemComponent = ({store, list_len}) => {
@@ -59,8 +60,8 @@ function PopUp({setRanking}) {
         {label: "Store", value: "store_name"},
     ]
 
-    const [popupType, setType] = useState("Sort")
-    const [popupVals, setVals] = useState(sort_vals)
+    const [popup_type, setType] = useState("Sort")
+    const [popup_vals, setVals] = useState(sort_vals)
 
     const openPopup = (type) => {
         if (type == "filter") {
@@ -74,33 +75,13 @@ function PopUp({setRanking}) {
     }
 
     const closePopup = (selection=null) => {
-        if (popupType == "Sort") setRanking(selection)
+        if (popup_type == "Sort") setRanking(selection)
         setPopup(false)
     }
 
     return (
         <View>
-            <Modal
-                animationType="slide"
-                visible={popup}
-                transparent={true}
-                onRequestClose={() => closePopup()}
-            >
-                <View style={popup_style.background}>
-                    <View style={popup_style.style}>
-                        <Text style={text_styles.smallTitle}>{popupType} by:</Text>
-                        <FlatList
-                            data={popupVals}
-                            keyExtractor={(item, index)=> index.toString()}
-                            renderItem = { ({item: {label, value}}) =>
-                                <Pressable style={item_style} onPress={() => closePopup({value})} >
-                                    <Text style={text_styles.itemText}>{label}</Text>
-                                </Pressable>
-                            }
-                        />
-                    </View>
-                </View>
-            </Modal>
+            <PopupModal popup={popup} popup_type={popup_type} popup_vals={popup_vals} closePopup={closePopup}/>
 
             <View style={[styles.row, {alignSelf: 'flex-end'}]}>
                 <Pressable style={{alignSelf: 'flex-end', paddingRight: 10}} onPress={() => openPopup("filter")}>

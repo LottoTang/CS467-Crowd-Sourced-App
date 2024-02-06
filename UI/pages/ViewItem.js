@@ -13,9 +13,9 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Feather';
 
-import styles, {item_style, text_styles, add_button, popup_style} from '../style.js';
-import CheckList from '../components/CheckList.js'
+import styles, {item_style, text_styles, add_button} from '../style.js';
 import StoresList from '../components/StoresWithItem.js'
+import PopupModal from '../components/PopupModal.js'
 import { getSelectedBrandsForProduct, getItemsList } from '../../redux/funtionality/helperFunctions';
 import { getBrandsList, getItemSorting } from '../../redux/funtionality/helperFunctions';
 import { capitalizeTitle } from '../ui_helpers.js'
@@ -48,6 +48,13 @@ function ViewItem() {
     };
 
     const [popup, setPopup] = useState(false)
+
+    const popup_vals = [
+        {label: "Price", value: "price"},
+        {label: "Store", value: "store"},
+        {label: "Brand", value: "brand"},
+    ]
+
     const closePopup = (selection=null) => {
         // if (selection)... TODO: add code for sorting here
         setPopup(false)
@@ -60,28 +67,7 @@ function ViewItem() {
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
             <Text style={view_style.title}>{capitalizeTitle(product)}</Text>
-
-            <Modal
-                animationType="slide"
-                visible={popup}
-                transparent={true}
-                onRequestClose={() => closePopup()}
-            >
-                <View style={popup_style.background}>
-                    <View style={popup_style.style}>
-                        <Text style={text_styles.smallTitle}>Sort by:</Text>
-                        <Pressable style={item_style} onPress={() => closePopup("Price")} >
-                            <Text style={text_styles.itemText}>Price</Text>
-                        </Pressable>
-                        <Pressable style={item_style} onPress={() => closePopup("Store")} >
-                            <Text style={text_styles.itemText}>Store</Text>
-                        </Pressable>
-                        <Pressable style={item_style} onPress={() => closePopup("Brand")} >
-                            <Text style={text_styles.itemText}>Brand</Text>
-                        </Pressable>
-                    </View>
-                </View>
-            </Modal>
+            <PopupModal popup={popup} popup_vals={popup_vals} closePopup={closePopup} />
 
             <View style={{marginRight: 10}}>
                 <View style={styles.row}>
