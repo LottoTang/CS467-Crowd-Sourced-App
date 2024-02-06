@@ -48,7 +48,8 @@ function ItemsAtStore() {
     const shopping_list = useSelector((state)=> state.shoppingList);
     const products = Object.keys(shopping_list)
 
-
+    // TODO: replace this with missing items calculations
+    // note- currently causes a bug when one of these items isn't on users shopping list
     const items_missing = ["tomato juice", "peanuts"]
 
     const dispatch = useDispatch();
