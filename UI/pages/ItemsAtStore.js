@@ -15,6 +15,7 @@ import { useState, useEffect } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { removeItemFromArray } from '../ui_helpers.js'
 import { useNavigation } from '@react-navigation/native';
+import { getShoppingListItemsInStore, getProductInShoppingListDetails } from "../../redux/funtionality/helperFunctions";
 
 
 const ItemComponent = ({item, data}) => {
@@ -42,15 +43,17 @@ const ItemComponent = ({item, data}) => {
 };
 
 
-function ItemsAtStore({store}) {
+function ItemsAtStore({route}) {
 // the View Items at Specified Store screen itself with its components
+    const store = route.params.store
 
-    const shopping_list = useSelector((state)=> state.shoppingList);
-    const products = Object.keys(shopping_list)
+    const shopping_list = useSelector(state => state.shoppingList);
+    const allItems = useSelector(state => state.allItems);
 
-    // TODO: replace this with missing items calculations
-    // note- currently causes a bug when one of these items isn't on users shopping list
-    const items_missing = ["tomato juice", "peanuts"]
+    // collect dictionary of items available/missing
+    const breakdown_items = getShoppingListItemsInStore(shopping_list, store.name, allItems);
+    const items_found = breakdown_items.itemsAvailable;
+    const items_missing = breakdown_items.itemsMissing;
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
@@ -61,9 +64,7 @@ function ItemsAtStore({store}) {
     };
 
 
-    const [unselected_products, setUnselectedItems] = useState(
-            products.filter(product => !items_missing.includes(product))
-            )
+    const [unselected_products, setUnselectedItems] = useState(items_found)
     const [selected_products, setSelectedItems] = useState([])
 
     const handleSelect = (item, isSelected) => {
@@ -90,7 +91,7 @@ function ItemsAtStore({store}) {
 
     const list_data = [
         {
-            title: "Items Missing at this Store",
+            title: `Items Missing at ${store.name}`,
             data: items_missing,
             selected: null,
             func: handleViewMissing

@@ -19,12 +19,12 @@ import { getGoShoppingList, getStoresSorting } from "../../redux/funtionality/he
 const ItemComponent = ({store, list_len}) => {
 // store component that contains name of the store, number of items found, and total cost
     const navigation = useNavigation();
-    const handleStore = (item)=>{
-        navigation.navigate("View items at Store", {store: store});
+    const handleStore = ()=>{
+        navigation.navigate("View Items at Store", {store: store});
     }
 
     return (
-        <Pressable style={[item_style]} onPress={()=>navigation.navigate("View Items at Store") } >
+        <Pressable style={[item_style]} onPress={()=>handleStore() } >
             <View style={[styles.wide_row, {alignSelf: 'center'}]}>
                 <Text style={[text_styles.smallTitle, {marginLeft: 0, marginTop: 0}]}>
                     {store.name}
