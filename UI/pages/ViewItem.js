@@ -1,25 +1,31 @@
+// react imports
 import React from 'react';
 import {
   SafeAreaView,
   FlatList,
-  Modal,
   Pressable,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import Icon from 'react-native-vector-icons/Feather';
 
-import styles, {item_style, text_styles, add_button} from '../style.js';
+// function imports
+import { getSelectedBrandsForProduct, getItemsList, getItemSorting } from '../../redux/funtionality/helperFunctions';
+import { capitalizeTitle } from '../ui_helpers.js'
+
+// data imports
+import { stores } from '../../testData/testingData2.js';
+
+// component imports
 import StoresList from '../components/StoresWithItem.js'
 import PopupModal from '../components/PopupModal.js'
-import { getSelectedBrandsForProduct, getItemsList } from '../../redux/funtionality/helperFunctions';
-import { getBrandsList, getItemSorting } from '../../redux/funtionality/helperFunctions';
-import { capitalizeTitle } from '../ui_helpers.js'
-import { stores } from '../../testData/testingData2.js';
+
+// style imports
+import styles, {text_styles, add_button} from '../style.js';
+import Icon from 'react-native-vector-icons/Feather';
 
 
 function ViewItem() {

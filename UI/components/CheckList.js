@@ -1,3 +1,4 @@
+// react imports
 import React from 'react';
 import {
   FlatList,
@@ -8,10 +9,13 @@ import {
 } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import styles, {item_style, text_styles,} from '../style.js';
+// function imports
 import { removeItemFromArray } from '../ui_helpers.js'
+
+// style imports
+import styles, {item_style, text_styles,} from '../style.js';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 const ItemComponent = ({item, func=()=>{}, preselected=false, data}) => {

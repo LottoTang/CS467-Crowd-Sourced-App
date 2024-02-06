@@ -1,20 +1,28 @@
+// react imports
 import React from 'react';
 import {
   SafeAreaView,
   FlatList,
-  Modal,
   Pressable,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
 import { useState } from 'react';
-import styles, {item_style, text_styles, add_button} from '../style.js';
-import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { items, stores, products, promotions } from "../../testData/testingData2";
+import { useSelector } from 'react-redux';
+
+// function imports
 import { getGoShoppingList, getStoresSorting } from "../../redux/funtionality/helperFunctions";
+
+// data imports
+import { items, stores } from "../../testData/testingData2";
+
+// component imports
 import PopupModal from '../components/PopupModal.js'
+
+// style imports
+import styles, {item_style, text_styles, add_button} from '../style.js'
 
 
 const ItemComponent = ({store, list_len}) => {

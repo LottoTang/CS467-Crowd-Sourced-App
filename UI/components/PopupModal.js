@@ -1,13 +1,16 @@
+// react imports
 import React from 'react';
 import {
+  SafeAreaView,
   FlatList,
   Modal,
   Pressable,
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
+
+// style imports
 import styles, {item_style, text_styles, popup_style} from '../style.js';
 
 function PopupModal({popup, popup_type="Sort", popup_vals, closePopup}) {

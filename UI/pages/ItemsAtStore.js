@@ -1,21 +1,25 @@
+// react imports
 import React from 'react';
 import {
   SafeAreaView,
-  SectionList,
-  Modal,
   Pressable,
+  SectionList,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import styles, {item_style, text_styles, add_button} from '../style.js';
-import { useDispatch, useSelector } from 'react-redux';
-import { viewSelectedItem } from '../../redux/actions/actions.js';
 import { useState, useEffect } from 'react';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { removeItemFromArray } from '../ui_helpers.js'
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+
+// function imports
 import { getShoppingListItemsInStore, getProductInShoppingListDetails } from "../../redux/funtionality/helperFunctions";
+import { viewSelectedItem } from '../../redux/actions/actions.js';
+import { removeItemFromArray } from '../ui_helpers.js
+
+// style imports
+import styles, {item_style, text_styles, add_button} from '../style.js';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 const ItemComponent = ({item, data}) => {
