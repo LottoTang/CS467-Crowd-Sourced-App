@@ -5,16 +5,20 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import { recommendedStoresForTotalShoppingList } from "../../../redux/funtionality/helperFunctions";
 import { useNavigation } from "@react-navigation/native";
+import { items, stores, products, promotions } from "../../../testData/testingData2";
+import { getGoShoppingList, getStoresSorting } from "../../../redux/funtionality/helperFunctions";
 
 
 const TestStoreRec = () =>{
 
-    const allItems = useSelector(state => state.allItems);
     const shoppingList = useSelector(state => state.shoppingList);
     const [ranking, setRanking] = useState("price");
 
-    const recommendedStores = recommendedStoresForTotalShoppingList(shoppingList, allItems, ranking);
     const navigation = useNavigation();
+
+    const storesBreakdown = getGoShoppingList(shoppingList, items, stores);
+    const rankedData = getStoresSorting(storesBreakdown, ranking);
+    //const data = Object.values(storesBreakdown);
 
     const handleStore = (item)=>{
         navigation.navigate("TestMissingItems", {shoppingList: item});
@@ -32,11 +36,11 @@ const TestStoreRec = () =>{
                 <Picker.Item label="Store" value="store_name"/>
             </Picker>
             <FlatList
-                data={recommendedStores}
+                data={rankedData}
                 renderItem={({item})=>(
                     <View>
                         <Pressable onPress={()=>handleStore(item)}>
-                            <Text style={styles.storeRec}>{item.storeName}. Items Found: {item.numItems}. Total Cost: ${item.totalCost}</Text>
+                            <Text style={styles.storeRec}>{item.name}. Items Found: {item.numItems}. Total Cost: ${item.totalCost}</Text>
                         </Pressable>
                     </View>
                 )}
