@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // function imports
 import { getShoppingListItemsInStore, getProductInShoppingListDetails } from "../../redux/funtionality/helperFunctions";
 import { viewSelectedItem } from '../../redux/actions/actions.js';
-import { removeItemFromArray } from '../ui_helpers.js
+import { removeItemFromArray } from '../ui_helpers.js';
 
 // style imports
 import styles, {item_style, text_styles, add_button} from '../style.js';

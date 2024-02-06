@@ -92,9 +92,6 @@ function PopUp({setRanking}) {
             <PopupModal popup={popup} popup_type={popup_type} popup_vals={popup_vals} closePopup={closePopup}/>
 
             <View style={[styles.row, {alignSelf: 'flex-end'}]}>
-                <Pressable style={{alignSelf: 'flex-end', paddingRight: 10}} onPress={() => openPopup("filter")}>
-                    <Text style={[add_button, {fontSize: 13}]}>Filter</Text>
-                </Pressable>
                 <Pressable style={{alignSelf: 'flex-end', paddingRight: 10}} onPress={() => openPopup("sort")}>
                     <Text style={[add_button, {fontSize: 13}]}>Sort</Text>
                 </Pressable>
