@@ -42,7 +42,7 @@ const ItemComponent = ({item, data}) => {
 };
 
 
-function ItemsAtStore() {
+function ItemsAtStore({store}) {
 // the View Items at Specified Store screen itself with its components
 
     const shopping_list = useSelector((state)=> state.shoppingList);
