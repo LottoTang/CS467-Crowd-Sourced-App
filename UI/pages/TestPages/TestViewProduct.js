@@ -7,10 +7,10 @@ import { getBrandsList } from '../../../redux/funtionality/helperFunctions';
 
 const TestViewProduct = () => {
 
-    const product = useSelector(state=> state.selectedItem);
-    const brandOptions = useSelector(state => state.allItems);
+    const product = useSelector(state=> state.selected_item);
+    const brand_options = useSelector(state => state.all_items);
 
-    const brands = getBrandsList(product.name, brandOptions);
+    const brands = getBrandsList(product.name, brand_options);
 
   if (!product) {
     return <Text>No product selected</Text>;

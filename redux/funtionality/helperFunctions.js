@@ -65,20 +65,20 @@ export const sampleData = [
     { item_id: "123", store_id: "ACME", name: "tomato juice", brand: "Brand5", category: "groceries", price: 5.99, barcode: "14141241241241222" },
 ]
 
-function helperSearchStoreItems(storeName, item, brand, productsList){
+function helperSearchStoreItems(store_name, item, brand, products_list){
     // Helper method to check if a store has an item. Returns the price if it has it otherwise it is 0
 
-    const anyBrand = brand == "Any brand" ? true : false;
+    const any_brand = brand == "Any brand" ? true : false;
     
-    for (let product in productsList){
+    for (let product in products_list){
 
-        if (anyBrand){
-            if (productsList[product].store_id == storeName && productsList[product].name == item){
-                return productsList[product].price;
+        if (any_brand){
+            if (products_list[product].store_id == store_name && products_list[product].name == item){
+                return products_list[product].price;
             }
         } else {
-            if (productsList[product].store_id == storeName && productsList[product].name == item && productsList[product].brand == brand){
-                return productsList[product].price;
+            if (products_list[product].store_id == store_name && products_list[product].name == item && products_list[product].brand == brand){
+                return products_list[product].price;
             }
         }
     }
@@ -86,68 +86,72 @@ function helperSearchStoreItems(storeName, item, brand, productsList){
 }
 
 
-function recommendedStoresForTotalShoppingList(shoppingList, sampleData, ranking="price"){
+function recommendedStoresForTotalShoppingList(shopping_list, sampleData, ranking="price"){
 
     // create object of objects of stores->need to track 
     // 1. how many items were found, 
     // 2. store name and 
     // 3. total cost
-    const storesObj = {};
+    const stores_obj = {};
 
     // Capture list of stores 
-    const storesList = [];
+    const stores_list = [];
     for (let input in sampleData){
-        if (!storesList.includes(sampleData[input].store_id)){
-            storesList.push(sampleData[input].store_id);
-            storesObj[sampleData[input].store_id] = { storeName: sampleData[input].store_id, itemsFound: 0, totalCost: 0};
+        if (!stores_list.includes(sampleData[input].store_id)){
+            stores_list.push(sampleData[input].store_id);
+            stores_obj[sampleData[input].store_id] = { store_name: sampleData[input].store_id, items_found: 0, total_cost: 0};
         }
     }
 
-    for (let product in shoppingList){
-        for (let retailer in storesList){
+    for (let product in shopping_list){
+        for (let retailer in stores_list){
 
-            let storeName = storesList[retailer];
+            let store_name = stores_list[retailer];
             // helper method returns the price of the product
-            let hasItem = helperSearchStoreItems(storeName, shoppingList[product].name, shoppingList[product].brand, sampleData);
+            let has_item = helperSearchStoreItems(store_name, shopping_list[product].name, shopping_list[product].brand, sampleData);
 
-            if (hasItem > 0){
-                storesObj[storeName] = {...storesObj[storeName], itemsFound: storesObj[storeName].itemsFound + 1, totalCost: storesObj[storeName].totalCost + hasItem};
+            if (has_item > 0){
+                stores_obj[store_name] = {...stores_obj[store_name], items_found: stores_obj[store_name].items_found + 1, total_cost: stores_obj[store_name].total_cost + has_item};
 
             }
         }
     }
 
-    let listOfRecommendations = Object.entries(storesObj);
+    let recommendations_list = Object.entries(stores_obj);
 
     if (ranking == "price"){
         //Sort stores based on price
-        listOfRecommendations.sort((a,b) => a[1].totalCost - b[1].totalCost);
+        recommendations_list.sort((a,b) => a[1].total_cost - b[1].total_cost);
     } else if (ranking == "store_name"){
-        listOfRecommendations.sort((a,b) => b[1].storeName - a[1].storeName);
+        recommendations_list.sort((a,b) => b[1].store_name - a[1].store_name);
     } else if (ranking == "items"){
         // sort stores based on items found 
-        listOfRecommendations.sort((a,b) => b[1].itemsFound - a[1].itemsFound);
+        recommendations_list.sort((a,b) => b[1].items_found - a[1].items_found);
     }
 
-    let sortedList = [];
-    for (let i=0; i< listOfRecommendations.length; i++){
+    let sorted_list = [];
+    for (let i=0; i< recommendations_list.length; i++){
 
         // Exclude stores with no items
-        if (listOfRecommendations[i][1].itemsFound > 0){
-            sortedList.push({storeName: listOfRecommendations[i][1].storeName, totalCost: listOfRecommendations[i][1].totalCost, numItems: listOfRecommendations[i][1].itemsFound });
+        if (recommendations_list[i][1].items_found > 0){
+            sorted_list.push({
+                store_name: recommendations_list[i][1].store_name,
+                total_cost: recommendations_list[i][1].total_cost,
+                num_items: recommendations_list[i][1].items_found
+            });
         }
     }
 
-    return sortedList;
+    return sorted_list;
 
 }
 
 // Method to return recommended items -> DONE
-function giveSuggestedItems(products, targetItem){
-    const similarItems = [];
+function giveSuggestedItems(products, target_item){
+    const similar_items = [];
 
     // get words in item user gave
-    const targets = targetItem.split(" ");
+    const targets = target_item.split(" ");
 
     // Iterate through all items in database
     for (let product_id of Object.keys(products)){
@@ -159,20 +163,19 @@ function giveSuggestedItems(products, targetItem){
         // check if there is a match for each word in item list with target item
         for (let target in targets){
             if (words.includes(targets[target])){
-                if (!similarItems.includes(product)){
-                    similarItems.push(product);
+                if (!similar_items.includes(product)){
+                    similar_items.push(product);
                 }
             }
         }
     }
-    return similarItems;
+    return similar_items;
 
 }
 
 // Get list of brands -> DONE
-function getBrandsList(targetItem, products){
-    let listOfBrands = [];
-    const selection = targetItem.toString().trimEnd();
+function getBrandsList(target_item, products){
+    const selection = target_item.toString().trimEnd();
     for (let product_id of Object.keys(products)){
         if (products[product_id].name == selection){
             return products[product_id].brands
@@ -191,29 +194,29 @@ function getSelectedBrandsForProduct(items){
 }
 
 // given a list of item ids, retrieves the items from the collection of all items
-function getItemsList(item_ids, allItems) {
+function getItemsList(item_ids, all_items) {
     const items = []
     for (const id of item_ids){
-        items.push(allItems[id])
+        items.push(all_items[id])
     }
     return items
 }
 
 //Helper method to extract items available and items missing from the shopping list in a particular store
-function getShoppingListItemsInStore(shoppingList, storeName, allItems){
+function getShoppingListItemsInStore(shopping_list, store_name, all_items){
 
-    const breakdown = {itemsAvailable: [], itemsMissing: []};
+    const breakdown = {items_available: [], items_missing: []};
 
     // First capture the items available
-    for (let product in allItems){
-        if (allItems[product].store_id === storeName){
-            for (let item in shoppingList){
+    for (let product in all_items){
+        if (all_items[product].store_id === store_name){
+            for (let item in shopping_list){
 
-                if (shoppingList[item].name === allItems[product].name){
+                if (shopping_list[item].name === all_items[product].name){
 
-                        if (allItems[product].brand == shoppingList[item].brand && !(breakdown.itemsAvailable.includes(shoppingList[item].name))){
+                        if (all_items[product].brand == shopping_list[item].brand && !(breakdown.items_available.includes(shopping_list[item].name))){
 
-                            breakdown.itemsAvailable.push(shoppingList[item].name);
+                            breakdown.items_available.push(shopping_list[item].name);
                         }
 
                 }
@@ -223,8 +226,8 @@ function getShoppingListItemsInStore(shoppingList, storeName, allItems){
 
     // Capture missing items
 
-    for (let missingItem in shoppingList){
-        if (!breakdown.itemsAvailable.includes(shoppingList[missingItem].name)) breakdown.itemsMissing.push(shoppingList[missingItem].name);
+    for (let missing_item in shopping_list){
+        if (!breakdown.items_available.includes(shopping_list[missing_item].name)) breakdown.items_missing.push(shopping_list[missing_item].name);
     }
 
     return breakdown;
@@ -232,95 +235,93 @@ function getShoppingListItemsInStore(shoppingList, storeName, allItems){
 }
 
 // Get dictionary with brand and product name details for a selected item in the shopping list
-function getProductInShoppingListDetails(itemName, shoppingList){
+function getProductInShoppingListDetails(item_name, shopping_list){
 
-    let productDetails = {};
-    for (let product in shoppingList){
-        if (shoppingList[product].name == itemName){
-            productDetails.product = {name: itemName, brand: shoppingList[product].brand};
+    let product_details = {};
+    for (let product in shopping_list){
+        if (shopping_list[product].name == item_name){
+            product_details.product = {name: item_name, brand: shopping_list[product].brand};
         }
     }
-    return productDetails;
+    return product_details;
 }
 
 // Helper method to get the minimum price for an item in a store in the list of items
-function getLowestPriceItem(itemsList, storeId, items){
+function getLowestPriceItem(items_list, store_id, items){
     
-    let lowestPrice = 10000; 
+    let lowest_price = 10000;
 
     // Iterate through the list of items
-    for (let item in itemsList){
+    for (let item in items_list){
         
         // Check if available in target store
-        if (items[itemsList[item]].store == storeId){
-            if (items[itemsList[item]].price < lowestPrice){
-                lowestPrice = items[itemsList[item]].price;
+        if (items[items_list[item]].store == store_id){
+            if (items[items_list[item]].price < lowest_price){
+                lowest_price = items[items_list[item]].price;
             }
         }
     }
 
-    return lowestPrice;
+    return lowest_price;
 }
 
 
 // Method to return stores, number of items and total cost - Adjusted based on latest database schema
-function getGoShoppingList(shoppingList, items, stores){
+function getGoShoppingList(shopping_list, items, stores){
 
-    const storeDetails = {};
-
-    // Get total number of items in shopping list
-    let itemsListed = 0;
-    for (let rec in shoppingList){
-        itemsListed += 1;
-    }
+    const store_details = {};
 
     // Capture the name off each store
     for (let store in stores){
-        if (!(store in storeDetails)){
-            storeDetails[store] = {name: stores[store].name, totalCost: 0, numItems: 0, itemsInSL: itemsListed};
+        if (!(store in store_details)){
+            store_details[store] = {
+                name: stores[store].name,
+                total_cost: 0,
+                num_items: 0,
+            };
         }
     }
 
     // Iterate through every item in the shopping list
-    for (let shoppingItem in shoppingList){
+    for (let shopping_item in shopping_list){
         
         // Capture all brands selected for an item in the shopping list
-        const listBrands = shoppingList[shoppingItem];
+        const list_brands = shopping_list[shopping_item];
         //Get lowest price for an item in each store
 
         for (let store in stores){
-            const lowestPrice = getLowestPriceItem(listBrands, store, items);
+            const lowest_price = getLowestPriceItem(list_brands, store, items);
 
-            if (lowestPrice < 10000){
-                storeDetails[store].totalCost = storeDetails[store].totalCost + lowestPrice;
-                storeDetails[store].numItems = storeDetails[store].numItems + 1;
+            if (lowest_price < 10000){
+                store_details[store].total_cost = store_details[store].total_cost + lowest_price;
+                store_details[store].num_items = store_details[store].num_items + 1;
             }
         }
        
     }
     
-    return storeDetails;
+    return store_details;
     
 }
 
 // Provide a ranking of stores by number of items found, store name and total cost
 // takes as input the output of the getGoShoppingList function
-function getStoresSorting(inputObject, sorting){
+function getStoresSorting(input_object, sorting){
 
-    let sortedList = Object.values(inputObject);
+    let sorted_list = Object.values(input_object);
 
     if (sorting == "price"){
-        sortedList.sort((a, b) => a.totalCost - b.totalCost);
+        sorted_list.sort((a, b) => a.total_cost - b.total_cost);
     } else if (sorting == "items"){
-        sortedList.sort((a, b) => b.numItems - a.numItems);
+        sorted_list.sort((a, b) => b.num_items - a.num_items);
     } else if (sorting == "store_name"){
-        sortedList.sort((a, b) => {
-            const nameA = a.name.toUpperCase();
-            const nameB = b.name.toUpperCase();
+        sorted_list.sort((a, b) => {
+            const name_a = a.name.toUpperCase();
+            const name_b = b.name.toUpperCase();
 
-            if (nameA < nameB){
+            if (name_a < name_b){
                 return -1;
-            } else if (nameA > nameB){
+            } else if (name_a > name_b){
                 return 1;
             } else {
                 return 1
@@ -328,7 +329,7 @@ function getStoresSorting(inputObject, sorting){
         });
     }
 
-    return sortedList;
+    return sorted_list;
 
 }
 
@@ -339,12 +340,12 @@ function getItemSorting(items, sorting, stores){
         items.sort((a, b) => a.price - b.price);
     } else if (sorting == "brand"){
         items.sort((a, b) => {
-            const prodA = a.brand.toUpperCase();
-            const prodB = b.brand.toUpperCase();
+            const prod_a = a.brand.toUpperCase();
+            const prod_b = b.brand.toUpperCase();
 
-            if (prodA < prodB){
+            if (prod_a < prod_b){
                 return -1;
-            } else if (prodA > prodB){
+            } else if (prod_a > prod_b){
                 return 1;
             } else {
                 return 0;
@@ -353,12 +354,12 @@ function getItemSorting(items, sorting, stores){
     } else if (sorting == "store"){
         items.sort((a, b) => {
 
-            const nameA = stores[a.store].name.toUpperCase();
-            const nameB = stores[b.store].name.toUpperCase();
+            const name_a = stores[a.store].name.toUpperCase();
+            const name_b = stores[b.store].name.toUpperCase();
 
-            if (nameA < nameB){
+            if (name_a < name_b){
                 return -1;
-            } else if (nameA > nameB){
+            } else if (name_a > name_b){
                 return 1;
             } else {
                 return 0;

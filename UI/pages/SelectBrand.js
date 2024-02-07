@@ -31,8 +31,8 @@ function SelectBrand({route}) {
     const [selected_brands, setSelectedItems] = useState(preselected)
 
     // TODO: const brands = getBrandsList(product), where func retrieves from database
-    const allProducts = useSelector(state => state.products);
-    const brands = getBrandsList(product, allProducts);
+    const all_products = useSelector(state => state.all_products);
+    const brands = getBrandsList(product, all_products);
 
     // Set up connection with store to dispatch signal
     const dispatch = useDispatch();

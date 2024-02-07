@@ -5,24 +5,24 @@ import { giveSuggestedItems } from '../../../redux/funtionality/helperFunctions'
 import { useSelector } from 'react-redux';
 
 const AddItemForm = () => {
-  const [productName, setProductName] = useState('');
+  const [product_name, setProductName] = useState('');
   const [data, setData] = useState('');
 
-  const state = useSelector((state)=>state.allItems);
+  const state = useSelector((state)=>state.all_items);
   const navigation = useNavigation();
-  const allItems = state;
+  const all_items = state;
 
   const handleInputChange = (text)=>{
     setProductName(text);
 
-    const filterData = giveSuggestedItems(allItems, productName);
+    const filter_data = giveSuggestedItems(all_items, product_name);
 
-    setData(filterData);
+    setData(filter_data);
   }
 
   const handleAddItem = () => {
     // Go to select brand page
-    navigation.navigate('TestBrandSelect', {product: productName});
+    navigation.navigate('TestBrandSelect', {product: product_name});
   };
 
   const handleRecommendation = (text)=>{
@@ -35,7 +35,7 @@ const AddItemForm = () => {
       <TextInput
         style={styles.input}
         placeholder="Search Product Name"
-        value={productName}
+        value={product_name}
         onChangeText={handleInputChange}
       />
       <Text style={styles.segment}>Suggestions</Text>
@@ -50,7 +50,7 @@ const AddItemForm = () => {
           </Pressable>
         )}/>
       <Pressable onPress={()=>handleAddItem()}>
-        <Text style={styles.button}>Add: {productName}</Text>
+        <Text style={styles.button}>Add: {product_name}</Text>
       </Pressable>
     </View>
   );

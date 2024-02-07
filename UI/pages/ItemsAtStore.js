@@ -51,13 +51,13 @@ function ItemsAtStore({route}) {
 // the View Items at Specified Store screen itself with its components
     const store = route.params.store
 
-    const shopping_list = useSelector(state => state.shoppingList);
-    const allItems = useSelector(state => state.allItems);
+    const shopping_list = useSelector(state => state.shopping_list);
+    const all_items = useSelector(state => state.all_items);
 
     // collect dictionary of items available/missing
-    const breakdown_items = getShoppingListItemsInStore(shopping_list, store.name, allItems);
-    const items_found = breakdown_items.itemsAvailable;
-    const items_missing = breakdown_items.itemsMissing;
+    const breakdown_items = getShoppingListItemsInStore(shopping_list, store.name, all_items);
+    const items_found = breakdown_items.items_available;
+    const items_missing = breakdown_items.items_missing;
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
@@ -113,6 +113,8 @@ function ItemsAtStore({route}) {
             func: handleSelect
         }
     ]
+
+    console.log(list_data)
 
     return (
     <SafeAreaView style={styles.app}>

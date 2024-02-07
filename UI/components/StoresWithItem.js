@@ -16,8 +16,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const ItemComponent = ({item}) => {
 // store component that contains name of the store, brand, price, sale info, and update info
 
-    const stores = useSelector(state => state.allStores);
-    const promotions = useSelector(state => state.allPromotions);
+    const stores = useSelector(state => state.all_stores);
+    const promotions = useSelector(state => state.all_promotions);
 
     // TODO: replace this with data from the database; not sure how it's going to be pulled
     const time = "4 hours"

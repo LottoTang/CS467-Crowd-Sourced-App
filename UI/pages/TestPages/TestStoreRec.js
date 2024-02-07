@@ -11,17 +11,17 @@ import { getGoShoppingList, getStoresSorting } from "../../../redux/funtionality
 
 const TestStoreRec = () =>{
 
-    const shoppingList = useSelector(state => state.shoppingList);
+    const shopping_list = useSelector(state => state.shopping_list);
     const [ranking, setRanking] = useState("price");
 
     const navigation = useNavigation();
 
-    const storesBreakdown = getGoShoppingList(shoppingList, items, stores);
-    const rankedData = getStoresSorting(storesBreakdown, ranking);
-    //const data = Object.values(storesBreakdown);
+    const stores_breakdown = getGoShoppingList(shopping_list, items, stores);
+    const ranked_data = getStoresSorting(stores_breakdown, ranking);
+    //const data = Object.values(stores_breakdown);
 
     const handleStore = (item)=>{
-        navigation.navigate("TestMissingItems", {shoppingList: item});
+        navigation.navigate("TestMissingItems", {shopping_list: item});
     }
 
 
@@ -30,17 +30,17 @@ const TestStoreRec = () =>{
             <Text>Ranking Type</Text>
             <Picker 
                 selectedValue = {ranking}
-                onValueChange = {(itemValue, itemIndex) => setRanking(itemValue)}>
+                onValueChange = {(item_value, item_index) => setRanking(item_value)}>
                 <Picker.Item label="Price" value="price"/>
                 <Picker.Item label="Items Found" value="items"/>
                 <Picker.Item label="Store" value="store_name"/>
             </Picker>
             <FlatList
-                data={rankedData}
+                data={ranked_data}
                 renderItem={({item})=>(
                     <View>
                         <Pressable onPress={()=>handleStore(item)}>
-                            <Text style={styles.storeRec}>{item.name}. Items Found: {item.numItems}. Total Cost: ${item.totalCost}</Text>
+                            <Text style={styles.storeRec}>{item.name}. Items Found: {item.num_items}. Total Cost: ${item.total_cost}</Text>
                         </Pressable>
                     </View>
                 )}

@@ -15,19 +15,19 @@ import {
 
   const TestMissingItems = ({route})=>{
 
-    const shoppingList = useSelector(state => state.shoppingList);
-    const allItems = useSelector(state => state.allItems);
-    let storeName = route.params.shoppingList.storeName;
+    const shopping_list = useSelector(state => state.shopping_list);
+    const all_items = useSelector(state => state.all_items);
+    let store_name = route.params.shopping_list.store_name;
     const dispatch = useDispatch();
     const navigation = useNavigation();
 
     // collect dictionary of items available/missing
-    const breakdownItems = getShoppingListItemsInStore(shoppingList, storeName, allItems);
-    const itemsFound = breakdownItems.itemsAvailable;
-    const itemsMissing = breakdownItems.itemsMissing;
+    const breakdown_items = getShoppingListItemsInStore(shopping_list, store_name, all_items);
+    const items_found = breakdown_items.items_available;
+    const items_missing = breakdown_items.items_missing;
 
     const handleSelectedItem = (item)=> {
-        const details = getProductInShoppingListDetails(item, shoppingList);
+        const details = getProductInShoppingListDetails(item, shopping_list);
         dispatch(viewSelectedItem(details.product));
         //console.log(details.product);
         navigation.navigate("View Item");
@@ -37,7 +37,7 @@ import {
         <View>
             <Text style={styles.segment}>Items missing from the list:</Text>
             <FlatList
-                data={itemsMissing}  
+                data={items_missing}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item }) => ( 
                     <Pressable onPress={()=>handleSelectedItem(item)}>
@@ -49,7 +49,7 @@ import {
             />
             <Text style={styles.segment}>Shopping List:</Text>
             <FlatList
-                data={itemsFound}  
+                data={items_found}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item }) => ( 
                     <Pressable onPress={()=>handleSelectedItem(item)}>

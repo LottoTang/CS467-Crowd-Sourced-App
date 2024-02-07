@@ -30,18 +30,18 @@ import Icon from 'react-native-vector-icons/Feather';
 
 function ViewItem() {
 // the View Item screen itself with its components
-    const product = useSelector(state=> state.selectedItem);
+    const product = useSelector(state=> state.selected_item);
 
-    const allItems = useSelector(state => state.allItems);
-    const shoppingList = useSelector(state => state.shoppingList);
+    const all_items = useSelector(state => state.all_items);
+    const shopping_list = useSelector(state => state.shopping_list);
 
-    const item_ids = shoppingList[product]
-    const items = getItemsList(item_ids, allItems)
+    const item_ids = shopping_list[product]
+    const items = getItemsList(item_ids, all_items)
 
     const selected_brands = getSelectedBrandsForProduct(items);
 
     const [ranking, setRanking] = useState("price");
-    const rankedData = getItemSorting(items, ranking, stores);
+    const ranked_data = getItemSorting(items, ranking, stores);
 
     if (!product) {
         return <Text>No product selected</Text>;
@@ -102,7 +102,7 @@ function ViewItem() {
                 </View>
             </View>
             <View style={{height: '70%'}}>
-                <StoresList items={rankedData}/>
+                <StoresList items={ranked_data}/>
             </View>
         </View>
     </SafeAreaView>
