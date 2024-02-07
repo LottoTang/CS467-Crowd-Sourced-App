@@ -203,31 +203,27 @@ function getItemsList(item_ids, all_items) {
 }
 
 //Helper method to extract items available and items missing from the shopping list in a particular store
-function getShoppingListItemsInStore(shopping_list, store_name, all_items){
+function getShoppingListItemsInStore(shopping_list, store_name, all_items, all_stores){
 
     const breakdown = {items_available: [], items_missing: []};
 
     // First capture the items available
-    for (let product in all_items){
-        if (all_items[product].store_id === store_name){
-            for (let item in shopping_list){
+    for (let item in shopping_list){
 
-                if (shopping_list[item].name === all_items[product].name){
-
-                        if (all_items[product].brand == shopping_list[item].brand && !(breakdown.items_available.includes(shopping_list[item].name))){
-
-                            breakdown.items_available.push(shopping_list[item].name);
-                        }
-
+        for (let store in all_stores){
+            if (all_stores[store].name == store_name){
+                for (let item_id in all_items){
+                    if (shopping_list[item].includes(item_id) && all_items[item_id].store == store && !breakdown.items_available.includes(item)){
+                        breakdown.items_available.push(item);
+                    }
                 }
             }
         }
     }
 
     // Capture missing items
-
     for (let missing_item in shopping_list){
-        if (!breakdown.items_available.includes(shopping_list[missing_item].name)) breakdown.items_missing.push(shopping_list[missing_item].name);
+        if (!breakdown.items_available.includes(missing_item)) breakdown.items_missing.push(missing_item);
     }
 
     return breakdown;

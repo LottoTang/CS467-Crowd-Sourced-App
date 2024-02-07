@@ -53,9 +53,10 @@ function ItemsAtStore({route}) {
 
     const shopping_list = useSelector(state => state.shopping_list);
     const all_items = useSelector(state => state.all_items);
+    const all_stores = useSelector(state => state.all_stores);
 
     // collect dictionary of items available/missing
-    const breakdown_items = getShoppingListItemsInStore(shopping_list, store.name, all_items);
+    const breakdown_items = getShoppingListItemsInStore(shopping_list, store.name, all_items, all_stores);
     const items_found = breakdown_items.items_available;
     const items_missing = breakdown_items.items_missing;
 
@@ -113,8 +114,6 @@ function ItemsAtStore({route}) {
             func: handleSelect
         }
     ]
-
-    console.log(list_data)
 
     return (
     <SafeAreaView style={styles.app}>
