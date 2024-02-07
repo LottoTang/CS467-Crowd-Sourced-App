@@ -1,24 +1,33 @@
+// react imports
 import React from 'react';
 import {
   SafeAreaView,
   FlatList,
-  Modal,
   Pressable,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import Icon from 'react-native-vector-icons/Feather';
+import { useDispatch } from 'react-redux';
 
-import styles, {item_style, text_styles, add_button, popup_style} from '../style.js';
-import CheckList from '../components/CheckList.js'
-import StoresList from '../components/StoresWithItem.js'
-import { getSelectedBrandsForProduct, getItemsList } from '../../redux/funtionality/helperFunctions';
-import { getBrandsList } from '../../redux/funtionality/helperFunctions';
+// function imports
+import { getSelectedBrandsForProduct, getItemsList, getItemSorting } from '../../redux/funtionality/helperFunctions';
 import { capitalizeTitle } from '../ui_helpers.js'
+import { deleteItemInShoppingList } from '../../redux/actions/actions.js';
+
+// data imports
+import { stores } from '../../testData/testingData2.js';
+
+// component imports
+import StoresList from '../components/StoresWithItem.js'
+import PopupModal from '../components/PopupModal.js'
+
+// style imports
+import styles, {text_styles, add_button} from '../style.js';
+import Icon from 'react-native-vector-icons/Feather';
 
 
 function ViewItem() {
@@ -33,11 +42,15 @@ function ViewItem() {
 
     const selected_brands = getSelectedBrandsForProduct(items);
 
+    const [ranking, setRanking] = useState("price");
+    const rankedData = getItemSorting(items, ranking, stores);
+
     if (!product) {
         return <Text>No product selected</Text>;
     }
 
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
     const handleEditItem = (item) => {
         // Go to select brand page
@@ -45,37 +58,34 @@ function ViewItem() {
     };
 
     const [popup, setPopup] = useState(false)
+
+    const popup_vals = [
+        {label: "Price", value: "price"},
+        {label: "Store", value: "store"},
+        {label: "Brand", value: "brand"},
+    ]
+
     const closePopup = (selection=null) => {
-        // if (selection)... TODO: add code for sorting here
+        setRanking(selection.value)
         setPopup(false)
     }
+
+    // Delete item from shopping list
+    const handleDeleteItem = () =>{
+        dispatch(deleteItemInShoppingList(product));
+        navigation.navigate("Home");
+    }
+
 
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
             <Text style={view_style.title}>{capitalizeTitle(product)}</Text>
+            <PopupModal popup={popup} popup_vals={popup_vals} closePopup={closePopup} />
 
-            <Modal
-                animationType="slide"
-                visible={popup}
-                transparent={true}
-                onRequestClose={() => closePopup()}
-            >
-                <View style={popup_style.background}>
-                    <View style={popup_style.style}>
-                        <Text style={text_styles.smallTitle}>Sort by:</Text>
-                        <Pressable style={item_style} onPress={() => closePopup("Price")} >
-                            <Text style={text_styles.itemText}>Price</Text>
-                        </Pressable>
-                        <Pressable style={item_style} onPress={() => closePopup("Store")} >
-                            <Text style={text_styles.itemText}>Store</Text>
-                        </Pressable>
-                        <Pressable style={item_style} onPress={() => closePopup("Brand")} >
-                            <Text style={text_styles.itemText}>Brand</Text>
-                        </Pressable>
-                    </View>
-                </View>
-            </Modal>
+            <Pressable onPress={()=> handleDeleteItem()}>
+                <Text style={view_style.testDelete}>Delete Item</Text>
+            </Pressable>
 
             <View style={{marginRight: 10}}>
                 <View style={styles.row}>
@@ -105,7 +115,7 @@ function ViewItem() {
                 </View>
             </View>
             <View style={{height: '70%'}}>
-                <StoresList items={items}/>
+                <StoresList items={rankedData}/>
             </View>
         </View>
     </SafeAreaView>
@@ -123,4 +133,10 @@ const view_style = StyleSheet.create({
 
         marginLeft: 6,
     },
+    testDelete: {
+        fontSize: 20,
+        color: "red",
+        fontWeight: "bold",
+        paddingLeft: 250
+    }
 });

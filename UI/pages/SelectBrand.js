@@ -1,22 +1,26 @@
+// react imports
 import React from 'react';
 import {
   SafeAreaView,
-  Pressable,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItemInShoppingList } from '../../redux/actions/actions.js';
 
-import styles, {text_styles, add_button} from '../style.js';
+// function imports
+import { getBrandsList } from '../../redux/funtionality/helperFunctions';
+import { addItemInShoppingList } from '../../redux/actions/actions.js';
+import { capitalizeTitle } from '../ui_helpers.js'
+
+// component imports
 import CheckList from '../components/CheckList.js'
 
-import { getBrandsList } from '../../redux/funtionality/helperFunctions';
-import { capitalizeTitle } from '../ui_helpers.js'
+// style imports
+import styles, {text_styles, add_button} from '../style.js';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 function SelectBrand({route}) {
@@ -57,11 +61,7 @@ function SelectBrand({route}) {
             </View>
 
             <View style={styles.bottom}>
-                <Text
-                        style={addButton}
-                        onPress={() => handlePress()}>
-                    +
-                </Text>
+                <Text style={addButton} onPress={() => handlePress()}>+</Text>
             </View>
         </View>
     </SafeAreaView>

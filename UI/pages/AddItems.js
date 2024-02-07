@@ -1,3 +1,4 @@
+// react imports
 import React from 'react';
 import {
   SafeAreaView,
@@ -8,10 +9,14 @@ import {
   View,
 } from 'react-native';
 import { useState } from 'react';
-import styles, {item_style, text_styles, add_button} from '../style.js';
-import { giveSuggestedItems } from '../../redux/funtionality/helperFunctions.js';
-import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+
+// function imports
+import { giveSuggestedItems } from '../../redux/funtionality/helperFunctions.js';
+
+// style imports
+import styles, {item_style, text_styles, add_button} from '../style.js';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 

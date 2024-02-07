@@ -1,3 +1,4 @@
+// react imports
 import React from 'react';
 import {
   SafeAreaView,
@@ -7,11 +8,14 @@ import {
   Text,
   View
 } from 'react-native';
-import styles, {item_style, text_styles, add_button} from '../style.js';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { viewSelectedItem } from '../../redux/actions/actions.js';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+
+// function imports
+import { viewSelectedItem } from '../../redux/actions/actions.js';
+
+// style imports
+import styles, {item_style, text_styles, add_button} from '../style.js';
 
 
 const ShoppingList = () => {
@@ -57,7 +61,7 @@ function HomeScreen({navigation}) {
             </View>
 
             <View style={styles.bottom}>
-                <Text style={shopButton} onPress={()=>navigation.navigate("TestStoreRec")}>
+                <Text style={shopButton} onPress={()=>navigation.navigate("View Store Recs")}>
                     Go Shopping!
                 </Text>
             </View>

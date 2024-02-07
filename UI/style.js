@@ -177,11 +177,14 @@ const popup_style = StyleSheet.create({
         alignSelf: 'center',
         padding: 20
     },
+    container: {
+        height: '100%',
+        flex: 1,
+        justifyContent: 'flex-end',
+    },
     background: {
         height: '100%',
         backgroundColor: `${styles.backgroundColor.color}80`,
-        flex: 1,
-        justifyContent: 'flex-end',
     }
 })
 
