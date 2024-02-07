@@ -9,3 +9,4 @@ export const DROP_SELECTED_BRAND = "DROP_SELECTED_BRAND";
 export const RESET_BRANDS_LIST = "RESET_BRANDS_LIST";
 export const EDIT_ITEM = "EDIT_ITEM";
 export const EDITING = "EDITING";
+export const DELETE_ITEM = "DELETE_ITEM";
