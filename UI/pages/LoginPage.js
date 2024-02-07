@@ -37,6 +37,7 @@ function LoginPage() {
                     style={search_text}
                     placeholder='Email'
                     value={email}
+                    onChangeText={setEmail}
                 />
             </View>
             <Text style={text_styles.smallTitle}>Password</Text>
@@ -45,6 +46,7 @@ function LoginPage() {
                     style={search_text}
                     placeholder='Password'
                     value={password}
+                    onChangeText={setPassword}
                 />
             </View>
             <View >
