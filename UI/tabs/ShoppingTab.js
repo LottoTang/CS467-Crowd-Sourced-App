@@ -27,32 +27,32 @@ const ShoppingTab = () => {
             <Stack.Screen
               name="Home"
               component={HomeScreen}
-              options={{title: 'Your Shopping List'}}
+              options={{title: 'Your Shopping List', animation: "slide_from_left"}}
             />
             <Stack.Screen
               name="Add Items"
               component={AddItems}
-              options={{title: ''}}
+              options={{title: '', animation: "slide_from_right"}}
             />
             <Stack.Screen
               name="Select Brand"
               component={SelectBrand}
-              options={{title: ''}}
+              options={{title: '', animation: "slide_from_right"}}
             />
             <Stack.Screen
               name="View Item"
               component={ViewItem}
-              options={{title: ''}}
+              options={{title: '', animation: "slide_from_right"}}
             />
             <Stack.Screen
               name="View Store Recs"
               component={StoreRecs}
-              options={{title: 'Your Stores'}}
+              options={{title: 'Your Stores', animation: "slide_from_bottom"}}
             />
             <Stack.Screen
               name="View Items at Store"
               component={ItemsAtStore}
-              options={{title: ''}}
+              options={{title: '', animation: "slide_from_right"}}
             />
 
             <Stack.Screen name="Testing"

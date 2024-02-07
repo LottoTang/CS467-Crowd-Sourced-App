@@ -66,7 +66,7 @@ function ViewItem() {
     ]
 
     const closePopup = (selection=null) => {
-        setRanking(selection.value)
+        if (selection != null) setRanking(selection.value)
         setPopup(false)
     }
 
@@ -109,7 +109,7 @@ function ViewItem() {
                 />
                 <View style={[styles.row, {marginTop: 12}]}>
                     <Text style={text_styles.smallTitle}>Store(s):</Text>
-                    <Pressable style={{alignSelf: 'flex-end'}} onPress={() => setPopup(true)}>
+                    <Pressable style={{alignSelf: 'flex-end', marginBottom: 4}} onPress={() => setPopup(true)}>
                         <Text style={[add_button, {fontSize: 13}]}>Sort</Text>
                     </Pressable>
                 </View>

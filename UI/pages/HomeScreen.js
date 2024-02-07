@@ -52,7 +52,7 @@ function HomeScreen({navigation}) {
   return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
-            <View  style={{maxHeight: '79%'}}>
+            <View  style={{maxHeight: '87%'}}>
                 <ShoppingList />
 
                 <Pressable onPress={()=> navigation.navigate("Add Items")}>
@@ -79,7 +79,7 @@ const home_style = StyleSheet.create({
    addButton: {
        margin: 6,
        alignSelf: 'flex-end',
-       marginTop: 12
+       marginTop: 12,
    },
    shopButton: {
        width: '80%',
@@ -88,8 +88,7 @@ const home_style = StyleSheet.create({
        borderWidth: 1,
        borderRadius: 20,
 
-       padding: 12,
-       margin: 6,
+       padding: 8,
 
        alignSelf: 'center',
    }
