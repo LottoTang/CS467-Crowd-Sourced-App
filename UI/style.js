@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 
 const colors = StyleSheet.create({
     color1: {
-        color: 'black'
+        color: '#000000'
     },
     color2: {
         color: 'white'
