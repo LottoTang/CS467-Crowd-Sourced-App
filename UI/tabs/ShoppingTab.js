@@ -2,6 +2,8 @@ import * as React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import headerFunc from '../components/Header.js';
+import { useSelector } from 'react-redux';
+import { capitalizeTitle } from '../ui_helpers.js'
 
 import HomeScreen from '../pages/HomeScreen.js';
 import AddItems from '../pages/AddItems.js';
@@ -22,6 +24,10 @@ import { TestMissingItems } from '../pages/TestPages/TestMissingItems.js';
 const Stack = createNativeStackNavigator();
 
 const ShoppingTab = () => {
+    const selected = useSelector(state=> state.selected_item);
+    let item_title = ""
+    if (selected) item_title = capitalizeTitle(selected);
+
     return (
         <Stack.Navigator screenOptions={{header: headerFunc}}>
             <Stack.Screen
@@ -37,12 +43,12 @@ const ShoppingTab = () => {
             <Stack.Screen
               name="Select Brand"
               component={SelectBrand}
-              options={{title: '', animation: "slide_from_right"}}
+              options={{title: item_title, animation: "slide_from_right"}}
             />
             <Stack.Screen
               name="View Item"
               component={ViewItem}
-              options={{title: '', animation: "slide_from_right"}}
+              options={{title: item_title, animation: "slide_from_right"}}
             />
             <Stack.Screen
               name="View Store Recs"

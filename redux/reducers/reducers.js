@@ -51,13 +51,14 @@ const homepageReducer = (state= initial_state, action) =>{
 
         case "DELETE_ITEM":
             
-            const newList = Object.fromEntries(Object.entries(state.shoppingList).filter(([key, value])=>{
-                return key != action.payload;
+            const newList = Object.fromEntries(
+                Object.entries(state.shopping_list).filter(([key, value])=>{
+                    return key != action.payload;
             }));
 
             return {
                 ...state,
-                shoppingList: newList,
+                shopping_list: newList,
             }
         default:
             return state;

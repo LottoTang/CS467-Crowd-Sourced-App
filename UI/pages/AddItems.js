@@ -98,8 +98,8 @@ const CreateItem = ({suggestions, product}) => {
     return (
         <View style={styles.bottom}>
             <View style={styles.row}>
-                <Text style={[text_styles.smallTitle, {alignSelf: 'center', paddingRight: 8}]}>Create </Text>
-                <View style={{width: '78%'}} >
+                <Text style={[text_styles.smallTitle, {alignSelf: 'center', paddingRight: 8, maxWidth: '21%'}]}>Create </Text>
+                <View style={{width: '76%'}} >
                     <ItemComponent item={product} />
                 </View>
             </View>
@@ -130,6 +130,7 @@ function AddItems() {
                 <TextInput
                     style={search_text}
                     placeholder='Search for an item'
+                    placeholderTextColor={add_style.placeholder.color}
                     value={product_name}
                     onChangeText={handleInputChange}
                 />
@@ -155,6 +156,9 @@ const add_style = StyleSheet.create({
         width: '100%',
         paddingTop: 0,
         paddingBottom: 0,
+    },
+    placeholder: {
+        color: `${text_styles.itemText.color}80`
     }
 });
 

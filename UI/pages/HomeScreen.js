@@ -28,7 +28,7 @@ const ShoppingList = () => {
 
     const handleSelectedItem = (item)=>{
         dispatch(viewSelectedItem(item));
-        navigation.navigate('View Item');
+        navigation.navigate('View Item', {deletable: true, product: item});
     };
     return(
         <FlatList
@@ -79,7 +79,6 @@ const home_style = StyleSheet.create({
    addButton: {
        margin: 6,
        alignSelf: 'flex-end',
-       marginTop: 12,
    },
    shopButton: {
        width: '80%',
