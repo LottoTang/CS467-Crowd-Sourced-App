@@ -1,7 +1,10 @@
+// Code retrieved from : https://github.com/auth0-samples/auth0-react-native-sample/blob/master/00-Login-Hooks/App.tsx
+
 // react imports
 import React from 'react';
 import {
   SafeAreaView,
+  Alert,
   FlatList,
   Pressable,
   StyleSheet,
@@ -11,15 +14,34 @@ import {
 } from 'react-native';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useAuth0 } from 'react-native-auth0';
 
 // style imports
 import styles, {item_style, text_styles} from '../style.js';
 
 function LoginPage() {
 // the Login page screen itself with its components
+    const {authorize, clearSession, user, getCredentials, error, isLoading} = useAuth0();
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const onLogin = async () => {
+        await authorize({}, {});
+        const credentials = await getCredentials();
+        Alert.alert('AccessToken: ' + credentials?.accessToken);
+    };
+
+    const onLogout = async () => {
+        await clearSession({}, {});
+    };
+
+    if (isLoading) {
+        return (
+            <SafeAreaView style={styles.app}>
+                <View style={[styles.container, {justifyContent: 'center'}]}>
+                    <Text style={login_style.title}>Loading...</Text>
+                </View>
+            </SafeAreaView>
+        );
+    }
 
     const navigation = useNavigation();
 
@@ -30,27 +52,8 @@ function LoginPage() {
     return (
     <SafeAreaView style={styles.app}>
         <View style={[styles.container, {justifyContent: 'center'}]}>
-            <Text style={login_style.title}>Sign in</Text>
-            <Text style={text_styles.smallTitle}>Email</Text>
-            <View style={item_style}>
-                <TextInput
-                    style={search_text}
-                    placeholder='Email'
-                    value={email}
-                    onChangeText={setEmail}
-                />
-            </View>
-            <Text style={text_styles.smallTitle}>Password</Text>
-            <View style={[item_style, {marginBottom: 24}]}>
-                <TextInput
-                    style={search_text}
-                    placeholder='Password'
-                    value={password}
-                    onChangeText={setPassword}
-                />
-            </View>
             <View >
-                <Text style={button} onPress={()=>handleSignIn()}>
+                <Text style={button} onPress={()=>onLogin()}>
                     Sign in
                 </Text>
             </View>
@@ -74,7 +77,9 @@ const login_style = StyleSheet.create({
         fontFamily: styles.fontBold.fontFamily,
 
         marginLeft: 6,
-        marginBottom: 6
+        marginBottom: 6,
+
+        alignSelf: 'center'
     },
     button: {
        width: '80%',

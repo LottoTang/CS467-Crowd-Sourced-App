@@ -14,13 +14,19 @@ import { Provider } from 'react-redux';
 
 import appSetup from './UI/app_setup.js'
 
+import {useAuth0, Auth0Provider} from 'react-native-auth0';
+import config from './auth0-configuration';
+
+
 function App(): React.JSX.Element {
   return (
-    <Provider store={store}>
-    <NavigationContainer>
-        {appSetup()}
-    </NavigationContainer>
-    </Provider>
+    <Auth0Provider domain={config.domain} clientId={config.clientId}>
+      <Provider store={store}>
+      <NavigationContainer>
+          {appSetup()}
+      </NavigationContainer>
+      </Provider>
+    </Auth0Provider>
   );
 }
 

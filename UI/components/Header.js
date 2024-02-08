@@ -18,11 +18,11 @@ import styles, {item_style, text_styles,} from '../style.js';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const headerFunc = ({navigation, route, options, back}) => {
-// the Header at the top of each screen, including back button, title, and username
-    //TODO: set name and level based on passed in user data
-    const user = {name: "Username", level: 4}
+  // the Header at the top of each screen, including back button, title, and username
+  //TODO: set name and level based on passed in user data
+  const user = {name: 'Username', level: 4};
 
-    const title = getHeaderTitle(options, route.name);
+  const title = getHeaderTitle(options, route.name);
 
     let header_height = 116
     if (title == "") header_height = 63
