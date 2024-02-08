@@ -2,8 +2,7 @@ import * as React from 'react';
 import { SafeAreaView } from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import LoginPage from './pages/LoginPage.js';
-import TestUserLogin from './pages/TestPages/TestUserLogin.js';
+import LoginSetup from './login_setup.js';
 import TabSetup from './tab_setup.js';
 
 const Stack = createNativeStackNavigator();
@@ -19,19 +18,14 @@ const appSetup = () => {
     return (
         <Stack.Navigator screenOptions={{header: headerFunc}}>
             <Stack.Screen
-              name="Login"
-              component={LoginPage}
-              options={{title: ''}}
-            />
-            <Stack.Screen
-              name="TestUserLogin"
-              component={TestUserLogin}
+              name="Preapp"
+              component={LoginSetup}
               options={{title: ''}}
             />
             <Stack.Screen
               name="Tabs"
               component={TabSetup}
-              options={{title: ''}}
+              options={{title: '', animation: "slide_from_right"}}
             />
         </Stack.Navigator>
     )

@@ -17,20 +17,18 @@ import { useNavigation } from '@react-navigation/native';
 import { useAuth0 } from 'react-native-auth0';
 
 // style imports
-import styles, {item_style, text_styles} from '../style.js';
+import styles, {text_styles} from '../style.js';
 
 function LoginPage() {
 // the Login page screen itself with its components
     const {authorize, clearSession, user, getCredentials, error, isLoading} = useAuth0();
 
+    const navigation = useNavigation();
+
     const onLogin = async () => {
         await authorize({}, {});
         const credentials = await getCredentials();
-        Alert.alert('AccessToken: ' + credentials?.accessToken);
-    };
-
-    const onLogout = async () => {
-        await clearSession({}, {});
+        if (credentials?.accessToken !== undefined ) navigation.navigate("Tabs")
     };
 
     if (isLoading) {
@@ -43,20 +41,12 @@ function LoginPage() {
         );
     }
 
-    const navigation = useNavigation();
-
-    const handleSignIn = () => {
-        navigation.navigate("Tabs")
-    }
-
     return (
     <SafeAreaView style={styles.app}>
         <View style={[styles.container, {justifyContent: 'center'}]}>
-            <View >
-                <Text style={button} onPress={()=>onLogin()}>
-                    Sign in
-                </Text>
-            </View>
+            <Text style={button} onPress={onLogin}>
+                Sign in
+            </Text>
         </View>
     </SafeAreaView>
     );
@@ -66,11 +56,6 @@ export default LoginPage;
 
 
 const login_style = StyleSheet.create({
-    searchText: {
-        width: '100%',
-        paddingTop: 0,
-        paddingBottom: 0,
-    },
     title: {
         fontSize: 30,
         color: styles.textColor.color,
@@ -95,5 +80,4 @@ const login_style = StyleSheet.create({
     }
 });
 
-const search_text = [text_styles.itemText, login_style.searchText]
 const button = [login_style.button, text_styles.button]
