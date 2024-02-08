@@ -78,7 +78,8 @@ android {
     namespace "com.templateproject"
     defaultConfig {
         applicationId "com.templateproject"
-        minSdkVersion rootProject.ext.minSdkVersion
+        missingDimensionStrategy 'react-native-camera', 'general'
+        minSdkVersion 23
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
