@@ -1,45 +1,65 @@
 // Creating the first reducer
 
 import { testItemsList, testList2, sampleData } from "../../testData/testingData";
+import { products, stores, promotions, items, generateShoppingList } from "../../testData/testingData2";
 
 
 // Using test list now until database connection is ready
-const initialState = {
-    numOfItems: 0,
-    shoppingListId: 1,
-    userId: 123,
-    shoppingList: testList2,
-    selectedItem: null,
-    allItems: sampleData,
-    selectedBrand: [],
-    editingItem: false,
+const initial_state = {
+    num_items: 0,
+    shopping_list_id: 1,
+    user_id: 123,
+    shopping_list: generateShoppingList(),
+    selected_item: null,
+    all_items: items,
+    all_products: products,
+    all_stores: stores,
+    all_promotions: promotions
 };
 
 
-const homepageReducer = (state= initialState, action) =>{
+const homepageReducer = (state= initial_state, action) =>{
     switch (action.type){
         case "ADD_ITEM":
+            const new_list = {...state.shopping_list}
+            const items = []
+            for (const item_id of Object.keys(state.all_items)){
+                const item = state.all_items[item_id]
+                const product = state.all_products[item.product].name
+                if (product == action.payload.name) {
+                    if (action.payload.brands.includes(item.brand)) items.push(item_id)
+                }
+            }
+            new_list[action.payload.name] = items
             return {
                 ...state,
                 numOfItems : state.numOfItems + 1,
-                shoppingList : [
-                    ...state.shoppingList,
-                    action.payload
-                ]
+                shopping_list : new_list
             };
         case "VIEW_ITEM":
             return {
                 ...state,
-                selectedItem: action.payload,
+                selected_item: action.payload,
             };
         case "NEW_SHOPPING_LIST":
             return {
                 ...state,
-                shoppingListId: action.payload.shoppingListId,
-                userId: action.payload.userId,
-                shoppingList: action.payload.shoppingList
+                shopping_list_id: action.payload.shopping_list_id,
+                user_id: action.payload.user_id,
+                shopping_list: action.payload.shopping_list
             };
 
+        case "DELETE_ITEM":
+            
+            const newList = Object.fromEntries(
+                Object.entries(state.shopping_list).filter(([key, value])=>{
+                    return key != action.payload;
+            }));
+
+            return {
+                ...state,
+                shopping_list: newList,
+            }
         default:
             return state;
     }

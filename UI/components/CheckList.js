@@ -1,3 +1,4 @@
+// react imports
 import React from 'react';
 import {
   FlatList,
@@ -8,9 +9,13 @@ import {
 } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+// function imports
+import { removeItemFromArray } from '../ui_helpers.js'
+
+// style imports
 import styles, {item_style, text_styles,} from '../style.js';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 const ItemComponent = ({item, func=()=>{}, preselected=false, data}) => {
@@ -31,10 +36,7 @@ const ItemComponent = ({item, func=()=>{}, preselected=false, data}) => {
             setSelectedItems(items_copy)
         }
         else {
-            idx = selected_items.indexOf(item)
-            items_copy = selected_items.slice()
-            items_copy.splice(idx, 1)
-            setSelectedItems(items_copy)
+            setSelectedItems(removeItemFromArray(item, selected_items));
         }
     };
 
@@ -67,7 +69,7 @@ const CheckList = ({data}) => {
     const [items, type, selected_items] = data
 
     // preset to false if selected_items != any items
-    const [anyItem, setAny] = useState((selected_items == `Any ${type}`));
+    const [any_item, setAny] = useState((selected_items == `Any ${type}`));
 
     let showAny = true;
     if (type == "product") showAny = false;
@@ -85,7 +87,7 @@ const CheckList = ({data}) => {
                     <ItemComponent item={item} preselected={selected_items.includes(item)} data={data} />
                 }
             />
-            { anyItem ? (
+            { any_item ? (
                 <View style={check_style.greyed}></View>
             ) : null}
         </View>

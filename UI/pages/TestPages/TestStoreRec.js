@@ -5,19 +5,23 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import { recommendedStoresForTotalShoppingList } from "../../../redux/funtionality/helperFunctions";
 import { useNavigation } from "@react-navigation/native";
+import { items, stores, products, promotions } from "../../../testData/testingData2";
+import { getGoShoppingList, getStoresSorting } from "../../../redux/funtionality/helperFunctions";
 
 
 const TestStoreRec = () =>{
 
-    const allItems = useSelector(state => state.allItems);
-    const shoppingList = useSelector(state => state.shoppingList);
+    const shopping_list = useSelector(state => state.shopping_list);
     const [ranking, setRanking] = useState("price");
 
-    const recommendedStores = recommendedStoresForTotalShoppingList(shoppingList, allItems, ranking);
     const navigation = useNavigation();
 
+    const stores_breakdown = getGoShoppingList(shopping_list, items, stores);
+    const ranked_data = getStoresSorting(stores_breakdown, ranking);
+    //const data = Object.values(stores_breakdown);
+
     const handleStore = (item)=>{
-        navigation.navigate("TestMissingItems", {shoppingList: item});
+        navigation.navigate("TestMissingItems", {shopping_list: item});
     }
 
 
@@ -26,17 +30,17 @@ const TestStoreRec = () =>{
             <Text>Ranking Type</Text>
             <Picker 
                 selectedValue = {ranking}
-                onValueChange = {(itemValue, itemIndex) => setRanking(itemValue)}>
+                onValueChange = {(item_value, item_index) => setRanking(item_value)}>
                 <Picker.Item label="Price" value="price"/>
                 <Picker.Item label="Items Found" value="items"/>
                 <Picker.Item label="Store" value="store_name"/>
             </Picker>
             <FlatList
-                data={recommendedStores}
+                data={ranked_data}
                 renderItem={({item})=>(
                     <View>
                         <Pressable onPress={()=>handleStore(item)}>
-                            <Text style={styles.storeRec}>{item.storeName}. Items Found: {item.numItems}. Total Cost: ${item.totalCost}</Text>
+                            <Text style={styles.storeRec}>{item.name}. Items Found: {item.num_items}. Total Cost: ${item.total_cost}</Text>
                         </Pressable>
                     </View>
                 )}

@@ -11,4 +11,15 @@ function capitalizeTitle(title) {
     return capitalized_title
 };
 
-export {capitalizeTitle};
+function removeItemFromArray(item, array) {
+    const idx = array.indexOf(item);
+
+    if (idx == -1) return [item]
+
+    const new_array = array.slice();
+    new_array.splice(idx, 1);
+    return new_array
+};
+
+
+export {capitalizeTitle, removeItemFromArray};

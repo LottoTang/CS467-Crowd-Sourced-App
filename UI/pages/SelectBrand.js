@@ -1,41 +1,48 @@
+// react imports
 import React from 'react';
 import {
   SafeAreaView,
-  Pressable,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useDispatch, useSelector } from 'react-redux';
+
+// function imports
+import { getBrandsList } from '../../redux/funtionality/helperFunctions';
 import { addItemInShoppingList } from '../../redux/actions/actions.js';
 
-import styles, {text_styles, add_button} from '../style.js';
+// component imports
 import CheckList from '../components/CheckList.js'
 
-import { getBrandsList } from '../../redux/funtionality/helperFunctions';
-import { capitalizeTitle } from '../ui_helpers.js'
+// style imports
+import styles, {text_styles, add_button} from '../style.js';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 function SelectBrand({route}) {
 // the Select Brand screen itself with its components
     let {product, preselected} = route.params;
-    if (preselected == null) preselected = []
+    if (preselected == undefined) preselected = []
 
     const [selected_brands, setSelectedItems] = useState(preselected)
 
     // TODO: const brands = getBrandsList(product), where func retrieves from database
-    const brands = getBrandsList(product, useSelector(state=>state.allItems));
+    const all_products = useSelector(state => state.all_products);
+    const brands = getBrandsList(product, all_products);
 
     // Set up connection with store to dispatch signal
     const dispatch = useDispatch();
 
     const navigation = useNavigation();
     const handlePress = ()=>{
+        let selected = selected_brands
+        if (selected_brands.includes("Any brand")) selected = brands
+
         // TODO: replace dispatch function with function that accesses database
-        dispatch(addItemInShoppingList(product, selected_brands));
+        dispatch(addItemInShoppingList(product, selected));
         navigation.navigate('Home');
     }
 
@@ -45,19 +52,13 @@ function SelectBrand({route}) {
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
-            <Text style={brand_style.title}>{capitalizeTitle(product)}</Text>
-
             <Text style={text_styles.smallTitle}>Brand(s):</Text>
             <View  style={{maxHeight: '62%'}}>
                 <CheckList data={data} />
             </View>
 
             <View style={styles.bottom}>
-                <Text
-                        style={addButton}
-                        onPress={() => handlePress()}>
-                    +
-                </Text>
+                <Text style={addButton} onPress={() => handlePress()}>+</Text>
             </View>
         </View>
     </SafeAreaView>

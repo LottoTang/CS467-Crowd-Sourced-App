@@ -1,3 +1,4 @@
+// react imports
 import React from 'react';
 import {
   SafeAreaView,
@@ -8,10 +9,15 @@ import {
   View,
 } from 'react-native';
 import { useState } from 'react';
-import styles, {item_style, text_styles, add_button} from '../style.js';
-import { giveSuggestedItems } from '../../redux/funtionality/helperFunctions.js';
-import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+
+// function imports
+import { giveSuggestedItems } from '../../redux/funtionality/helperFunctions.js';
+
+// style imports
+import styles, {item_style, text_styles, add_button} from '../style.js';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 const ItemComponent = ({item}) => {
@@ -23,14 +29,26 @@ const ItemComponent = ({item}) => {
         navigation.navigate('Select Brand', {product: item});
     };
 
+    const shopping_list = useSelector((state)=> state.shopping_list);
+
+    if (item in shopping_list) {
+        return (
+              <View style={item_style}>
+                  <Text style={text_styles.itemText}>{item}</Text>
+                  <Icon
+                      name={"check"}
+                      size={26}
+                      color={styles.secondaryItemBackground.color}
+                      style={{alignSelf: 'center', paddingRight: 16}}
+                  />
+              </View>
+        )
+    }
+
     return (
         <View style={item_style}>
-            <Text style={text_styles.itemText}>
-                {item}
-            </Text>
-            <Text style={button} onPress={()=> handleAddItem(item)}>
-                +
-            </Text>
+            <Text style={text_styles.itemText}>{item}</Text>
+            <Text style={button} onPress={()=> handleAddItem(item)}>+</Text>
         </View>
     )
 }
@@ -80,8 +98,8 @@ const CreateItem = ({suggestions, product}) => {
     return (
         <View style={styles.bottom}>
             <View style={styles.row}>
-                <Text style={[text_styles.smallTitle, {alignSelf: 'center', paddingRight: 8}]}>Create </Text>
-                <View style={{width: '78%'}} >
+                <Text style={[text_styles.smallTitle, {alignSelf: 'center', paddingRight: 8, maxWidth: '21%'}]}>Create </Text>
+                <View style={{width: '76%'}} >
                     <ItemComponent item={product} />
                 </View>
             </View>
@@ -92,17 +110,16 @@ const CreateItem = ({suggestions, product}) => {
 
 function AddItems() {
 // the Add Item screen itself with its components
-    const state = useSelector((state)=>state.allItems);
-    const allItems = state;
-    const [suggestedItems, setSuggestedItems] = useState('');
-    const [productName, setProductName] = useState('');
+    const all_products = useSelector((state)=>state.all_products);
+    const [suggested_items, setSuggestedItems] = useState('');
+    const [product_name, setProductName] = useState('');
 
     // method giveSuggestedItems will give you item recommendations based on users input
     // Because we don't have access to the database it works with Tomato and Tomato Sauce inputs from the test data
     const handleInputChange = (text)=>{
         setProductName(text);
-        const filterData = giveSuggestedItems(allItems, text);
-        setSuggestedItems(filterData);
+        const filter_data = giveSuggestedItems(all_products, text);
+        setSuggestedItems(filter_data);
     }
 
   return (
@@ -113,12 +130,13 @@ function AddItems() {
                 <TextInput
                     style={search_text}
                     placeholder='Search for an item'
-                    value={productName}
+                    placeholderTextColor={add_style.placeholder.color}
+                    value={product_name}
                     onChangeText={handleInputChange}
                 />
             </View>
-            <SuggestionList suggestions={suggestedItems} search={productName} />
-            <CreateItem suggestions={suggestedItems} product={productName}/>
+            <SuggestionList suggestions={suggested_items} search={product_name} />
+            <CreateItem suggestions={suggested_items} product={product_name}/>
         </View>
     </SafeAreaView>
   );
@@ -138,6 +156,9 @@ const add_style = StyleSheet.create({
         width: '100%',
         paddingTop: 0,
         paddingBottom: 0,
+    },
+    placeholder: {
+        color: `${text_styles.itemText.color}80`
     }
 });
 
