@@ -367,5 +367,34 @@ function getItemSorting(items, sorting, stores){
     return items;
 }   
 
+// Helper method to return the live feeds
+// The method should be looking at the shopping list and return feedback only for the 
+// items in the shopping list and for all stores.
+function returnLiveFeeds(feeds, stores, items){
+
+    let feedResults = [];
+
+    for (let feed in feeds){
+        const typeMessage = feeds[feed].item_id == null ? "store" : "item";
+        let feedInput = {review: "", target: "", typeMessage: typeMessage};
+        feedInput.review = feeds[feed].review;
+
+        // Check if it is a store related or item related message
+        if (typeMessage == "item"){
+            // Get item information
+            for (let item in items){
+                if (items[item].product == feeds[feed].item_id){
+                    feedInput.target = items[item].name + " - " + items[item].brand;
+                }
+            }
+        }
+
+        feedResults.push(feedInput);
+    }
+
+    //return feedResults
+}
+
 export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForProduct, getItemsList }
 export { getShoppingListItemsInStore, getProductInShoppingListDetails, getGoShoppingList, getStoresSorting, getItemSorting }
+export { returnLiveFeeds }
