@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from 'react-redux';
 // function imports
 import { getBrandsList } from '../../redux/funtionality/helperFunctions';
 import { addItemInShoppingList } from '../../redux/actions/actions.js';
-import { capitalizeTitle } from '../ui_helpers.js'
 
 // component imports
 import CheckList from '../components/CheckList.js'
@@ -53,8 +52,6 @@ function SelectBrand({route}) {
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
-            <Text style={brand_style.title}>{capitalizeTitle(product)}</Text>
-
             <Text style={text_styles.smallTitle}>Brand(s):</Text>
             <View  style={{maxHeight: '62%'}}>
                 <CheckList data={data} />

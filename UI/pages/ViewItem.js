@@ -10,13 +10,10 @@ import {
 } from 'react-native';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // function imports
 import { getSelectedBrandsForProduct, getItemsList, getItemSorting } from '../../redux/funtionality/helperFunctions';
-import { capitalizeTitle } from '../ui_helpers.js'
-import { deleteItemInShoppingList } from '../../redux/actions/actions.js';
 
 // data imports
 import { stores } from '../../testData/testingData2.js';
@@ -66,26 +63,15 @@ function ViewItem() {
     ]
 
     const closePopup = (selection=null) => {
-        setRanking(selection.value)
+        if (selection != null) setRanking(selection.value)
         setPopup(false)
-    }
-
-    // Delete item from shopping list
-    const handleDeleteItem = () =>{
-        dispatch(deleteItemInShoppingList(product));
-        navigation.navigate("Home");
     }
 
 
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
-            <Text style={view_style.title}>{capitalizeTitle(product)}</Text>
             <PopupModal popup={popup} popup_vals={popup_vals} closePopup={closePopup} />
-
-            <Pressable onPress={()=> handleDeleteItem()}>
-                <Text style={view_style.testDelete}>Delete Item</Text>
-            </Pressable>
 
             <View style={{marginRight: 10}}>
                 <View style={styles.row}>
@@ -109,12 +95,12 @@ function ViewItem() {
                 />
                 <View style={[styles.row, {marginTop: 12}]}>
                     <Text style={text_styles.smallTitle}>Store(s):</Text>
-                    <Pressable style={{alignSelf: 'flex-end'}} onPress={() => setPopup(true)}>
+                    <Pressable style={{alignSelf: 'flex-end', marginBottom: 4}} onPress={() => setPopup(true)}>
                         <Text style={[add_button, {fontSize: 13}]}>Sort</Text>
                     </Pressable>
                 </View>
             </View>
-            <View style={{height: '70%'}}>
+            <View style={{height: '78%'}}>
                 <StoresList items={ranked_data}/>
             </View>
         </View>

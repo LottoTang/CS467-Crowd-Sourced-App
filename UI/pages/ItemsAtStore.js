@@ -65,7 +65,7 @@ function ItemsAtStore({route}) {
 
     const handleViewMissing = (item)=>{
         dispatch(viewSelectedItem(item));
-        navigation.navigate('View Item');
+        navigation.navigate('View Item', {deletable: true, product: item});
     };
 
 

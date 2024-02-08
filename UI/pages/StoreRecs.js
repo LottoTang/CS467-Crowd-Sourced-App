@@ -83,7 +83,9 @@ function PopUp({setRanking}) {
     }
 
     const closePopup = (selection=null) => {
-        if (popup_type == "Sort") setRanking(selection.value)
+        if (selection != null) {
+            if (popup_type == "Sort") setRanking(selection.value)
+        }
         setPopup(false)
     }
 
@@ -105,7 +107,7 @@ function StoreRecs() {
 // the Store Recommendation screen itself with its components
 
     const shopping_list = useSelector(state => state.shopping_list);
-    const [ranking, setRanking] = useState("price");
+    const [ranking, setRanking] = useState("items");
 
     const stores_breakdown = getGoShoppingList(shopping_list, items, stores);
     const ranked_data = getStoresSorting(stores_breakdown, ranking);

@@ -2,14 +2,20 @@
 import React from 'react';
 import {
   SafeAreaView,
+  Pressable,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
 import {getHeaderTitle} from '@react-navigation/elements';
+import { useDispatch } from 'react-redux';
+
+// function imports
+import { deleteItemInShoppingList } from '../../redux/actions/actions.js';
 
 // style imports
-import styles from '../style.js';
+import styles, {item_style, text_styles,} from '../style.js';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const headerFunc = ({navigation, route, options, back}) => {
 // the Header at the top of each screen, including back button, title, and username
@@ -18,8 +24,21 @@ const headerFunc = ({navigation, route, options, back}) => {
 
     const title = getHeaderTitle(options, route.name);
 
-    let header_height = 123
+    let header_height = 116
     if (title == "") header_height = 63
+
+    let size = 0
+    if (route.params) {
+        if (route.params.deletable) size = 32
+    }
+
+    const dispatch = useDispatch();
+
+    // Delete item from shopping list
+    const handleDeleteItem = () =>{
+        dispatch(deleteItemInShoppingList(route.params.product));
+        navigation.navigate("Home");
+    }
 
     return(
         <SafeAreaView style={[header_style.header, {height: header_height}]}>
@@ -33,9 +52,18 @@ const headerFunc = ({navigation, route, options, back}) => {
                     <Text style={header_style.text}> {user.name}</Text>
                 </View>
             </View>
-            <Text style={header_style.title}>
-                {title}
-            </Text>
+            <View style={styles.row}>
+                <Text style={header_style.title}>
+                    {title}
+                </Text>
+                <Pressable style={header_style.trash} onPress={()=> handleDeleteItem()}>
+                   <Icon
+                       name={"trash-can-outline"}
+                       size={size}
+                       color={styles.secondaryTextColor.color}
+                   />
+               </Pressable>
+            </View>
         </SafeAreaView>
     )
 }
@@ -85,8 +113,12 @@ const header_style = StyleSheet.create({
 
         padding: 12,
         paddingTop: 0,
-        marginLeft: 12,
-        marginTop: 16,
+        marginLeft: 8,
+        marginTop: 10,
+    },
+    trash: {
+        marginRight: 18,
+        alignSelf: 'center'
     }
 });
 

@@ -31,7 +31,7 @@ const ItemComponent = ({item}) => {
 
     return (
         <View style={item_style}>
-            <View style={[styles.wide_row, {alignSelf: 'center'}]}>
+            <View style={[styles.wide_row, {alignSelf: 'center', maxWidth: '65%'}]}>
                 <Text style={[text_styles.smallTitle, {marginLeft: 0, marginTop: 0}]}>
                     {store.name}
                 </Text>
