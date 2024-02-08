@@ -7,12 +7,12 @@ import { useSelector } from 'react-redux';
 import { getBrandsList } from '../../../redux/funtionality/helperFunctions';
 
 const BrandSelector = ({route}) => {
-  const [selectedBrand, setSelectedBrand] = useState(null);
+  const [selected_brand, setSelectedBrand] = useState(null);
   const {product, otherParam} = route.params;
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const state = useSelector(state=>state.allItems);
+  const state = useSelector(state=>state.all_items);
   const brands = getBrandsList(product, state);
 
   const onSelectBrand = (brand) => {
@@ -20,7 +20,7 @@ const BrandSelector = ({route}) => {
   };
 
   const handlePress = ()=>{
-    dispatch(addItemInShoppingList(product, selectedBrand));
+    dispatch(addItemInShoppingList(product, selected_brand));
     navigation.navigate('Home');
   }
 
@@ -35,7 +35,7 @@ const BrandSelector = ({route}) => {
             onPress={() => onSelectBrand(brand)}
             >
             <Text style={styles.radioButton}>
-                {selectedBrand === brand ? '●' : '○'}
+                {selected_brand === brand ? '●' : '○'}
             </Text>
             <Text style={styles.text}>{brand}</Text>
             </TouchableOpacity>

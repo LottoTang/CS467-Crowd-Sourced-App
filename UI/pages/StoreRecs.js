@@ -39,7 +39,7 @@ const ItemComponent = ({store, list_len}) => {
                     {store.name}
                 </Text>
                 <Text style={[text_styles.itemText, {paddingTop: 0, paddingBottom: 0}]}>
-                    {store.numItems}/{list_len} of your items found
+                    {store.num_items}/{list_len} of your items found
                 </Text>
             </View>
             <View style={{alignSelf: 'center', maxWidth: '35%'}}>
@@ -47,7 +47,7 @@ const ItemComponent = ({store, list_len}) => {
                         Minimum Total:
                 </Text>
                 <Text style={[text_styles.smallTitle, {marginTop: 0, alignSelf: 'flex-end'}]}>
-                    {store.totalCost.toLocaleString('en', {style: "currency", currency: "USD"})}
+                    {store.total_cost.toLocaleString('en', {style: "currency", currency: "USD"})}
                 </Text>
             </View>
         </Pressable>
@@ -83,7 +83,9 @@ function PopUp({setRanking}) {
     }
 
     const closePopup = (selection=null) => {
-        if (popup_type == "Sort") setRanking(selection.value)
+        if (selection != null) {
+            if (popup_type == "Sort") setRanking(selection.value)
+        }
         setPopup(false)
     }
 
@@ -104,21 +106,21 @@ function PopUp({setRanking}) {
 function StoreRecs() {
 // the Store Recommendation screen itself with its components
 
-    const shoppingList = useSelector(state => state.shoppingList);
-    const [ranking, setRanking] = useState("price");
+    const shopping_list = useSelector(state => state.shopping_list);
+    const [ranking, setRanking] = useState("items");
 
-    const storesBreakdown = getGoShoppingList(shoppingList, items, stores);
-    const rankedData = getStoresSorting(storesBreakdown, ranking);
+    const stores_breakdown = getGoShoppingList(shopping_list, items, stores);
+    const ranked_data = getStoresSorting(stores_breakdown, ranking);
 
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
             <PopUp setRanking={setRanking}/>
             <FlatList
-                data={rankedData}
+                data={ranked_data}
                 keyExtractor={(item, index)=> index.toString()}
                 renderItem = { ({item}) =>
-                    <ItemComponent store={item} list_len={Object.keys(shoppingList).length}/>
+                    <ItemComponent store={item} list_len={Object.keys(shopping_list).length}/>
                 }
             />
         </View>

@@ -51,21 +51,21 @@ function ItemsAtStore({route}) {
 // the View Items at Specified Store screen itself with its components
     const store = route.params.store
 
-    const shopping_list = useSelector(state => state.shoppingList);
-    const allItems = useSelector(state => state.allItems);
-    const allStores = useSelector(state => state.allStores);
+    const shopping_list = useSelector(state => state.shopping_list);
+    const all_items = useSelector(state => state.all_items);
+    const all_stores = useSelector(state => state.all_stores);
 
     // collect dictionary of items available/missing
-    const breakdown_items = getShoppingListItemsInStore(shopping_list, store.name, allItems, allStores);
-    const items_found = breakdown_items.itemsAvailable;
-    const items_missing = breakdown_items.itemsMissing;
+    const breakdown_items = getShoppingListItemsInStore(shopping_list, store.name, all_items, all_stores);
+    const items_found = breakdown_items.items_available;
+    const items_missing = breakdown_items.items_missing;
 
     const dispatch = useDispatch();
-    const navigation = useNavigation(); 
+    const navigation = useNavigation();
 
     const handleViewMissing = (item)=>{
         dispatch(viewSelectedItem(item));
-        navigation.navigate('View Item');
+        navigation.navigate('View Item', {deletable: true, product: item});
     };
 
 

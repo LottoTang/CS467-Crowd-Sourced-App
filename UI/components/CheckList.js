@@ -69,7 +69,7 @@ const CheckList = ({data}) => {
     const [items, type, selected_items] = data
 
     // preset to false if selected_items != any items
-    const [anyItem, setAny] = useState((selected_items == `Any ${type}`));
+    const [any_item, setAny] = useState((selected_items == `Any ${type}`));
 
     let showAny = true;
     if (type == "product") showAny = false;
@@ -87,7 +87,7 @@ const CheckList = ({data}) => {
                     <ItemComponent item={item} preselected={selected_items.includes(item)} data={data} />
                 }
             />
-            { anyItem ? (
+            { any_item ? (
                 <View style={check_style.greyed}></View>
             ) : null}
         </View>

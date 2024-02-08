@@ -10,13 +10,10 @@ import {
 } from 'react-native';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // function imports
 import { getSelectedBrandsForProduct, getItemsList, getItemSorting } from '../../redux/funtionality/helperFunctions';
-import { capitalizeTitle } from '../ui_helpers.js'
-import { deleteItemInShoppingList } from '../../redux/actions/actions.js';
 
 // data imports
 import { stores } from '../../testData/testingData2.js';
@@ -32,18 +29,18 @@ import Icon from 'react-native-vector-icons/Feather';
 
 function ViewItem() {
 // the View Item screen itself with its components
-    const product = useSelector(state=> state.selectedItem);
+    const product = useSelector(state=> state.selected_item);
 
-    const allItems = useSelector(state => state.allItems);
-    const shoppingList = useSelector(state => state.shoppingList);
+    const all_items = useSelector(state => state.all_items);
+    const shopping_list = useSelector(state => state.shopping_list);
 
-    const item_ids = shoppingList[product]
-    const items = getItemsList(item_ids, allItems)
+    const item_ids = shopping_list[product]
+    const items = getItemsList(item_ids, all_items)
 
     const selected_brands = getSelectedBrandsForProduct(items);
 
     const [ranking, setRanking] = useState("price");
-    const rankedData = getItemSorting(items, ranking, stores);
+    const ranked_data = getItemSorting(items, ranking, stores);
 
     if (!product) {
         return <Text>No product selected</Text>;
@@ -66,26 +63,15 @@ function ViewItem() {
     ]
 
     const closePopup = (selection=null) => {
-        setRanking(selection.value)
+        if (selection != null) setRanking(selection.value)
         setPopup(false)
-    }
-
-    // Delete item from shopping list
-    const handleDeleteItem = () =>{
-        dispatch(deleteItemInShoppingList(product));
-        navigation.navigate("Home");
     }
 
 
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
-            <Text style={view_style.title}>{capitalizeTitle(product)}</Text>
             <PopupModal popup={popup} popup_vals={popup_vals} closePopup={closePopup} />
-
-            <Pressable onPress={()=> handleDeleteItem()}>
-                <Text style={view_style.testDelete}>Delete Item</Text>
-            </Pressable>
 
             <View style={{marginRight: 10}}>
                 <View style={styles.row}>
@@ -109,13 +95,13 @@ function ViewItem() {
                 />
                 <View style={[styles.row, {marginTop: 12}]}>
                     <Text style={text_styles.smallTitle}>Store(s):</Text>
-                    <Pressable style={{alignSelf: 'flex-end'}} onPress={() => setPopup(true)}>
+                    <Pressable style={{alignSelf: 'flex-end', marginBottom: 4}} onPress={() => setPopup(true)}>
                         <Text style={[add_button, {fontSize: 13}]}>Sort</Text>
                     </Pressable>
                 </View>
             </View>
-            <View style={{height: '70%'}}>
-                <StoresList items={rankedData}/>
+            <View style={{height: '78%'}}>
+                <StoresList items={ranked_data}/>
             </View>
         </View>
     </SafeAreaView>
