@@ -25,6 +25,16 @@ itemsRouter.get("/:id", async (req, res) => {
     }
 })
 
+itemsRouter.get("/", async (req, res) => {
+    try {
+        let items = await getItemByID(req.query.tag);
+        res.status(200).json(items);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Something went wrong' });
+    }
+})
+
 itemsRouter.post("/", async (req, res) => {
     // store name - search this name to find the id to save
     try {
