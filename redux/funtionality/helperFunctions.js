@@ -375,30 +375,27 @@ function returnLiveFeeds(feeds, stores, items, products){
     let feedResults = [];
 
     for (let feed in feeds){
-        const typeMessage = feeds[feed].item_id == null ? "store" : "item";
-        let feedInput = {review: "", target: "", category: typeMessage, user: feeds[feed].user_id, date: feeds[feed].date };
+        let feedInput = {review: "", item: "", store: "", user: feeds[feed].user_id, date: feeds[feed].date };
         feedInput.review = feeds[feed].review;
         
         // Check if it is a store related or item related message
-        if (typeMessage == "item"){
             
-            // Get item information
-            for (let item in items){
+        // Get item information
+        for (let item in items){
                 
-                if (item == feeds[feed].item_id){
+            if (item == feeds[feed].item_id){
 
-                    const productName = products[items[item].product];
-                    feedInput.target = productName.name + " - " + items[item].brand;
-                }
-            } 
-        } else if (typeMessage == "store"){
-            for (let store in stores){
+                const productName = products[items[item].product];
+                feedInput.item = productName.name + " - " + items[item].brand;
+            }
+        } 
+        
+        for (let store in stores){
 
-                if (store == feeds[feed].store_id){
+            if (store == feeds[feed].store_id){
                     
-                    const storeName = stores[store].name;
-                    feedInput.target = storeName;
-                }
+                const storeName = stores[store].name;
+                feedInput.store = storeName;
             }
         }
         
@@ -409,9 +406,24 @@ function returnLiveFeeds(feeds, stores, items, products){
 }
 
 // Helper method to provide filter for all feeds in the feeds page
-// It takes as argument the return value from returnLiveFeeds and the filter you want to apply
-function filterLiveFeeds(liveFeeds, filter){
-    
+// It takes as argument the return value from returnLiveFeeds, the filtered value and the filter you want to apply
+function filterLiveFeeds(liveFeeds, filter, typeFilter){
+
+    if (filter != null){
+        const feedsObject = Object.fromEntries(
+            Object.entries(liveFeeds).filter(([key, value])=>{
+                console.log(key, value);
+                if (typeFilter == "store") return value.store == filter;
+                else if (typeFilter == "user") return value.user_id == filter;
+                else if (typeFilter == "item") return value.item == filter
+            })
+        );
+
+        return feedsObject;
+    } else {
+        return liveFeeds;
+    }
+
 }
 
 export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForProduct, getItemsList }
