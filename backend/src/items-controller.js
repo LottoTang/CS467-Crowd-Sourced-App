@@ -25,11 +25,18 @@ itemsRouter.get("/:id", async (req, res) => {
     }
 })
 
+itemsRouter.get("/", async (req, res) => {
+    try {
+        let items = await getItemByID(req.query.tag);
+        res.status(200).json(items);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Something went wrong' });
+    }
+})
+
 itemsRouter.post("/", async (req, res) => {
-    // boat- req.body.id
     // store name - search this name to find the id to save
-    // createItem(req.body.store_name, req.body.name, req.body.product_type,  req.body.brand, req.body.category, req.body.price, req.body.barcode)
-    // res.status(201).json()
     try {
         let newItem = await createItem(req.body.store_name, req.body.product_type, req.body.name,  req.body.brand, req.body.category, req.body.price, req.body.barcode_id, req.body.promotion_id);
         res.status(201).json(newItem);
