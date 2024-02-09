@@ -71,6 +71,20 @@ const getItemByID = async (item_id) => {
   }
 };
 
+const getItemByTag = async (tag) => {
+
+  try {
+    let tag_items = await Items.find({ _id: item_id }).toArray();
+    // Handle the found item
+    // console.log('Entry found successfully:', this_item);
+    return tag_items; // Return the found item
+  } catch (error) {
+    // Handle the error
+    console.error('Error finding entry:', error);
+    throw error; // Rethrow the error if needed
+  }
+};
+
 const updateItem = async (item_id, new_price, new_promotion, price_change, promotion_change) => {
   if (price_change === true) {
     await Items.updateOne({ _id: item_id}, {"$set": {"price": new_price}} );
