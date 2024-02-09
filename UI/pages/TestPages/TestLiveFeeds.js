@@ -7,17 +7,21 @@ import { returnLiveFeeds } from "../../../redux/funtionality/helperFunctions";
 
 const TestLiveFeeds = ()=>{
 
-    const feedData = returnLiveFeeds(liveFeed, stores, products);
-    console.log(promotions);
+    const feedData = returnLiveFeeds(liveFeed, stores, items, products);
 
     return (
-        <View>
+        <View> 
             <Text style={styles.profile}>John Doe</Text>
             <Text style={styles.segment}>Filter</Text>
             <FlatList style={styles.feed}
                 data={feedData}
+                 
                 renderItem={({item})=>
-                    <Text>{item}</Text>
+                    <View style={styles.feedSection}>
+                        <Text style={styles.feedReview}>{item.review}</Text>
+                        <Text style={styles.feedStore}>{item.target}</Text>
+                        <Text style={styles.feedDetails}>{item.user} - {item.date}</Text>
+                    </View>
             }/>       
         </View>
     );
@@ -39,9 +43,26 @@ const styles = StyleSheet.create({
         marginRight: 15,
         color: "black"
     },
-    feed: {
+    feedReview: {
         color: "black",
-        fontSize: 15, 
+        fontSize: 25, 
+    },
+    feedStore: {
+        color: "red",
+        fontSize: 20,
+        fontWeight: "bold"
+    },
+    feedSection: {
+        marginBottom: 20,
+        borderStyle: "solid",
+        borderColor: "black",
+        borderWidth: 2
+    },
+    feed:{
+        marginBottom: 80
+    },
+    feedDetails: {
+        color: "black"
     }
 });
 

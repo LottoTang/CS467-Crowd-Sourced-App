@@ -368,33 +368,52 @@ function getItemSorting(items, sorting, stores){
 }   
 
 // Helper method to return the live feeds
-// The method should be looking at the shopping list and return feedback only for the 
-// items in the shopping list and for all stores.
-function returnLiveFeeds(feeds, stores, items){
+// The method should be looking at the feeds table, stores table, all items and products table
+// Returns an array of objects with details
+function returnLiveFeeds(feeds, stores, items, products){
 
     let feedResults = [];
 
     for (let feed in feeds){
         const typeMessage = feeds[feed].item_id == null ? "store" : "item";
-        let feedInput = {review: "", target: "", typeMessage: typeMessage};
+        let feedInput = {review: "", target: "", category: typeMessage, user: feeds[feed].user_id, date: feeds[feed].date };
         feedInput.review = feeds[feed].review;
-
+        
         // Check if it is a store related or item related message
         if (typeMessage == "item"){
+            
             // Get item information
             for (let item in items){
-                if (items[item].product == feeds[feed].item_id){
-                    feedInput.target = items[item].name + " - " + items[item].brand;
+                
+                if (item == feeds[feed].item_id){
+
+                    const productName = products[items[item].product];
+                    feedInput.target = productName.name + " - " + items[item].brand;
+                }
+            } 
+        } else if (typeMessage == "store"){
+            for (let store in stores){
+
+                if (store == feeds[feed].store_id){
+                    
+                    const storeName = stores[store].name;
+                    feedInput.target = storeName;
                 }
             }
         }
-
+        
         feedResults.push(feedInput);
     }
 
-    //return feedResults
+    return feedResults
+}
+
+// Helper method to provide filter for all feeds in the feeds page
+// It takes as argument the return value from returnLiveFeeds and the filter you want to apply
+function filterLiveFeeds(liveFeeds, filter){
+    
 }
 
 export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForProduct, getItemsList }
 export { getShoppingListItemsInStore, getProductInShoppingListDetails, getGoShoppingList, getStoresSorting, getItemSorting }
-export { returnLiveFeeds }
+export { returnLiveFeeds, filterLiveFeeds }
