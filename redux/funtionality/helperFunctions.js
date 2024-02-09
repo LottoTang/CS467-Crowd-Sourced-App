@@ -367,5 +367,65 @@ function getItemSorting(items, sorting, stores){
     return items;
 }   
 
+// Helper method to return the live feeds
+// The method should be looking at the feeds table, stores table, all items and products table
+// Returns an array of objects with details
+function returnLiveFeeds(feeds, stores, items, products){
+
+    let feedResults = [];
+
+    for (let feed in feeds){
+        let feedInput = {review: "", item: "", store: "", user: feeds[feed].user_id, date: feeds[feed].date };
+        feedInput.review = feeds[feed].review;
+        
+        // Check if it is a store related or item related message
+            
+        // Get item information
+        for (let item in items){
+                
+            if (item == feeds[feed].item_id){
+
+                const productName = products[items[item].product];
+                feedInput.item = productName.name + " - " + items[item].brand;
+            }
+        } 
+        
+        for (let store in stores){
+
+            if (store == feeds[feed].store_id){
+                    
+                const storeName = stores[store].name;
+                feedInput.store = storeName;
+            }
+        }
+        
+        feedResults.push(feedInput);
+    }
+
+    return feedResults
+}
+
+// Helper method to provide filter for all feeds in the feeds page
+// It takes as argument the return value from returnLiveFeeds, the filtered value and the filter you want to apply
+function filterLiveFeeds(liveFeeds, filter, typeFilter){
+
+    if (filter != null){
+        const feedsObject = Object.fromEntries(
+            Object.entries(liveFeeds).filter(([key, value])=>{
+                console.log(key, value);
+                if (typeFilter == "store") return value.store == filter;
+                else if (typeFilter == "user") return value.user_id == filter;
+                else if (typeFilter == "item") return value.item == filter
+            })
+        );
+
+        return feedsObject;
+    } else {
+        return liveFeeds;
+    }
+
+}
+
 export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForProduct, getItemsList }
 export { getShoppingListItemsInStore, getProductInShoppingListDetails, getGoShoppingList, getStoresSorting, getItemSorting }
+export { returnLiveFeeds, filterLiveFeeds }
