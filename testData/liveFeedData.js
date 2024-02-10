@@ -32,14 +32,14 @@ const liveFeed = {
         store_id: "store_3",
         review: "Discounts 20% for all coffees",
         date: "2024/01/12",
-        user_id: "user_test05"
+        user_id: "user_test04"
     }, 
     feed_6: {
         item_id: null,
         store_id: "store_3",
         review: "No empty spots in parking lot today",
         date: "2024/01/10",
-        user_id: "user_test06"
+        user_id: "user_test03"
     }
 };
 

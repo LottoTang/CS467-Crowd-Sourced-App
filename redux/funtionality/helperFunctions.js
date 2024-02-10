@@ -375,7 +375,7 @@ function returnLiveFeeds(feeds, stores, items, products){
     let feedResults = [];
 
     for (let feed in feeds){
-        let feedInput = {review: "", item: "", store: "", user: feeds[feed].user_id, date: feeds[feed].date };
+        let feedInput = {review: "", item: "", store: "", user: feeds[feed].user_id, date: feeds[feed].date, brand: "" };
         feedInput.review = feeds[feed].review;
         
         // Check if it is a store related or item related message
@@ -387,6 +387,7 @@ function returnLiveFeeds(feeds, stores, items, products){
 
                 const productName = products[items[item].product];
                 feedInput.item = productName.name + " - " + items[item].brand;
+                feedInput.brand = items[item].brand;
             }
         } 
         
@@ -407,19 +408,33 @@ function returnLiveFeeds(feeds, stores, items, products){
 
 // Helper method to provide filter for all feeds in the feeds page
 // It takes as argument the return value from returnLiveFeeds, the filtered value and the filter you want to apply
-function filterLiveFeeds(liveFeeds, filter, typeFilter){
-
-    if (filter != null){
+function filterLiveFeeds(liveFeeds, filter){
+    
+    if (filter.metric != "all"){
         const feedsObject = Object.fromEntries(
             Object.entries(liveFeeds).filter(([key, value])=>{
-                console.log(key, value);
-                if (typeFilter == "store") return value.store == filter;
-                else if (typeFilter == "user") return value.user_id == filter;
-                else if (typeFilter == "item") return value.item == filter
+                console.log(filter)
+                // Check store change
+                if (filter.user_id == "all" && filter.brand == "all" && filter.store != "all") return value.store == filter.store;
+                else if (filter.user_id != "all" && filter.brand == "all" && filter.store != "all") return (value.store == filter.store && value.user == filter.user_id);
+                else if (filter.user_id == "all" && filter.brand != "all" && filter.store != "all") return (value.store == filter.store && value.brand == filter.brand);
+                else if (filter.user_id != "all" && filter.brand != "all" && filter.store != "all") return (value.store == filter.store && value.user == filter.user_id && value.brand == filter.brand);
+                
+                // check user id changing
+                else if (filter.store == "all" && filter.brand == "all" && filter.user_id != "all") return value.user == filter.user_id; 
+                else if (filter.store == "all" && filter.brand != "all" && filter.user_id != "all") return (value.user == filter.user_id && value.brand == filter.brand);
+                
+                // check brand changing
+                else if (filter.store == "all" && filter.user_id == "all" && filter.brand != "all") return value.brand == filter.brand;
+                else if (filter.store != "all" && filter.user_id == "all" && filter.brand != "all") return (value.brand == filter.brand && value.store == filter.store);
+                else if (filter.store == "all" && filter.user_id != "all" && filter.brand != "all") return (value.brand == filter.brand && value.user == filter.user_id);
+                
+                else return liveFeeds;
             })
         );
 
-        return feedsObject;
+        return Object.values(feedsObject);
+        
     } else {
         return liveFeeds;
     }
