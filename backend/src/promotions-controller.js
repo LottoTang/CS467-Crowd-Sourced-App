@@ -17,7 +17,7 @@ promotionsRouter.get("/:id", async (req, res) => {
         res.status(200).json(foundPromotion);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Something went wrong' });
+        res.status(404).send({ error: 'No item with this item_id exists.'});
     }
 })
 
@@ -31,7 +31,6 @@ promotionsRouter.post("/", async (req, res) => {
         res.status(500).json({ error: 'Something went wrong' });
     }
 })  
-
 
 
 
