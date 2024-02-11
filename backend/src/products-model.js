@@ -37,9 +37,9 @@ const createProduct = async (name, brands) => {
   }
 }
 
-const getProductByID = async (product_id) => {
+const getProductByName = async (name) => {
     try {
-        let this_product = await Products.findOne({ _id: product_id });
+        let this_product = await Products.findOne({ name: name });
         return this_product; 
       } catch (error) {
         console.error('Error finding entry:', error);
@@ -49,5 +49,5 @@ const getProductByID = async (product_id) => {
 
 module.exports = {
     createProduct,
-    getProductByID
+    getProductByName
 }

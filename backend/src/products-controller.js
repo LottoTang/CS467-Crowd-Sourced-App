@@ -11,9 +11,9 @@ const {getProductByName, createProduct} = require("./products-model.js");
 
 productsRouter.use(bodyParser.json());
 
-productsRouter.get("/:id", async (req, res) => {
+productsRouter.get("/", async (req, res) => {
     try {
-        let foundProduct = await getProductByName(req.params.id);
+        let foundProduct = await getProductByName(req.params.name);
         res.status(200).json(foundProduct);
     } catch (error) {
         console.error(error);
