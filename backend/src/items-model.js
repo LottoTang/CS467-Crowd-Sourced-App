@@ -74,19 +74,16 @@ const getItemsByTag = async (tag) => {
   // PRODUCT_TAGS WILL BE LIST OF IDS
   try {
     let all_items = await Items.find();
-    // console.log(all_items);
     let tagged_items = [];  // all items that have the user provided tag
     for (let i = 0; i < all_items.length; i++) {
       for (let j = 0; j < all_items[i].product_tags.length; j++) {
-        // console.log(all_items[i].product_tags[j])
-        // console.log(tag)
         // if the query string parameter = a value in the product_tags list, add that entire item to the sublist
         if (tag == all_items[i].product_tags[j]) {
           tagged_items.push(all_items[i])
         }
       }
     }
-    return tagged_items; // Return the found item
+    return tagged_items; // Return the found items
   } catch (error) {
     // Handle the error
     console.error('Error finding entry:', error);
