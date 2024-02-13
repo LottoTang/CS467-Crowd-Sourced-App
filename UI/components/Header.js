@@ -16,15 +16,15 @@ import { deleteItemInShoppingList } from '../../redux/actions/actions.js';
 import { capitalizeTitle } from '../ui_helpers.js'
 
 // style imports
-import styles, {item_style, text_styles,} from '../style.js';
+import styles, {item_style, text_styles} from '../style.js';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const headerFunc = ({navigation, route, options, back}) => {
-  // the Header at the top of each screen, including back button, title, and username
-  //TODO: set name and level based on passed in user data
-  const user = {name: 'Username', level: 4};
+    // the Header at the top of each screen, including back button, title, and username
+    //TODO: set name and level based on passed in user data
+    const user = {name: 'Username', level: 4};
 
-  const title = getHeaderTitle(options, route.name);
+    const title = getHeaderTitle(options, route.name);
 
     let header_height = 116
     if (title == "") header_height = 63
@@ -33,6 +33,11 @@ const headerFunc = ({navigation, route, options, back}) => {
     if (route.params) {
         if (route.params.deletable) size = 32
     }
+
+    let show_user = true
+    if (route.name == "Profile Page") show_user = false
+
+
 
     const dispatch = useDispatch();
 
@@ -68,10 +73,12 @@ const headerFunc = ({navigation, route, options, back}) => {
                     Back
                 </Text>
 
-                <View style={styles.row}>
-                    <Text style={header_style.number}>{user.level}</Text>
-                    <Text style={header_style.text}> {user.name}</Text>
-                </View>
+                { show_user ? (
+                    <Pressable style={styles.row} onPress={()=> navigation.navigate("Profile")}>
+                        <Text style={header_style.number}>{user.level}</Text>
+                        <Text style={header_style.text}> {user.name}</Text>
+                    </Pressable>
+                ) : null}
             </View>
             <View style={styles.row}>
                 <Text style={header_style.title}>
@@ -102,16 +109,16 @@ const header_style = StyleSheet.create({
 
         backgroundColor: styles.headerColor.color,
     },
-    topButtons: {
-        width: '93%',
-        marginTop: 10,
-    },
     text: {
         color: styles.secondaryTextColor.color,
         fontFamily: styles.fontRegular.fontFamily,
         textAlign: 'center',
 
         padding: 4,
+    },
+    topButtons: {
+        width: '93%',
+        marginTop: 10,
     },
     number: {
         fontSize: 13,
