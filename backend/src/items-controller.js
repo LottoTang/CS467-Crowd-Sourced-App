@@ -9,7 +9,7 @@ const itemsRouter = express.Router();
 const bodyParser = require('body-parser');
 
 const {authChecker} = require("./users-controller.js");
-const {createItem, getItemByID, updateItem} = require("./items-model.js");
+const {createItem, getItemByID, updateItem, getItemsByTag} = require("./items-model.js");
 
 // use body parser to parse json requests
 itemsRouter.use(bodyParser.json());
@@ -21,17 +21,25 @@ itemsRouter.get("/:id", async (req, res) => {
         res.status(200).json(foundItem);
     } catch (error) {
         console.error(error);
+        res.status(404).send({ error: 'No item with this item_id exists.'});
+    }
+})
+
+itemsRouter.get("/", async (req, res) => {
+    // gets a list of all items with a particular tag, which is in list of foreign keys
+    try {
+        let items = await getItemsByTag(req.query.tag);
+        res.status(200).json(items);
+    } catch (error) {
+        console.error(error);
         res.status(500).json({ error: 'Something went wrong' });
     }
 })
 
 itemsRouter.post("/", async (req, res) => {
-    // boat- req.body.id
     // store name - search this name to find the id to save
-    // createItem(req.body.store_name, req.body.name, req.body.product_type,  req.body.brand, req.body.category, req.body.price, req.body.barcode)
-    // res.status(201).json()
     try {
-        let newItem = await createItem(req.body.store_name, req.body.product_type, req.body.name,  req.body.brand, req.body.category, req.body.price, req.body.barcode_id, req.body.promotion_id);
+        let newItem = await createItem(req.body.store_name, req.body.product_tags, req.body.name,  req.body.brand, req.body.price, req.body.barcode_id, req.body.promotion_id);
         res.status(201).json(newItem);
     } catch (error) {
         console.error(error);

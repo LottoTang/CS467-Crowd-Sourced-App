@@ -31,62 +31,68 @@ const ShoppingTab = () => {
     return (
         <Stack.Navigator screenOptions={{header: headerFunc}}>
             <Stack.Screen
-              name="Home"
-              component={HomeScreen}
-              options={{title: 'Your Shopping List', animation: "slide_from_left"}}
+                name="Home"
+                component={HomeScreen}
+                options={{title: 'Your Shopping List', animation: "slide_from_left"}}
             />
             <Stack.Screen
-              name="Add Items"
-              component={AddItems}
-              options={{title: '', animation: "slide_from_right"}}
+                name="Add Items"
+                component={AddItems}
+                options={{title: '', animation: "slide_from_right"}}
             />
             <Stack.Screen
-              name="Select Brand"
-              component={SelectBrand}
-              options={{title: item_title, animation: "slide_from_right"}}
+                name="Select Brand"
+                component={SelectBrand}
+                options={{title: item_title, animation: "slide_from_right"}}
             />
             <Stack.Screen
-              name="View Item"
-              component={ViewItem}
-              options={{title: item_title, animation: "slide_from_right"}}
+                name="View Item"
+                component={ViewItem}
+                options={{title: item_title, animation: "slide_from_right"}}
             />
             <Stack.Screen
-              name="View Store Recs"
-              component={StoreRecs}
-              options={{title: 'Your Stores', animation: "slide_from_bottom"}}
+                name="View Store Recs"
+                component={StoreRecs}
+                options={{title: 'Your Stores', animation: "slide_from_bottom"}}
             />
             <Stack.Screen
-              name="View Items at Store"
-              component={ItemsAtStore}
-              options={{title: '', animation: "slide_from_right"}}
+                name="View Items at Store"
+                component={ItemsAtStore}
+                options={{title: '', animation: "slide_from_right"}}
             />
 
-            <Stack.Screen name="Testing"
-              component={TestingPage}
-              options={{title: 'Testing Page'}}
+            <Stack.Screen
+                name="Testing"
+                component={TestingPage}
+                options={{title: 'Testing Page'}}
             />
-            <Stack.Screen name="TestAddItem"
-              component={AddItemForm}
-              options={{title: "Test Add Item"}}
+            <Stack.Screen
+                name="TestAddItem"
+                component={AddItemForm}
+                options={{title: 'Test Add Item'}}
             />
-            <Stack.Screen name="TestBrandSelect"
-              component={BrandSelector}
-              options={{title: "Test Select Brand"}}
+            <Stack.Screen
+                name="TestBrandSelect"
+                component={BrandSelector}
+                options={{title: 'Test Select Brand'}}
             />
-            <Stack.Screen name="TestViewProduct"
-              component={TestViewProduct}
-              options={{title: "Test View Item"}}
+            <Stack.Screen
+                name="TestViewProduct"
+                component={TestViewProduct}
+                options={{title: 'Test View Item'}}
             />
-            <Stack.Screen name="TestStoreRec"
-              component={TestStoreRec}
-              options={{title: "Test Store Rec"}}
+            <Stack.Screen
+                name="TestStoreRec"
+                component={TestStoreRec}
+                options={{title: 'Test Store Rec'}}
             />
-            <Stack.Screen name="TestMissingItems"
-              component={TestMissingItems}
-              options={{title: "Test Missing Items"}}
+            <Stack.Screen
+                name="TestMissingItems"
+                component={TestMissingItems}
+                options={{title: 'Test Missing Items'}}
             />
-        </Stack.Navigator>
-    )
+    </Stack.Navigator>
+  );
 };
 
 export default ShoppingTab;

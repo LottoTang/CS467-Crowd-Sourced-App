@@ -4,7 +4,10 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import headerFunc from '../components/Header.js';
 
 // Temporarily importing HomeScreen until real component is created
-import HomeScreen from '../pages/HomeScreen.js';
+//import HomeScreen from '../pages/HomeScreen.js';
+
+// Testing a live feed page
+import { TestLiveFeeds } from '../pages/TestPages/TestLiveFeeds.js';
 
 
 const Stack = createNativeStackNavigator();
@@ -14,7 +17,7 @@ const LiveFeedTab = () => {
         <Stack.Navigator screenOptions={{header: headerFunc}}>
             <Stack.Screen
               name="LiveFeed"
-              component={HomeScreen}
+              component={TestLiveFeeds}
               options={{title: 'Live Feed'}}
             />
         </Stack.Navigator>
