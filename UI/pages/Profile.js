@@ -15,7 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useAuth0 } from 'react-native-auth0';
 
 // style imports
-import styles, {text_styles} from '../style.js';
+import styles, {text_styles, large_button} from '../style.js';
 
 function ProfilePage() {
 // the Profile page screen itself with its components
@@ -23,10 +23,16 @@ function ProfilePage() {
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
-            <Text>Profile</Text>
+            <View style={styles.bottom}>
+                <Text style={button} onPress={()=>{}}>
+                    Sign out
+                </Text>
+            </View>
         </View>
     </SafeAreaView>
     );
 };
 
 export default ProfilePage;
+
+const button = large_button.concat()

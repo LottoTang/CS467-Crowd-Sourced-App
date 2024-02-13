@@ -17,7 +17,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useAuth0 } from 'react-native-auth0';
 
 // style imports
-import styles, {text_styles} from '../style.js';
+import styles, {large_button} from '../style.js';
 
 function LoginPage() {
 // the Login page screen itself with its components
@@ -67,17 +67,9 @@ const login_style = StyleSheet.create({
         alignSelf: 'center'
     },
     button: {
-       width: '80%',
-       minHeight: '9.75%',
-
-       borderWidth: 1,
-       borderRadius: 20,
-
        padding: 12,
        margin: 6,
-
-       alignSelf: 'center',
     }
 });
 
-const button = [login_style.button, text_styles.button]
+const button = large_button.concat(login_style.button);

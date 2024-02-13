@@ -167,6 +167,23 @@ const add_button = [
     text_styles.button
 ];
 
+const large_button = [
+    StyleSheet.create({
+        button: {
+           width: '80%',
+           minHeight: '9.75%',
+
+           borderWidth: 1,
+           borderRadius: 20,
+
+           padding: 8,
+
+           alignSelf: 'center',
+        }
+    }).button,
+    text_styles.button
+];
+
 const popup_style = StyleSheet.create({
     style: {
         width: '95%',
@@ -189,7 +206,7 @@ const popup_style = StyleSheet.create({
 })
 
 export default styles;
-export {item_style, text_styles, add_button, popup_style}
+export {item_style, text_styles, add_button, large_button, popup_style}
 
 
 
