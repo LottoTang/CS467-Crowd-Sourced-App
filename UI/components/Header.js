@@ -2,6 +2,7 @@
 import React from 'react';
 import {
   SafeAreaView,
+  Alert,
   Pressable,
   StyleSheet,
   Text,
@@ -12,6 +13,7 @@ import { useDispatch } from 'react-redux';
 
 // function imports
 import { deleteItemInShoppingList } from '../../redux/actions/actions.js';
+import { capitalizeTitle } from '../ui_helpers.js'
 
 // style imports
 import styles, {item_style, text_styles,} from '../style.js';
@@ -33,6 +35,25 @@ const headerFunc = ({navigation, route, options, back}) => {
     }
 
     const dispatch = useDispatch();
+
+    const deleteAlert = (item) => {
+        Alert.alert(`Delete ${capitalizeTitle(item)}`,
+            `Are you sure you want to remove ${item} from your shopping list?`,
+            [
+                {
+                    text: 'Cancel',
+                    onPress: () => console.log('Canceled')
+                },
+                {
+                    text: 'Delete',
+                    onPress: () => {
+                        dispatch(deleteItemInShoppingList(route.params.product));
+                        navigation.navigate("Home");
+                    }
+                }
+            ]
+        );
+    }
 
     // Delete item from shopping list
     const handleDeleteItem = () =>{
@@ -56,7 +77,7 @@ const headerFunc = ({navigation, route, options, back}) => {
                 <Text style={header_style.title}>
                     {title}
                 </Text>
-                <Pressable style={header_style.trash} onPress={()=> handleDeleteItem()}>
+                <Pressable style={header_style.trash} onPress={()=> deleteAlert(route.params.product)}>
                    <Icon
                        name={"trash-can-outline"}
                        size={size}
