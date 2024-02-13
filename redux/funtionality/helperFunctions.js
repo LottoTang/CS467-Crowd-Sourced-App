@@ -413,7 +413,7 @@ function filterLiveFeeds(liveFeeds, filter){
     if (filter.metric != "all"){
         const feedsObject = Object.fromEntries(
             Object.entries(liveFeeds).filter(([key, value])=>{
-                console.log(filter)
+                
                 // Check store change
                 if (filter.user_id == "all" && filter.brand == "all" && filter.store != "all") return value.store == filter.store;
                 else if (filter.user_id != "all" && filter.brand == "all" && filter.store != "all") return (value.store == filter.store && value.user == filter.user_id);
@@ -440,6 +440,7 @@ function filterLiveFeeds(liveFeeds, filter){
     }
 
 }
+
 
 export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForProduct, getItemsList }
 export { getShoppingListItemsInStore, getProductInShoppingListDetails, getGoShoppingList, getStoresSorting, getItemSorting }
