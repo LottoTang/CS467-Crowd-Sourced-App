@@ -441,6 +441,11 @@ function filterLiveFeeds(liveFeeds, filter){
 
 }
 
+// Functionality for collecting the data from the user and preparing the request for updating the price of an item
+function sendRequestToUpdatePrice(store, brand, price, tag, date, barcode, promotion){
+    
+}
+
 
 export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForProduct, getItemsList }
 export { getShoppingListItemsInStore, getProductInShoppingListDetails, getGoShoppingList, getStoresSorting, getItemSorting }

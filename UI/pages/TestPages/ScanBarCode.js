@@ -9,33 +9,16 @@ const ScanBarCode = ()=>{
     const [barcode, setBarcode] = useState("");
     const navigation = useNavigation();
 
-    useEffect(()=>{
-        const time = setTimeout(()=>{
-            setBarcode("");
-        }, 2000);
-        return () =>{
-            clearTimeout(time);
-        }
-    }, [barcode]);
-
-    const handleCustomImage = ()=>{
-        <View>
-            <Image 
-                source={{uri: ('https://www.freeiconspng.com/thumbs/barcode/barcode-background-png-6.png')}}
-            />
-        </View>
-    }
-
     const handleBarcodeScanned = (event)=>{
         Vibration.vibrate(100);
 
         // This will be activated once we have the app on the phone, for testing purposes we use the below
         //setBarcode(event.nativeEvent.codeStringValue);
-        setBarcode("1222122112");
     }
 
     const handlePictureTake = ()=>{
-        navigation.navigate("ScanInput", {Scannedbarcode: barcode});
+        setBarcode("1224121221212");
+        navigation.navigate("ScanInput", {barcode: barcode});
     }
 
 
@@ -61,7 +44,7 @@ const ScanBarCode = ()=>{
 const styles = StyleSheet.create({
     cameraContainer: {
         justifyContent: "center",
-        flex: .9,
+        flex: 1,
     },
     button: {
         justifyContent: "center",

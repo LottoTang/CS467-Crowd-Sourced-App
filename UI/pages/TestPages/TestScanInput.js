@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
-const TestScanInput = () => {
+const TestScanInput = ({route}) => {
   const [store, setStore] = useState('');
   const [brand, setBrand] = useState('');
   const [price, setPrice] = useState('');
   const [tag, setTag] = useState('');
   const [date, setDate] = useState('');
   const [sale, setSale] = useState('');
+  const barcode = route.params.barcode;
 
   const navigation = useNavigation();
 
@@ -32,8 +35,8 @@ const TestScanInput = () => {
     setDate(text);
   };
 
-  const handleSale = () => {
-    setSale(!sale);
+  const handleSale = (text) => {
+    setSale(text);
   };
 
   const handleSubmit = () => {
@@ -71,9 +74,15 @@ const TestScanInput = () => {
       />
       <TextInput    
         style={styles.input}
-        placeholder="price"
+        placeholder="date"
         onChangeText={handleDate}
         value={date}
+      />
+      <TextInput    
+        style={styles.input}
+        placeholder="sale"
+        onChangeText={handleSale}
+        value={sale}
       />
       
       <Button title="Submit" onPress={handleSubmit} />
