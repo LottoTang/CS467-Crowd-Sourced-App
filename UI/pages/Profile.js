@@ -47,7 +47,7 @@ function ProfilePage() {
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
-            <View style={{height: 30}}></View>
+            <Text style={title}>{username}</Text>
 
             <View style={item_style}>
                 <View style={[styles.wide_row, {alignSelf: 'center'}]}>
@@ -65,7 +65,7 @@ function ProfilePage() {
                 {master - level} {text} to go to Master Shopper!
             </Text>
 
-            <View style={{height: 40}}></View>
+            <View style={{height: 50}}></View>
 
 
             <View style={{flex: 1, justifyContent: 'flex-end'}}>
@@ -79,8 +79,8 @@ function ProfilePage() {
                         />
                     </Pressable>
                 </View>
-                <View style={{alignSelf: "flex-start", width: '80%'}}>
-                    <View style={item_style}>
+
+                <View style={item_style.concat({justifyContent: 'flex-start'})}>
                         <Icon
                             name={"user"}
                             size={26}
@@ -88,7 +88,7 @@ function ProfilePage() {
                         />
                         <Text style={plainText}>{full_name}</Text>
                     </View>
-                    <View style={item_style}>
+                    <View style={item_style.concat({justifyContent: 'flex-start'})}>
                         <Icon
                             name={"map-pin"}
                             size={26}
@@ -96,7 +96,6 @@ function ProfilePage() {
                         />
                         <Text style={plainText}>{city}, {state}</Text>
                     </View>
-                </View>
             </View>
 
             <View style={styles.bottom}>
@@ -112,9 +111,16 @@ function ProfilePage() {
 export default ProfilePage;
 
 const profile_style = StyleSheet.create({
-    right: {
-        paddingTop: 0,
+    username: {
+        color: text_styles.itemText.color,
+        textAlign: "center",
+        marginTop: 30,
+        marginBottom: 35,
+    },
+    smallText: {
+        paddingLeft: 32,
         paddingRight: 12,
+        paddingTop: 0,
 
         alignSelf: 'flex-end'
     },
@@ -140,4 +146,5 @@ const profile_style = StyleSheet.create({
     },
 });
 const button = large_button.concat()
-const plainText = [text_styles.itemText, profile_style.right]
+const plainText = [text_styles.itemText, profile_style.smallText]
+const title = [text_styles.largeTitle, profile_style.username]
