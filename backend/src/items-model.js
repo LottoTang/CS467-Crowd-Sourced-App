@@ -71,7 +71,7 @@ const getItemByID = async (item_id) => {
 
 const getItemsByTag = async (tag) => {
   // PRODUCT_TAGS FIRST
-  // PRODUCT_TAGS WILL BE LIST OF IDS
+  // PRODUCT_TAGS WILL BE LIST OF STRINGS
   try {
     let all_items = await Items.find();
     let tagged_items = [];  // all items that have the user provided tag

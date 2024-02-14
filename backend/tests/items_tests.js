@@ -1,3 +1,2 @@
-const controller = require('../items-controller');
-const model = require('../items-model');
-
+const controller = require('../src/items-controller');
+const model = require('../src/items-model');
