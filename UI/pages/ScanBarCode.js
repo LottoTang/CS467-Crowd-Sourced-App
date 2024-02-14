@@ -2,8 +2,6 @@
 import React from 'react';
 import {
   SafeAreaView,
-  Button,
-  Image,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -11,11 +9,10 @@ import {
   Vibration,
   View,
 } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import CameraKit, { Camera, CameraType, CameraApi } from "react-native-camera-kit";
+import { Camera, CameraType } from "react-native-camera-kit";
 
-// function imports
 //import TestImageFile from "./testImageFile";
 
 // style imports
