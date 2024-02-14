@@ -29,6 +29,10 @@ function ProfilePage() {
         navigation.navigate("Preapp")
     };
 
+    const onEdit = () => {
+        navigation.navigate("Preapp", { screen: 'Sign Up' })
+    }
+
     // TODO: replace with user data from database
     const user = {
         fullname: "John Doe",
@@ -73,7 +77,7 @@ function ProfilePage() {
             <View style={{flex: 1, justifyContent: 'flex-end'}}>
                 <View style={styles.row}>
                     <Text style={text_styles.smallTitle}>Account Details</Text>
-                    <Pressable style={profile_style.editIcon} onPress={() => {}}>
+                    <Pressable style={profile_style.editIcon} onPress={onEdit}>
                         <Icon
                             name={"edit"}
                             size={32}
