@@ -37,6 +37,9 @@ const headerFunc = ({navigation, route, options, back}) => {
     let show_user = true
     if (route.name == "Profile Page") show_user = false
 
+    let align = 'left'
+    if (!show_user) align = 'center'
+
 
 
     const dispatch = useDispatch();
@@ -81,7 +84,7 @@ const headerFunc = ({navigation, route, options, back}) => {
                 ) : null}
             </View>
             <View style={styles.row}>
-                <Text style={header_style.title}>
+                <Text style={[text_styles.largeTitle, {width: '100%', textAlign: align}]}>
                     {title}
                 </Text>
                 <Pressable style={header_style.trash} onPress={()=> deleteAlert(route.params.product)}>
@@ -133,16 +136,6 @@ const header_style = StyleSheet.create({
         paddingLeft: 7,
         paddingRight: 8,
         paddingTop: 6,
-    },
-    title: {
-        fontSize: 30,
-        color: styles.secondaryTextColor.color,
-        fontFamily: styles.fontBold.fontFamily,
-
-        padding: 12,
-        paddingTop: 0,
-        marginLeft: 8,
-        marginTop: 10,
     },
     trash: {
         marginRight: 18,

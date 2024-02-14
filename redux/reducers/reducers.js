@@ -9,6 +9,7 @@ const initial_state = {
     num_items: 0,
     shopping_list_id: 1,
     user_id: 123,
+    username: 'shoppingpro700',
     shopping_list: generateShoppingList(),
     selected_item: null,
     all_items: items,

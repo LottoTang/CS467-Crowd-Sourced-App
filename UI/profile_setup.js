@@ -7,19 +7,21 @@ import {
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import headerFunc from './components/Header.js';
-import ProfilePage from './pages/Profile.js'
+import { useSelector } from 'react-redux';
 
+import ProfilePage from './pages/Profile.js'
 import styles from './style.js';
 
 const Stack = createNativeStackNavigator();
 
 const ProfileSetup = () => {
+    const user = useSelector(state=> state.username);
     return (
         <Stack.Navigator screenOptions={{header: headerFunc}}>
             <Stack.Screen
                 name="Profile Page"
                 component={ProfilePage}
-                options={{title: '', animation: "slide_from_bottom"}}
+                options={{title: user, animation: "slide_from_bottom"}}
             />
         </Stack.Navigator>
     )

@@ -128,6 +128,16 @@ const text_styles = StyleSheet.create({
         marginLeft: 8,
         marginTop: 4,
     },
+    largeTitle: {
+        fontSize: 30,
+        color: styles.secondaryTextColor.color,
+        fontFamily: styles.fontBold.fontFamily,
+
+        padding: 12,
+        paddingTop: 0,
+        marginLeft: 8,
+        marginTop: 10,
+    },
     footnote: {
         fontSize: 11,
         color: styles.textColor.color,
