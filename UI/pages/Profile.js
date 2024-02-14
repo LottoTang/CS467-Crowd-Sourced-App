@@ -19,12 +19,20 @@ import styles, {text_styles, large_button} from '../style.js';
 
 function ProfilePage() {
 // the Profile page screen itself with its components
+    const {authorize, clearSession, user, getCredentials, error, isLoading} = useAuth0();
+
+    const navigation = useNavigation();
+
+    const onLogout = async () => {
+        await clearSession({}, {});
+        navigation.navigate("Preapp")
+    };
 
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
             <View style={styles.bottom}>
-                <Text style={button} onPress={()=>{}}>
+                <Text style={button} onPress={onLogout}>
                     Sign out
                 </Text>
             </View>

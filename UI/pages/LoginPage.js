@@ -12,7 +12,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth0 } from 'react-native-auth0';
 
@@ -27,9 +27,19 @@ function LoginPage() {
 
     const onLogin = async () => {
         await authorize({}, {});
-        const credentials = await getCredentials();
-        if (credentials?.accessToken !== undefined ) navigation.navigate("Tabs")
+        await checkAuthorization()
     };
+
+    const checkAuthorization = async () => {
+        const credentials = await getCredentials();
+        if (credentials?.accessToken !== undefined ) {
+            navigation.navigate("Tabs")
+        }
+    };
+
+    useEffect(() => {
+        checkAuthorization()
+    }, [])
 
     if (isLoading) {
         return (
