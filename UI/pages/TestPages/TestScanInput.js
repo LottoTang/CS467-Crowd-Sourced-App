@@ -1,50 +1,81 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const TestScanInput = () => {
-  const [review, setReview] = useState('');
-  const [product, setProduct] = useState('');
   const [store, setStore] = useState('');
+  const [brand, setBrand] = useState('');
+  const [price, setPrice] = useState('');
+  const [tag, setTag] = useState('');
+  const [date, setDate] = useState('');
+  const [sale, setSale] = useState('');
 
-  const handleReviewChange = (text) => {
-    setReview(text);
-  };
+  const navigation = useNavigation();
 
-  const handleProductChange = (text) => {
-    setProduct(text);
-  };
-
-  const handleStoreChange = (text) => {
+  const handleStore = (text) => {
     setStore(text);
+  };
+
+  const handleBrand = (text) => {
+    setBrand(text);
+  };
+
+  const handlePrice = (text) => {
+    setPrice(text);
+  };
+
+  const handleTag = (text) => {
+    setTag(text);
+  };
+
+  const handleDate = (text) => {
+    setDate(text);
+  };
+
+  const handleSale = () => {
+    setSale(!sale);
   };
 
   const handleSubmit = () => {
     // Handle form submission here, you can send the data to a backend or perform any other action.
-    console.log('Review:', review);
-    console.log('Product:', product);
-    console.log('Store:', store);
+
+    // TODO --> Add request to database
+    navigation.navigate("Home");
   };
 
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        placeholder="Enter your review"
-        onChangeText={handleReviewChange}
-        value={review}
+        placeholder="Store"
+        onChangeText={handleStore}
+        value={store}
       />
       <TextInput
         style={styles.input}
-        placeholder="Enter product"
-        onChangeText={handleProductChange}
-        value={product}
+        placeholder="Brand"
+        onChangeText={handleBrand}
+        value={brand}
       />
       <TextInput    
         style={styles.input}
-        placeholder="Enter store"
-        onChangeText={handleStoreChange}
-        value={store}
+        placeholder="price"
+        onChangeText={handlePrice}
+        value={price}
       />
+      <TextInput    
+        style={styles.input}
+        placeholder="tag"
+        onChangeText={handleTag}
+        value={tag}
+      />
+      <TextInput    
+        style={styles.input}
+        placeholder="price"
+        onChangeText={handleDate}
+        value={date}
+      />
+      
       <Button title="Submit" onPress={handleSubmit} />
     </View>
   );
