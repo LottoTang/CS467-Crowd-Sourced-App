@@ -20,7 +20,7 @@ import Icon from 'react-native-vector-icons/Feather';
 
 function ProfilePage() {
 // the Profile page screen itself with its components
-    const {authorize, clearSession, user, getCredentials, error, isLoading} = useAuth0();
+    const {authorize, clearSession, getCredentials, error, isLoading} = useAuth0();
 
     const navigation = useNavigation();
 
@@ -30,39 +30,41 @@ function ProfilePage() {
     };
 
     // TODO: replace with user data from database
-    const full_name = "John Doe"
-    const username = "shoppingpro700"
-    const level = 4
-    const city = "Corvallis"
-    const state = "OR"
+    const user = {
+        fullname: "John Doe",
+        username: "shoppingpro700",
+        shopping_level: 4,
+        city: "Corvallis",
+        state: "OR"
+    }
 
     // highest shopper level
     const master = 5
 
     let text = "levels"
-    if (master - level == 1) text = "level"
+    if (master - user.shopping_level == 1) text = "level"
 
     const level_names = ["Beginner Shopper", "Frequent Shopper", "Seasoned Shopper", "Experienced Shopper", "Master Shopper"]
 
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
-            <Text style={title}>{username}</Text>
+            <Text style={title}>{user.username}</Text>
 
             <View style={item_style}>
                 <View style={[styles.wide_row, {alignSelf: 'center'}]}>
                     <Text style={[text_styles.smallTitle, {marginLeft: 0, marginTop: 0}]}>
-                        {level_names[level - 1]}
+                        {level_names[user.shopping_level - 1]}
                     </Text>
                 </View>
                 <View style={{alignSelf: 'center', maxWidth: '35%'}}>
                     <Text style={[profile_style.levelIcon, {marginTop: 0, alignSelf: 'flex-end'}]}>
-                        {level}
+                        {user.shopping_level}
                     </Text>
                 </View>
             </View>
             <Text style={plainText}>
-                {master - level} {text} to go to Master Shopper!
+                {master - user.shopping_level} {text} to go to Master Shopper!
             </Text>
 
             <View style={{height: 50}}></View>
@@ -86,7 +88,7 @@ function ProfilePage() {
                             size={26}
                             color={styles.secondaryItemBackground.color}
                         />
-                        <Text style={plainText}>{full_name}</Text>
+                        <Text style={plainText}>{user.fullname}</Text>
                     </View>
                     <View style={item_style.concat({justifyContent: 'flex-start'})}>
                         <Icon
@@ -94,7 +96,7 @@ function ProfilePage() {
                             size={26}
                             color={styles.secondaryItemBackground.color}
                         />
-                        <Text style={plainText}>{city}, {state}</Text>
+                        <Text style={plainText}>{user.city}, {user.state}</Text>
                     </View>
             </View>
 
