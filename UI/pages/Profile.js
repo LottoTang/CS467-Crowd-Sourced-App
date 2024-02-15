@@ -26,7 +26,7 @@ function ProfilePage() {
 
     const onLogout = async () => {
         await clearSession({}, {});
-        navigation.navigate("Preapp")
+        navigation.navigate("Preapp", {screen: "Login"})
     };
 
     const onEdit = () => {
