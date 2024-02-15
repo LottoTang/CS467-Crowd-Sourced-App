@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/native';
@@ -12,6 +12,24 @@ const TestScanInput = ({route}) => {
   const [date, setDate] = useState('');
   const [sale, setSale] = useState('');
   const barcode = route.params.barcode;
+
+  const [data, setData] = useState([]);
+
+  const fetchData = async() =>{
+    try{
+      const response = await axios.get("https://us-east-1.aws.data.mongodb-api.com/app/data-sjiem/endpoint/data/v1");
+      setData(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(()=>{
+    fetchData();
+
+  }, []);
+
+  console.log(data);
 
   const navigation = useNavigation();
 
