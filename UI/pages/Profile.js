@@ -30,7 +30,7 @@ function ProfilePage() {
     };
 
     const onEdit = () => {
-        navigation.navigate('Sign Up')
+        navigation.navigate('Sign Up', {user: user, button: "Update"})
     }
 
     // TODO: replace with user data from database
