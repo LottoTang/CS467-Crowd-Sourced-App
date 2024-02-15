@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import LoginSetup from './login_setup.js';
 import TabSetup from './tab_setup.js';
+import ProfileSetup from './profile_setup.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,11 @@ const appSetup = () => {
               name="Tabs"
               component={TabSetup}
               options={{title: '', animation: "slide_from_right"}}
+            />
+            <Stack.Screen
+                name="Profile"
+                component={ProfileSetup}
+                options={{title: '', animation: "slide_from_bottom"}}
             />
         </Stack.Navigator>
     )

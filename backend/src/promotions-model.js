@@ -42,7 +42,24 @@ const getPromotionByID = async (promotion_id) => {
       }
 }
 
+const deletePromotion = async (promotion_id) => {
+  try {
+    // find an item with this promotion and set promotion to null
+    let this_promotion = await Promotions.findOne({ _id: promotion_id });
+
+    for (let i = 0; i < Items.length; i++) {
+
+    }
+    let deleted_promotion = await Promotions.deleteOne({ _id: promotion_id });
+
+    } catch (error) {
+      console.error('Error finding entry:', error);
+      throw error; 
+    }
+}
+
 module.exports = {
     createPromotion,
-    getPromotionByID
+    getPromotionByID,
+    deletePromotion
 }
