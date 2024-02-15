@@ -13,24 +13,6 @@ const TestScanInput = ({route}) => {
   const [sale, setSale] = useState('');
   const barcode = route.params.barcode;
 
-  const [data, setData] = useState([]);
-
-  const fetchData = async() =>{
-    try{
-      const response = await axios.get("https://us-east-1.aws.data.mongodb-api.com/app/data-sjiem/endpoint/data/v1");
-      setData(response);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  useEffect(()=>{
-    fetchData();
-
-  }, []);
-
-  console.log(data);
-
   const navigation = useNavigation();
 
   const handleStore = (text) => {
