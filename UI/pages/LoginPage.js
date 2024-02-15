@@ -37,7 +37,7 @@ function LoginPage() {
         const credentials = await getCredentials();
         const token = credentials?.accessToken
         if (token !== undefined ) {
-            //all_users[token] = {username: "", fullname: ""}
+            all_users[token] = {username: "", fullname: ""}
 
             // if this token isn't in user database, create new user
             if (!(token in all_users)) navigation.navigate('Sign Up', {button: "Sign Up"})
