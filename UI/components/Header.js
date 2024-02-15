@@ -29,14 +29,16 @@ const headerFunc = ({navigation, route, options, back}) => {
     let header_height = 116
     if (title == "") header_height = 63
 
-    let size = 0
+    let icon_size = 0
     if (route.params) {
-        if (route.params.deletable) size = 32
+        if (route.params.deletable) icon_size = 32
     }
 
     let show_user = true
     if (["Profile Page", "Sign Up"].includes(route.name)) show_user = false
 
+    let header_padding = 10
+    if (title == "Scan a Barcode") header_padding = 0
 
 
     const dispatch = useDispatch();
@@ -67,7 +69,7 @@ const headerFunc = ({navigation, route, options, back}) => {
     }
 
     return(
-        <SafeAreaView style={[header_style.header, {height: header_height}]}>
+        <SafeAreaView style={[header_style.header, {height: header_height, borderBottomWidth: header_padding}]}>
             <View style={top_row}>
                 <Text onPress={navigation.goBack} style={header_style.text}>
                     Back
@@ -87,7 +89,7 @@ const headerFunc = ({navigation, route, options, back}) => {
                 <Pressable style={header_style.trash} onPress={()=> deleteAlert(route.params.product)}>
                    <Icon
                        name={"trash-can-outline"}
-                       size={size}
+                       size={icon_size}
                        color={styles.secondaryTextColor.color}
                    />
                </Pressable>
@@ -104,7 +106,6 @@ const header_style = StyleSheet.create({
     header: {
         minWidth: '100%',
 
-        borderBottomWidth: 10,
         borderColor: styles.backgroundColor.color,
 
         backgroundColor: styles.headerColor.color,

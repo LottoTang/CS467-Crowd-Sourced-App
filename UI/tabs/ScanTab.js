@@ -6,7 +6,7 @@ import headerFunc from '../components/Header.js';
 // Temporarily importing HomeScreen until real component is created
 import HomeScreen from '../pages/HomeScreen.js';
 // Temporary scan page for scanning an item's barcode
-import ScanBarCode from '../pages/TestPages/ScanBarCode.js';
+import ScanBarCode from '../pages/ScanBarCode.js';
 import TestScanInput from '../pages/TestPages/TestScanInput.js';
 
 
