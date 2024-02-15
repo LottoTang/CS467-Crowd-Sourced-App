@@ -23,13 +23,13 @@ const ScanBarCode = ()=>{
 
 
     return (
-        <View style={styles.cameraContainer}>   
+        <View style={styles.cameraContainer}>
             <Camera style={styles.cameraContainer}
                 ref={(ref) => (this.camera = ref)}
                 cameraType={CameraType.Back} // front/back(default)
                 flashMode='auto'
                 scanBarcode={true}
-                onReadCode={(event) => handleBarcodeScanned(event)} 
+                onReadCode={(event) => handleBarcodeScanned(event)}
                 showFrame={true} // (default false) optional, show frame with transparent layer (qr code or barcode will be read on this area ONLY), start animation for scanner, that stops when a code has been found. Frame always at center of the screen
                 laserColor='red' // (default red) optional, color of laser in scanner frame
                 frameColor='white'
@@ -52,9 +52,9 @@ const styles = StyleSheet.create({
     },
     circle: {
         marginTop: 20,
-        width: 100,  
-        height: 100, 
-        borderRadius: 50, 
+        width: 100,
+        height: 100,
+        borderRadius: 50,
         backgroundColor: 'red',
         justifyContent: "center"
     },
