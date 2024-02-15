@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { viewSelectedItem } from '../../redux/actions/actions.js';
 
 // style imports
-import styles, {item_style, text_styles, add_button} from '../style.js';
+import styles, {item_style, text_styles, add_button, large_button} from '../style.js';
 
 
 const ShoppingList = () => {
@@ -61,7 +61,7 @@ function HomeScreen({navigation}) {
             </View>
 
             <View style={styles.bottom}>
-                <Text style={shopButton} onPress={()=>navigation.navigate("View Store Recs")}>
+                <Text style={large_button} onPress={()=>navigation.navigate("View Store Recs")}>
                     Go Shopping!
                 </Text>
             </View>
@@ -79,19 +79,7 @@ const home_style = StyleSheet.create({
    addButton: {
        margin: 6,
        alignSelf: 'flex-end',
-   },
-   shopButton: {
-       width: '80%',
-       minHeight: '9.75%',
-
-       borderWidth: 1,
-       borderRadius: 20,
-
-       padding: 8,
-
-       alignSelf: 'center',
    }
 });
 
 const addButton = add_button.concat(home_style.addButton);
-const shopButton = [home_style.shopButton, text_styles.button]
