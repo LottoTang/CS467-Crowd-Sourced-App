@@ -103,6 +103,7 @@ const updateItem = async (item_id, new_price, new_promotion, price_change, promo
 
 
 module.exports = {
+  Items,
   createItem,
   getItemByID,
   updateItem,

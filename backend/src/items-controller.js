@@ -10,6 +10,8 @@ const bodyParser = require('body-parser');
 
 const {authChecker} = require("./users-controller.js");
 const {createItem, getItemByID, updateItem, getItemsByTag} = require("./items-model.js");
+const {Promotions} = require("./promotions-model.js");
+// const {Stores} = require("./stores-model.js");
 
 // use body parser to parse json requests
 itemsRouter.use(bodyParser.json());
