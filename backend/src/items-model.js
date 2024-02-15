@@ -14,34 +14,32 @@ const db = mongoose.connection;
 const itemsSchema = new mongoose.Schema({
   store_id:  { type: String, required: true }, 
   // replace store_id in schema with { type: mongoose.Schema.Types.ObjectId, ref: 'Stores', required: true }, once stores is done
-  product_id: {type: String, required: true},
+  product_tags: { type: [String], required: true },
   // replace with product_id in schema after products table implemented
   name: { type: String, required: true },
   brand: { type: String, required: true },
-  category: { type: String, required: true },
   price: { type: Number, required: true },
   barcode_id: { type: String },
   promotion_id: { type: String }
 }, { versionKey: false });
 
 const Items = mongoose.model("Items", itemsSchema, "Items");
-const createItem = async (store_name, product_type, name, brand, category, price, barcode_id, promotion_id) => {
+const createItem = async (store_name, product_tags, name, brand, price, barcode_id, promotion_id) => {
 
   // check that store exists
   // let store_value = get by name store store function
 
-  // if it does not, create the store and save its ID
-  // if (store_value === null) {
-  //   // create a new store in database, use create function in stores-model
-  // }
+  // NEED TO UPDATE STORE_ID AND PRODUCT_TAGS
+  
+  // iterate through product tags and add them 
+
 
   // create new item object to save to database
   const item = new Items({
     store_id: store_name, 
-    product_id: product_type,
+    product_tags: product_tags,
     name: name,
     brand: brand,
-    category: category,
     price: price,
     barcode_id: barcode_id,
     promotion_id: promotion_id
@@ -71,17 +69,25 @@ const getItemByID = async (item_id) => {
   }
 };
 
-const getItemByTag = async (tag) => {
-
+const getItemsByTag = async (tag) => {
+  // PRODUCT_TAGS FIRST
+  // PRODUCT_TAGS WILL BE LIST OF STRINGS
   try {
-    let tag_items = await Items.find({ _id: item_id }).toArray();
-    // Handle the found item
-    // console.log('Entry found successfully:', this_item);
-    return tag_items; // Return the found item
+    let all_items = await Items.find();
+    let tagged_items = [];  // all items that have the user provided tag
+    for (let i = 0; i < all_items.length; i++) {
+      for (let j = 0; j < all_items[i].product_tags.length; j++) {
+        // if the query string parameter = a value in the product_tags list, add that entire item to the sublist
+        if (tag == all_items[i].product_tags[j]) {
+          tagged_items.push(all_items[i])
+        }
+      }
+    }
+    return tagged_items; // Return the found items
   } catch (error) {
     // Handle the error
     console.error('Error finding entry:', error);
-    throw error; // Rethrow the error if needed
+    throw error; 
   }
 };
 
@@ -99,5 +105,6 @@ const updateItem = async (item_id, new_price, new_promotion, price_change, promo
 module.exports = {
   createItem,
   getItemByID,
-  updateItem
+  updateItem,
+  getItemsByTag
 };

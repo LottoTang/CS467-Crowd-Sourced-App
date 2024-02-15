@@ -9,29 +9,38 @@ const db = mongoose.connection;
 
 const productsSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    brands: { type: List, required: true },
+    brands: { type: [String], required: true },
   }, { versionKey: false });
 
 
 const Products = mongoose.model("Products", productsSchema, "Products");
 
 const createProduct = async (name, brands) => {
+  try {
+    // check if tag (name) for product already exists - returns a single document or null
+    let existingDocument = await Products.findOne({ name: name });
+
+    if (existingDocument !== null) {
+      return 404; 
+    }
+
     const product = new Products({
         name: name,
-        brands: [],
+        brands: brands,
     })
-    return product.save()
-    .then(product => {
-      return product;
-    })
-    .catch(error => {
-      console.error('Error saving entry:', error);
-    })
+    await product.save()
+    return product;
+
+  } catch (error) {
+    console.error('Error finding entry:', error);
+    throw error; 
+  }
 }
 
-const getproductByID = async (product_id) => {
+const getProductByName = async (name) => {
     try {
-        let this_product = await Products.findOne({ _id: product_id });
+        let this_product = await Products.findOne({ name: name });
+        console.log(this_product)
         return this_product; 
       } catch (error) {
         console.error('Error finding entry:', error);
@@ -41,5 +50,5 @@ const getproductByID = async (product_id) => {
 
 module.exports = {
     createProduct,
-    getProductByID
+    getProductByName
 }

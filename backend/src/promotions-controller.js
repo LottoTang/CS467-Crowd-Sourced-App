@@ -7,7 +7,7 @@ const app = express();
 const promotionsRouter = express.Router();
 const bodyParser = require('body-parser');
 
-const {createPromotion, getPromotionByID} = require("./promotions-model.js");
+const {createPromotion, getPromotionByID, deletePromotion} = require("./promotions-model.js");
 
 promotionsRouter.use(bodyParser.json());
 
@@ -17,7 +17,7 @@ promotionsRouter.get("/:id", async (req, res) => {
         res.status(200).json(foundPromotion);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Something went wrong' });
+        res.status(404).send({ error: 'No item with this item_id exists.'});
     }
 })
 
@@ -31,6 +31,16 @@ promotionsRouter.post("/", async (req, res) => {
         res.status(500).json({ error: 'Something went wrong' });
     }
 })  
+
+promotionsRouter.delete("/:id", async (req, res) => {
+    try {
+        let deletePromotion = await deletePromotion(req.params.id)
+        res.status(204).json();
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Something went wrong' });
+    }
+})
 
 
 
