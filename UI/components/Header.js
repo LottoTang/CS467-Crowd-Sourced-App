@@ -35,7 +35,7 @@ const headerFunc = ({navigation, route, options, back}) => {
     }
 
     let show_user = true
-    if (route.name == "Profile Page") show_user = false
+    if (["Profile Page", "Sign Up"].includes(route.name)) show_user = false
 
 
 

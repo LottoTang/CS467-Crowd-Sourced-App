@@ -9,7 +9,6 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import styles from './style.js';
 
 import LoginPage from './pages/LoginPage.js';
-import SignUpPage from './pages/SignUpPage.js';
 import TestUserLogin from './pages/TestPages/TestUserLogin.js';
 
 const Stack = createNativeStackNavigator();
@@ -31,11 +30,6 @@ const LoginSetup = () => {
             <Stack.Screen
               name="Login"
               component={LoginPage}
-              options={{title: ''}}
-            />
-            <Stack.Screen
-              name="Sign Up"
-              component={SignUpPage}
               options={{title: ''}}
             />
             <Stack.Screen

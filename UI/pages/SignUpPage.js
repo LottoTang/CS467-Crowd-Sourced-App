@@ -66,7 +66,7 @@ function SignUpPage() {
                 sections={form_data}
                 keyExtractor={(item, index)=> index.toString()}
                 renderItem = { ({item, section}) =>
-                    <View style={item_style}>
+                    <View style={item_style.concat({marginBottom: 15})}>
                         <TextInput
                             style={search_text}
                             value={item}
@@ -75,7 +75,7 @@ function SignUpPage() {
                     </View>
                 }
                 renderSectionHeader={ ({section: {title}}) => (
-                    <Text style={text_styles.smallTitle}>{title}</Text>
+                    <Text style={[text_styles.itemText, {paddingLeft: 8, paddingBottom: 0}]}>{title}</Text>
                 )}
             />
             <Text style={button} onPress={handleSignUp}>
@@ -92,6 +92,7 @@ export default SignUpPage;
 const login_style = StyleSheet.create({
     searchText: {
         width: '100%',
+
         paddingTop: 0,
         paddingBottom: 0,
     },
