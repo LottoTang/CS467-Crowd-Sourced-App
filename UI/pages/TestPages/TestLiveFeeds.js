@@ -5,6 +5,7 @@ import { stores, products, items, promotions} from "../../../testData/testingDat
 import { liveFeed } from "../../../testData/liveFeedData";
 import { returnLiveFeeds, filterLiveFeeds } from "../../../redux/funtionality/helperFunctions";
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const TestLiveFeeds = ()=>{
 
@@ -26,9 +27,18 @@ const TestLiveFeeds = ()=>{
         setUpdatedData(newData);
     }
 
+    const navigation = useNavigation();
+
+    const makeAPost = () =>{
+        navigation.navigate("MakePost");
+    }
+
     return (
         <View> 
             <Text style={styles.profile}>John Doe</Text>
+            <Pressable onPress={()=> makeAPost()}>
+                <Text style={styles.makePost}>Post a Feed</Text>
+            </Pressable>
             <View style={styles.filter}>
                 <Picker style={styles.filter}
                     selectedValue = {labels.store}
@@ -109,6 +119,14 @@ const styles = StyleSheet.create({
     },
     feedDetails: {
         color: "black"
+    }, 
+    makePost: {
+        color: "white",
+        backgroundColor: "red",
+        fontSize: 20,
+        marginLeft: 10,
+        marginRight: 100,
+        textAlign: "center"
     }
 });
 
