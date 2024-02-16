@@ -34,7 +34,8 @@ function ViewItem() {
     const all_items = useSelector(state => state.all_items);
     const shopping_list = useSelector(state => state.shopping_list);
 
-    const item_ids = shopping_list[product]
+    let item_ids = shopping_list[product]
+    if (!item_ids) item_ids = []
     const items = getItemsList(item_ids, all_items)
 
     const selected_brands = getSelectedBrandsForProduct(items);

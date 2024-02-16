@@ -2,8 +2,6 @@
 import React from 'react';
 import {
   SafeAreaView,
-  Alert,
-  FlatList,
   Pressable,
   SectionList,
   StyleSheet,
