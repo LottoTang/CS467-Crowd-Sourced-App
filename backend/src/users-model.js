@@ -75,7 +75,7 @@ const updateUserShoppingLevel = async auth_sub => {
 // Expected input:  {"Products.name": ["brandA", "brandB"]}
 // Example input:   {"tomato sauce": ["Barilla, Ragu"]}
 
-// Expected output: {"Products.name": ["items_id1", "items_id2"]}
+// Expected output: {"Products.name": {["items_id1", "items_id2"]}}
 
 const parseShoppingListItem = async products => {
   const shoppingListItems = Object.entries(products);
@@ -118,6 +118,7 @@ const parseShoppingListItem = async products => {
 };
 
 module.exports = {
+  Users,
   createUsers,
   findUserById,
   findUserByAuthSub,

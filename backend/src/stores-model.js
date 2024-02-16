@@ -49,6 +49,7 @@ const updateStore = async (filter, update) => {
 };
 
 module.exports = {
+  Stores,
   createStores,
   findStoreById,
   findAllStores,
