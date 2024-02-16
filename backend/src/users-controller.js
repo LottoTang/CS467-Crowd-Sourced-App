@@ -65,7 +65,7 @@ usersRouter.get('/:_id', async (req, res) => {
   }
 });
 
-// UPDATE: Update User's personal particulars (Cannot modify state/city)
+// UPDATE: Update User's (Cannot modify state/city)
 usersRouter.patch('/:_id', async (req, res) => {
   const userID = req.params._id;
   try {
