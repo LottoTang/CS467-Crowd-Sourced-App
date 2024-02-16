@@ -447,6 +447,7 @@ function sendRequestToUpdatePrice(store, brand, price, tag, date, barcode, promo
 }
 
 
+
 export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForProduct, getItemsList }
 export { getShoppingListItemsInStore, getProductInShoppingListDetails, getGoShoppingList, getStoresSorting, getItemSorting }
 export { returnLiveFeeds, filterLiveFeeds }
