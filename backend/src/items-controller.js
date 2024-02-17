@@ -41,7 +41,7 @@ itemsRouter.get("/", async (req, res) => {
 itemsRouter.post("/", async (req, res) => {
     // store name - search this name to find the id to save
     try {
-        let newItem = await createItem(req.body.store_name, req.body.product_tags, req.body.name,  req.body.brand, req.body.price, req.body.barcode_id, req.body.promotion_id);
+        let newItem = await createItem(req.body.store_id, req.body.product_tags, req.body.name,  req.body.brand, req.body.price, req.body.barcode_id, req.body.promotion_id);
         res.status(201).json(newItem);
     } catch (error) {
         console.error(error);
