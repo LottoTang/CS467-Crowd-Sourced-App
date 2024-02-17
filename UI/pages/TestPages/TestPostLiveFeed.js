@@ -39,7 +39,7 @@ const TestPostLiveFeed = () => {
       } catch (error) {
         console.error(error);
       }
-    };
+    }; 
     fetchData();
     
     navigation.navigate("Home");
