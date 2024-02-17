@@ -3,16 +3,15 @@
 // Author: Long To Lotto Tang
 // Creation Date: 6/2/2024
 
-require('dotenv').config();
 const express = require('express');
 const db = require('./stores-model.js');
 const bodyParser = require('body-parser');
 
 const storesRouter = express.Router();
-const jsonParser = bodyParser.json();
+storesRouter.use(bodyParser.json());
 
 // CREATE: Create a Store to database
-storesRouter.post('', jsonParser, async (req, res) => {
+storesRouter.post('', async (req, res) => {
   const storeName = req.body.name;
   const storeCity = req.body.city;
   const storeState = req.body.state;
@@ -54,7 +53,7 @@ storesRouter.get('', async (req, res) => {
 });
 
 // UPDATE: Update a Store
-storesRouter.patch('/:_id', jsonParser, async (req, res) => {
+storesRouter.patch('/:_id', async (req, res) => {
   const storeId = req.params._id;
   try {
     const query = await db.findStoreById(storeId);

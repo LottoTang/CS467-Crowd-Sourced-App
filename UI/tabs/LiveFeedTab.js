@@ -8,6 +8,7 @@ import headerFunc from '../components/Header.js';
 
 // Testing a live feed page
 import { TestLiveFeeds } from '../pages/TestPages/TestLiveFeeds.js';
+import TestPostLiveFeed from '../pages/TestPages/TestPostLiveFeed.js';
 
 
 const Stack = createNativeStackNavigator();
@@ -19,6 +20,11 @@ const LiveFeedTab = () => {
               name="LiveFeed"
               component={TestLiveFeeds}
               options={{title: 'Live Feed'}}
+            />
+            <Stack.Screen 
+                name="MakePost"
+                component={TestPostLiveFeed}
+                options={{title: 'Make Post'}}
             />
         </Stack.Navigator>
     )

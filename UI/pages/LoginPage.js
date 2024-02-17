@@ -23,6 +23,9 @@ function LoginPage() {
 // the Login page screen itself with its components
     const {authorize, clearSession, user, getCredentials, error, isLoading} = useAuth0();
 
+    // TODO: replace "all_user" code with code accessing user table in database
+    const all_users = {}
+
     const navigation = useNavigation();
 
     const onLogin = async () => {
@@ -32,8 +35,13 @@ function LoginPage() {
 
     const checkAuthorization = async () => {
         const credentials = await getCredentials();
-        if (credentials?.accessToken !== undefined ) {
-            navigation.navigate("Tabs")
+        const token = credentials?.accessToken
+        if (token !== undefined ) {
+            all_users[token] = {username: "", fullname: ""}
+
+            // if this token isn't in user database, create new user
+            if (!(token in all_users)) navigation.navigate('Sign Up', {button: "Sign Up"})
+            else navigation.navigate("Tabs")
         }
     };
 

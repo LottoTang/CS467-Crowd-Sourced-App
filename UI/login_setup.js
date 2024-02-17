@@ -19,7 +19,7 @@ const headerFunc = ({navigation, route, options, back}) => {
     return(
         <SafeAreaView style={header_style.header}>
             <Text style={header_style.title}>
-                Crowd-Sourced       Shopping App
+                Crowd-Sourced Shopping
             </Text>
         </SafeAreaView>
     )
@@ -36,7 +36,7 @@ const LoginSetup = () => {
             <Stack.Screen
               name="Sign Up"
               component={SignUpPage}
-              options={{title: ''}}
+              options={{title: '', animation: "slide_from_right"}}
             />
             <Stack.Screen
               name="TestUserLogin"
@@ -54,7 +54,7 @@ export default LoginSetup;
 const header_style = StyleSheet.create({
     header: {
         minWidth: '100%',
-        height: 0,
+        height: 90,
 
         borderBottomWidth: 10,
         borderColor: styles.backgroundColor.color,
@@ -69,6 +69,6 @@ const header_style = StyleSheet.create({
 
         padding: 12,
         marginLeft: 8,
-        marginTop: 28,
+        marginTop: 16,
     },
 })

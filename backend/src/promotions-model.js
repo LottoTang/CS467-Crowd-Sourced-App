@@ -55,6 +55,7 @@ const deletePromotion = async (promotion_id) => {
       )
     }
     let deleted_promotion = await Promotions.deleteOne({ _id: promotion_id });
+
     } catch (error) {
       console.error('Error finding entry:', error);
       throw error; 
