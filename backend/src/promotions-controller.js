@@ -34,20 +34,13 @@ promotionsRouter.post("/", async (req, res) => {
 
 promotionsRouter.delete("/:id", async (req, res) => {
     try {
-        let deletePromotion = await deletePromotion(req.params.id)
+        let deletedPromotion = await deletePromotion(req.params.id)
         res.status(204).json();
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Something went wrong' });
     }
 })
-
-
-
-
-
-
-
 
 
 module.exports = {promotionsRouter};
