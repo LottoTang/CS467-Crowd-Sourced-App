@@ -6,9 +6,10 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 
 // function imports
 import { getBrandsList } from '../../redux/funtionality/helperFunctions';
@@ -28,10 +29,30 @@ function SelectBrand({route}) {
     if (preselected == undefined) preselected = []
 
     const [selected_brands, setSelectedItems] = useState(preselected)
+    const [allBrands, setAllBrands] = useState([]);
 
     // TODO: const brands = getBrandsList(product), where func retrieves from database
-    const all_products = useSelector(state => state.all_products);
-    const brands = getBrandsList(product, all_products);
+    //const all_products = useSelector(state => state.all_products);
+    //const brands = getBrandsList(product, all_products);
+
+    // Collect brands from database
+    useEffect( () => {
+        const fillBrands = async ()=>{
+            try{
+                const response = await axios.get(`http://10.0.2.2:3000/products/`, {
+                    params: {
+                        name: `${product}`,
+                    }
+                }).then(result => setAllBrands(result.data.brands)).catch(error => console.log(error));
+            } catch(error) {
+                console.error(error);
+            }
+        } 
+
+        fillBrands();
+    }, []);
+
+    brands = allBrands;
 
     // Set up connection with store to dispatch signal
     const dispatch = useDispatch();
