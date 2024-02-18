@@ -91,7 +91,7 @@ function PopUp({setRanking}) {
 
     return (
         <View>
-            <PopupModal popup={popup} popup_type={popup_type} popup_vals={popup_vals} closePopup={closePopup}/>
+            <PopupModal popup={popup} popup_type={popup_type} data={popup_vals} closePopup={closePopup}/>
 
             <View style={[styles.row, {alignSelf: 'flex-end'}]}>
                 <Pressable style={{alignSelf: 'flex-end', paddingRight: 10}} onPress={() => openPopup("sort")}>

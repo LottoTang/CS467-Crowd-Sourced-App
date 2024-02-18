@@ -4,15 +4,11 @@
 import React from 'react';
 import {
   SafeAreaView,
-  Alert,
-  FlatList,
-  Pressable,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth0 } from 'react-native-auth0';
 

@@ -72,7 +72,7 @@ function ViewItem() {
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
-            <PopupModal popup={popup} popup_vals={popup_vals} closePopup={closePopup} />
+            <PopupModal popup={popup} data={popup_vals} closePopup={closePopup} />
 
             <View style={{marginRight: 10}}>
                 <View style={styles.row}>

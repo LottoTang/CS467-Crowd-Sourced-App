@@ -212,6 +212,10 @@ const popup_style = StyleSheet.create({
     background: {
         height: '100%',
         backgroundColor: `${styles.backgroundColor.color}80`,
+    },
+    selectButton: {
+        alignSelf: 'flex-end',
+        marginRight: 10,
     }
 })
 

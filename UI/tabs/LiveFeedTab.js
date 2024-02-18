@@ -6,6 +6,8 @@ import headerFunc from '../components/Header.js';
 // Temporarily importing HomeScreen until real component is created
 //import HomeScreen from '../pages/HomeScreen.js';
 
+import LiveFeed from '../pages/LiveFeed.js';
+
 // Testing a live feed page
 import { TestLiveFeeds } from '../pages/TestPages/TestLiveFeeds.js';
 import TestPostLiveFeed from '../pages/TestPages/TestPostLiveFeed.js';
@@ -18,6 +20,11 @@ const LiveFeedTab = () => {
         <Stack.Navigator screenOptions={{header: headerFunc}}>
             <Stack.Screen
               name="LiveFeed"
+              component={LiveFeed}
+              options={{title: 'Live Feed'}}
+            />
+            <Stack.Screen
+              name="TestLiveFeed"
               component={TestLiveFeeds}
               options={{title: 'Live Feed'}}
             />
