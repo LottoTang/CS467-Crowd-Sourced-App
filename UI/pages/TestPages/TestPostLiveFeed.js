@@ -1,25 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { View, TextInput, Button, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
+import { Buffer } from 'buffer';
+import { encode } from 'base-64';
+
 
 const TestPostLiveFeed = () => {
   const [review, setReview] = useState('');
   const [product, setProduct] = useState('');
   const [store, setStore] = useState('');
   const navigation = useNavigation();
-
-  useEffect(()=>{
-    const fetchData = async ()=>{
-      try {
-        //const response = await fetch("http://localhost:3000/users");
-        //console.log(response);
-      } catch (error){
-        //console.error(error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const handleReviewChange = (text) => {
     setReview(text);
@@ -34,7 +25,23 @@ const TestPostLiveFeed = () => {
   };
 
   const handleSubmit = () => {
+
+    setReview('');
+    setProduct('');
+    setStore('');
+
     // Handle form submission here, you can send the data to a backend or perform any other action.
+    const fetchData = async () => {
+      try {
+        //const response = await axios.post(`https://localhost:3000/products`);
+        //const result = await response.json();
+        //console.log(result);
+      } catch (error) {
+        console.error(error);
+      }
+    }; 
+    fetchData();
+    
     navigation.navigate("Home");
   };
 

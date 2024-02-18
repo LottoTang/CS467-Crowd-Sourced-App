@@ -10,20 +10,20 @@ const db = mongoose.connection;
 // replace store_id in schema with { type: mongoose.Schema.Types.ObjectId, ref: 'Stores', required: true }, once stores is done
 
 // Items - CRUD
-const itemsSchema = new mongoose.Schema(
-  {
-    store_id: {type: String, required: true},
-    // replace store_id in schema with { type: mongoose.Schema.Types.ObjectId, ref: 'Stores', required: true }, once stores is done
-    product_tags: {type: [String], required: true},
-    // replace with product_id in schema after products table implemented
-    name: {type: String, required: true},
-    brand: {type: String, required: true},
-    price: {type: Number, required: true},
-    barcode_id: {type: String},
-    promotion_id: {type: String},
-  },
-  {versionKey: false},
-);
+const itemsSchema = new mongoose.Schema({
+  store_id:  { type: mongoose.Schema.Types.ObjectId, required: true }, 
+  // replace store_id in schema with { type: mongoose.Schema.Types.ObjectId, ref: 'Stores', required: true }, once stores is done
+  product_tags: { type: [String], required: true },
+  // replace with product_id in schema after products table implemented
+  name: { type: String, required: true },
+  brand: { type: String, required: true },
+  price: { type: Number, required: true },
+  barcode_id: { type: String },
+  promotion_id: { type: mongoose.Schema.Types.ObjectId, required: false }
+}, { versionKey: false });
+
+const Items = mongoose.model("Items", itemsSchema, "Items");
+const createItem = async (store_name, product_tags, name, brand, price, barcode_id, promotion_id) => {
 
 const Items = mongoose.model('Items', itemsSchema, 'Items');
 const createItem = async (
@@ -61,6 +61,7 @@ const createItem = async (
     .catch(error => {
       console.error('Error saving entry:', error);
     });
+  }
 };
 
 const getItemByID = async item_id => {

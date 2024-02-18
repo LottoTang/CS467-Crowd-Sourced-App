@@ -46,11 +46,16 @@ const deletePromotion = async (promotion_id) => {
   try {
     // find an item with this promotion and set promotion to null
     let this_promotion = await Promotions.findOne({ _id: promotion_id });
-    itemsToRemovePromotionFrom = Items.find({promotion_id: promotion_id});
-    // for (let i = 0; i < Items.length; i++) {
-    // }
-    // let deleted_promotion = await Promotions.deleteOne({ _id: promotion_id });
-    //
+    itemsToRemovePromotionFrom = await Items.find({promotion_id: promotion_id});
+    for (let i = 0; i < itemsToRemovePromotionFrom.length; i++) {
+      let value = await Items.findByIdAndUpdate(
+        itemsToRemovePromotionFrom[i]._id,
+        {promotion_id: null},
+        { new: true }
+      )
+    }
+    let deleted_promotion = await Promotions.deleteOne({ _id: promotion_id });
+
     } catch (error) {
       console.error('Error finding entry:', error);
       throw error; 
