@@ -77,9 +77,11 @@ const Popup = () => {
     const [store_filter, setStores] = useState(store_vals)
 
     const closeStorePopup = (selected_stores=null) => {
-        let selected = selected_stores
-        if (selected_stores.includes("Any store")) selected = store_vals
-        setStores(selected)
+        if (selected_stores != null) {
+            let selected = selected_stores
+            if (selected_stores.includes("Any store")) selected = store_vals
+            setStores(selected)
+        }
         setStorePopup(false)
     }
 
