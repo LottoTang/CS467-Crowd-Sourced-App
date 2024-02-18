@@ -61,6 +61,7 @@ const createItem = async (
     .catch(error => {
       console.error('Error saving entry:', error);
     });
+  }
 };
 
 const getItemByID = async item_id => {
