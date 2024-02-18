@@ -7,13 +7,13 @@ const app = express();
 const productsRouter = express.Router();
 const bodyParser = require('body-parser');
 
-const {getProductByName, createProduct} = require("./products-model.js");
+const {getProductByName, createProduct, getBrandsOfProduct} = require("./products-model.js");
 
 productsRouter.use(bodyParser.json());
 
 productsRouter.get("/", async (req, res) => {
+    // gets all products with a certain tag
     try {
-        console.log(req.params.name)
         let foundProduct = await getProductByName(req.query.name);
         res.status(200).json(foundProduct);
     } catch (error) {
@@ -37,7 +37,15 @@ productsRouter.post("/", async (req, res) => {
     }
 })  
 
-
+productsRouter.get("/brands", async (req, res) => {
+    try {
+        let foundProduct = await getBrandsOfProduct(req.query.name);
+        res.status(200).json(foundProduct);
+    } catch (error) {
+        console.error(error);
+        res.status(404).send({ error: 'No product with this name exists.'});
+    }
+})
 
 
 module.exports = {productsRouter};

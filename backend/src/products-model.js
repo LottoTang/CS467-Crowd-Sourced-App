@@ -40,7 +40,6 @@ const createProduct = async (name, brands) => {
 const getProductByName = async (name) => {
     try {
         let this_product = await Products.findOne({ name: name });
-        console.log(this_product)
         return this_product; 
       } catch (error) {
         console.error('Error finding entry:', error);
@@ -48,7 +47,19 @@ const getProductByName = async (name) => {
       }
 }
 
+const getBrandsOfProduct = async (name) => {
+  try {
+      let this_product = await Products.findOne({ name: name });
+      return this_product.brands; 
+    } catch (error) {
+      console.error('Error finding entry:', error);
+      throw error; 
+    }
+}
+
 module.exports = {
+    Products,
     createProduct,
-    getProductByName
+    getProductByName,
+    getBrandsOfProduct
 }
