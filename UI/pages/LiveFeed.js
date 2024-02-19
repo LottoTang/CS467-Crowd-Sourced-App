@@ -27,30 +27,31 @@ import PopupModal from '../components/PopupModal.js'
 import styles, { item_style, text_styles, add_button, large_button, popup_style } from '../style.js';
 
 
-const Popup = ({store_filter, setStores}) => {
+const Popup = ({store_filter, setStores, post_filter, setPostTypes}) => {
 // Popup component for when user wants to filter live feed data
     const [popup, setPopup] = useState(false)
 
     const popup_vals = [
         {label: "Store", value: "store"},
-
+        {label: "Post Type", value: "post"},
     ]
 
     const selectFilter = (selection=null) => {
         if (selection.value == "store") setStorePopup(true)
+        if (selection.value == "post") setPostTypePopup(true)
         setPopup(false)
     }
 
     const [storePopup, setStorePopup] = useState(false)
 
     const store_names = []
-    let preselected = []
+    let preselected_stores = []
     for (const store_id in stores) {
         const store_name = stores[store_id].name
         store_names.push(store_name)
-        if (store_filter == "all") preselected.push(store_name)
+        if (store_filter == "all") preselected_stores.push(store_name)
     }
-    if (store_filter != "all") preselected = store_filter
+    if (store_filter != "all") preselected_stores = store_filter
 
     const closeStorePopup = (selected_stores=null) => {
         if (selected_stores != null) {
@@ -60,6 +61,22 @@ const Popup = ({store_filter, setStores}) => {
             setStores(selected)
         }
         setStorePopup(false)
+    }
+
+
+    const [postTypePopup, setPostTypePopup] = useState(false)
+
+    let preselected_posts = post_filter
+    if (post_filter == "all") preselected_posts = ["Item Updates", "Store Reviews"]
+
+    const closePostTypePopup = (selected_posts=null) => {
+        if (selected_posts != null) {
+            let selected = []
+            if (selected_posts.includes("Any post")) selected = "all"
+            else selected = selected_posts
+            setPostTypes(selected)
+        }
+        setPostTypePopup(false)
     }
 
     return (
@@ -74,7 +91,15 @@ const Popup = ({store_filter, setStores}) => {
                 popup_type={"Select"}
                 data={store_names}
                 closePopup={closeStorePopup}
-                preselected={preselected}
+                preselected={preselected_stores}
+            />
+            <PopupModal
+                popup={postTypePopup}
+                popup_type={"Select"}
+                data={["Item Updates", "Store Reviews"]}
+                closePopup={closePostTypePopup}
+                preselected={preselected_posts}
+                select_type={"post"}
             />
 
             <Pressable style={[popup_style.selectButton, {marginBottom: 4, marginTop: 6}]} onPress={() => setPopup(true)}>
@@ -96,6 +121,7 @@ function LiveFeed() {
     const navigation = useNavigation();
 
     const [store_filter, setStores] = useState("all")
+    const [post_filter, setPostTypes] = useState("all")
 
     useEffect(() => {
         setFilter(prevFilter => ({...prevFilter,
@@ -103,6 +129,13 @@ function LiveFeed() {
             store: store_filter
         }))
     }, [store_filter])
+
+    useEffect(() => {
+        setFilter(prevFilter => ({...prevFilter,
+            metric: "posts",
+            post: post_filter
+        }))
+    }, [post_filter])
 
     useEffect(() => {
         const newData = filterLiveFeeds(feedData, filter);
@@ -113,11 +146,11 @@ function LiveFeed() {
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
-            <Popup store_filter={store_filter} setStores={setStores}/>
+            <Popup store_filter={store_filter} setStores={setStores} post_filter={post_filter} setPostTypes={setPostTypes} />
             <View style={{height: '84%'}}>
                 <UpdatesList items={updatedData}/>
             </View>
-            <Text style={[add_button, feed_style.postButton]} onPress={()=>navigation.navigate("MakePost")}>
+            <Text style={[add_button, feed_style.addButton]} onPress={()=>navigation.navigate("MakePost")}>
                 +
             </Text>
         </View>
@@ -129,7 +162,7 @@ export default LiveFeed;
 
 
 const feed_style = StyleSheet.create({
-    postButton: {
+    addButton: {
         alignSelf: "flex-end",
         marginRight: 10,
         marginTop: 6,

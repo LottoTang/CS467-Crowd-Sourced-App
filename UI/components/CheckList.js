@@ -70,7 +70,7 @@ const CheckList = ({data, type, selected_items, setSelectedItems}) => {
     if (type == "product") showAny = false;
 
     let color = styles.backgroundColor.color
-    if (type == "store") color = "#FEFEFE"
+    if (type == "store" || type == "post") color = "#FEFEFE"
     
     return (
         <View >

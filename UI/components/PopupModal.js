@@ -36,7 +36,7 @@ const PopupList = ({data, type, close}) => {
     )
 }
 
-const PopupCheckList = ({data, preselected, close}) => {
+const PopupCheckList = ({data, preselected, close, select_type}) => {
     // displays a checklist of the provided data
     const [selected_items, setSelectedItems] = useState(preselected)
 
@@ -45,7 +45,7 @@ const PopupCheckList = ({data, preselected, close}) => {
             <View style={{maxHeight: "74%"}}>
                 <CheckList
                     data={data}
-                    type="store"
+                    type={select_type}
                     selected_items={selected_items}
                     setSelectedItems={setSelectedItems}
                 />
@@ -57,7 +57,7 @@ const PopupCheckList = ({data, preselected, close}) => {
     )
 }
 
-function PopupModal({popup, popup_type="Sort", data, closePopup, preselected=[]}) {
+function PopupModal({popup, popup_type="Sort", data, closePopup, preselected=[], select_type="store"}) {
     // the popup modal itself, which hides the background and pulls up a white tab with data
     return (
         <View>
@@ -79,7 +79,7 @@ function PopupModal({popup, popup_type="Sort", data, closePopup, preselected=[]}
             >
                 <View style={popup_style.container}>
                     { popup_type == "Select" ? (
-                            <PopupCheckList data={data} preselected={preselected} close={closePopup}/>
+                            <PopupCheckList data={data} preselected={preselected} close={closePopup} select_type={select_type}/>
                         ) : (
                             <PopupList data={data} type={popup_type} close={closePopup}/>
                     )}
