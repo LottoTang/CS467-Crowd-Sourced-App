@@ -142,6 +142,7 @@ const text_styles = StyleSheet.create({
         fontSize: 11,
         color: styles.textColor.color,
         fontFamily: styles.fontRegular.fontFamily,
+        lineHeight: 14,
     },
 });
 

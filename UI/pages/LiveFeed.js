@@ -26,7 +26,9 @@ import PopupModal from '../components/PopupModal.js'
 // style imports
 import styles, { item_style, text_styles, add_button, large_button, popup_style } from '../style.js';
 
+
 const Popup = ({store_filter, setStores}) => {
+// Popup component for when user wants to filter live feed data
     const [popup, setPopup] = useState(false)
 
     const popup_vals = [
@@ -127,11 +129,6 @@ export default LiveFeed;
 
 
 const feed_style = StyleSheet.create({
-    largeText: {
-        marginLeft: 0,
-        marginTop: 8,
-        lineHeight: 25,
-    },
     postButton: {
         alignSelf: "flex-end",
         marginRight: 10,

@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 const ItemComponent = ({item}) => {
+// item component that holds either live feed post or item data
     let title, subtitle, time, user, width;
     if (item.price){
         title = stores[item.store].name
@@ -44,7 +45,7 @@ const ItemComponent = ({item}) => {
                 <Text style={[text_styles.smallTitle, view_style.largeText]}>
                     {title}
                 </Text>
-                <Text style={[text_styles.itemText, {paddingTop: 0, paddingBottom: 0}]}>
+                <Text style={[text_styles.itemText, {paddingTop: 0, paddingBottom: 0, lineHeight: 15}]}>
                     {subtitle}
                 </Text>
                 <Text style={[text_styles.footnote, {paddingTop: 0}]}>
@@ -52,13 +53,13 @@ const ItemComponent = ({item}) => {
                 </Text>
             </View>
             { item.price ? (
-                <View style={{alignSelf: 'center', maxWidth: '35%'}}>
+                <View style={{justifyContent: 'center', maxWidth: '35%'}}>
                     { promotion ? (
-                        <Text style={[text_styles.itemText, {paddingBottom: 0, color: styles.headerColor.color, textAlign: 'right'}]}>
+                        <Text style={[text_styles.itemText, {marginTop: 4, color: styles.headerColor.color, textAlign: 'right', lineHeight: 15}]}>
                             Sale: {promotion_type}!!
                         </Text>
                     ) : null}
-                    <Text style={[text_styles.smallTitle, {marginTop: 0, alignSelf: 'flex-end'}]}>
+                    <Text style={[text_styles.smallTitle, {alignSelf: 'flex-end', lineHeight: 25}]}>
                         {item.price.toLocaleString('en', {style: "currency", currency: "USD"})}
                     </Text>
                 </View>
@@ -69,7 +70,6 @@ const ItemComponent = ({item}) => {
 
 const StoresList = ({items}) => {
 // list component composed of stores that have the specified item of specified brands
-
     return (
         <View>
             <FlatList
