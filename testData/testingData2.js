@@ -94,6 +94,7 @@ for (const product_id of Object.keys(products)){
                 }
 
                 items[i] = {
+                    name: brand.concat("'s homemade ", products[product_id].name),
                     store: store_id,
                     product: product_id,
                     brand: brand,

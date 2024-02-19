@@ -19,7 +19,7 @@ import { getSelectedBrandsForProduct, getItemsList, getItemSorting } from '../..
 import { stores } from '../../testData/testingData2.js';
 
 // component imports
-import UpdatesList from '../components/UpdatesList.js'
+import StoresList from '../components/StoresList.js'
 import PopupModal from '../components/PopupModal.js'
 
 // style imports
@@ -102,7 +102,7 @@ function ViewItem() {
                 </View>
             </View>
             <View style={{height: '76%'}}>
-                <UpdatesList items={ranked_data}/>
+                <StoresList items={ranked_data}/>
             </View>
         </View>
     </SafeAreaView>

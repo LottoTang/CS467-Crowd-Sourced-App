@@ -15,41 +15,30 @@ import styles, {item_style, text_styles,} from '../style.js';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
-const ItemComponent = ({item, stores_only}) => {
+const ItemComponent = ({item}) => {
 // item component that holds either live feed post or item data
-    let title, subtitle, time, user, width;
-    if (item.price){
-        title = item.name
-        subtitle = stores[item.store].name
-        width = "75%"
+    const title = stores[item.store].name
+    const subtitle = item.name
 
-        // TODO: replace this with data from the database; not sure how it's going to be pulled
-        time = "4 hours"
-        user = "shoppingpro50"
-    }
-    else {
-        title = item.review
-        subtitle = item.store
-        width = "100%"
-        time = item.date
-        user = item.user
-    }
+    let width = "75%"
+
+    // TODO: replace this with data from the database; not sure how it's going to be pulled
+    const time = "4 hours"
+    const user = "shoppingpro50"
 
     const promotion = promotions[item.promotion]
     let promotion_type = null
     if (promotion) {
         promotion_type = promotion.promotion_type
-        width = "50%"
+        width = "65%"
     }
 
     return (
         <View style={item_style}>
-            <View style={{width: "100%"}}>
+            <View style={[styles.wide_row, {alignSelf: 'center', maxWidth: width}]}>
                 <Text style={[text_styles.smallTitle, view_style.largeText]}>
                     {title}
                 </Text>
-            </View>
-            <View style={[styles.wide_row, {alignSelf: 'center', maxWidth: width}]}>
                 <Text style={[text_styles.itemText, {paddingTop: 0, paddingBottom: 0, lineHeight: 15}]}>
                     {subtitle}
                 </Text>
@@ -58,7 +47,7 @@ const ItemComponent = ({item, stores_only}) => {
                 </Text>
             </View>
             { item.price ? (
-                <View style={{alignSelf: 'flex-start'}}>
+                <View style={{alignSelf: 'center', maxWidth: '35%'}}>
                     { promotion ? (
                         <Text style={[text_styles.itemText, {marginTop: 4, paddingBottom: 0, color: styles.headerColor.color, textAlign: 'right', lineHeight: 15}]}>
                             Sale: {promotion_type}!!
@@ -73,7 +62,7 @@ const ItemComponent = ({item, stores_only}) => {
     );
 };
 
-const UpdatesList = ({items, stores_only=false}) => {
+const StoresList = ({items}) => {
 // list component composed of stores where item is found or updates to products and live feed reviews
     return (
         <View>
@@ -81,14 +70,14 @@ const UpdatesList = ({items, stores_only=false}) => {
                 data={items}
                 keyExtractor={(item, index)=> index.toString()}
                 renderItem = { ({item}) =>
-                    <ItemComponent item={item} stores_only={stores_only}/>
+                    <ItemComponent item={item} />
                 }
             />
         </View>
     );
 };
 
-export default UpdatesList;
+export default StoresList;
 
 
 const view_style = StyleSheet.create({
