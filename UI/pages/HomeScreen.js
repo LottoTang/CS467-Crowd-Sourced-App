@@ -55,9 +55,7 @@ function HomeScreen({navigation}) {
             <View  style={{maxHeight: '87%'}}>
                 <ShoppingList />
 
-                <Pressable onPress={()=> navigation.navigate("Add Items")}>
-                    <Text style={addButton}>+</Text>
-                </Pressable>
+                <Text style={addButton} onPress={()=> navigation.navigate("Add Items")}>+</Text>
             </View>
 
             <View style={styles.bottom}>
