@@ -20,7 +20,7 @@ import { stores, products, items, promotions} from "../../testData/testingData2"
 import { liveFeed } from "../../testData/liveFeedData";
 
 // component imports
-import StoresList from '../components/StoresWithItem.js'
+import UpdatesList from '../components/UpdatesList.js'
 import PopupModal from '../components/PopupModal.js'
 
 // style imports
@@ -33,11 +33,11 @@ const Popup = ({store_filter, setStores}) => {
 
     const popup_vals = [
         {label: "Store", value: "store"},
+
     ]
 
     const selectFilter = (selection=null) => {
         if (selection.value == "store") setStorePopup(true)
-        // else if (selection.value == "brand")
         setPopup(false)
     }
 
@@ -115,7 +115,7 @@ function LiveFeed() {
         <View style={styles.container}>
             <Popup store_filter={store_filter} setStores={setStores}/>
             <View style={{height: '84%'}}>
-                <StoresList items={updatedData}/>
+                <UpdatesList items={updatedData}/>
             </View>
             <Text style={[add_button, feed_style.postButton]} onPress={()=>navigation.navigate("MakePost")}>
                 +

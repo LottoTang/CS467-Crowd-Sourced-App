@@ -68,8 +68,8 @@ const ItemComponent = ({item}) => {
     );
 };
 
-const StoresList = ({items}) => {
-// list component composed of stores that have the specified item of specified brands
+const UpdatesList = ({items}) => {
+// list component composed of stores where item is found or updates to products and live feed reviews
     return (
         <View>
             <FlatList
@@ -83,7 +83,7 @@ const StoresList = ({items}) => {
     );
 };
 
-export default StoresList;
+export default UpdatesList;
 
 
 const view_style = StyleSheet.create({
