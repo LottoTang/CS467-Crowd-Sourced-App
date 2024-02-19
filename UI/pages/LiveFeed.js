@@ -20,51 +20,11 @@ import { stores, products, items, promotions} from "../../testData/testingData2"
 import { liveFeed } from "../../testData/liveFeedData";
 
 // component imports
+import StoresList from '../components/StoresWithItem.js'
 import PopupModal from '../components/PopupModal.js'
 
 // style imports
 import styles, { item_style, text_styles, add_button, large_button, popup_style } from '../style.js';
-
-const ItemComponent = ({item}) => {
-    let title, subtitle, width;
-    if (item.price){
-        title = item.store
-        subtitle = item.brand
-        width = "65%"
-    }
-    else {
-        title = item.review
-        subtitle = item.store
-        width = "100%"
-    }
-    return (
-        <View style={item_style}>
-            <View style={[styles.wide_row, {alignSelf: 'center', maxWidth: width}]}>
-                <Text style={[text_styles.smallTitle, feed_style.largeText]}>
-                    {title}
-                </Text>
-                <Text style={[text_styles.itemText, {paddingTop: 0, paddingBottom: 0}]}>
-                    {subtitle}
-                </Text>
-                <Text style={[text_styles.footnote, {paddingTop: 0}]}>
-                    Last updated {item.date} ago by {item.user}
-                </Text>
-            </View>
-            { item.price ? (
-                <View style={{alignSelf: 'center', maxWidth: '35%'}}>
-                    { promotion ? (
-                        <Text style={[text_styles.itemText, {paddingBottom: 0, color: styles.headerColor.color, textAlign: 'right'}]}>
-                            Sale: promotion_type!!
-                        </Text>
-                    ) : null}
-                    <Text style={[text_styles.smallTitle, {marginTop: 0, alignSelf: 'flex-end'}]}>
-                        item.price
-                    </Text>
-                </View>
-            ) : null}
-        </View>
-    );
-};
 
 const Popup = ({store_filter, setStores}) => {
     const [popup, setPopup] = useState(false)
@@ -152,13 +112,9 @@ function LiveFeed() {
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
             <Popup store_filter={store_filter} setStores={setStores}/>
-            <FlatList
-                data={updatedData}
-                keyExtractor={(item, index)=> index.toString()}
-                renderItem = { ({item}) =>
-                    <ItemComponent item={item} />
-                }
-            />
+            <View style={{height: '84%'}}>
+                <StoresList items={updatedData}/>
+            </View>
             <Text style={[add_button, feed_style.postButton]} onPress={()=>navigation.navigate("MakePost")}>
                 +
             </Text>
