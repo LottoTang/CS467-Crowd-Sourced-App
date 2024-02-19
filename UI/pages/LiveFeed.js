@@ -9,7 +9,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 // function imports
@@ -26,40 +26,51 @@ import PopupModal from '../components/PopupModal.js'
 import styles, { item_style, text_styles, add_button, popup_style } from '../style.js';
 
 const ItemComponent = ({item}) => {
-    const promotion = false
+    let title, subtitle, width;
+    if (item.price){
+        title = item.store
+        subtitle = item.brand
+        width = "65%"
+    }
+    else {
+        title = item.review
+        subtitle = item.store
+        width = "100%"
+    }
     return (
         <View style={item_style}>
-            <View style={[styles.wide_row, {alignSelf: 'center', maxWidth: '65%'}]}>
-                <Text style={[text_styles.smallTitle, {marginLeft: 0, marginTop: 0}]}>
-                    store.name
+            <View style={[styles.wide_row, {alignSelf: 'center', maxWidth: width}]}>
+                <Text style={[text_styles.smallTitle, feed_style.largeText]}>
+                    {title}
                 </Text>
                 <Text style={[text_styles.itemText, {paddingTop: 0, paddingBottom: 0}]}>
-                    item.brand
+                    {subtitle}
                 </Text>
                 <Text style={[text_styles.footnote, {paddingTop: 0}]}>
-                    Last updated "time" ago by "user"
+                    Last updated {item.date} ago by {item.user}
                 </Text>
             </View>
-            <View style={{alignSelf: 'center', maxWidth: '35%'}}>
-                { promotion ? (
-                    <Text style={[text_styles.itemText, {paddingBottom: 0, color: styles.headerColor.color, textAlign: 'right'}]}>
-                        Sale: promotion_type!!
+            { item.price ? (
+                <View style={{alignSelf: 'center', maxWidth: '35%'}}>
+                    { promotion ? (
+                        <Text style={[text_styles.itemText, {paddingBottom: 0, color: styles.headerColor.color, textAlign: 'right'}]}>
+                            Sale: promotion_type!!
+                        </Text>
+                    ) : null}
+                    <Text style={[text_styles.smallTitle, {marginTop: 0, alignSelf: 'flex-end'}]}>
+                        item.price
                     </Text>
-                ) : null}
-                <Text style={[text_styles.smallTitle, {marginTop: 0, alignSelf: 'flex-end'}]}>
-                    item.price
-                </Text>
-            </View>
+                </View>
+            ) : null}
         </View>
     );
 };
 
-const Popup = () => {
+const Popup = ({store_filter, setStores}) => {
     const [popup, setPopup] = useState(false)
 
     const popup_vals = [
         {label: "Store", value: "store"},
-        {label: "Brand", value: "brand"},
     ]
 
     const selectFilter = (selection=null) => {
@@ -70,16 +81,20 @@ const Popup = () => {
 
     const [storePopup, setStorePopup] = useState(false)
 
-    const store_vals = []
-    for (const store_id in stores){
-        store_vals.push(stores[store_id].name)
+    const store_names = []
+    let preselected = []
+    for (const store_id in stores) {
+        const store_name = stores[store_id].name
+        store_names.push(store_name)
+        if (store_filter == "all") preselected.push(store_name)
     }
-    const [store_filter, setStores] = useState(store_vals)
+    if (store_filter != "all") preselected = store_filter
 
     const closeStorePopup = (selected_stores=null) => {
         if (selected_stores != null) {
-            let selected = selected_stores
-            if (selected_stores.includes("Any store")) selected = store_vals
+            let selected = []
+            if (selected_stores.includes("Any store")) selected = "all"
+            else selected = selected_stores
             setStores(selected)
         }
         setStorePopup(false)
@@ -95,9 +110,9 @@ const Popup = () => {
             <PopupModal
                 popup={storePopup}
                 popup_type={"Select"}
-                data={store_vals}
+                data={store_names}
                 closePopup={closeStorePopup}
-                preselected={store_filter}
+                preselected={preselected}
             />
 
             <Pressable style={[popup_style.selectButton, {marginBottom: 4}]} onPress={() => setPopup(true)}>
@@ -112,22 +127,9 @@ function LiveFeed() {
 // the Live Feed page screen itself with its components
 
     const [filter, setFilter] = useState({metric: "all", store: "all", user_id: "all", brand: "all"});
-    const [labels, setLabels] = useState({store: "All Stores", user: "All Users", brands:"All Brands"});
 
     const feedData = returnLiveFeeds(liveFeed, stores, items, products);
     const [updatedData, setUpdatedData] = useState(feedData);
-
-    const handleFilter = (data) =>{
-        setFilter(prevFilter => ({...prevFilter,
-            metric: data.metric,
-            store: data.store,
-            user_id: data.user_id,
-            brand: data.brand}));
-        setLabels(data.label);
-
-        const newData = filterLiveFeeds(feedData, data);
-        setUpdatedData(newData);
-    }
 
     const navigation = useNavigation();
 
@@ -135,10 +137,25 @@ function LiveFeed() {
         navigation.navigate("MakePost");
     }
 
+    const [store_filter, setStores] = useState("all")
+
+    useEffect(() => {
+        setFilter(prevFilter => ({...prevFilter,
+            metric: "stores",
+            store: store_filter
+        }))
+    }, [store_filter])
+
+    useEffect(() => {
+        const newData = filterLiveFeeds(feedData, filter);
+        setUpdatedData(newData);
+    }, [filter])
+
+
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
-            <Popup />
+            <Popup store_filter={store_filter} setStores={setStores}/>
             <FlatList
                 data={updatedData}
                 keyExtractor={(item, index)=> index.toString()}
@@ -155,4 +172,9 @@ export default LiveFeed;
 
 
 const feed_style = StyleSheet.create({
+    largeText: {
+        marginLeft: 0,
+        marginTop: 8,
+        lineHeight: 25,
+    },
 });
