@@ -22,7 +22,7 @@ import { items, stores } from "../../testData/testingData2";
 import PopupModal from '../components/PopupModal.js'
 
 // style imports
-import styles, {item_style, text_styles, add_button} from '../style.js'
+import styles, {item_style, text_styles, add_button, popup_style} from '../style.js'
 
 
 const ItemComponent = ({store, list_len}) => {
@@ -95,7 +95,7 @@ function PopUp({setRanking}) {
 
             <View style={[styles.row, {alignSelf: 'flex-end'}]}>
                 <Pressable style={{alignSelf: 'flex-end', paddingRight: 10}} onPress={() => openPopup("sort")}>
-                    <Text style={[add_button, {fontSize: 13}]}>Sort</Text>
+                    <Text style={[add_button, popup_style.buttonText]}>Sort</Text>
                 </Pressable>
             </View>
         </View>

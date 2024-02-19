@@ -23,7 +23,7 @@ import { liveFeed } from "../../testData/liveFeedData";
 import PopupModal from '../components/PopupModal.js'
 
 // style imports
-import styles, { item_style, text_styles, add_button, popup_style } from '../style.js';
+import styles, { item_style, text_styles, add_button, large_button, popup_style } from '../style.js';
 
 const ItemComponent = ({item}) => {
     let title, subtitle, width;
@@ -115,8 +115,8 @@ const Popup = ({store_filter, setStores}) => {
                 preselected={preselected}
             />
 
-            <Pressable style={[popup_style.selectButton, {marginBottom: 4}]} onPress={() => setPopup(true)}>
-                <Text style={[add_button, {fontSize: 13}]}>Filter</Text>
+            <Pressable style={[popup_style.selectButton, {marginBottom: 4, marginTop: 6}]} onPress={() => setPopup(true)}>
+                <Text style={[add_button, popup_style.buttonText]}>Filter</Text>
             </Pressable>
         </View>
     )
@@ -132,10 +132,6 @@ function LiveFeed() {
     const [updatedData, setUpdatedData] = useState(feedData);
 
     const navigation = useNavigation();
-
-    const makeAPost = () =>{
-        navigation.navigate("MakePost");
-    }
 
     const [store_filter, setStores] = useState("all")
 
@@ -163,6 +159,9 @@ function LiveFeed() {
                     <ItemComponent item={item} />
                 }
             />
+            <Text style={[add_button, feed_style.postButton]} onPress={()=>navigation.navigate("MakePost")}>
+                +
+            </Text>
         </View>
     </SafeAreaView>
     );
@@ -176,5 +175,10 @@ const feed_style = StyleSheet.create({
         marginLeft: 0,
         marginTop: 8,
         lineHeight: 25,
+    },
+    postButton: {
+        alignSelf: "flex-end",
+        marginRight: 10,
+        marginTop: 6,
     },
 });

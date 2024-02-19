@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     },
     container: {
         width: '95%',
-        height: '96%',
+        height: '98%',
 
         alignSelf: 'center',
     },
@@ -166,15 +166,20 @@ const item_style = [
 ];
 
 const add_button = [
+    text_styles.button,
     StyleSheet.create({
         style: {
             borderRadius: 15,
 
             paddingLeft: 26,
             paddingRight: 24,
+
+            lineHeight: 25,
+            paddingTop: 17,
+            height: 40,
+            fontSize: 26,
         }
-    }).style,
-    text_styles.button
+    }).style
 ];
 
 const large_button = [
@@ -216,7 +221,14 @@ const popup_style = StyleSheet.create({
     selectButton: {
         alignSelf: 'flex-end',
         marginRight: 10,
-    }
+    },
+    buttonText: {
+        fontSize: 13,
+
+        lineHeight: 10,
+        paddingTop: 12,
+        height: 22,
+    },
 })
 
 export default styles;

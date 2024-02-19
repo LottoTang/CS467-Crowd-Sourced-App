@@ -51,7 +51,7 @@ const PopupCheckList = ({data, preselected, close}) => {
                 />
             </View>
             <Pressable style={[popup_style.selectButton, styles.bottom]} onPress={() => close(selected_items)}>
-                <Text style={[add_button, {fontSize: 13}]}>Filter</Text>
+                <Text style={[add_button, popup_style.buttonText]}>Filter</Text>
             </Pressable>
         </View>
     )
