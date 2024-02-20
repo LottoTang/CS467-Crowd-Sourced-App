@@ -109,6 +109,24 @@ const text_styles = StyleSheet.create({
         paddingTop: 4,
         paddingBottom: 4,
     },
+    inputText: {
+        color: styles.textColor.color,
+        fontFamily: styles.fontMedium.fontFamily,
+
+        width: '100%',
+
+        paddingTop: 0,
+        paddingBottom: 0,
+    },
+    placeholder: {
+        color: `${styles.textColor.color}80`,
+        fontFamily: styles.fontMedium.fontFamily,
+
+        width: '100%',
+
+        paddingTop: 0,
+        paddingBottom: 0,
+    },
     button: {
         fontSize: 24,
         color: styles.secondaryTextColor.color,

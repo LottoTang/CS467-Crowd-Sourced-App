@@ -93,7 +93,7 @@ function SignUpPage({route}) {
                 renderItem = { ({item, section}) =>
                     <View style={item_style.concat({marginBottom: 15})}>
                         <TextInput
-                            style={search_text}
+                            style={text_styles.inputText}
                             value={item}
                             onChangeText={section.func}
                         />
@@ -115,12 +115,6 @@ export default SignUpPage;
 
 
 const signup_style = StyleSheet.create({
-    searchText: {
-        width: '100%',
-
-        paddingTop: 0,
-        paddingBottom: 0,
-    },
     button: {
        width: '80%',
        minHeight: '9.75%',
@@ -135,5 +129,4 @@ const signup_style = StyleSheet.create({
     }
 });
 
-const search_text = [text_styles.itemText, signup_style.searchText]
 const button = [signup_style.button, text_styles.button]

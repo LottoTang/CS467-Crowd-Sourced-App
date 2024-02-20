@@ -63,20 +63,25 @@ function PostPage() {
     <SafeAreaView style={styles.app}>
         <View style={[styles.container, {justifyContent: 'center'}]}>
 
-            <PopupModal popup={popup} data={available_stores} closePopup={closePopup} />
+            <PopupModal
+                popup={popup}
+                popup_type={"Dropdown"}
+                data={available_stores}
+                closePopup={closePopup}
+            />
             <Text style={text_styles.smallTitle}>Store</Text>
             <Pressable style={item_style.concat({marginBottom: 15})} onPress={() => setPopup(true)}>
                 {stores[store] ? (
-                    <Text style={search_text}>{stores[store].name}</Text>
+                    <Text style={text_styles.inputText}>{stores[store].name}</Text>
                 ) : (
-                    <Text style={search_text}>Select a store</Text>
+                    <Text style={text_styles.placeholder}>Select a store</Text>
                 )}
             </Pressable>
 
             <Text style={text_styles.smallTitle}>Update</Text>
             <View style={item_style.concat({marginBottom: 15})}>
                 <TextInput
-                    style={search_text}
+                    style={text_styles.inputText}
                     value={review}
                     onChangeText={setReview}
                     multiline={true}
@@ -98,17 +103,9 @@ export default PostPage;
 
 
 const post_style = StyleSheet.create({
-    searchText: {
-        width: '100%',
-
-        paddingTop: 0,
-        paddingBottom: 0,
-    },
     addButton: {
         margin: 6,
         marginTop: 20,
         alignSelf: 'flex-end',
     }
 });
-
-const search_text = [text_styles.itemText, post_style.searchText]
