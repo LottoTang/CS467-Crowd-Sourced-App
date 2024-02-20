@@ -61,9 +61,22 @@ const deletePromotion = async (promotion_id) => {
     }
 }
 
+const updatePromotion = async (promotion_id, promotion_type, start_time, end_time, name_change, start_change, end_change) => {
+  if (name_change === true) {
+    await Promotions.updateOne({ _id: promotion_id}, {"$set": {"promotion_type": promotion_type}} );
+  }
+  if (start_change === true) {
+    await Promotions.updateOne({ _id: promotion_id}, {"$set": {"start_time": start_time}} );
+  }
+    if (end_change === true) {
+    await Promotions.updateOne({ _id: promotion_id}, {"$set": {"end_time": end_time}} );
+  }
+}
+
 module.exports = {
     Promotions,
     createPromotion,
     getPromotionByID,
-    deletePromotion
+    deletePromotion,
+    updatePromotion
 }
