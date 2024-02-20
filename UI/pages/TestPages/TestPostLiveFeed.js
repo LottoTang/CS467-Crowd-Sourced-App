@@ -1,10 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const TestPostLiveFeed = () => {
   const [review, setReview] = useState('');
   const [product, setProduct] = useState('');
   const [store, setStore] = useState('');
+  const navigation = useNavigation();
+
+  useEffect(()=>{
+    const fetchData = async ()=>{
+      try {
+        //const response = await fetch("http://localhost:3000/users");
+        //console.log(response);
+      } catch (error){
+        //console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleReviewChange = (text) => {
     setReview(text);
@@ -20,9 +35,7 @@ const TestPostLiveFeed = () => {
 
   const handleSubmit = () => {
     // Handle form submission here, you can send the data to a backend or perform any other action.
-    console.log('Review:', review);
-    console.log('Product:', product);
-    console.log('Store:', store);
+    navigation.navigate("Home");
   };
 
   return (

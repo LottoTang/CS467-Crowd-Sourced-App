@@ -26,11 +26,11 @@ function ProfilePage() {
 
     const onLogout = async () => {
         await clearSession({}, {});
-        navigation.navigate("Preapp")
+        navigation.navigate("Preapp", {screen: "Login"})
     };
 
     const onEdit = () => {
-        navigation.navigate("Preapp", { screen: 'Sign Up' })
+        navigation.navigate('Sign Up', {user: user, button: "Update"})
     }
 
     // TODO: replace with user data from database
@@ -80,7 +80,7 @@ function ProfilePage() {
                     <Pressable style={profile_style.editIcon} onPress={onEdit}>
                         <Icon
                             name={"edit"}
-                            size={32}
+                            size={28}
                             color={styles.secondaryItemBackground.color}
                         />
                     </Pressable>
@@ -120,7 +120,7 @@ const profile_style = StyleSheet.create({
     username: {
         color: text_styles.itemText.color,
         textAlign: "center",
-        marginTop: 30,
+        marginTop: 25,
         marginBottom: 35,
     },
     smallText: {
@@ -148,7 +148,7 @@ const profile_style = StyleSheet.create({
         paddingRight: 12,
         paddingBottom: 15,
 
-        alignSelf: 'center',
+        alignSelf: 'flex-end',
     },
 });
 const button = large_button.concat()

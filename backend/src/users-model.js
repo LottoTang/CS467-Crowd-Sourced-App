@@ -3,27 +3,24 @@
 // Author: Long To Lotto Tang
 // Creation Date: 1/29/2024
 
-require('dotenv').config();
 const mongoose = require('mongoose');
-
-mongoose.connect(process.env.MONGODB_CONNECT_STRING, {useNewUrlParser: true});
-const db = mongoose.connection;
-
-db.once('open', () => {
-  console.log('Successfully connected to MongoDB using Mongoose.');
-});
+const {Items} = require('./items-model');
 
 // Users Schema
-const usersSchema = new mongoose.Schema({
-  auth_sub: {type: String, required: true},
-  shopping_list_item: {type: Object, required: true},
-  email: {type: String, required: true},
-  fullname: {type: String, required: true},
-  username: {type: String, required: true},
-  city: {type: String, required: true},
-  state: {type: String, required: true},
-  shopping_level: {type: Number, required: true},
-});
+const usersSchema = new mongoose.Schema(
+  {
+    auth_sub: {type: String, required: true},
+    shopping_list_item: {type: Object, required: true},
+    email: {type: String, required: true},
+    firstname: {type: String, required: true},
+    lastname: {type: String, required: true},
+    username: {type: String, required: true},
+    city: {type: String, required: true},
+    state: {type: String, required: true},
+    shopping_level: {type: Number, required: true},
+  },
+  {minimize: false},
+);
 
 const Users = mongoose.model('Users', usersSchema, 'Users');
 
@@ -31,7 +28,8 @@ const Users = mongoose.model('Users', usersSchema, 'Users');
 const createUsers = async (
   auth_sub,
   email,
-  fullname,
+  firstname,
+  lastname,
   username,
   city,
   state,
@@ -40,7 +38,8 @@ const createUsers = async (
     auth_sub: auth_sub,
     shopping_list_item: {},
     email: email,
-    fullname: fullname,
+    firstname: firstname,
+    lastname: lastname,
     username: username,
     city: city,
     state: state,
@@ -71,29 +70,55 @@ const updateUserShoppingLevel = async auth_sub => {
   return;
 };
 
-// UTILITY FUNCTION: Parse shopping_list_item with documents (NOT YET TESTED)
-// Expected input: {"tomato sauce": ["brandA, brandB"]}
-// Expected output: {"tomato sauce": [{document1}, {document2}]}
-const parseShoppingListItem = async body => {
-  const shoppingListItems = Object.entries(body);
+// UTILITY FUNCTION: Parse shopping_list_item with items.id
+
+// Expected input:  {"Products.name": ["brandA", "brandB"]}
+// Example input:   {"tomato sauce": ["Barilla, Ragu"]}
+
+// Expected output: {"Products.name": {["items_id1", "items_id2"]}}
+
+const parseShoppingListItem = async products => {
+  const shoppingListItems = Object.entries(products);
   const shoppingList = {};
-  for (const [name, brand] of shoppingListItems) {
+  for (const [productTag, brand] of shoppingListItems) {
     // User selected specific brand(s)
-    if (brand) {
+    if (brand.length > 0) {
+      shoppingList[productTag] = [];
       for (brandName of brand) {
-        const collection = await Items.find({name: name, brand: brandName});
-        shoppingList[name] = collection;
+        try {
+          const document = await Items.findOne(
+            {
+              product_tags: productTag,
+              brand: brandName,
+            },
+            {_id: 1},
+          );
+          shoppingList[productTag].push(document);
+        } catch (err) {
+          console.error(err);
+        }
       }
     } else {
-      // User did not select any brand
-      const collection = await Items.find({name: name});
-      shoppingList[name] = collection;
+      // Return all the documents with that product_tag (no brand selection)
+      try {
+        const collection = await Items.find(
+          {
+            product_tags: productTag,
+          },
+          {_id: 1},
+        );
+        shoppingList[productTag] = collection;
+      } catch (err) {
+        console.error(err);
+      }
     }
   }
+  console.log(shoppingList);
   return shoppingList;
 };
 
 module.exports = {
+  Users,
   createUsers,
   findUserById,
   findUserByAuthSub,

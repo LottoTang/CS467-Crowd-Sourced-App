@@ -2,6 +2,7 @@
 import React from 'react';
 import {
   SafeAreaView,
+  Alert,
   Pressable,
   SectionList,
   StyleSheet,
@@ -15,14 +16,20 @@ import { useNavigation } from '@react-navigation/native';
 // style imports
 import styles, {item_style, text_styles} from '../style.js';
 
-function SignUpPage() {
-// the Sign Up page screen itself with its components
+function SignUpPage({route}) {
+// the Sign Up page screen itself with its component
+    let user = {username: '', fullname: '', city: '', state: ''}
+    if (route.params.user) user = route.params.user
 
-    const [username, setUsername] = useState('');
-    const [first_name, setFirst] = useState('');
-    const [last_name, setLast] = useState('');
-    const [city, setCity] = useState('');
-    const [state, setState] = useState('');
+    const button_name = route.params.button
+
+    const name = user.fullname.split(" ")
+
+    const [username, setUsername] = useState(user.username);
+    const [first_name, setFirst] = useState(name[0]);
+    const [last_name, setLast] = useState(name[1]);
+    const [city, setCity] = useState(user.city);
+    const [state, setState] = useState(user.state);
 
     const form_data = [
         {
@@ -52,10 +59,29 @@ function SignUpPage() {
         },
     ]
 
+    const serviced_cities = {OR: ["Corvallis"]}
+    const invalidAlert = () => {
+        const cities = []
+        for (let state of Object.keys(serviced_cities)){
+            for (let city of serviced_cities[state]) cities.push(`${city}, ${state}`)
+        }
+
+        Alert.alert("Invalid Location",
+            `Sorry, we do not currently operate in your city. You can use our app to find stores in: ${cities}.`,
+            [{text: 'Ok'}]
+        );
+    }
+
     const navigation = useNavigation();
 
     const handleSignUp = () => {
-        navigation.navigate("Tabs")
+        if (!(state in serviced_cities)) invalidAlert()
+        else if (!serviced_cities[state].includes(city)) invalidAlert()
+
+        // if city is valid, send data to database and move to home page
+        else {
+            navigation.navigate("Tabs")
+        }
     }
 
 
@@ -66,7 +92,7 @@ function SignUpPage() {
                 sections={form_data}
                 keyExtractor={(item, index)=> index.toString()}
                 renderItem = { ({item, section}) =>
-                    <View style={item_style}>
+                    <View style={item_style.concat({marginBottom: 15})}>
                         <TextInput
                             style={search_text}
                             value={item}
@@ -75,11 +101,11 @@ function SignUpPage() {
                     </View>
                 }
                 renderSectionHeader={ ({section: {title}}) => (
-                    <Text style={text_styles.smallTitle}>{title}</Text>
+                    <Text style={[text_styles.itemText, {paddingLeft: 8, paddingBottom: 0}]}>{title}</Text>
                 )}
             />
             <Text style={button} onPress={handleSignUp}>
-                Sign up
+                {button_name}
             </Text>
         </View>
     </SafeAreaView>
@@ -92,6 +118,7 @@ export default SignUpPage;
 const login_style = StyleSheet.create({
     searchText: {
         width: '100%',
+
         paddingTop: 0,
         paddingBottom: 0,
     },

@@ -3,7 +3,6 @@
 // Author: Long To Lotto Tang
 // Creation Date: 6/2/2024
 
-require('dotenv').config();
 const mongoose = require('mongoose');
 
 // Stores Schema
@@ -50,6 +49,7 @@ const updateStore = async (filter, update) => {
 };
 
 module.exports = {
+  Stores,
   createStores,
   findStoreById,
   findAllStores,
