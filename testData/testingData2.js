@@ -48,23 +48,28 @@ const products = {
 const stores = {
     store_1: {
         name: "Shawn's",
-        city: "Boston",
-        state: "Massachusetts"
+        city: "Corvallis",
+        state: "OR"
     },
     store_2: {
         name: "Half Foods",
-        city: "San Diego",
-        state: "California"
+        city: "Boston",
+        state: "MA"
     },
     store_3: {
         name: "Walmart",
-        city: "Cleveland",
-        state: "Ohio"
+        city: "Corvallis",
+        state: "OR"
     },
     store_4: {
         name: "Shoprite",
-        city: "Atlanta",
-        state: "Georgia"
+        city: "Boston",
+        state: "MA"
+    },
+    store_5: {
+        name: "Shoprite",
+        city: "Corvallis",
+        state: "OR"
     },
 }
 

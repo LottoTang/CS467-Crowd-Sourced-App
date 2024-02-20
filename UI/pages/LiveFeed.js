@@ -150,7 +150,7 @@ function LiveFeed() {
             <View style={{height: '84%'}}>
                 <UpdatesList items={updatedData}/>
             </View>
-            <Text style={[add_button, feed_style.addButton]} onPress={()=>navigation.navigate("MakePost")}>
+            <Text style={[add_button, feed_style.addButton]} onPress={()=>navigation.navigate("Post Page")}>
                 +
             </Text>
         </View>

@@ -3,7 +3,6 @@ import React from 'react';
 import {
   SafeAreaView,
   Alert,
-  Pressable,
   SectionList,
   StyleSheet,
   Text,
@@ -115,22 +114,12 @@ function SignUpPage({route}) {
 export default SignUpPage;
 
 
-const login_style = StyleSheet.create({
+const signup_style = StyleSheet.create({
     searchText: {
         width: '100%',
 
         paddingTop: 0,
         paddingBottom: 0,
-    },
-    title: {
-        fontSize: 30,
-        color: styles.textColor.color,
-        fontFamily: styles.fontBold.fontFamily,
-
-        marginLeft: 6,
-        marginBottom: 6,
-
-        alignSelf: 'center'
     },
     button: {
        width: '80%',
@@ -146,5 +135,5 @@ const login_style = StyleSheet.create({
     }
 });
 
-const search_text = [text_styles.itemText, login_style.searchText]
-const button = [login_style.button, text_styles.button]
+const search_text = [text_styles.itemText, signup_style.searchText]
+const button = [signup_style.button, text_styles.button]
