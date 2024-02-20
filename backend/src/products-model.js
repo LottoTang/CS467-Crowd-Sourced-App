@@ -57,9 +57,20 @@ const getBrandsOfProduct = async (name) => {
     }
 }
 
+const getProductBySubstring = async (name) => {
+  try {
+      let this_product = await Products.find({ name: {$regex: name} });
+      return this_product; 
+    } catch (error) {
+      console.error('Error finding entry:', error);
+      throw error; 
+    }
+}
+
 module.exports = {
     Products,
     createProduct,
     getProductByName,
-    getBrandsOfProduct
+    getBrandsOfProduct,
+    getProductBySubstring
 }
