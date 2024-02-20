@@ -377,6 +377,7 @@ function returnLiveFeeds(feeds, stores, items, products){
     let feedResults = [];
 
     for (let feed in feeds){
+        if(!(feeds[feed].store_id in stores)) continue
         let feedInput = {review: "", item: "", store: "", user: feeds[feed].user_id, date: feeds[feed].date, brand: "" };
         feedInput.review = feeds[feed].review;
         

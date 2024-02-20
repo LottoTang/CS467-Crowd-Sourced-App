@@ -27,7 +27,7 @@ const LiveFeedTab = () => {
             <Stack.Screen
               name="Post Page"
               component={PostPage}
-              options={{title: 'Post an Update'}}
+              options={{title: 'Post an Update', animation: "slide_from_right"}}
             />
 
             <Stack.Screen

@@ -16,7 +16,7 @@ import { useNavigation } from '@react-navigation/native';
 import { returnLiveFeeds, filterLiveFeeds } from "../../redux/funtionality/helperFunctions";
 
 // data imports
-import { stores, products, items, promotions} from "../../testData/testingData2";
+import { user, stores, products, items, promotions} from "../../testData/testingData2";
 import { liveFeed } from "../../testData/liveFeedData";
 
 // component imports
@@ -27,7 +27,7 @@ import PopupModal from '../components/PopupModal.js'
 import styles, { item_style, text_styles, add_button, large_button, popup_style } from '../style.js';
 
 
-const Popup = ({store_filter, setStores, post_filter, setPostTypes}) => {
+const Popup = ({store_filter, setStores, post_filter, setPostTypes, stores}) => {
 // Popup component for when user wants to filter live feed data
     const [popup, setPopup] = useState(false)
 
@@ -115,7 +115,13 @@ function LiveFeed() {
 
     const [filter, setFilter] = useState({metric: "all", store: "all", user_id: "all", brand: "all"});
 
-    const feedData = returnLiveFeeds(liveFeed, stores, items, products);
+    const available_stores = {}
+    for (const store_id in stores) {
+        const store = stores[store_id]
+        if (store.city == user.city && store.state == user.state) available_stores[store_id] = store
+    }
+
+    const feedData = returnLiveFeeds(liveFeed, available_stores, items, products);
     const [updatedData, setUpdatedData] = useState(feedData);
 
     const navigation = useNavigation();
@@ -146,7 +152,7 @@ function LiveFeed() {
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
-            <Popup store_filter={store_filter} setStores={setStores} post_filter={post_filter} setPostTypes={setPostTypes} />
+            <Popup store_filter={store_filter} setStores={setStores} post_filter={post_filter} setPostTypes={setPostTypes} stores={available_stores}/>
             <View style={{height: '84%'}}>
                 <UpdatesList items={updatedData}/>
             </View>

@@ -99,7 +99,7 @@ function PostPage() {
                 />
             </View>
 
-            <Text style={[add_button, post_style.addButton]} onPress={()=>navigation.navigate("Post Page")}>
+            <Text style={[add_button, post_style.addButton]} onPress={handlePost}>
                 +
             </Text>
         </View>

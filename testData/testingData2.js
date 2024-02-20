@@ -72,13 +72,13 @@ const stores = {
     },
     store_4: {
         name: "Shoprite",
-        city: "Boston",
-        state: "MA"
+        city: "Corvallis",
+        state: "OR"
     },
     store_5: {
         name: "Shoprite",
-        city: "Corvallis",
-        state: "OR"
+        city: "Boston",
+        state: "MA"
     },
 }
 
