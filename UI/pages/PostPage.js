@@ -14,6 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 
 // data imports
 import { stores } from "../../testData/testingData2";
+import axios from 'axios';
 
 // component imports
 import PopupModal from '../components/PopupModal.js'
@@ -41,7 +42,23 @@ function PostPage() {
     const handlePost = () => {
         if (store == undefined) Alert.alert("Invalid Store", "Please select a store.", [{text: 'Ok'}] );
         else if (review == undefined) Alert.alert("Invalid Update", "Please write an update.", [{text: 'Ok'}] );
-        else navigation.navigate("LiveFeed")
+        else {
+            // Handle form submission here, you can send the data to a backend or perform any other action.
+            const fetchData = async () => {
+                try {
+                    //const response = await axios.post(`https://localhost:3000/products`);
+                    //const result = await response.json();
+                    //console.log(result);
+                } catch (error) {
+                    console.error(error);
+                }
+            };
+            fetchData();
+
+            setStore();
+            setReview();
+            navigation.navigate("LiveFeed")
+        }
     }
 
 
