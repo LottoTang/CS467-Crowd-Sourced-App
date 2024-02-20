@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="888ac727-97c3-4fea-a18c-9768f126160a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../android/.gradle/8.3/checksums/md5-checksums.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/.gradle/8.3/checksums/sha1-checksums.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/generated/res/resValues/debug/values/gradleResValues.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/generated/rncli/src/main/java/com/facebook/react/PackageList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/generated/source/buildConfig/debug/com/templateproject/BuildConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/ReactNativeVectorIcons/fonts/AntDesign.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/ReactNativeVectorIcons/fonts/Entypo.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/ReactNativeVectorIcons/fonts/EvilIcons.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/ReactNativeVectorIcons/fonts/Feather.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/ReactNativeVectorIcons/fonts/FontAwesome.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/ReactNativeVectorIcons/fonts/FontAwesome5_Brands.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/ReactNativeVectorIcons/fonts/FontAwesome5_Regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/ReactNativeVectorIcons/fonts/FontAwesome5_Solid.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/ReactNativeVectorIcons/fonts/FontAwesome6_Brands.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/ReactNativeVectorIcons/fonts/FontAwesome6_Regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/ReactNativeVectorIcons/fonts/FontAwesome6_Solid.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/ReactNativeVectorIcons/fonts/Fontisto.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/ReactNativeVectorIcons/fonts/Foundation.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/ReactNativeVectorIcons/fonts/Ionicons.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/ReactNativeVectorIcons/fonts/MaterialCommunityIcons.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/ReactNativeVectorIcons/fonts/MaterialIcons.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/ReactNativeVectorIcons/fonts/Octicons.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/ReactNativeVectorIcons/fonts/SimpleLineIcons.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/ReactNativeVectorIcons/fonts/Zocial.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/annotation_processor_list/debug/annotationProcessors.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/apk_ide_redirect_file/debug/redirect.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/app_metadata/debug/app-metadata.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/AntDesign.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Entypo.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/EvilIcons.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Feather.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/FontAwesome.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/FontAwesome5_Brands.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/FontAwesome5_Regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/FontAwesome5_Solid.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/FontAwesome6_Brands.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/FontAwesome6_Regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/FontAwesome6_Solid.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Fontisto.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Foundation.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Ionicons.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Kanit-Black.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Kanit-BlackItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Kanit-Bold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Kanit-BoldItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Kanit-ExtraBold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Kanit-ExtraBoldItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Kanit-ExtraLight.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Kanit-ExtraLightItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Kanit-Italic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Kanit-Light.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Kanit-LightItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Kanit-Medium.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Kanit-MediumItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Kanit-Regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Kanit-SemiBold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Kanit-SemiBoldItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Kanit-Thin.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Kanit-ThinItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Maitree-Bold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Maitree-ExtraLight.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Maitree-Light.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Maitree-Medium.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Maitree-Regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Maitree-SemiBold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/MaterialCommunityIcons.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/MaterialIcons.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Octicons.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/SimpleLineIcons.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Ultra-Regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/fonts/Zocial.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/mlkit_barcode_models/barcode_ssd_mobilenet_v1_dmp25_quant.tflite" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/mlkit_barcode_models/oned_auto_regressor_mobile.tflite" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/assets/debug/mlkit_barcode_models/oned_feature_extractor_mobile.tflite" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/compatible_screen_manifest/debug/output-metadata.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/dex/debug/mergeExtDexDebug/classes2.dex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/dex/debug/mergeLibDexDebug/0/classes.dex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/dex/debug/mergeProjectDexDebug/14/classes.dex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/dex/debug/mergeProjectDexDebug/6/classes.dex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/28rfpsXrYNuHyaIUzpaWFsy3kaA=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/8_jvq11Du1RcHrD2usrq29RKpv4=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/BK+hrzwHXe8mvvYH+WXFGoVMET8=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/ChN3VtZijuWJ+gsiiEZp_3Kxpvk=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/DthMI_vAaOTNo33AyLw_Csygsfo=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/E1QVf8LdB3N8viX9VbGQXuNe6UQ=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/KNU4vtfevof6jdKWPKtNcltMZu0=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/KZcSc5gmbaFeB2Qj3bxFavuJbEE=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/MA7O_MqnZN5o8TXiVt2WIx1revc=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/NSpaDI0Pulc2X3NemfHZlyDXuGk=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/O+vfBiCEgneZ11wMOzAPG7BiXFs=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/QoeNWBgEu9eUvH9bsA2AjgoUtBM=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/SrB23qoGpt3qy+7gySZSiU7BGDY=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/TD_7z7vu+TDQC67ygvuD8Gk0Hks=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/UMZB7_tpJhEAdk_vFv_BpxfWLoU=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/UOSxQ2Pj6PhA+MVig7mMyGmSXGU=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/VtWqpWVTjPVjhcihY5uuD61nI5Y=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/ZLCgA1WdevCbbmA41rsPv3ifFWg=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/_mDWSzSLWsVFhZ0y88HSiecDjTQ=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/aBpt__R8QDjL1kUnUOvnh5zyqSM=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/bMQHYOa_zT+AOlax9X5VxXvZ7Fk=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/baQ+HqtbGRUYP2E81QJxX5MuiPQ=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/dzrK7hVX+XV3C4zHYFptNMpqydE=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/e5IyZvUwQMQdtjuqJ9AIJj7zj40=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/eU2MyRDjF1e38HIh6eVnBJ852Fs=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/fHQfeAqVmTl1gc6NhUoj6CBSw9o=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/fMjsddoIG409JvYNdV9m2R1xDdQ=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/g0CDdzJq26QLRCsTJOFvs4dArPg=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/gFw+PpcJ2UzdOASGot3g8zELxcQ=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/guIMobQ8psjnAHHRPWV9q1JEFbE=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/igwHR1EyvrJCr0C7lHN7W8vTHqo=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/ihDp+rLsDBjwhHwsN3s+V6buKp4=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/iqeaLIH3rgWDnFBpUR6bXFrD1NU=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/jvW+UinPo_dP_K6EVSkfFL5x1dg=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/kQnvqF3sp6IjpySDY4_OnjoEYVo=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/mHxSdT20BuA3fdW2QkDLHzhuyLQ=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/mzleNCHSSaVggk7ZpC0XBxgFVW0=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/nsaCQBY0dvBT5ujzmXQcX93OlfI=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/o4MFa3jgP3Vat1sCbYnIk85HeME=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/qeXNAeLyMwELiY16V7C1+q3ocf8=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/sr9NIXlsIk95MPtNgep+WJenhPo=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/tkFz9_5jLOmpsj8DsLO5gDb088k=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/v2gCeixbBmKgmnt9uVxNI4_CGRo=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/yf6nNuRHWcJl_KcM8zKIjlwnDnQ=" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-af/values-af.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-am/values-am.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ar/values-ar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-as/values-as.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-az/values-az.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-b+es+419/values-b+es+419.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-b+sr+Latn/values-b+sr+Latn.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-be/values-be.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-bg/values-bg.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-bn/values-bn.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-bs/values-bs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ca/values-ca.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-cs/values-cs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-da/values-da.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-de/values-de.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-el/values-el.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-en-rAU/values-en-rAU.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-en-rCA/values-en-rCA.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-en-rGB/values-en-rGB.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-en-rIN/values-en-rIN.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-en-rXC/values-en-rXC.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-es-rES/values-es-rES.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-es-rUS/values-es-rUS.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-es/values-es.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-et/values-et.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-eu/values-eu.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-fa/values-fa.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-fi/values-fi.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-fr-rCA/values-fr-rCA.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-fr/values-fr.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-gl/values-gl.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-gu/values-gu.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-h320dp-port-v13/values-h320dp-port-v13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-h360dp-land-v13/values-h360dp-land-v13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-h480dp-land-v13/values-h480dp-land-v13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-h550dp-port-v13/values-h550dp-port-v13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-h720dp-v13/values-h720dp-v13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ha/values-ha.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-hdpi-v4/values-hdpi-v4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-hi/values-hi.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-hr/values-hr.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-hu/values-hu.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-hy/values-hy.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-in/values-in.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-is/values-is.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-it/values-it.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-iw/values-iw.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ja/values-ja.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-jv/values-jv.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ka/values-ka.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-kk/values-kk.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-km/values-km.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-kn/values-kn.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ko/values-ko.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ku/values-ku.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ky/values-ky.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-land/values-land.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-large-v4/values-large-v4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ldltr-v21/values-ldltr-v21.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ldrtl-v17/values-ldrtl-v17.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-lo/values-lo.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-lt/values-lt.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-lv/values-lv.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-mk/values-mk.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ml/values-ml.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-mn/values-mn.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-mr/values-mr.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ms/values-ms.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-my/values-my.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-nb/values-nb.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ne/values-ne.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-nl/values-nl.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-or/values-or.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-pa/values-pa.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-pl/values-pl.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-port/values-port.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ps/values-ps.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-pt-rBR/values-pt-rBR.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-pt-rPT/values-pt-rPT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-pt/values-pt.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ro/values-ro.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ru/values-ru.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-si/values-si.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sk/values-sk.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sl/values-sl.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-small-v4/values-small-v4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-so/values-so.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sq/values-sq.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sr/values-sr.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sv/values-sv.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sw/values-sw.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sw600dp-v13/values-sw600dp-v13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ta/values-ta.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-te/values-te.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-tg/values-tg.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-th/values-th.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-tl/values-tl.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-tr/values-tr.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-uk/values-uk.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ur/values-ur.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-uz/values-uz.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v16/values-v16.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v17/values-v17.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v18/values-v18.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v21/values-v21.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v22/values-v22.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v23/values-v23.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v24/values-v24.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v25/values-v25.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v26/values-v26.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v28/values-v28.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v31/values-v31.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-vi/values-vi.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-w320dp-land-v13/values-w320dp-land-v13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-w360dp-port-v13/values-w360dp-port-v13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-w480dp-port-v13/values-w480dp-port-v13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-w600dp-land-v13/values-w600dp-land-v13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-watch-v20/values-watch-v20.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-watch-v21/values-watch-v21.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-xlarge-v4/values-xlarge-v4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-zh-rCN/values-zh-rCN.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-zh-rHK/values-zh-rHK.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-zh-rTW/values-zh-rTW.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-zu/values-zu.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merged.dir/values/values.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir/values/values.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/packageDebug/tmp/debug/zip-cache/javaResources0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/javac/debug/classes/com/facebook/react/PackageList.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/javac/debug/classes/com/templateproject/BuildConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/local_only_symbol_list/debug/R-def.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_java_res/debug/base.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_manifest/debug/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_manifests/debug/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_manifests/debug/output-metadata.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/drawable_rn_edit_text_material.xml.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/mipmap-hdpi_ic_launcher.png.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/mipmap-hdpi_ic_launcher_round.png.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/mipmap-mdpi_ic_launcher.png.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/mipmap-mdpi_ic_launcher_round.png.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/mipmap-xhdpi_ic_launcher.png.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/mipmap-xhdpi_ic_launcher_round.png.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/mipmap-xxhdpi_ic_launcher.png.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/mipmap-xxhdpi_ic_launcher_round.png.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/mipmap-xxxhdpi_ic_launcher.png.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/mipmap-xxxhdpi_ic_launcher_round.png.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-af_values-af.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-am_values-am.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-ar_values-ar.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-as_values-as.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-az_values-az.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-b+es+419_values-b+es+419.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-b+sr+Latn_values-b+sr+Latn.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-be_values-be.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-bg_values-bg.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-bn_values-bn.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-bs_values-bs.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-ca_values-ca.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-cs_values-cs.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-da_values-da.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-de_values-de.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-el_values-el.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-en-rAU_values-en-rAU.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-en-rCA_values-en-rCA.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-en-rGB_values-en-rGB.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-en-rIN_values-en-rIN.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-en-rXC_values-en-rXC.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-es-rES_values-es-rES.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-es-rUS_values-es-rUS.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-es_values-es.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-et_values-et.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-eu_values-eu.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-fa_values-fa.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-fi_values-fi.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-fr-rCA_values-fr-rCA.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-fr_values-fr.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-gl_values-gl.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-gu_values-gu.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-h320dp-port-v13_values-h320dp-port-v13.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-h360dp-land-v13_values-h360dp-land-v13.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-h480dp-land-v13_values-h480dp-land-v13.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-h550dp-port-v13_values-h550dp-port-v13.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-h720dp-v13_values-h720dp-v13.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-ha_values-ha.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-hdpi-v4_values-hdpi-v4.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-hi_values-hi.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-hr_values-hr.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-hu_values-hu.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-hy_values-hy.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-in_values-in.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-is_values-is.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-it_values-it.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-iw_values-iw.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-ja_values-ja.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-jv_values-jv.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-ka_values-ka.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-kk_values-kk.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-km_values-km.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-kn_values-kn.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-ko_values-ko.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-ku_values-ku.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-ky_values-ky.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-land_values-land.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-large-v4_values-large-v4.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-ldltr-v21_values-ldltr-v21.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-ldrtl-v17_values-ldrtl-v17.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-lo_values-lo.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-lt_values-lt.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-lv_values-lv.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-mk_values-mk.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-ml_values-ml.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-mn_values-mn.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-mr_values-mr.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-ms_values-ms.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-my_values-my.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-nb_values-nb.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-ne_values-ne.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-night-v8_values-night-v8.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-nl_values-nl.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-or_values-or.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-pa_values-pa.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-pl_values-pl.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-port_values-port.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-ps_values-ps.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-pt-rBR_values-pt-rBR.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-pt-rPT_values-pt-rPT.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-pt_values-pt.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-ro_values-ro.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-ru_values-ru.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-si_values-si.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-sk_values-sk.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-sl_values-sl.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-small-v4_values-small-v4.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-so_values-so.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-sq_values-sq.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-sr_values-sr.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-sv_values-sv.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-sw600dp-v13_values-sw600dp-v13.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-sw_values-sw.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-ta_values-ta.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-te_values-te.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-tg_values-tg.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-th_values-th.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-tl_values-tl.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-tr_values-tr.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-uk_values-uk.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-ur_values-ur.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-uz_values-uz.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-v16_values-v16.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-v17_values-v17.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-v18_values-v18.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-v21_values-v21.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-v22_values-v22.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-v23_values-v23.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-v24_values-v24.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-v25_values-v25.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-v26_values-v26.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-v28_values-v28.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-v31_values-v31.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-vi_values-vi.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-w320dp-land-v13_values-w320dp-land-v13.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-w360dp-port-v13_values-w360dp-port-v13.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-w480dp-port-v13_values-w480dp-port-v13.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-w600dp-land-v13_values-w600dp-land-v13.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-watch-v20_values-watch-v20.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-watch-v21_values-watch-v21.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-xlarge-v4_values-xlarge-v4.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-zh-rCN_values-zh-rCN.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-zh-rHK_values-zh-rHK.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-zh-rTW_values-zh-rTW.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values-zu_values-zu.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/merged_res/debug/values_values.arsc.flat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/navigation_json/debug/navigation.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/packaged_manifests/debug/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/packaged_manifests/debug/output-metadata.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/packaged_res/debug/drawable/rn_edit_text_material.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/packaged_res/debug/mipmap-hdpi-v4/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/packaged_res/debug/mipmap-hdpi-v4/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/packaged_res/debug/mipmap-mdpi-v4/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/packaged_res/debug/mipmap-mdpi-v4/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/packaged_res/debug/mipmap-xhdpi-v4/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/packaged_res/debug/mipmap-xhdpi-v4/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/packaged_res/debug/mipmap-xxhdpi-v4/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/packaged_res/debug/mipmap-xxhdpi-v4/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/packaged_res/debug/mipmap-xxxhdpi-v4/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/packaged_res/debug/mipmap-xxxhdpi-v4/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/packaged_res/debug/values/values.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/runtime_symbol_list/debug/R.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/signing_config_versions/debug/signing-config-versions.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab_i.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.values.at" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab_i" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab_i.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/java-sources-proto-map.tab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/java-sources-proto-map.tab.keystream" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/java-sources-proto-map.tab.keystream.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/java-sources-proto-map.tab.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/java-sources-proto-map.tab.values.at" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/java-sources-proto-map.tab_i" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/java-sources-proto-map.tab_i.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.keystream" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.keystream.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.values.at" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab_i" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab_i.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.values.at" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.keystream.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab.values.at" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab_i" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/subtypes.tab_i.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.keystream" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.keystream.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab.values.at" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab_i" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab_i.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/counters.tab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.values.at" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.values.at" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab_i" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab_i.len" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/outputs/apk/debug/app-debug.apk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/outputs/apk/debug/output-metadata.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/tmp/kotlin-classes/debug/META-INF/app_debug.kotlin_module" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/tmp/kotlin-classes/debug/com/templateproject/MainActivity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/tmp/kotlin-classes/debug/com/templateproject/MainApplication$reactNativeHost$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/app/build/tmp/kotlin-classes/debug/com/templateproject/MainApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/.gradle/8.3/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../android/.gradle/8.3/dependencies-accessors/dependencies-accessors.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/.gradle/8.3/dependencies-accessors/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../android/.gradle/8.3/dependencies-accessors/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/.gradle/8.3/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../android/.gradle/8.3/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/.gradle/8.3/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../android/.gradle/8.3/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/.gradle/8.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../android/.gradle/8.3/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/.gradle/8.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../android/.gradle/8.3/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/.gradle/8.3/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../android/.gradle/8.3/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../android/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/../android/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/merge-state" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/merge-state" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/+A7kv00HrBEQs4wm_qKlgw7kSRE=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/+H1Qf7B2ARe56VoFUoqJ1sGBmQo=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/JuEEvZ0jsGO4e25OdFpAA1PdgOg=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/+SHsIC1FheL5BTqh5yPiY6km+cw=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/F+VmMbqd0SKB5Os2s8BcmYtskfI=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/+WShsBk_U8vaNZllnl4RlQ4hsjE=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/09vLwGh+NSjk1R5ABB40t2di0Zk=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/0sTRKx5WgUGDTG3IW78rxYNFog4=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/vo60i76jzqEfnBENqp6M3GllwPM=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/0zoLi0IMb5gUFqG4IFVE7KshRfE=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/VskWhxZj82U_ocB3GZkpalP3gKQ=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/1HTDdkHe+ayoUQbkUSpmz1qRjoc=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/jttzuQM5TXSMNIm13iF8n4fyauY=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/3sb+kDbl5TTyFhgH9ILJdXxZDKA=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/JRIssbjJHgSwLVd2wsBJkdlrEfw=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/46wfU1f50ekPJ+2h+WvSdwpYLOo=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/iNZvZsZjBTh5LTVlLZj+JrBzTi8=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/4Tb_epi9IKpTO1dbtVuipR_nUN0=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/fLC8A9h1SFbWL3AboUkWaRU7HUY=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/59cSqN969h3ixcvNlraxI+QO7ts=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/AsOqONcd8buRKAHdQrQ+L93K8Oo=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/5E8QanvvO9+1+fBxnqFg9cIYYJo=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/aeBKXtBqR+gEV8J7dxomAlJNmeM=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/60xbpUxJ+z3gkegA0BdgwEcGwnY=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/zhXuvvGwMSqCBdGXY1hs+Qf_AZg=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/7e3r+iTIuEuHEUsavFi5DcFAWsQ=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/APPB+hhpvW_2lKEL6vIOj6drggg=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/86h408HtS+CfN7I96_q+f4rf4yE=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/0tj43Z4MbDz3DRzRIjIjPVUFxq4=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/9CpoJhdnOw2+5uL8cStKkZjI_G0=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/sgJ+Y0xs16ANKi_2bpdlECkEYoU=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/9hx4XotWedpcHYs9b5RdkcrqJLo=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/hyc40CMxdA88o8aTl_bF7LYO2ME=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/AIkZ04BBBZqgiiwj_FPh1JwyGXs=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/mxEI3I6g+lNkp024h3GoHr0hty8=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/AeW1cH8mDmgieXvd0bZHQ2ap4e4=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/8NkNVvp6q1qSP4I0FUkLx7U7ixM=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/Aj5vrJfPstgpN13gmP1MHO3UzPM=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/RUu1HW8kCMzN5vaAogQQvJTnixc=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/AzHMJJyqjEDyMF_Dd1gyTaPbncg=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/0vwQylI3i0ce3V_Z60hY2Gq2bOY=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/BN4DYpaeWZ5Ysgw8E5veJflvaws=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/4Sb9neoIWnGwDht77V4eCRtPaJM=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/CRFUVJSulwbsP2B760WCwk7d7I0=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/5vFpz4AW9Au1lMZQYbD9uLv49xI=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/E5JF8xIb4GcOMn+AURHVIlUPNgk=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/SfLXxiE9TwAAmXlsaS8OSwjloXU=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/EMz65zzl7BwDAKN0VmaKkiPIrVU=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/XPMOh7QKLatZ5OZe8dMp_FMvs6g=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/EZEBtnMTlEFBJv99wq63rGkjNBw=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/9n9xNW6fGOL1sgx1ctujNPnCnuk=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/F2OrtIxezsiKMdzm22gm2FbE0Zc=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/V89gxwpRxE+ugmoUDo3RF_zTmWw=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/G1i600jSgvp5PI5x2UDBvM8h7oY=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/cF6x6ONbGMCWqn_rXtRB2Bdz138=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/GNOn3G1_BfEJXihA3CAWU3d7Lr0=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/LBWpdfXiMYvM5C3p0qDS4bmkWj4=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/HXOxWj2Y2pvmeCtTc8_J4X4OlJU=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/Mz+GH6zRDTBXIXFd21nTeui0NRE=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/HxuvP_CruZoIDuMenamDNf967yU=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/41B9uJi6ISOBVjnrHmABH8gMby8=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/IlbAMHRoQNAUiKJr1DCISrp6zVM=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/IpyMx9wMU_wJ8pFMTT_BRGxwL74=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/PQFqiv9fvwfm2KC19YFcq0JrLZM=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/J1DGrKgb8FEJtqH3dQE8Iez5iM4=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/0FKRKh0cHWvpKc01CvWKvHMS0R0=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/J1QmTk7WoYQRcutPue3whiuAvOA=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/_v7W_lQlNfC7IbBZcKDQZ+7jnJE=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/JEGGBqZwQ4mPexEMtB1OaKZ9iA0=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/QJm7U0y+QERPy7pU_aiGHi+n4XU=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/JlRsRy723CDmaSw3IBfHYQSX0eU=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/TGA65gCcONTJ1nMw7zbw_iWKpDU=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/Kaf8nMzROSqc9fHMPQwZMkkyOQM=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/GgfT5Jk2mma+FmUsTKxXXFumGhA=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/KiRmlR_1Qd9ThoNGa1BKSN_Qlj4=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/+14NT8yDmFkd3IqsjlHM3XGsQbM=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/LShg60qd+Idv5J1xoz4qzid7BWw=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/EDuCu9ABrYXOe3jye21Hm3vIQjA=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/Mi8M1F9E7vuRjvc21YcZ6sN5l3I=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/0SkfohlMTZ54DErkomlU9N+h5Ds=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/MtNK2TdrMSkDM0qZPzL1ueEs8pU=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/zLhDE6W8jVI9dkPygtXCzO85o+k=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/O2jGxQlACrfE_lNHVYT_njG_qfQ=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/SBHodLeHr_UqL6KbRYO3jeYh0AM=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/OxcQVR3Ymzotf4Z_TJtiML5xas4=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/SF4fuoD9XOfhCyIFLCOdBhwBJqI=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/QAuEcWAKZj7UVVJ+MDUxTE3io84=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/rh0Dv5zVWVhl0lrOtIkH00U_RlY=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/R2g2RjjDyAFC9LDBLMtudF14BY8=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/c73NnPPmqCuuQopDFw7sTOb5WvA=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/RkMpxiqhsoikGv0GewLrOWdNfHw=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/rww8ms8ZbVW3ROzXatsckQR+rcc=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/SQGI5YHEMaXSuFBb4K6nCd6eoOk=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/4QgnmCMDVtJwdE5j_sbShl6So6U=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/SmC7sV_xJOzDxLdgHrivIS4U7cg=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/n+4TMr_uFzWEg3PTaNP0fMKM0xM=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/T3tG7B9Nfc0m_v0T+25U8_lli18=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/fdAxatY6UMMFUVobIQu0ju9X9Vo=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/TqbaHhaP_P4CkPoEaxaqvA1aAMM=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/cjCWehvmL5PrNGVVuVJLym85bc8=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/UhGj6YafclXapcx0dmfnaaDgBVE=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/AjQ8AIhSnkk5B43Xyv7fJBDERAw=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/VTvrKT7nx3Kqh2Nf5xm6RkXGDBI=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/FXXaM1OFR3xaLZjv9m_ENCkWDaI=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/VfEy_gonU1oCnxlx5+tfUfdYVco=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/+aDjcHUR9qASHhbZE1JnjVJ844s=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/WCH9ph99LlQGWC04KyAbnfkap7Q=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/iGst_m5TCLZP52cyzMfV5H7Ezfw=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/WOgr3W35uOun9TTw6nGUVkahncI=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/ze3OXxiGW0_3ikEcvmvli1d7KnI=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/X6Vm26IQzXGjIJ5cn0v3H4WQzWo=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/42OMoqxgXcTWsUiV48d4s1a_xtc=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/XkCmQrDGp_tQIEtpuyIebn0KOkc=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/UcdODVD+S+4Jh_r25JYZD9jNMs4=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/XoI3HeivizIcQ81gYHwkXhzb9lg=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/DKyYrGFnpXFgWeYPL_BgMx6x5co=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/YaVGG41TlymOYUyGEntj0NN3sJg=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/R2GI_bFBZsz2pYddHO9gLcQpvTY=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/YbSYaQb109IYNp4Rh9vNHJk8mLc=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/zq5PRmdiioQDzTynvZbyvP7AQiY=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/_PWiGGVr9MXdwF0kmwCWdTzzrIk=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/fWWMG2nRdoRrmeJVXEXeiiHM7+8=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/aiDE0+_1Z25ClSfdCKR6xnoaBYA=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/HkaS+2Q9Ly1dskO4Ij8Ck9LWNsI=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/aqPvfKV_qWH7oUy4Q15CnklK0Fs=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/RjCCkBQVRh2rl_yMMiItYOgRavQ=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/bEnPWl_KhkBND3R5xBtg89mcaYI=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/ceF8LwVNuPvZkn5xDpoiV2L0j0Y=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/bL+1NSIAaKaV_IPEMLgYqe4DU8c=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/kDKe8H0biMpqRo3K44zx+xYv+vw=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/bvsYsWisn+m86YlCwpPUYjXsXrc=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/TkQkcG2CUo7GQAhMJ7xV7Lek1+E=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/cH8_g+OHHLKG3vc9WiVJWp5gV1s=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/wzO9jp4cyPk8yuwZdTesIsNVY98=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/eBPLPvdunSphTWUEjiJPUoYrk9c=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/SgtsuSB9XcNUQp_H7J06ENR3P_o=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/euhpT40PmTNLHu6tpmbTtCM87zw=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/LQI_mH1Z5HucdsgMObseAzAE26E=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/fLSGawRUHCqRMFWVNS7flCkxnLI=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/fus5eE3tIyKmMPx3UjBTBegCbhE=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/pubQDv0lzg8mPfRxqRbkWRzIEog=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/gEE6HAZEH8yitNlSNmVShYsz1t0=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/XXtd4kCp2VaZM55+cmW+Wu4gj8I=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/hgeoiGk1IG9cTajzl6H2iALLmJw=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/gv0PBdANJ_Jd4ZRJpILLAR25Mjw=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/iIBoiz6ZRgFl93qfa3ThXa3JW98=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/2dChdgerzU_rgjUzNf9OlPaWYqE=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/iqQiN++jE3fuT+gZ8fS+96vhr7M=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/wjGr3M23BpO6VMccvUEt23_ELUw=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/izDaBOd95c+GC4MPprp3jVDXSCk=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/f3jhfTnM_V_zpy_nH6JvrHDFur4=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/kaskX9Y1W2yjJSrliSpVMNiTfNg=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/fA22LqOm9flfxCx+NwKRbcmzcxE=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/llMkIfYm8Q1ahf2yRoVFEQz3Yrc=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/GufMCFsySSlNlISdgH4QSnCJhis=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/ltKlxLIVBe9RB1NChNcdZKGQGVo=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/YYq3fxRjUNrs0Fj3tgEhoKHbOs8=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/m0Hv_3s0x6h1kMJBUEz0bzGQtc4=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/Nz9QUDJ4BgH9ns4dm3i3DnEjf0g=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/mGzMMLtlgdid0vEgCXwlAjwvnGw=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/q5usWvcdxSNTndvOJ_SrW+fziZI=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/mmJQliIjqFdFsGYBqndX06qo9bU=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/SVlIHCU3HP1ZSZyUQWoz_5uzyPQ=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/o6FbREkyl43KSSNfnf97UwisG+8=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/bMl72DLIoG4NUP_toIWUPIsN5Nk=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/opCuo6OpuK9ZOl2Gz_OP8Cj5gOc=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/yJoY1YQfXu_6_h+ENAhXL60pAN0=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/p4nL+EiMR3UM+t1ccQ0N9I3pBio=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/WSzL7Pms1B0MRshHhDGxQVU5IKk=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/p6rWyG0KlkWG1_3Lxv_Vw1OXgLk=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/cySAgcoQVqfYm_hGb21s6lvE0EU=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/pH0nNUUn7_IVlAeLayMLNrP9ZtQ=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/pXz2pG2+tlIDCMRQWZps9U_nHho=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/pMIbENJcbppBqwzjbJvZ3sp5bpU=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/UeCYAWwDtiPCyyZQdaD0+PmrnXs=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/pOraQ_ggH_n4BEob7dFD8rGhTq0=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/Na1EafvhvYHGmWyhQvem6VTZnrg=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/pu3dr+kuLk0z4YmeW_J7hQU3UlQ=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/W2SCxkECSRgagMG+UVxI5I7iI9w=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/qE8H0QP00ZlO+NvSvx4NqIzKeP8=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/mwRP5Zvj+JgS67o2PtDFMwP+ySs=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/s5QMJ9C0gVyZKJw6L8nEuY4HXs4=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/tPyLbat2c9MshYnWoriOrdD2RHk=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/j4yfzavbTHSeLPNxx8jTa5cQQtc=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/tg3hIWfoDVSt6A3jgFMQ0bh5_wk=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/cEd9swdwKbvXBt2P8JzY1sZAtaw=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/ukADpoXSNsEkc6wslyouPpQxObI=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/DcVro+MSttc48TtSMGQCzcif0Fc=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/und6hlw1+QhnSTWHVlzJ+rDCabI=" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/vMMMUVuEKCcoybPOBF1PnV+Rsw8=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/WxpOobhUZs7vo0T3pIUsGGy0XvE=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/vsy+Q1NP7PNl8VxahYckJqEf1vk=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/ohzO9IxFbiSc6NgJMrsr1g+1FB0=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/wyvfQEwdWEa2+lPmo2SvqKCvv_U=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/x+tZuHyiESfJeMJbqNdhWPx_y0I=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/xmThk3zYX27nxziCIEGwCpVRwP4=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/mEk2A_FwiCvOOIKHP_Zdip4FRA4=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/zbV9LNPWuWYr+r9Li7ZszF3GXbc=" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug-mergeJavaRes/zip-cache/kNuCcelH8pNRblf0hLI_Hm3k4z8=" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/compile-file-map.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/mergeDebugResources/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/packageDebugResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/debug/packageDebugResources/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/mergeDebugAssets/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/mergeDebugAssets/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/mergeDebugShaders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/mergeDebugShaders/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/packageDebug/tmp/debug/zip-cache/androidResources" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/incremental/packageDebug/tmp/debug/zip-cache/androidResources" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/intermediates/source_set_path_map/debug/file-map.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/intermediates/source_set_path_map/debug/file-map.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.values.at" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.values.at" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.values.at" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.values.at" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/last-build.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/cacheable/last-build.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/local-state/build-history.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../android/app/build/kotlin/compileDebugKotlin/local-state/build-history.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2cUu6UVHd131FkydtyWmGJahZu7" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "last_opened_file_path": "/Users/sara/ReactNative Projects/CS467-Crowd-Sourced-App/backend"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="888ac727-97c3-4fea-a18c-9768f126160a" name="Changes" comment="" />
+      <created>1708178302452</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1708178302452</updated>
+    </task>
+    <servers />
+  </component>
+</project>
