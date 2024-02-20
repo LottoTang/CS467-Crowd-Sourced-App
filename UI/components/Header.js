@@ -11,6 +11,9 @@ import {
 import {getHeaderTitle} from '@react-navigation/elements';
 import { useDispatch } from 'react-redux';
 
+// data imports
+import { user } from "../../testData/testingData2";
+
 // function imports
 import { deleteItemInShoppingList } from '../../redux/actions/actions.js';
 import { capitalizeTitle } from '../ui_helpers.js'
@@ -20,10 +23,7 @@ import styles, {item_style, text_styles} from '../style.js';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const headerFunc = ({navigation, route, options, back}) => {
-    // the Header at the top of each screen, including back button, title, and username
-    //TODO: set name and level based on passed in user data
-    const user = {name: 'Username', level: 4};
-
+// the Header at the top of each screen, including back button, title, and username
     const title = getHeaderTitle(options, route.name);
 
     let header_height = 116
@@ -77,8 +77,8 @@ const headerFunc = ({navigation, route, options, back}) => {
 
                 { show_user ? (
                     <Pressable style={styles.row} onPress={()=> navigation.navigate("Profile")}>
-                        <Text style={header_style.number}>{user.level}</Text>
-                        <Text style={header_style.text}> {user.name}</Text>
+                        <Text style={header_style.number}>{user.shopping_level}</Text>
+                        <Text style={header_style.text}> {user.username}</Text>
                     </Pressable>
                 ) : null}
             </View>

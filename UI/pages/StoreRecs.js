@@ -16,7 +16,7 @@ import { useSelector } from 'react-redux';
 import { getGoShoppingList, getStoresSorting } from "../../redux/funtionality/helperFunctions";
 
 // data imports
-import { items, stores } from "../../testData/testingData2";
+import { user, items, stores } from "../../testData/testingData2";
 
 // component imports
 import PopupModal from '../components/PopupModal.js'
@@ -109,7 +109,7 @@ function StoreRecs() {
     const shopping_list = useSelector(state => state.shopping_list);
     const [ranking, setRanking] = useState("items");
 
-    const stores_breakdown = getGoShoppingList(shopping_list, items, stores);
+    const stores_breakdown = getGoShoppingList(shopping_list, items, stores, user.city, user.state);
     const ranked_data = getStoresSorting(stores_breakdown, ranking);
 
     return (

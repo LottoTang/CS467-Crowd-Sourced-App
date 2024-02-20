@@ -263,18 +263,20 @@ function getLowestPriceItem(items_list, store_id, items){
 
 
 // Method to return stores, number of items and total cost - Adjusted based on latest database schema
-function getGoShoppingList(shopping_list, items, stores){
+function getGoShoppingList(shopping_list, items, stores, city, state){
 
     const store_details = {};
 
     // Capture the name off each store
     for (let store in stores){
-        if (!(store in store_details)){
-            store_details[store] = {
-                name: stores[store].name,
-                total_cost: 0,
-                num_items: 0,
-            };
+        if (stores[store].city == city && stores[store].state == state){
+            if (!(store in store_details)){
+                store_details[store] = {
+                    name: stores[store].name,
+                    total_cost: 0,
+                    num_items: 0,
+                };
+            }
         }
     }
 
@@ -285,7 +287,7 @@ function getGoShoppingList(shopping_list, items, stores){
         const list_brands = shopping_list[shopping_item];
         //Get lowest price for an item in each store
 
-        for (let store in stores){
+        for (let store in store_details){
             const lowest_price = getLowestPriceItem(list_brands, store, items);
 
             if (lowest_price < 10000){

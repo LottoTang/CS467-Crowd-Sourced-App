@@ -1,3 +1,12 @@
+const user = {
+    user_id: "1234",
+    fullname: "John Doe",
+    username: "shoppingpro700",
+    shopping_level: 4,
+    city: "Corvallis",
+    state: "OR"
+}
+
 const products = {
     item_1: {
         name: "tomato sauce",
@@ -137,15 +146,21 @@ function generateShoppingList() {
         else products_dict[product] = new Set([item.brand])
     }
 
-    // create the list itself by adding all items with specified product and brands
+    // create the list itself by adding all items with specified product and brands in city
     const shopping_list = {}
     for (const check_product of Object.keys(products_dict)) {
         const shopping_items = []
         for (const item_id of Object.keys(items)){
             const item = items[item_id]
             const product = products[item.product].name
+
+            const store_id = item.store
+            const store = stores[store_id]
+
             if (product == check_product) {
-                if (products_dict[product].has(item.brand)) shopping_items.push(item_id)
+                if (products_dict[product].has(item.brand)) {
+                    if (store.city == user.city && store.state == user.state) shopping_items.push(item_id)
+                }
             }
         }
         shopping_list[check_product] = shopping_items
@@ -153,7 +168,7 @@ function generateShoppingList() {
     return shopping_list
 }
 
-export {products, stores, promotions, items, generateShoppingList}
+export {user, products, stores, promotions, items, generateShoppingList}
 
 
 

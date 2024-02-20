@@ -13,7 +13,7 @@ import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 // data imports
-import { stores } from "../../testData/testingData2";
+import { user, stores } from "../../testData/testingData2";
 import axios from 'axios';
 
 // component imports
@@ -24,15 +24,6 @@ import styles, {item_style, text_styles, add_button} from '../style.js';
 
 function PostPage() {
 // the Post page screen itself with its components (allows the user to post to the live feed)
-
-    // TODO: replace with actual user data
-    const user = {
-        user_id: "1234",
-        fullname: "John Doe",
-        username: "shoppingpro700",
-        city: "Corvallis",
-        state: "OR"
-    }
 
     const [store, setStore] = useState();
     const [review, setReview] = useState();
