@@ -159,8 +159,14 @@ const add_style = StyleSheet.create({
     },
     placeholder: {
         color: `${text_styles.itemText.color}80`
-    }
+    },
+    addButton: {
+        fontSize: 21,
+        lineHeight: 20,
+        paddingTop: 12,
+        height: 29,
+    },
 });
 
 const search_text = [text_styles.itemText, add_style.searchText]
-const button = add_button.concat({fontSize: 16});
+const button = add_button.concat(add_style.addButton);

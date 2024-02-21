@@ -45,16 +45,18 @@ function SelectBrand({route}) {
         dispatch(addItemInShoppingList(product, selected));
         navigation.navigate('Home');
     }
-
-    // params to be passed to the CheckList
-    const data = [brands, "brand", selected_brands, setSelectedItems]
     
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
             <Text style={text_styles.smallTitle}>Brand(s):</Text>
             <View  style={{maxHeight: '62%'}}>
-                <CheckList data={data} />
+                <CheckList
+                    data={brands}
+                    type="brand"
+                    selected_items={selected_brands}
+                    setSelectedItems={setSelectedItems}
+                />
             </View>
 
             <View style={styles.bottom}>

@@ -156,6 +156,10 @@ const store_items_style = StyleSheet.create({
        margin: 6,
 
        alignSelf: 'flex-end',
+
+       lineHeight: 20,
+       paddingTop: 9,
+       height: 29,
    },
 });
 

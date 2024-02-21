@@ -40,7 +40,16 @@ const liveFeed = {
         review: "No empty spots in parking lot today",
         date: "2024/01/10",
         user_id: "user_test03"
-    }
+    },
+    item_1: {
+        item_id: "5678",
+        name: "Barilla Marinara Sauce",
+        store: "store_2",
+        product: "item_1",
+        brand: "Barilla",
+        price: 10.95,
+    },
+
 };
 
 export { liveFeed };
