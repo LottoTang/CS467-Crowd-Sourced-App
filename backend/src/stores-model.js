@@ -3,6 +3,8 @@
 // Author: Long To Lotto Tang
 // Creation Date: 6/2/2024
 
+const csv = require('csv-parse');
+const fs = require('fs');
 const mongoose = require('mongoose');
 
 // Stores Schema
@@ -48,10 +50,44 @@ const updateStore = async (filter, update) => {
   return result.modifiedCount;
 };
 
+// DELETE: Delete a Store; Return number of modified data (expected: 1)
+const deleteById = async _id => {
+  const docuument = await Stores.deleteOne({_id: _id});
+  return docuument.deletedCount;
+};
+
+// DELETE: Delete entire Store Collection (For internal testing only)
+const deleteAll = async () => {
+  const collection = await Stores.deleteMany();
+  return collection.deletedCount;
+};
+
+// UTILITY FUNCTION
+const readStoresFromCSV = async () => {
+  return new Promise(function (resolve, reject) {
+    const data = [];
+    fs.createReadStream('./grocery_stores.csv')
+      .pipe(csv.parse({delimiter: ','}))
+      .on('data', record => {
+        const storeName = record[0];
+        data.push(storeName);
+      })
+      .on('end', () => {
+        console.log('CSV file successfully processed.');
+        resolve(data);
+      })
+      .on('error', reject);
+  });
+};
+
 module.exports = {
   Stores,
   createStores,
   findStoreById,
   findAllStores,
+  findItemsInStore,
   updateStore,
+  deleteById,
+  deleteAll,
+  readStoresFromCSV,
 };

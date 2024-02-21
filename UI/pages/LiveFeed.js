@@ -37,8 +37,10 @@ const Popup = ({store_filter, setStores, post_filter, setPostTypes}) => {
     ]
 
     const selectFilter = (selection=null) => {
-        if (selection.value == "store") setStorePopup(true)
-        if (selection.value == "post") setPostTypePopup(true)
+        if (selection != null){
+            if (selection.value == "store") setStorePopup(true)
+            if (selection.value == "post") setPostTypePopup(true)
+        }
         setPopup(false)
     }
 
@@ -113,7 +115,7 @@ const Popup = ({store_filter, setStores, post_filter, setPostTypes}) => {
 function LiveFeed() {
 // the Live Feed page screen itself with its components
 
-    const [filter, setFilter] = useState({metric: "all", store: "all", user_id: "all", brand: "all"});
+    const [filter, setFilter] = useState({metric: "all", store: "all", post: "all"});
 
     const feedData = returnLiveFeeds(liveFeed, stores, items, products);
     const [updatedData, setUpdatedData] = useState(feedData);
