@@ -11,7 +11,7 @@ const storesRouter = express.Router();
 storesRouter.use(bodyParser.json());
 
 // CREATE: Create a Store to database
-storesRouter.post('', async (req, res) => {
+storesRouter.post('/', async (req, res) => {
   const storeName = req.body.name;
   const storeCity = req.body.city;
   const storeState = req.body.state;
@@ -29,6 +29,33 @@ storesRouter.post('', async (req, res) => {
   }
 });
 
+// CREATE: Create all Stores from CSV
+storesRouter.post('/add-all', async (req, res) => {
+  var createCounter = 0;
+  try {
+    const data = await db.readStoresFromCSV();
+    const dataCounter = data.length;
+    const storeCity = 'Corvallis';
+    const storeState = 'OR';
+    for (storeName of data) {
+      try {
+        const store = await db.createStores(storeName, storeCity, storeState);
+        createCounter += 1;
+      } catch (err) {
+        console.error(err);
+        res.status(500).send({Error: 'Internal server error.'});
+      }
+    }
+    if (dataCounter == dataCounter) {
+      res.status(201).send({
+        Message: `${createCounter}/${dataCounter} collections created.`,
+      });
+    }
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 // READ: Read a Store
 storesRouter.get('/:_id', async (req, res) => {
   const storeID = req.params._id;
@@ -42,7 +69,7 @@ storesRouter.get('/:_id', async (req, res) => {
 });
 
 // READ: Read all Stores
-storesRouter.get('', async (req, res) => {
+storesRouter.get('/', async (req, res) => {
   try {
     const collection = await db.findAllStores();
     res.status(200).send(collection);
@@ -72,6 +99,27 @@ storesRouter.patch('/:_id', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(404).send({Error: 'No store with this stores._id exists.'});
+  }
+});
+
+// DELETE: Delete a Store
+storesRouter.delete('/:_id', async (req, res) => {
+  const storeId = req.params._id;
+  try {
+    const deleteCount = await db.deleteById(storeId);
+    res.status(200).send({deleteCount: deleteCount});
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+// DELETE: Delete all Store (for internal testing only)
+storesRouter.delete('', async (req, res) => {
+  try {
+    const deleteCount = await db.deleteAll();
+    res.status(200).send({deleteCount: deleteCount});
+  } catch (err) {
+    console.error(err);
   }
 });
 
