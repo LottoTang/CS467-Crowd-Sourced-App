@@ -22,8 +22,6 @@ const itemsSchema = new mongoose.Schema({
   promotion_id: { type: mongoose.Schema.Types.ObjectId, required: false }
 }, { versionKey: false });
 
-const Items = mongoose.model("Items", itemsSchema, "Items");
-const createItem = async (store_name, product_tags, name, brand, price, barcode_id, promotion_id) => {
 
 const Items = mongoose.model('Items', itemsSchema, 'Items');
 const createItem = async (
@@ -122,5 +120,5 @@ module.exports = {
   createItem,
   getItemByID,
   updateItem,
-  getItemsByTag,
+  getItemsByTag
 };
