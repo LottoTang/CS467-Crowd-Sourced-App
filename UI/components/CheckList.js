@@ -18,11 +18,9 @@ import styles, {item_style, text_styles,} from '../style.js';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
-const ItemComponent = ({item, func=()=>{}, preselected=false, data}) => {
+const ItemComponent = ({item, func=()=>{}, selected_items, setSelectedItems}) => {
 // item component that contains name of one item and a checkbox
-    const [items, type, selected_items, setSelectedItems] = data
-
-    const [selected, setSelected] = useState(preselected);
+    const [selected, setSelected] = useState(selected_items.includes(item));
     const [icon, setIcon] = useState("checkbox-blank-outline");
     
     // Set up connection with store to dispatch signal
@@ -62,33 +60,41 @@ const ItemComponent = ({item, func=()=>{}, preselected=false, data}) => {
     );
 };
 
-const CheckList = ({data}) => {
+const CheckList = ({data, type, selected_items, setSelectedItems}) => {
 // list component composed of items with a checkbox
-
-    // retrieve the data passed to component
-    const [items, type, selected_items] = data
 
     // preset to false if selected_items != any items
     const [any_item, setAny] = useState((selected_items == `Any ${type}`));
 
     let showAny = true;
     if (type == "product") showAny = false;
+
+    let color = styles.backgroundColor.color
+    if (type == "store" || type == "post") color = "#FEFEFE"
     
     return (
-        <View>
+        <View >
             { showAny ? (
-                <ItemComponent item={`Any ${type}`} func={setAny}
-                               preselected={selected_items.includes(`Any ${type}`)} data={data}/>
+                <ItemComponent
+                    item={`Any ${type}`}
+                    func={setAny}
+                    selected_items={selected_items}
+                    setSelectedItems={setSelectedItems}
+                />
             ) : null}
             <FlatList
-                data={items}
+                data={data}
                 keyExtractor={(item, index)=> index.toString()}
                 renderItem = { ({item}) =>
-                    <ItemComponent item={item} preselected={selected_items.includes(item)} data={data} />
+                    <ItemComponent
+                        item={item}
+                        selected_items={selected_items}
+                        setSelectedItems={setSelectedItems}
+                    />
                 }
             />
             { any_item ? (
-                <View style={check_style.greyed}></View>
+                <View style={[check_style.greyed, {backgroundColor: `${color}90`}]}></View>
             ) : null}
         </View>
     );
@@ -105,7 +111,5 @@ const check_style = StyleSheet.create({
         left: 0,
         right: 0,
         top: 60,
-
-        backgroundColor: 'rgba(210,219,219,.6)',
     },
 });

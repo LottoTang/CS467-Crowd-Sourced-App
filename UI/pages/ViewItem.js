@@ -19,11 +19,11 @@ import { getSelectedBrandsForProduct, getItemsList, getItemSorting } from '../..
 import { stores } from '../../testData/testingData2.js';
 
 // component imports
-import StoresList from '../components/StoresWithItem.js'
+import StoresList from '../components/StoresList.js'
 import PopupModal from '../components/PopupModal.js'
 
 // style imports
-import styles, {text_styles, add_button} from '../style.js';
+import styles, {text_styles, add_button, popup_style} from '../style.js';
 import Icon from 'react-native-vector-icons/Feather';
 
 
@@ -72,7 +72,7 @@ function ViewItem() {
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
-            <PopupModal popup={popup} popup_vals={popup_vals} closePopup={closePopup} />
+            <PopupModal popup={popup} data={popup_vals} closePopup={closePopup} />
 
             <View style={{marginRight: 10}}>
                 <View style={styles.row}>
@@ -97,11 +97,11 @@ function ViewItem() {
                 <View style={[styles.row, {marginTop: 12}]}>
                     <Text style={text_styles.smallTitle}>Store(s):</Text>
                     <Pressable style={{alignSelf: 'flex-end', marginBottom: 4}} onPress={() => setPopup(true)}>
-                        <Text style={[add_button, {fontSize: 13}]}>Sort</Text>
+                        <Text style={[add_button, popup_style.buttonText]}>Sort</Text>
                     </Pressable>
                 </View>
             </View>
-            <View style={{height: '78%'}}>
+            <View style={{height: '76%'}}>
                 <StoresList items={ranked_data}/>
             </View>
         </View>

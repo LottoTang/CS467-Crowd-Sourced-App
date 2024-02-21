@@ -415,10 +415,10 @@ function filterLiveFeeds(liveFeeds, filter){
             Object.entries(liveFeeds).filter(([key, value])=>{
                 
                 // Check store change
-                if (filter.user_id == "all" && filter.brand == "all" && filter.store != "all") return value.store == filter.store;
-                else if (filter.user_id != "all" && filter.brand == "all" && filter.store != "all") return (value.store == filter.store && value.user == filter.user_id);
-                else if (filter.user_id == "all" && filter.brand != "all" && filter.store != "all") return (value.store == filter.store && value.brand == filter.brand);
-                else if (filter.user_id != "all" && filter.brand != "all" && filter.store != "all") return (value.store == filter.store && value.user == filter.user_id && value.brand == filter.brand);
+                if (filter.user_id == "all" && filter.brand == "all" && filter.store != "all") return filter.store.includes(value.store);
+                else if (filter.user_id != "all" && filter.brand == "all" && filter.store != "all") return (filter.store.includes(value.store) && value.user == filter.user_id);
+                else if (filter.user_id == "all" && filter.brand != "all" && filter.store != "all") return (filter.store.includes(value.store) && value.brand == filter.brand);
+                else if (filter.user_id != "all" && filter.brand != "all" && filter.store != "all") return (filter.store.includes(value.store) && value.user == filter.user_id && value.brand == filter.brand);
                 
                 // check user id changing
                 else if (filter.store == "all" && filter.brand == "all" && filter.user_id != "all") return value.user == filter.user_id; 
@@ -426,7 +426,7 @@ function filterLiveFeeds(liveFeeds, filter){
                 
                 // check brand changing
                 else if (filter.store == "all" && filter.user_id == "all" && filter.brand != "all") return value.brand == filter.brand;
-                else if (filter.store != "all" && filter.user_id == "all" && filter.brand != "all") return (value.brand == filter.brand && value.store == filter.store);
+                else if (filter.store != "all" && filter.user_id == "all" && filter.brand != "all") return (value.brand == filter.brand && filter.store.includes(value.store));
                 else if (filter.store == "all" && filter.user_id != "all" && filter.brand != "all") return (value.brand == filter.brand && value.user == filter.user_id);
                 
                 else return liveFeeds;
