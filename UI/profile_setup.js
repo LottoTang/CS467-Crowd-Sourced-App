@@ -24,9 +24,9 @@ const ProfileSetup = () => {
                 options={{title: "", animation: "slide_from_bottom"}}
             />
             <Stack.Screen
-              name="Sign Up"
-              component={SignUpPage}
-              options={{title: '', animation: "slide_from_right"}}
+                name="Sign Up"
+                component={SignUpPage}
+                options={{title: '', animation: "slide_from_right"}}
             />
         </Stack.Navigator>
     )

@@ -14,6 +14,9 @@ import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth0 } from 'react-native-auth0';
 
+// data imports
+import { user } from "../../testData/testingData2";
+
 // style imports
 import styles, {item_style, text_styles, large_button} from '../style.js';
 import Icon from 'react-native-vector-icons/Feather';
@@ -31,15 +34,6 @@ function ProfilePage() {
 
     const onEdit = () => {
         navigation.navigate('Sign Up', {user: user, button: "Update"})
-    }
-
-    // TODO: replace with user data from database
-    const user = {
-        fullname: "John Doe",
-        username: "shoppingpro700",
-        shopping_level: 4,
-        city: "Corvallis",
-        state: "OR"
     }
 
     // highest shopper level
