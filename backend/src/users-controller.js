@@ -94,9 +94,17 @@ usersRouter.patch('/:_id', async (req, res) => {
     if (req.body.city) update.city = req.body.city;
     if (req.body.state) update.state = req.body.state;
     try {
-      const updateCount = await db.updateUser({_id: userID}, update);
       // return the number of modified item (Expected: 1)
-      res.status(200).send({updateCount: updateCount});
+      const updateCount = await db.updateUser({_id: userID}, update);
+      if (updateCount == 1) {
+          try {
+            const document = await db.findUserById(userID);
+            res.status(200).send(document);
+          } catch (err) {
+            console.error(err);
+            res.status(404).send({Error: 'No user with this users._id exists.'});
+          }
+      }
     } catch (err) {
       console.error(err);
       res.status(500).send({Error: 'Internal Server Error'});

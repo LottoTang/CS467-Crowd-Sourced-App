@@ -104,11 +104,7 @@ function SignUpPage({route}) {
                         state: state
                     }
                 ).then(async result => {
-                    let data = result.data;
-                    if (result.data.updateCount){
-                        data = await getUser(user_id)
-                    }
-                    dispatch(setUser(data));
+                    dispatch(setUser(result.data));
                     navigation.navigate("Tabs")
                 })
                 .catch(error => console.log(error))
