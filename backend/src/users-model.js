@@ -18,6 +18,7 @@ const usersSchema = new mongoose.Schema(
     city: {type: String, required: true},
     state: {type: String, required: true},
     shopping_level: {type: Number, required: true},
+    feed_item_count: {type: Number, required: true},
   },
   {minimize: false},
 );
@@ -44,6 +45,7 @@ const createUsers = async (
     city: city,
     state: state,
     shopping_level: 1,
+    feed_item_count: 0,
   });
   return users.save();
 };
@@ -65,9 +67,53 @@ const updateUser = async (filter, update) => {
   return result.modifiedCount;
 };
 
-// UPDATE: Update the shopping_level (Not Yet Implemented)
-const updateUserShoppingLevel = async auth_sub => {
-  return;
+// UPDATE: Update the feed_item_count
+const updateFeedItemCount = async _id => {
+  const result = await Users.updateOne(
+    {
+      _id: _id,
+    },
+    {
+      $inc: {
+        feed_item_count: 1,
+      },
+    },
+  );
+  return result.modifiedCount;
+};
+
+// UPDATE: Update the shopping_level
+const updateUserShoppingLevel = async _id => {
+  const document = await Users.findOne({_id: _id});
+  // Max level reached
+  if (document.shopping_level === 5) {
+    return;
+  }
+  const userFeedItemCount = document.feed_item_count;
+  var userShoppingLevel = 0;
+  switch (true) {
+    case userFeedItemCount >= 0 && userFeedItemCount <= 2:
+      userShoppingLevel = 1;
+      break;
+    case userFeedItemCount >= 3 && userFeedItemCount <= 4:
+      userShoppingLevel = 2;
+      break;
+    case userFeedItemCount >= 5 && userFeedItemCount <= 6:
+      userShoppingLevel = 3;
+      break;
+    case userFeedItemCount >= 7 && userFeedItemCount <= 8:
+      userShoppingLevel = 4;
+      break;
+    case userFeedItemCount >= 9:
+      userShoppingLevel = 5;
+      break;
+  }
+  // Update the new shopping level back to database
+  const result = await Users.updateOne(
+    {_id: _id},
+    {shopping_level: userShoppingLevel},
+  );
+  return result.modifiedCount;
 };
 
 // UTILITY FUNCTION: Parse shopping_list_item with items.id
@@ -123,5 +169,7 @@ module.exports = {
   findUserById,
   findUserByAuthSub,
   updateUser,
+  updateFeedItemCount,
+  updateUserShoppingLevel,
   parseShoppingListItem,
 };
