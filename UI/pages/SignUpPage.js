@@ -18,6 +18,7 @@ import { setUser } from '../../redux/actions/actions.js';
 
 // data imports
 import axios from 'axios';
+import {getUser} from '../../redux/funtionality/connectionMongo.js'
 
 // style imports
 import styles, {item_style, text_styles} from '../style.js';
@@ -85,8 +86,14 @@ function SignUpPage({route}) {
 
         // if city is valid, send data to database and move to home page
         else {
+            let reqFunc = axios.post
+            let user_id = ''
+            if (route.params.user) {
+                reqFunc = axios.patch
+                user_id = route.params.user._id
+            }
             try{
-                const response = await axios.post(`http://10.0.2.2:3000/users/`,
+                const response = await reqFunc(`http://10.0.2.2:3000/users/${user_id}`,
                     {
                         auth_sub: user.auth_sub,
                         email: user.email,
@@ -96,10 +103,14 @@ function SignUpPage({route}) {
                         city: city,
                         state: state
                     }
-                ).then(result => {
-                    dispatch(setUser(result.data));
+                ).then(async result => {
+                    let data = result.data;
+                    if (result.data.updateCount){
+                        data = await getUser(user_id)
+                    }
+                    dispatch(setUser(data));
                     navigation.navigate("Tabs")
-                    })
+                })
                 .catch(error => console.log(error))
             } catch(error) {
                 console.error(error);
