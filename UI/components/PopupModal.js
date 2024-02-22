@@ -19,10 +19,13 @@ import styles, {item_style, text_styles, add_button, popup_style} from '../style
 
 
 const PopupList = ({data, type, close}) => {
-    // displays a Flatlist of the provided data
+// displays a FlatList of the provided data
+
+    let title;
+    if (type == "Sort" || type == "Filter") title = `${type} by:`
     return (
         <View style={popup_style.style}>
-            <Text style={text_styles.smallTitle}>{type} by:</Text>
+            <Text style={text_styles.smallTitle}>{title}</Text>
             <FlatList
                 data={data}
                 keyExtractor={(item, index)=> index.toString()}
@@ -37,7 +40,7 @@ const PopupList = ({data, type, close}) => {
 }
 
 const PopupCheckList = ({data, preselected, close, select_type}) => {
-    // displays a checklist of the provided data
+// displays a checklist of the provided data
     const [selected_items, setSelectedItems] = useState(preselected)
 
     return (

@@ -58,9 +58,14 @@ const getBrandsOfProduct = async (name) => {
 }
 
 const getProductBySubstring = async (name) => {
+  const productNames = [];
   try {
       let this_product = await Products.find({ name: {$regex: name} });
-      return this_product; 
+      // for (let i = 0; i < this_product.length; i++) {
+      //   productNames.push(this_product[i].name);
+      // }
+      const productNames = this_product.map(product => product.name);
+      return productNames; 
     } catch (error) {
       console.error('Error finding entry:', error);
       throw error; 
