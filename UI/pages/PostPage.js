@@ -11,9 +11,10 @@ import {
 } from 'react-native';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 // data imports
-import { user, stores } from "../../testData/testingData2";
+import { stores } from "../../testData/testingData2";
 import axios from 'axios';
 
 // component imports
@@ -24,6 +25,7 @@ import styles, {item_style, text_styles, add_button} from '../style.js';
 
 function PostPage() {
 // the Post page screen itself with its components (allows the user to post to the live feed)
+    const user = useSelector(state => state.user);
 
     const [store, setStore] = useState();
     const [review, setReview] = useState();

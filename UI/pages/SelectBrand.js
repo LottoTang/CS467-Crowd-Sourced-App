@@ -9,11 +9,13 @@ import {
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
 
 // function imports
 import { getBrandsList } from '../../redux/funtionality/helperFunctions';
 import { addItemInShoppingList } from '../../redux/actions/actions.js';
+
+// data imports
+import axios from 'axios';
 
 // component imports
 import CheckList from '../components/CheckList.js'

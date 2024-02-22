@@ -14,9 +14,9 @@ usersRouter.use(bodyParser.json());
 usersRouter.get('/checker/:_id', async (req, res) => {
   const userAuthSub = req.params._id;
   try {
-    const isRegistered = await db.findUserByAuthSub(userAuthSub);
-    if (isRegistered) {
-      res.status(200).send({Message: 'Existing User, redircting to mainpage.'});
+    const document = await db.findUserByAuthSub(userAuthSub);
+    if (document) {
+      res.status(200).send(document);
     } else {
       res
         .status(404)
@@ -31,17 +31,17 @@ usersRouter.get('/checker/:_id', async (req, res) => {
 usersRouter.post('/', async (req, res) => {
   const userAuthSub = req.body.auth_sub;
   try {
-    const isRegistered = await db.findUserByAuthSub(userAuthSub);
-    if (isRegistered) {
-      res.status(200).send({Message: 'Existing User, redircting to mainpage.'});
+    const document = await db.findUserByAuthSub(userAuthSub);
+    if (document) {
+      res.status(200).send(document);
     } else {
       console.log(req.body);
       const userEmail = req.body.email;
       const userFirstName = req.body.firstname;
       const userLastName = req.body.lastname;
       const userUserName = req.body.username;
-      const userCity = 'Corvallis';
-      const userState = 'OR';
+      const userCity = req.body.city;
+      const userState = req.body.state;
       // Data validation: firstName and lastName is not empty
       if (!userFirstName || !userLastName || !userUserName) {
         return res
