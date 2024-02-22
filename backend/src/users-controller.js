@@ -10,13 +10,30 @@ const bodyParser = require('body-parser');
 const usersRouter = express.Router();
 usersRouter.use(bodyParser.json());
 
+// UTILITY ROUTE: Check if User is New / Existing
+usersRouter.get('/checker/:_id', async (req, res) => {
+  const userAuthSub = req.params._id;
+  try {
+    const isRegistered = await db.findUserByAuthSub(userAuthSub);
+    if (isRegistered) {
+      res.status(200).send({Message: 'Existing User, redircting to mainpage.'});
+    } else {
+      res
+        .status(404)
+        .send({Message: 'New User, redirecting to registration page.'});
+    }
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 // CREATE: Create a User to database
 usersRouter.post('/', async (req, res) => {
   const userAuthSub = req.body.auth_sub;
   try {
     const isRegistered = await db.findUserByAuthSub(userAuthSub);
     if (isRegistered) {
-      res.status(409).send({Message: 'Redircting to mainpage.'});
+      res.status(200).send({Message: 'Existing User, redircting to mainpage.'});
     } else {
       console.log(req.body);
       const userEmail = req.body.email;
@@ -26,7 +43,7 @@ usersRouter.post('/', async (req, res) => {
       const userCity = 'Corvallis';
       const userState = 'OR';
       // Data validation: firstName and lastName is not empty
-      if (!userFirstName || !userLastName) {
+      if (!userFirstName || !userLastName || !userUserName) {
         return res
           .status(400)
           .send({Error: 'Missing one of the required fields.'});
@@ -65,7 +82,7 @@ usersRouter.get('/:_id', async (req, res) => {
   }
 });
 
-// UPDATE: Update User's (Cannot modify state/city)
+// UPDATE: Update User's
 usersRouter.patch('/:_id', async (req, res) => {
   const userID = req.params._id;
   try {
@@ -74,6 +91,8 @@ usersRouter.patch('/:_id', async (req, res) => {
     if (req.body.firstname) update.firstname = req.body.firstname;
     if (req.body.lastname) update.lastname = req.body.lastname;
     if (req.body.username) update.username = req.body.username;
+    if (req.body.city) update.city = req.body.city;
+    if (req.body.state) update.state = req.body.state;
     try {
       const updateCount = await db.updateUser({_id: userID}, update);
       // return the number of modified item (Expected: 1)
