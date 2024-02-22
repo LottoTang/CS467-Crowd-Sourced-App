@@ -14,9 +14,9 @@ usersRouter.use(bodyParser.json());
 usersRouter.get('/checker/:_id', async (req, res) => {
   const userAuthSub = req.params._id;
   try {
-    const isRegistered = await db.findUserByAuthSub(userAuthSub);
-    if (isRegistered) {
-      res.status(200).send({Message: 'Existing User, redircting to mainpage.'});
+    const document = await db.findUserByAuthSub(userAuthSub);
+    if (document) {
+      res.status(200).send(document);
     } else {
       res
         .status(404)
@@ -31,17 +31,17 @@ usersRouter.get('/checker/:_id', async (req, res) => {
 usersRouter.post('/', async (req, res) => {
   const userAuthSub = req.body.auth_sub;
   try {
-    const isRegistered = await db.findUserByAuthSub(userAuthSub);
-    if (isRegistered) {
-      res.status(200).send({Message: 'Existing User, redircting to mainpage.'});
+    const document = await db.findUserByAuthSub(userAuthSub);
+    if (document) {
+      res.status(200).send(document);
     } else {
       console.log(req.body);
       const userEmail = req.body.email;
       const userFirstName = req.body.firstname;
       const userLastName = req.body.lastname;
       const userUserName = req.body.username;
-      const userCity = 'Corvallis';
-      const userState = 'OR';
+      const userCity = req.body.city;
+      const userState = req.body.state;
       // Data validation: firstName and lastName is not empty
       if (!userFirstName || !userLastName || !userUserName) {
         return res
@@ -94,9 +94,17 @@ usersRouter.patch('/:_id', async (req, res) => {
     if (req.body.city) update.city = req.body.city;
     if (req.body.state) update.state = req.body.state;
     try {
-      const updateCount = await db.updateUser({_id: userID}, update);
       // return the number of modified item (Expected: 1)
-      res.status(200).send({updateCount: updateCount});
+      const updateCount = await db.updateUser({_id: userID}, update);
+      if (updateCount == 1) {
+          try {
+            const document = await db.findUserById(userID);
+            res.status(200).send(document);
+          } catch (err) {
+            console.error(err);
+            res.status(404).send({Error: 'No user with this users._id exists.'});
+          }
+      }
     } catch (err) {
       console.error(err);
       res.status(500).send({Error: 'Internal Server Error'});

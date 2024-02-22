@@ -11,12 +11,13 @@ import {
 } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 // function imports
 import { returnLiveFeeds, filterLiveFeeds } from "../../redux/funtionality/helperFunctions";
 
 // data imports
-import { user, stores, products, items, promotions} from "../../testData/testingData2";
+import { stores, products, items, promotions} from "../../testData/testingData2";
 import { liveFeed } from "../../testData/liveFeedData";
 
 // component imports
@@ -114,6 +115,7 @@ const Popup = ({store_filter, setStores, post_filter, setPostTypes, stores}) => 
 
 function LiveFeed() {
 // the Live Feed page screen itself with its components
+    const user = useSelector(state => state.user);
 
     const [filter, setFilter] = useState({metric: "all", store: "all", post: "all"});
 

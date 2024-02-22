@@ -51,6 +51,10 @@ const products = {
     item_11: {
         name: "tomato juice",
         brands: ["Shoprite", "Half Foods", "Brand 3", "Brand 4", "Brand 5"]
+    },
+    item_12: {
+        name: "Spaghetti",
+        brands: ["Brand1", "brand2"]
     }
 }
 

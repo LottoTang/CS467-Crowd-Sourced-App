@@ -12,10 +12,8 @@ import {
 } from 'react-native';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 import { useAuth0 } from 'react-native-auth0';
-
-// data imports
-import { user } from "../../testData/testingData2";
 
 // style imports
 import styles, {item_style, text_styles, large_button} from '../style.js';
@@ -24,6 +22,7 @@ import Icon from 'react-native-vector-icons/Feather';
 function ProfilePage() {
 // the Profile page screen itself with its components
     const {authorize, clearSession, getCredentials, error, isLoading} = useAuth0();
+    const user = useSelector(state => state.user);
 
     const navigation = useNavigation();
 
@@ -86,7 +85,7 @@ function ProfilePage() {
                             size={26}
                             color={styles.secondaryItemBackground.color}
                         />
-                        <Text style={plainText}>{user.fullname}</Text>
+                        <Text style={plainText}>{user.firstname} {user.lastname}</Text>
                     </View>
                     <View style={item_style.concat({justifyContent: 'flex-start'})}>
                         <Icon

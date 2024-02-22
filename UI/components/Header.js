@@ -9,10 +9,7 @@ import {
   View,
 } from 'react-native';
 import {getHeaderTitle} from '@react-navigation/elements';
-import { useDispatch } from 'react-redux';
-
-// data imports
-import { user } from "../../testData/testingData2";
+import { useDispatch, useSelector } from 'react-redux';
 
 // function imports
 import { deleteItemInShoppingList } from '../../redux/actions/actions.js';
@@ -24,6 +21,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const headerFunc = ({navigation, route, options, back}) => {
 // the Header at the top of each screen, including back button, title, and username
+    const user = useSelector(state => state.user);
+
     const title = getHeaderTitle(options, route.name);
 
     let header_height = 116

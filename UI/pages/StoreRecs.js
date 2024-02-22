@@ -16,7 +16,7 @@ import { useSelector } from 'react-redux';
 import { getGoShoppingList, getStoresSorting } from "../../redux/funtionality/helperFunctions";
 
 // data imports
-import { user, items, stores } from "../../testData/testingData2";
+import { items, stores } from "../../testData/testingData2";
 
 // component imports
 import PopupModal from '../components/PopupModal.js'
@@ -105,6 +105,7 @@ function PopUp({setRanking}) {
 
 function StoreRecs() {
 // the Store Recommendation screen itself with its components
+    const user = useSelector(state => state.user);
 
     const shopping_list = useSelector(state => state.shopping_list);
     const [ranking, setRanking] = useState("items");
