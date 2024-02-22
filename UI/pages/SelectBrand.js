@@ -35,7 +35,7 @@ function SelectBrand({route}) {
     //const all_products = useSelector(state => state.all_products);
     //const brands = getBrandsList(product, all_products);
 
-    // Collect brands from database
+    // Collect all brands from database
     useEffect( () => {
         const fillBrands = async ()=>{
             try{

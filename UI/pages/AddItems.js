@@ -8,9 +8,10 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 // function imports
 import { giveSuggestedItems } from '../../redux/funtionality/helperFunctions.js';
@@ -113,13 +114,32 @@ function AddItems() {
     const all_products = useSelector((state)=>state.all_products);
     const [suggested_items, setSuggestedItems] = useState('');
     const [product_name, setProductName] = useState('');
+    const [productsList, setProductsList] = useState('');
+
+    // Pull all products from the database
+    useEffect(() =>{
+        const getProducts = async ()=> {
+            try {
+                await axios.get(`http://10.0.2.2:3000/products/search?name=${product_name}`)
+                .then(result => {
+                    const listOfNames = result.data.map(item => item["name"]);
+                    setProductsList(listOfNames);
+                    }
+                    )// 
+                .catch(error => console.log(error));
+            } catch (error){
+                console.log(error);
+            }
+        }
+
+        getProducts();
+    }, [product_name]);
 
     // method giveSuggestedItems will give you item recommendations based on users input
     // Because we don't have access to the database it works with Tomato and Tomato Sauce inputs from the test data
     const handleInputChange = (text)=>{
         setProductName(text);
-        const filter_data = giveSuggestedItems(all_products, text);
-        setSuggestedItems(filter_data);
+        setSuggestedItems(productsList);
     }
 
   return (

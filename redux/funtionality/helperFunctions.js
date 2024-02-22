@@ -425,8 +425,6 @@ function returnLiveFeeds(feeds, stores, items, products){
 // Helper method to provide filter for all feeds in the feeds page
 // It takes as argument the return value from returnLiveFeeds, the filtered value and the filter you want to apply
 function filterLiveFeeds(liveFeeds, filter){
-
-    console.log(filter);
     
     if (filter.metric != "all"){
         const feedsObject = Object.fromEntries(
