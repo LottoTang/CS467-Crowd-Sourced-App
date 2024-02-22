@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 const usersRouter = express.Router();
 usersRouter.use(bodyParser.json());
 
-// UTILITY ROUTE: Check if User is New / Existing
+// UTILITY ROUTE: Check if User is new / existing
 usersRouter.get('/checker/:_id', async (req, res) => {
   const userAuthSub = req.params._id;
   try {
