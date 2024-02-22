@@ -434,7 +434,7 @@ function filterLiveFeeds(liveFeeds, filter){
                 if (filter.store != "all" && (filter.post == "all" || (filter.post.includes("Item Updates") && filter.post.includes("Store Reviews"))))
                     return filter.store.includes(value.store);
                 else if (filter.store !="all" && filter.post.includes("Item Updates") && !filter.post.includes("Store Reviews")) return (filter.store.includes(value.store) && value.pricing > -1);
-                else if (filter.store != "all" && filter.post.includes.includes("Store Reviews") && !filter.post.includes("Item Updates")) return (filter.store.includes(value.store) && value.pricing == -1);
+                else if (filter.store != "all" && filter.post.includes("Store Reviews") && !filter.post.includes("Item Updates")) return (filter.store.includes(value.store) && value.pricing == -1);
                 else if (filter.store == "all" && filter.post.includes("Item Updates") && !filter.post.includes("Store Reviews")) return value.pricing > -1;
                 else if (filter.store == "all" && (filter.post.includes("Store Reviews") && !filter.post.includes("Item Updates"))) return value.pricing == -1;
                 

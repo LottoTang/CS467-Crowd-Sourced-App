@@ -37,8 +37,10 @@ const Popup = ({store_filter, setStores, post_filter, setPostTypes}) => {
     ]
 
     const selectFilter = (selection=null) => {
-        if (selection.value == "store") setStorePopup(true)
-        if (selection.value == "post") setPostTypePopup(true)
+        if (selection != null){
+            if (selection.value == "store") setStorePopup(true)
+            if (selection.value == "post") setPostTypePopup(true)
+        }
         setPopup(false)
     }
 
