@@ -33,12 +33,6 @@ const createItem = async (
   barcode_id,
   promotion_id,
 ) => {
-  // check that store exists
-  // let store_value = get by name store store function
-
-  // NEED TO UPDATE STORE_ID AND PRODUCT_TAGS
-
-  // iterate through product tags and add them
 
   // create new item object to save to database
   const item = new Items({
