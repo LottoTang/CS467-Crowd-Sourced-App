@@ -68,7 +68,7 @@ function AddTagsPage({route}) {
                 <Text style={label_text}>Store</Text>
                 <Dropdown value={store} setValue={setStore} options={available_stores} type={"store"}/>
 
-                <Text style={label_text}>Name</Text>
+                <Text style={label_text}>Item Name</Text>
                 <View style={item_style.concat({marginBottom: 15})}>
                     <TextInput
                         style={text_styles.inputText}
@@ -76,6 +76,9 @@ function AddTagsPage({route}) {
                         onChangeText={setName}
                     />
                 </View>
+
+                <Text style={label_text}>Product Tags</Text>
+                <Dropdown value={tags} setValue={setTags} options={[]} type={"product tags"}/>
 
                 <Text style={label_text}>Brand</Text>
                 <Dropdown value={brand} setValue={setBrand} options={[]} type={"brand"}/>
@@ -98,9 +101,6 @@ function AddTagsPage({route}) {
 
                 <Text style={label_text}>Sale</Text>
                 <Dropdown value={sale} setValue={setSale} options={[]} type={"sale"} placeholder={"None"}/>
-
-                <Text style={label_text}>Tags</Text>
-                <Dropdown value={tags} setValue={setTags} options={[]} type={"product tags"}/>
 
                 <Text style={button} onPress={handleSubmit}>
                     Submit

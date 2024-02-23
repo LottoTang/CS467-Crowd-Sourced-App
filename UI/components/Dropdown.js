@@ -5,7 +5,10 @@ import {
   Text,
   View
 } from 'react-native';
-import { useState } from 'react';
+import { useState } from 'react'
+
+// function imports
+import { giveSuggestedItems } from '../../redux/funtionality/helperFunctions.js';
 
 // component imports
 import PopupModal from './PopupModal.js'
@@ -23,15 +26,24 @@ function Dropdown ({value, setValue, options, type, placeholder=null}) {
 
     if (!placeholder) placeholder = `Select a ${type}`
 
-    //TODO: allow users to type on the dropdown input box to search for values and add new values for brand and product tags
+    const [search, setSearch] = useState("")
+    const [suggested_items, setSuggestedItems] = useState(options);
+
+    const handleInputChange = (text)=>{
+        setSearch(text);
+        const filter_data = giveSuggestedItems(options, text);
+        setSuggestedItems(filter_data);
+    }
 
     return(
         <View>
             <PopupModal
                 popup={popup}
                 popup_type={"Dropdown"}
-                data={options}
+                data={suggested_items}
                 closePopup={closePopup}
+                search={search}
+                setSearch={handleInputChange}
             />
             <Pressable style={item_style.concat({marginBottom: 15})} onPress={() => setPopup(true)}>
                 {value ? (
