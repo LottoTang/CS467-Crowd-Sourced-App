@@ -66,7 +66,7 @@ const deleteAll = async () => {
 const readStoresFromCSV = async () => {
   return new Promise(function (resolve, reject) {
     const data = [];
-    fs.createReadStream('./grocery_stores.csv')
+    fs.createReadStream('./corvallis_oregon.csv')
       .pipe(csv.parse({delimiter: ','}))
       .on('data', record => {
         const storeName = record[0];
