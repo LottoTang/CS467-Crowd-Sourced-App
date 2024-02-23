@@ -50,9 +50,9 @@ const getLivefeedsByID = async livefeed_id => {
     }
   };
 
-const getAllLivefeeds = async livefeed_id => {
+const getAllLivefeeds = async () => {
     try {
-      let this_livefeed = await Livefeeds.findOne({_id: livefeed_id});
+      let this_livefeed = await Livefeeds.find();
       return this_livefeed; 
     } catch (error) {
       console.error('Error finding entry:', error);
@@ -62,5 +62,6 @@ const getAllLivefeeds = async livefeed_id => {
 
 module.exports = {
     createLivefeed,
-    getLivefeedsByID
+    getLivefeedsByID,
+    getAllLivefeeds
 };

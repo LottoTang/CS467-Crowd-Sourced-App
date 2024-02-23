@@ -9,7 +9,7 @@ const livefeedsRouter = express.Router();
 const bodyParser = require('body-parser');
 livefeedsRouter.use(bodyParser.json());
 
-const { createLivefeed, getLivefeedsByID } = require("./livefeeds-model.js");
+const { createLivefeed, getLivefeedsByID, getAllLivefeeds } = require("./livefeeds-model.js");
 
 
 livefeedsRouter.post("/", async (req, res) => {
