@@ -3,7 +3,6 @@ import React from 'react';
 import {
   SafeAreaView,
   Alert,
-  Pressable,
   SectionList,
   StyleSheet,
   Text,
@@ -12,22 +11,28 @@ import {
 } from 'react-native';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+
+// function imports
+import { setUser } from '../../redux/actions/actions.js';
+
+// data imports
+import axios from 'axios';
+import {getUser} from '../../redux/funtionality/connectionMongo.js'
 
 // style imports
 import styles, {item_style, text_styles} from '../style.js';
 
 function SignUpPage({route}) {
 // the Sign Up page screen itself with its component
-    let user = {username: '', fullname: '', city: '', state: ''}
+    let user = {auth_sub: route.params.sub, email: route.params.email, username: '', firstname: '', lastname: '', city: '', state: ''}
     if (route.params.user) user = route.params.user
 
     const button_name = route.params.button
 
-    const name = user.fullname.split(" ")
-
     const [username, setUsername] = useState(user.username);
-    const [first_name, setFirst] = useState(name[0]);
-    const [last_name, setLast] = useState(name[1]);
+    const [first_name, setFirst] = useState(user.firstname);
+    const [last_name, setLast] = useState(user.lastname);
     const [city, setCity] = useState(user.city);
     const [state, setState] = useState(user.state);
 
@@ -73,14 +78,39 @@ function SignUpPage({route}) {
     }
 
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
-    const handleSignUp = () => {
+    const handleSignUp = async () => {
         if (!(state in serviced_cities)) invalidAlert()
         else if (!serviced_cities[state].includes(city)) invalidAlert()
 
         // if city is valid, send data to database and move to home page
         else {
-            navigation.navigate("Tabs")
+            let reqFunc = axios.post
+            let user_id = ''
+            if (route.params.user) {
+                reqFunc = axios.patch
+                user_id = route.params.user._id
+            }
+            try{
+                const response = await reqFunc(`http://10.0.2.2:3000/users/${user_id}`,
+                    {
+                        auth_sub: user.auth_sub,
+                        email: user.email,
+                        firstname: first_name,
+                        lastname: last_name,
+                        username: username,
+                        city: city,
+                        state: state
+                    }
+                ).then(async result => {
+                    dispatch(setUser(result.data));
+                    navigation.navigate("Tabs")
+                })
+                .catch(error => console.log(error))
+            } catch(error) {
+                console.error(error);
+            }
         }
     }
 
@@ -94,7 +124,7 @@ function SignUpPage({route}) {
                 renderItem = { ({item, section}) =>
                     <View style={item_style.concat({marginBottom: 15})}>
                         <TextInput
-                            style={search_text}
+                            style={text_styles.inputText}
                             value={item}
                             onChangeText={section.func}
                         />
@@ -115,23 +145,7 @@ function SignUpPage({route}) {
 export default SignUpPage;
 
 
-const login_style = StyleSheet.create({
-    searchText: {
-        width: '100%',
-
-        paddingTop: 0,
-        paddingBottom: 0,
-    },
-    title: {
-        fontSize: 30,
-        color: styles.textColor.color,
-        fontFamily: styles.fontBold.fontFamily,
-
-        marginLeft: 6,
-        marginBottom: 6,
-
-        alignSelf: 'center'
-    },
+const signup_style = StyleSheet.create({
     button: {
        width: '80%',
        minHeight: '9.75%',
@@ -146,5 +160,4 @@ const login_style = StyleSheet.create({
     }
 });
 
-const search_text = [text_styles.itemText, login_style.searchText]
-const button = [login_style.button, text_styles.button]
+const button = [signup_style.button, text_styles.button]

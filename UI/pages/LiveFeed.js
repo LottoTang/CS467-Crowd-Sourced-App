@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 // function imports
 import { returnLiveFeeds, filterLiveFeeds } from "../../redux/funtionality/helperFunctions";
@@ -27,7 +28,7 @@ import PopupModal from '../components/PopupModal.js'
 import styles, { item_style, text_styles, add_button, large_button, popup_style } from '../style.js';
 
 
-const Popup = ({store_filter, setStores, post_filter, setPostTypes}) => {
+const Popup = ({store_filter, setStores, post_filter, setPostTypes, stores}) => {
 // Popup component for when user wants to filter live feed data
     const [popup, setPopup] = useState(false)
 
@@ -114,10 +115,17 @@ const Popup = ({store_filter, setStores, post_filter, setPostTypes}) => {
 
 function LiveFeed() {
 // the Live Feed page screen itself with its components
+    const user = useSelector(state => state.user);
 
     const [filter, setFilter] = useState({metric: "all", store: "all", post: "all"});
 
-    const feedData = returnLiveFeeds(liveFeed, stores, items, products);
+    const available_stores = {}
+    for (const store_id in stores) {
+        const store = stores[store_id]
+        if (store.city == user.city && store.state == user.state) available_stores[store_id] = store
+    }
+
+    const feedData = returnLiveFeeds(liveFeed, available_stores, items, products);
     const [updatedData, setUpdatedData] = useState(feedData);
 
     const navigation = useNavigation();
@@ -148,11 +156,11 @@ function LiveFeed() {
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
-            <Popup store_filter={store_filter} setStores={setStores} post_filter={post_filter} setPostTypes={setPostTypes} />
+            <Popup store_filter={store_filter} setStores={setStores} post_filter={post_filter} setPostTypes={setPostTypes} stores={available_stores}/>
             <View style={{height: '84%'}}>
                 <UpdatesList items={updatedData}/>
             </View>
-            <Text style={[add_button, feed_style.addButton]} onPress={()=>navigation.navigate("MakePost")}>
+            <Text style={[add_button, feed_style.addButton]} onPress={()=>navigation.navigate("Post Page")}>
                 +
             </Text>
         </View>

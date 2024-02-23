@@ -19,7 +19,7 @@ const headerFunc = ({navigation, route, options, back}) => {
     return(
         <SafeAreaView style={header_style.header}>
             <Text style={header_style.title}>
-                Crowd-Sourced Shopping
+                Go Shopping!
             </Text>
         </SafeAreaView>
     )

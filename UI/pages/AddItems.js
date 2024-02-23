@@ -148,9 +148,9 @@ function AddItems() {
             <Text style={text_styles.smallTitle}>Search</Text>
             <View style={item_style}>
                 <TextInput
-                    style={search_text}
+                    style={text_styles.inputText}
                     placeholder='Search for an item'
-                    placeholderTextColor={add_style.placeholder.color}
+                    placeholderTextColor={text_styles.placeholder.color}
                     value={product_name}
                     onChangeText={handleInputChange}
                 />
@@ -172,14 +172,6 @@ const add_style = StyleSheet.create({
         maxHeight: '66%',
         marginTop: 12,
     },
-    searchText: {
-        width: '100%',
-        paddingTop: 0,
-        paddingBottom: 0,
-    },
-    placeholder: {
-        color: `${text_styles.itemText.color}80`
-    },
     addButton: {
         fontSize: 21,
         lineHeight: 20,
@@ -188,5 +180,4 @@ const add_style = StyleSheet.create({
     },
 });
 
-const search_text = [text_styles.itemText, add_style.searchText]
 const button = add_button.concat(add_style.addButton);

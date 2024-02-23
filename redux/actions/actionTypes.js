@@ -10,3 +10,4 @@ export const RESET_BRANDS_LIST = "RESET_BRANDS_LIST";
 export const EDIT_ITEM = "EDIT_ITEM";
 export const EDITING = "EDITING";
 export const DELETE_ITEM = "DELETE_ITEM";
+export const SET_USER = "SET_USER";

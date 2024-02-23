@@ -1,15 +1,14 @@
 // Creating the first reducer
 
 import { testItemsList, testList2, sampleData } from "../../testData/testingData";
-import { products, stores, promotions, items, generateShoppingList } from "../../testData/testingData2";
+import { user, products, stores, promotions, items, generateShoppingList } from "../../testData/testingData2";
 
 
 // Using test list now until database connection is ready
 const initial_state = {
     num_items: 0,
     shopping_list_id: 1,
-    user_id: 123,
-    username: 'shoppingpro700',
+    user: user,
     shopping_list: generateShoppingList(),
     selected_item: null,
     all_items: items,
@@ -27,8 +26,14 @@ const homepageReducer = (state= initial_state, action) =>{
             for (const item_id of Object.keys(state.all_items)){
                 const item = state.all_items[item_id]
                 const product = state.all_products[item.product].name
+
+                const store_id = item.store
+                const store = stores[store_id]
+
                 if (product == action.payload.name) {
-                    if (action.payload.brands.includes(item.brand)) items.push(item_id)
+                    if (action.payload.brands.includes(item.brand)) {
+                        if (store.city == user.city && store.state == user.state) items.push(item_id)
+                    }
                 }
             }
             new_list[action.payload.name] = items
@@ -60,6 +65,11 @@ const homepageReducer = (state= initial_state, action) =>{
             return {
                 ...state,
                 shopping_list: newList,
+            }
+        case "SET_USER":
+            return {
+                ...state,
+                user: action.payload.user
             }
         default:
             return state;

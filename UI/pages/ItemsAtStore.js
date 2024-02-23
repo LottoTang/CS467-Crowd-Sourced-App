@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // function imports
 import { getShoppingListItemsInStore, getProductInShoppingListDetails } from "../../redux/funtionality/helperFunctions";
-import { viewSelectedItem } from '../../redux/actions/actions.js';
+import { viewSelectedItem, deleteItemInShoppingList } from '../../redux/actions/actions.js';
 import { removeItemFromArray } from '../ui_helpers.js';
 
 // style imports
@@ -89,7 +89,9 @@ function ItemsAtStore({route}) {
     }
 
     const clearSelected = () => {
-        // TODO: create function that removes checked off items from list (right now only visual)
+        for (const product of selected_products){
+            dispatch(deleteItemInShoppingList(product));
+        }
         setSelectedItems([])
     };
 

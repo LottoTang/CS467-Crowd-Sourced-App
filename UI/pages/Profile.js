@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 import { useAuth0 } from 'react-native-auth0';
 
 // style imports
@@ -21,6 +22,7 @@ import Icon from 'react-native-vector-icons/Feather';
 function ProfilePage() {
 // the Profile page screen itself with its components
     const {authorize, clearSession, getCredentials, error, isLoading} = useAuth0();
+    const user = useSelector(state => state.user);
 
     const navigation = useNavigation();
 
@@ -31,15 +33,6 @@ function ProfilePage() {
 
     const onEdit = () => {
         navigation.navigate('Sign Up', {user: user, button: "Update"})
-    }
-
-    // TODO: replace with user data from database
-    const user = {
-        fullname: "John Doe",
-        username: "shoppingpro700",
-        shopping_level: 4,
-        city: "Corvallis",
-        state: "OR"
     }
 
     // highest shopper level
@@ -92,7 +85,7 @@ function ProfilePage() {
                             size={26}
                             color={styles.secondaryItemBackground.color}
                         />
-                        <Text style={plainText}>{user.fullname}</Text>
+                        <Text style={plainText}>{user.firstname} {user.lastname}</Text>
                     </View>
                     <View style={item_style.concat({justifyContent: 'flex-start'})}>
                         <Icon

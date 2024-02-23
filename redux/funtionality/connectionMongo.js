@@ -1,5 +1,7 @@
 // Handle connectivity with the database
 
+import axios from 'axios';
+
 // Testing function 1
 function getData(id){
   return (
@@ -39,6 +41,20 @@ async function collectAllBrands(productName){
   .catch(error => console.error(error));
 }
 
+async function getUser(user_id) {
+    let res;
+
+    try {
+        const response = await axios.get(`http://10.0.2.2:3000/users/${user_id}`, {}
+            ).then(result => {
+                res = result.data
+                })
+            .catch(error => console.log(error))
+    } catch(error) { console.error(error) };
+
+    return res
+}
+
 //console.log(await fetchItemWithId('65d1068bd8eb909b1da3f09d'));
 
-//export { handleData};
+export { getUser };

@@ -7,6 +7,7 @@ import headerFunc from '../components/Header.js';
 //import HomeScreen from '../pages/HomeScreen.js';
 
 import LiveFeed from '../pages/LiveFeed.js';
+import PostPage from '../pages/PostPage.js';
 
 // Testing a live feed page
 import { TestLiveFeeds } from '../pages/TestPages/TestLiveFeeds.js';
@@ -23,6 +24,12 @@ const LiveFeedTab = () => {
               component={LiveFeed}
               options={{title: 'Live Feed'}}
             />
+            <Stack.Screen
+              name="Post Page"
+              component={PostPage}
+              options={{title: 'Post an Update', animation: "slide_from_right"}}
+            />
+
             <Stack.Screen
               name="TestLiveFeed"
               component={TestLiveFeeds}

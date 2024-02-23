@@ -263,18 +263,20 @@ function getLowestPriceItem(items_list, store_id, items){
 
 
 // Method to return stores, number of items and total cost - Adjusted based on latest database schema
-function getGoShoppingList(shopping_list, items, stores){
+function getGoShoppingList(shopping_list, items, stores, city, state){
 
     const store_details = {};
 
     // Capture the name off each store
     for (let store in stores){
-        if (!(store in store_details)){
-            store_details[store] = {
-                name: stores[store].name,
-                total_cost: 0,
-                num_items: 0,
-            };
+        if (stores[store].city == city && stores[store].state == state){
+            if (!(store in store_details)){
+                store_details[store] = {
+                    name: stores[store].name,
+                    total_cost: 0,
+                    num_items: 0,
+                };
+            }
         }
     }
 
@@ -285,7 +287,7 @@ function getGoShoppingList(shopping_list, items, stores){
         const list_brands = shopping_list[shopping_item];
         //Get lowest price for an item in each store
 
-        for (let store in stores){
+        for (let store in store_details){
             const lowest_price = getLowestPriceItem(list_brands, store, items);
 
             if (lowest_price < 10000){
@@ -375,11 +377,12 @@ function returnLiveFeeds(feeds, stores, items, products){
     let feedResults = [];
 
     for (let feed in feeds){
+        if(!(feeds[feed].store_id in stores)) continue
         let feedInput = {
-            review: "", 
-            item: "", 
-            store: "", 
-            user: feeds[feed].user_id, 
+            review: "",
+            item: "",
+            store: "",
+            user: feeds[feed].user_id,
             date: feeds[feed].date, brand: "",
             pricing: -1
         };
@@ -387,10 +390,10 @@ function returnLiveFeeds(feeds, stores, items, products){
         
         // Check if it is a store related or item related message
         if (feeds[feed].price !== undefined){
-            
+
             feedInput.pricing = feeds[feed].price;
         }
-            
+
         // Get item information
         for (let item in items){
                 
@@ -399,7 +402,7 @@ function returnLiveFeeds(feeds, stores, items, products){
                 const productName = products[items[item].product];
                 feedInput.item = productName.name + " - " + items[item].brand;
                 feedInput.brand = items[item].brand;
-                
+
                 // Populate for item post
                 if (feeds[feed].price != undefined){
                     feeds[feed].review = productName.name + " - " + items[item].brand + " $" + feeds[feed].price;
@@ -418,7 +421,7 @@ function returnLiveFeeds(feeds, stores, items, products){
 
         feedResults.push(feedInput);
     }
-    
+
     return feedResults
 }
 

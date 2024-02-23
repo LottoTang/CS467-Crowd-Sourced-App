@@ -105,11 +105,12 @@ function PopUp({setRanking}) {
 
 function StoreRecs() {
 // the Store Recommendation screen itself with its components
+    const user = useSelector(state => state.user);
 
     const shopping_list = useSelector(state => state.shopping_list);
     const [ranking, setRanking] = useState("items");
 
-    const stores_breakdown = getGoShoppingList(shopping_list, items, stores);
+    const stores_breakdown = getGoShoppingList(shopping_list, items, stores, user.city, user.state);
     const ranked_data = getStoresSorting(stores_breakdown, ranking);
 
     return (

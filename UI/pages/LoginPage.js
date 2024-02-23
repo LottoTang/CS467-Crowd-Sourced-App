@@ -10,7 +10,14 @@ import {
 } from 'react-native';
 import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
 import { useAuth0 } from 'react-native-auth0';
+
+// function imports
+import { setUser } from '../../redux/actions/actions.js';
+
+// data imports
+import axios from 'axios';
 
 // style imports
 import styles, {large_button} from '../style.js';
@@ -19,10 +26,8 @@ function LoginPage() {
 // the Login page screen itself with its components
     const {authorize, clearSession, user, getCredentials, error, isLoading} = useAuth0();
 
-    // TODO: replace "all_user" code with code accessing user table in database
-    const all_users = {}
-
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
     const onLogin = async () => {
         await authorize({}, {});
@@ -30,20 +35,33 @@ function LoginPage() {
     };
 
     const checkAuthorization = async () => {
+        // check if the user has logged in through auth0
         const credentials = await getCredentials();
         const token = credentials?.accessToken
-        if (token !== undefined ) {
-            all_users[token] = {username: "", fullname: ""}
 
-            // if this token isn't in user database, create new user
-            if (!(token in all_users)) navigation.navigate('Sign Up', {button: "Sign Up"})
-            else navigation.navigate("Tabs")
+        if (token && user) {
+            // test if the user is in the database
+            try{
+                const response = await axios.get(`http://10.0.2.2:3000/users/checker/${user.sub}`, {}
+                ).then(result => {
+                    // if user is found, send to home page and set redux user
+                    dispatch(setUser(result.data));
+                    navigation.navigate("Tabs")
+                    })
+                .catch(error => {
+                    console.log(error)
+                    // if no user found, send to sign up page
+                    if (error.response.status == 404) navigation.navigate('Sign Up', {button: "Sign Up", sub: user.sub, email: user.email})
+                    });
+            } catch(error) {
+                console.error(error);
+            }
         }
     };
 
     useEffect(() => {
         checkAuthorization()
-    }, [])
+    }, [user])
 
     if (isLoading) {
         return (
