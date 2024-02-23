@@ -36,7 +36,7 @@ function ViewItem() {
 
     let item_ids = shopping_list[product]
     if (!item_ids) item_ids = []
-    const items = getItemsList(item_ids, all_items)
+    const items = getItemsList(item_ids, all_items);
 
     const selected_brands = getSelectedBrandsForProduct(items);
 

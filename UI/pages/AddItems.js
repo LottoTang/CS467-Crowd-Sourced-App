@@ -122,7 +122,7 @@ function AddItems() {
             try {
                 await axios.get(`http://10.0.2.2:3000/products/search?name=${product_name}`)
                 .then(result => {
-                    const listOfNames = result.data.map(item => item["name"]);
+                    const listOfNames = result.data.map(item => item);
                     setProductsList(listOfNames);
                     }
                     )// 

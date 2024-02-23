@@ -33,6 +33,7 @@ function SelectBrand({route}) {
 
     const [selected_brands, setSelectedItems] = useState(preselected)
     const [allBrands, setAllBrands] = useState([]);
+    const [itemIDs, setItemIDs] = useState({});
 
     // TODO: const brands = getBrandsList(product), where func retrieves from database
     //const all_products = useSelector(state => state.all_products);
@@ -42,11 +43,35 @@ function SelectBrand({route}) {
     useEffect( () => {
         const fillBrands = async ()=>{
             try{
-                const response = await axios.get(`http://10.0.2.2:3000/products/`, {
+                const response = await axios.get(`http://10.0.2.2:3000/items/`, {
                     params: {
-                        name: `${product}`,
+                        tag: `${product}`,
                     }
-                }).then(result => setAllBrands(result.data.brands)).catch(error => console.log(error));
+                }).then(result => {
+                    
+                    const dataValues = result.data;
+                    const brandsList =[];
+                    const objIds = {};
+
+                    for (let br in dataValues){
+                        // Make sure a brand is captured only once
+                        if (!brandsList.includes(dataValues[br].brand)){
+                            brandsList.push(dataValues[br].brand);
+                        }
+
+                        // Capture item IDs for adding to shopping list
+                        if (!(dataValues[br].brand in objIds)){
+                            
+                            objIds[dataValues[br].brand] = [dataValues[br]._id];
+                        } else {
+                            
+                            objIds[dataValues[br].brand].push(dataValues[br]._id);
+                        }
+
+                    }
+                    setItemIDs(objIds);
+                    setAllBrands(brandsList);
+                }).catch(error => console.log(error));
             } catch(error) {
                 console.error(error);
             }
@@ -54,19 +79,53 @@ function SelectBrand({route}) {
 
         fillBrands();
     }, []);
-
+ 
     brands = allBrands;
+
+    // Get user ID
+    const userId = useSelector(state => state.user._id);
 
     // Set up connection with store to dispatch signal
     const dispatch = useDispatch();
 
     const navigation = useNavigation();
+
     const handlePress = ()=>{
         let selected = selected_brands
         if (selected_brands.includes("Any brand")) selected = brands
 
+        const idsShoppingList = [];
+        // Populate list of brands with item ids
+        if (selected_brands.includes("Any brand")){
+            for (let key in itemIDs){
+                for (let item in itemIDs[key]){
+                    idsShoppingList.push(item);
+                }
+            }
+        } else {
+            for (let key in itemIDs){
+                if (selected_brands.includes(key)){
+                    for (let item in itemIDs[key]){
+                        idsShoppingList.push(item);
+                    }
+                }
+            }
+        }
+
+        // Method for adding an item in the database
+        const add_item = async ()=>{
+            try{
+                const response = await axios.patch(`http://10.0.2.2:3000/users/shopping-list-item/${userId}`,
+                { [product]: `${idsShoppingList}`} 
+                );
+            } catch(error){
+                console.log(error);
+            }
+        };
         // TODO: replace dispatch function with function that accesses database
         dispatch(addItemInShoppingList(product, selected));
+        add_item();
+
         navigation.navigate('Home');
     }
     
