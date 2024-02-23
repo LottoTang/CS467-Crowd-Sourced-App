@@ -3,10 +3,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import headerFunc from '../components/Header.js';
 
-// Temporarily importing HomeScreen until real component is created
-import HomeScreen from '../pages/HomeScreen.js';
-// Temporary scan page for scanning an item's barcode
 import ScanBarCode from '../pages/ScanBarCode.js';
+import AddTagsPage from '../pages/AddTags.js';
 import TestScanInput from '../pages/TestPages/TestScanInput.js';
 
 
@@ -20,6 +18,12 @@ const ScanTab = () => {
               component={ScanBarCode}
               options={{title: 'Scan a Barcode'}}
             />
+            <Stack.Screen
+              name="Add Tags"
+              component={AddTagsPage}
+              options={{title: 'Add Item Info'}}
+            />
+
             <Stack.Screen
                 name="ScanInput"
                 component={TestScanInput}
