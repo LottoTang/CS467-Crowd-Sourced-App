@@ -61,7 +61,7 @@ const findUserByAuthSub = async auth_sub => {
   return document;
 };
 
-// UPDATE: Update a User; Return number of modified data (expected: 1)
+// UPDATE: Update a User; Return the updated document
 const updateUser = async (filter, update) => {
   const result = await Users.updateOne(filter, update);
   return result.modifiedCount;

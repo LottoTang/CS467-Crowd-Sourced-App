@@ -48,7 +48,7 @@ storesRouter.post('/add-all', async (req, res) => {
     }
     if (dataCounter == dataCounter) {
       res.status(201).send({
-        Message: `${createCounter}/${dataCounter} collections created.`,
+        Message: `${createCounter}/${dataCounter} documents created.`,
       });
     }
   } catch (err) {
@@ -83,15 +83,25 @@ storesRouter.get('/', async (req, res) => {
 storesRouter.patch('/:_id', async (req, res) => {
   const storeId = req.params._id;
   try {
-    const query = await db.findStoreById(storeId);
+    const document = await db.findStoreById(storeId);
     const update = {};
     if (req.body.name) update.name = req.body.name;
     if (req.body.city) update.city = req.body.city;
     if (req.body.state) update.state = req.body.state;
     try {
       const updateCount = await db.updateStore({_id: storeId}, update);
-      // return 200 OK number of modified item (e.g. 1)
-      res.status(200).send({updateCount: updateCount});
+      // if updateCount === 1, return the updated document
+      if (updateCount === 1) {
+        try {
+          const document = await db.findStoreById(storeId);
+          res.status(200).send(document);
+        } catch (err) {
+          console.error(err);
+          res
+            .status(404)
+            .send({Error: 'No store with this stores._id exists.'});
+        }
+      }
     } catch (err) {
       console.error(err);
       res.status(500).send({Error: 'Internal server error.'});
