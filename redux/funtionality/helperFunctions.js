@@ -186,6 +186,7 @@ function getBrandsList(target_item, products){
 // Get list of brands selected for a product based on the items corresponding to the product
 function getSelectedBrandsForProduct(items){
     const brands = new Set()
+    console.log(items)
     for (let item of items){
         brands.add(item.brand)
     }
@@ -457,7 +458,6 @@ function filterLiveFeeds(liveFeeds, filter){
 function sendRequestToUpdatePrice(store, brand, price, tag, date, barcode, promotion){
     
 }
-
 
 
 export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForProduct, getItemsList }

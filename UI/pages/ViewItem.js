@@ -8,9 +8,10 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 
 // function imports
 import { getSelectedBrandsForProduct, getItemsList, getItemSorting } from '../../redux/funtionality/helperFunctions';
@@ -30,14 +31,38 @@ import Icon from 'react-native-vector-icons/Feather';
 function ViewItem() {
 // the View Item screen itself with its components
     const product = useSelector(state=> state.selected_item);
+    const [allItem, setAllItem] = useState([]);
 
     const all_items = useSelector(state => state.all_items);
     const shopping_list = useSelector(state => state.shopping_list);
 
     let item_ids = shopping_list[product]
     if (!item_ids) item_ids = []
-    const items = getItemsList(item_ids, all_items);
+    
+    // Retrieve all items from database 
+    useEffect(()=>{
+        const fetchItems = async ()=>{
+            try{
+                const response = await axios.get(`http://10.0.2.2:3000/items/`, {
+                    params: {
+                        //tag: `${product}`,
+                        tag: 'Kiwi',
+                    }
+                }).then(result => {
+                    setAllItem(result.data)
+                }).catch(error => console.error(error));
+            }catch(error){
+                console.log(error);
+            }
+        }
 
+        fetchItems();
+
+    }, []);
+
+    console.log("Test " + allItem);
+
+    const items = getItemsList(item_ids, all_items);
     const selected_brands = getSelectedBrandsForProduct(items);
 
     const [ranking, setRanking] = useState("price");

@@ -34,6 +34,8 @@ function SelectBrand({route}) {
     const [selected_brands, setSelectedItems] = useState(preselected)
     const [allBrands, setAllBrands] = useState([]);
     const [itemIDs, setItemIDs] = useState({});
+    const [branding, setBranding] = useState([]);
+    const [shoppingList, setShoppingList] = useState("");
 
     // TODO: const brands = getBrandsList(product), where func retrieves from database
     //const all_products = useSelector(state => state.all_products);
@@ -84,6 +86,21 @@ function SelectBrand({route}) {
 
     // Get user ID
     const userId = useSelector(state => state.user._id);
+    
+    // Get shopping list content
+    useEffect(()=>{
+        const getShoppingList = async ()=>{
+            try{
+                const response = await axios.get(`http://10.0.2.2:3000/users/${userId}`);
+                const shopList = response.data.shopping_list_item;
+                setShoppingList(shopList);
+            } catch(error){
+                console.log(error);
+            }
+        }
+
+        getShoppingList();
+    },[]);
 
     // Set up connection with store to dispatch signal
     const dispatch = useDispatch();
@@ -94,36 +111,65 @@ function SelectBrand({route}) {
         let selected = selected_brands
         if (selected_brands.includes("Any brand")) selected = brands
 
+
+        
         const idsShoppingList = [];
+
         // Populate list of brands with item ids
+        
         if (selected_brands.includes("Any brand")){
+        
             for (let key in itemIDs){
+
                 for (let item in itemIDs[key]){
-                    idsShoppingList.push(item);
+                    idsShoppingList.push(itemIDs[key][item]);
+                    setBranding([...branding, {_id: itemIDs[key][item]}]);
                 }
             }
         } else {
+
             for (let key in itemIDs){
+
                 if (selected_brands.includes(key)){
                     for (let item in itemIDs[key]){
-                        idsShoppingList.push(item);
+                        idsShoppingList.push(itemIDs[key][item]);
+                        setBranding([...branding, {_id: itemIDs[key][item]}]);
                     }
                 }
             }
         }
+       
+        const newItems = [];
+        for (let num in idsShoppingList){
+            newItems.push({_id: idsShoppingList[num]});
+        }
+        const testShoppingList = useSelector(state=> state.shopList);
 
         // Method for adding an item in the database
         const add_item = async ()=>{
+
+            // Update shopping list 
+            const newShoppingList = {
+                // ...shoppingList,
+                ...testShoppingList, 
+                //[product] : newItems.concat(shoppingList[product] || []),
+                [product] : {newItems},
+            };
+            const copyShoppingList = {...newShoppingList};
+
+            // Send updated shopping list
             try{
                 const response = await axios.patch(`http://10.0.2.2:3000/users/shopping-list-item/${userId}`,
-                { [product]: `${idsShoppingList}`} 
-                );
+                    copyShoppingList,   
+                    //{}
+            ).catch(error => console.log(error));
             } catch(error){
                 console.log(error);
             }
         };
         // TODO: replace dispatch function with function that accesses database
-        dispatch(addItemInShoppingList(product, selected));
+        //console.log(idsShoppingList);
+        dispatch(addItemInShoppingList(product, idsShoppingList));
         add_item();
 
         navigation.navigate('Home');

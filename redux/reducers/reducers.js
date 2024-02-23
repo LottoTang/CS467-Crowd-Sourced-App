@@ -10,6 +10,7 @@ const initial_state = {
     shopping_list_id: 1,
     user: user,
     shopping_list: generateShoppingList(),
+    //shopping_list: {},
     selected_item: null,
     all_items: items,
     all_products: products,
@@ -23,6 +24,7 @@ const homepageReducer = (state= initial_state, action) =>{
         case "ADD_ITEM":
             const new_list = {...state.shopping_list}
             const items = []
+            /*
             for (const item_id of Object.keys(state.all_items)){
                 const item = state.all_items[item_id]
                 const product = state.all_products[item.product].name
@@ -36,7 +38,9 @@ const homepageReducer = (state= initial_state, action) =>{
                     }
                 }
             }
-            new_list[action.payload.name] = items
+            */
+            //new_list[action.payload.name] = items
+            new_list[action.payload.name] = action.payload.brands;
             return {
                 ...state,
                 numOfItems : state.numOfItems + 1,
