@@ -8,15 +8,13 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 
 // function imports
-import { getSelectedBrandsForProduct, getItemsList, getItemSorting } from '../../redux/funtionality/helperFunctions';
-
-// data imports
-import { stores } from '../../testData/testingData2.js';
+import { getSelectedBrandsForProduct, getItemsList, getItemSorting, convertItemsOutput } from '../../redux/funtionality/helperFunctions';
 
 // component imports
 import StoresList from '../components/StoresList.js'
@@ -30,32 +28,79 @@ import Icon from 'react-native-vector-icons/Feather';
 function ViewItem() {
 // the View Item screen itself with its components
     const product = useSelector(state=> state.selected_item);
-
-    const all_items = useSelector(state => state.all_items);
+    const [allItem, setAllItem] = useState([]);
+    const [allStores, setAllStores] = useState({});
+    const [storesReceived, setStoresReceived] = useState(false);
+    const [itemsReceived, setItemsReceived] = useState(false);
+    const navigation = useNavigation();
+    //const dispatch = useDispatch();
+    const [ranking, setRanking] = useState("price");
+    //const all_items = useSelector(state => state.all_items);
     const shopping_list = useSelector(state => state.shopping_list);
+    const [popup, setPopup] = useState(false)
 
     let item_ids = shopping_list[product]
     if (!item_ids) item_ids = []
-    const items = getItemsList(item_ids, all_items);
+    
+    // Retrieve all items and all stores from database 
+    useEffect(()=>{
+        const fetchItems = async ()=>{
+            try{
+                const response = await axios.get(`http://10.0.2.2:3000/items/`, {
+                    params: {
+                        tag: `${product}`,
+                    }
+                }).then(result => {
+                    setAllItem(result.data)
+                    setItemsReceived(true);
+                }).catch(error => console.error(error));
+            }catch(error){
+                console.log(error);
+            }
+        }
 
+        const fetchStores = async () => {
+            try{
+                const response = await axios.get(`http://10.0.2.2:3000/stores`)
+                .then(result => {
+                    setAllStores(result.data)
+                    setStoresReceived(true);
+                }).catch(error => console.log(error));
+            }catch (error){
+                console.log(error);
+            }
+        }
+
+        fetchItems();
+        fetchStores();
+
+    }, []);
+
+
+    if (!storesReceived || !itemsReceived){
+        return (
+            <View>
+                <Text>Loading...</Text>
+            </View>
+        );
+    }
+
+
+    const items = convertItemsOutput(allItem, allStores);
+    //const items = getItemsList(item_ids, all_items);
     const selected_brands = getSelectedBrandsForProduct(items);
 
-    const [ranking, setRanking] = useState("price");
-    const ranked_data = getItemSorting(items, ranking, stores);
+    //const ranked_data = getItemSorting(items, ranking, stores);
+    const ranked_data = getItemSorting(items, ranking, allStores);
 
     if (!product) {
         return <Text>No product selected</Text>;
     }
 
-    const navigation = useNavigation();
-    const dispatch = useDispatch();
-
     const handleEditItem = (item) => {
         // Go to select brand page
         navigation.navigate('Select Brand', {product: item, preselected: selected_brands});
     };
-
-    const [popup, setPopup] = useState(false)
 
     const popup_vals = [
         {label: "Price", value: "price"},

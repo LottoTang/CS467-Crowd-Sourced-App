@@ -35,7 +35,6 @@ usersRouter.post('/', async (req, res) => {
     if (document) {
       res.status(200).send(document);
     } else {
-      console.log(req.body);
       const userEmail = req.body.email;
       const userFirstName = req.body.firstname;
       const userLastName = req.body.lastname;
