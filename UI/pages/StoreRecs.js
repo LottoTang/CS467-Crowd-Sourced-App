@@ -8,9 +8,10 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 // function imports
 import { getGoShoppingList, getStoresSorting } from "../../redux/funtionality/helperFunctions";
@@ -100,17 +101,64 @@ function PopUp({setRanking}) {
             </View>
         </View>
     )
-}
+} 
 
 
 function StoreRecs() {
 // the Store Recommendation screen itself with its components
     const user = useSelector(state => state.user);
+    const [allItems, setAllItems] = useState([]);
+    const [allStores, setAllStores] = useState([]);
+    const [itemsReceived, setItemsReceived] = useState(false);
+    const [storesReceived, setStoresReceived] = useState(false);
 
-    const shopping_list = useSelector(state => state.shopping_list);
+    const shopping_list = useSelector((state)=> state.user.shopping_list_item);
     const [ranking, setRanking] = useState("items");
 
-    const stores_breakdown = getGoShoppingList(shopping_list, items, stores, user.city, user.state);
+    // Get stores and all items from database
+    useEffect(() => {
+        // capture all tags in the shopping list
+        const tags = Object.keys(shopping_list);
+    
+        // Get stores and all items from database
+        const fetchData = async () => {
+            try {
+                const itemsPromises = tags.map(async (tag) => {
+                    const response = await axios.get(`http://10.0.2.2:3000/items/`, {
+                        params: {
+                            tag: `${tag}`,
+                        }
+                    });
+                    return response.data;
+                });
+                const itemsData = await Promise.all(itemsPromises);
+                setAllItems(itemsData);
+                setItemsReceived(true);
+    
+                const storesResponse = await axios.get(`http://10.0.2.2:3000/stores`);
+                setAllStores(storesResponse.data);
+                setStoresReceived(true);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+    
+        fetchData();
+    }, [shopping_list]);
+
+    // Ensure we have data from the database
+    if (!storesReceived || !itemsReceived){
+        return (
+            <View>
+                <Text>Loading...</Text>
+            </View>
+        );
+    }
+
+
+
+    //const stores_breakdown = getGoShoppingList(shopping_list, items, stores, user.city, user.state);
+    const stores_breakdown = getGoShoppingList(shopping_list, allItems, allStores, user.city, user.state);
     const ranked_data = getStoresSorting(stores_breakdown, ranking);
 
     return (

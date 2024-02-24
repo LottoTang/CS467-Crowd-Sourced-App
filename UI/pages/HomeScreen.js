@@ -22,10 +22,10 @@ const ShoppingList = () => {
 // list component for the whole shopping list
 
     // populate the list with items in the state. Right now using fake data 
-    const shopping_list = useSelector((state)=> state.shopping_list);
+    const shopping_list = useSelector((state)=> state.user.shopping_list_item);
     const dispatch = useDispatch();
     const navigation = useNavigation();
-
+    
     const handleSelectedItem = (item)=>{
         dispatch(viewSelectedItem(item));
         navigation.navigate('View Item', {deletable: true, product: item});

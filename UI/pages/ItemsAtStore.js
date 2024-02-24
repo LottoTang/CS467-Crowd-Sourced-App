@@ -51,7 +51,7 @@ function ItemsAtStore({route}) {
 // the View Items at Specified Store screen itself with its components
     const store = route.params.store
 
-    const shopping_list = useSelector(state => state.shopping_list);
+    const shopping_list = useSelector((state)=> state.user.shopping_list_item);
     const all_items = useSelector(state => state.all_items);
     const all_stores = useSelector(state => state.all_stores);
 

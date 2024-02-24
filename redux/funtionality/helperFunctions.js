@@ -195,6 +195,7 @@ function getBrandsList(target_item, products){
 // Get list of brands selected for a product based on the items corresponding to the product
 function getSelectedBrandsForProduct(items){
     const brands = new Set()
+    
     for (let item of items){
         brands.add(item.brand)
     }
@@ -260,11 +261,22 @@ function getLowestPriceItem(items_list, store_id, items){
     for (let item in items_list){
         
         // Check if available in target store
+        for (let itemDet in items[0]){
+            if(items[0][itemDet].store_id == store_id){
+                if (items[0][itemDet].price < lowest_price){
+                    lowest_price = items[0][itemDet].price;
+                }
+            }
+        }
+
+        /*
+        // Previous schema design
         if (items[items_list[item]].store == store_id){
             if (items[items_list[item]].price < lowest_price){
                 lowest_price = items[items_list[item]].price;
             }
         }
+        */
     }
 
     return lowest_price;
@@ -275,10 +287,19 @@ function getLowestPriceItem(items_list, store_id, items){
 function getGoShoppingList(shopping_list, items, stores, city, state){
 
     const store_details = {};
-
+    
     // Capture the name off each store
     for (let store in stores){
         if (stores[store].city == city && stores[store].state == state){
+
+            if (!(stores[store]._id in store_details)){
+                store_details[stores[store]._id] = {
+                    name: stores[store].name,
+                    total_cost: 0,
+                    num_items: 0,
+                }
+            }
+            /*
             if (!(store in store_details)){
                 store_details[store] = {
                     name: stores[store].name,
@@ -286,6 +307,7 @@ function getGoShoppingList(shopping_list, items, stores, city, state){
                     num_items: 0,
                 };
             }
+            */
         }
     }
 
@@ -342,13 +364,18 @@ function getStoresSorting(input_object, sorting){
 
 // Function to sort a list of store options for a selected item by price, brand and store
 function getItemSorting(items, sorting, stores){
-
+    console.log(stores);
     if (sorting == "price"){
         items.sort((a, b) => a.price - b.price);
     } else if (sorting == "brand"){
         items.sort((a, b) => {
-            const prod_a = a.brand.toUpperCase();
-            const prod_b = b.brand.toUpperCase();
+
+            // If brand is added to back to the filters, use this
+            //const prod_a = a.brand.toUpperCase();
+            //const prod_b = b.brand.toUpperCase();
+
+            const prod_a = a.name.toUpperCase();
+            const prod_b = b.name.toUpperCase();
 
             if (prod_a < prod_b){
                 return -1;
@@ -361,8 +388,12 @@ function getItemSorting(items, sorting, stores){
     } else if (sorting == "store"){
         items.sort((a, b) => {
 
-            const name_a = stores[a.store].name.toUpperCase();
-            const name_b = stores[b.store].name.toUpperCase();
+            // Previous format of the database. Save it if database schema changes again.
+            //const name_a = stores[a.store].name.toUpperCase();
+            //const name_b = stores[b.store].name.toUpperCase();
+
+            const name_a = a.name.toUpperCase();
+            const name_b = b.name.toUpperCase();
 
             if (name_a < name_b){
                 return -1;
@@ -467,8 +498,38 @@ function sendRequestToUpdatePrice(store, brand, price, tag, date, barcode, promo
     
 }
 
+// Helper method to return the store name from a store given an id number.
+// Used in the convertItemsOutput function
+function helperGetStoreName(store_id, storesList){
+    
+    for (let store in storesList){
+        
+        if (storesList[store]._id == store_id){
+            return storesList[store].name;
+        }
+    }
+
+    return "Store not in database yet";
+}
+
+// Helper method to take input from the database and return it to a format for the ViewItem page
+function convertItemsOutput(databaseItems, databaseStores){
+    const output = [];
+    for (let value in databaseItems){
+        const element = {};
+        element.brand = databaseItems[value].brand;
+        element.name = databaseItems[value].name;
+        element.price = databaseItems[value].price;
+        element.product = databaseItems[value]._id;
+        element.promotion = databaseItems[value].promotion_id;
+        element.store = helperGetStoreName(databaseItems[value].store_id, databaseStores);
+        output.push(element);
+    }
+
+    return output;
+}
 
 
 export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForProduct, getItemsList }
 export { getShoppingListItemsInStore, getProductInShoppingListDetails, getGoShoppingList, getStoresSorting, getItemSorting }
-export { returnLiveFeeds, filterLiveFeeds }
+export { returnLiveFeeds, filterLiveFeeds, convertItemsOutput }
