@@ -70,7 +70,6 @@ function AddTagsPage({route}) {
     const [possible_brands, setBrands] = useState([{label: "Please select one or more product tags first", value: null}])
     useEffect(() => {
         let brands = new Set()
-        if (possible_brands[0].value != null) brands = new Set(possible_brands)
         for (const tag of tags) {
             for (const product_id in all_products) {
                 const product = all_products[product_id]
@@ -81,6 +80,14 @@ function AddTagsPage({route}) {
         brands.forEach(brand => new_brands.push({label: brand, value: brand}))
         if (new_brands.length != 0) setBrands(new_brands)
     }, [tags])
+
+
+    const all_promotions = useSelector(state => state.all_promotions)
+    const promotions = [{label: "None", value: null}]
+    for (const promotion_id in all_promotions) {
+        const promotion = all_promotions[promotion_id]
+        promotions.push({label: promotion.promotion_type, value: promotion.promotion_type})
+    }
 
 
     return (
@@ -122,7 +129,7 @@ function AddTagsPage({route}) {
                 </View>
 
                 <Text style={label_text}>Sale</Text>
-                <Dropdown value={sale} setValue={setSale} options={[]} type={"sale"} placeholder={"None"}/>
+                <Dropdown value={sale} setValue={setSale} options={promotions} type={"sale"} placeholder={"None"}/>
 
                 <Text style={button} onPress={handleSubmit}>
                     Submit
