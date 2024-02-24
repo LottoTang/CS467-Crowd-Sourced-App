@@ -17,7 +17,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const ItemComponent = ({item}) => {
 // item component that holds either live feed post or item data
-    const title = stores[item.store].name
+    //const title = stores[item.store].name
+    const title = item.store;
     const subtitle = item.name
 
     let width = "75%"

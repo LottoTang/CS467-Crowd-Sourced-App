@@ -107,6 +107,9 @@ function SelectBrand({route}) {
 
     const navigation = useNavigation();
 
+    // Get shopping list
+    const testShoppingList = useSelector(state=> state.shopList);
+
     const handlePress = ()=>{
         let selected = selected_brands
         if (selected_brands.includes("Any brand")) selected = brands
@@ -139,18 +142,16 @@ function SelectBrand({route}) {
             }
         }
        
-        const newItems = [];
+        const newItems = []; 
         for (let num in idsShoppingList){
             newItems.push({_id: idsShoppingList[num]});
         }
-        const testShoppingList = useSelector(state=> state.shopList);
 
         // Method for adding an item in the database
         const add_item = async ()=>{
 
             // Update shopping list 
             const newShoppingList = {
-                // ...shoppingList,
                 ...testShoppingList, 
                 //[product] : newItems.concat(shoppingList[product] || []),
                 [product] : {newItems},

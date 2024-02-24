@@ -25,7 +25,7 @@ const ShoppingList = () => {
     const shopping_list = useSelector((state)=> state.shopping_list);
     const dispatch = useDispatch();
     const navigation = useNavigation();
-    console.log(shopping_list);
+    
     const handleSelectedItem = (item)=>{
         dispatch(viewSelectedItem(item));
         navigation.navigate('View Item', {deletable: true, product: item});
