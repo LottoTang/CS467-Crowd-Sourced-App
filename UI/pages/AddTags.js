@@ -10,7 +10,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -60,6 +60,28 @@ function AddTagsPage({route}) {
         if (store.city == user.city && store.state == user.state) available_stores.push({label: store.name, value: store.name})
     }
 
+    const products = []
+    const all_products = useSelector(state => state.all_products)
+    for (product_id in all_products) {
+        const product = all_products[product_id]
+        products.push(product.name)
+    }
+
+    const [possible_brands, setBrands] = useState([{label: "Please select one or more product tags first", value: null}])
+    useEffect(() => {
+        let brands = new Set()
+        if (possible_brands[0].value != null) brands = new Set(possible_brands)
+        for (const tag of tags) {
+            for (const product_id in all_products) {
+                const product = all_products[product_id]
+                if (product.name == tag) product.brands.forEach(brand => brands.add(brand))
+            }
+        }
+        const new_brands = []
+        brands.forEach(brand => new_brands.push({label: brand, value: brand}))
+        if (new_brands.length != 0) setBrands(new_brands)
+    }, [tags])
+
 
     return (
     <SafeAreaView style={styles.app}>
@@ -78,10 +100,10 @@ function AddTagsPage({route}) {
                 </View>
 
                 <Text style={label_text}>Product Tags</Text>
-                <Dropdown value={tags} setValue={setTags} options={[]} type={"product tags"}/>
+                <Dropdown value={tags} setValue={setTags} options={products} type={"product"}/>
 
                 <Text style={label_text}>Brand</Text>
-                <Dropdown value={brand} setValue={setBrand} options={[]} type={"brand"}/>
+                <Dropdown value={brand} setValue={setBrand} options={possible_brands} type={"brand"}/>
 
                 <Text style={label_text}>Price</Text>
                 <View style={item_style.concat({marginBottom: 15}, styles.row)}>

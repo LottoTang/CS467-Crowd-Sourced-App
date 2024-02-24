@@ -158,7 +158,7 @@ function giveSuggestedItems(products, target_item){
         let product = products[product_id].name
         let dropdown = false
         if (!product) {
-            product = products[product_id].value
+            product = products[product_id]
             dropdown = true
         }
 

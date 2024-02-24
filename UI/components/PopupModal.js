@@ -18,27 +18,32 @@ import CheckList from './CheckList.js'
 // style imports
 import styles, {item_style, text_styles, add_button, popup_style} from '../style.js';
 
+const SearchBar = ({search, setSearch}) => {
+    return(
+        <View>
+            <Text style={[text_styles.itemText, {paddingLeft: 8, paddingBottom: 0}]}>Search</Text>
+            <View style={item_style.concat({marginBottom: 15})}>
+                <TextInput
+                    style={text_styles.placeholder}
+                    value={search}
+                    onChangeText={setSearch}
+                    placeholder={"Search"}
+                    placeholderTextColor={text_styles.placeholder.color}
+                />
+            </View>
+        </View>
+    )
+}
+
 
 const PopupList = ({data, type, close, search, setSearch}) => {
-// displays a FlatList of the provided data
-
+// displays a FlatList of the provided data (expects data in a list of {label, value} objects)
     let title;
     if (type == "Sort" || type == "Filter") title = `${type} by:`
     return (
         <View style={popup_style.style}>
-            { type == "Dropdown" ? (
-                <View>
-                    <Text style={[text_styles.itemText, {paddingLeft: 8, paddingBottom: 0}]}>Search</Text>
-                    <View style={item_style.concat({marginBottom: 15})}>
-                        <TextInput
-                            style={text_styles.placeholder}
-                            value={search}
-                            onChangeText={setSearch}
-                            placeholder={"Search"}
-                            placeholderTextColor={text_styles.placeholder.color}
-                        />
-                    </View>
-                </View>
+            { type.includes("Searchable") ? (
+                <SearchBar search={search} setSearch={setSearch} />
             ) : (
                 <Text style={text_styles.smallTitle}>{title}</Text>
             ) }
@@ -55,13 +60,16 @@ const PopupList = ({data, type, close, search, setSearch}) => {
     )
 }
 
-const PopupCheckList = ({data, preselected, close, select_type}) => {
-// displays a checklist of the provided data
+const PopupCheckList = ({data, preselected, close, select_type, popup_type, search, setSearch}) => {
+// displays a checklist of the provided data (expects data in a list of names to display)
     const [selected_items, setSelectedItems] = useState(preselected)
 
     return (
         <View style={popup_style.style}>
-            <View style={{maxHeight: "74%"}}>
+            <View style={{maxHeight: "65%"}}>
+                { popup_type.includes("Searchable") ? (
+                    <SearchBar search={search} setSearch={setSearch} />
+                ) : null }
                 <CheckList
                     data={data}
                     type={select_type}
@@ -70,7 +78,7 @@ const PopupCheckList = ({data, preselected, close, select_type}) => {
                 />
             </View>
             <Pressable style={[popup_style.selectButton, styles.bottom]} onPress={() => close(selected_items)}>
-                <Text style={[add_button, popup_style.buttonText]}>Filter</Text>
+                <Text style={[add_button, popup_style.buttonText]}>Select</Text>
             </Pressable>
         </View>
     )
@@ -97,12 +105,15 @@ function PopupModal({popup, popup_type="Sort", data, closePopup, preselected=[],
                 onRequestClose={() => closePopup()}
             >
                 <View style={popup_style.container}>
-                    { popup_type == "Select" ? (
+                    { popup_type.includes("Select") ? (
                             <PopupCheckList
                                 data={data}
                                 preselected={preselected}
                                 close={closePopup}
                                 select_type={select_type}
+                                popup_type={popup_type}
+                                search={search}
+                                setSearch={setSearch}
                             />
                         ) : (
                             <PopupList
