@@ -61,12 +61,6 @@ const headerFunc = ({navigation, route, options, back}) => {
         );
     }
 
-    // Delete item from shopping list
-    const handleDeleteItem = () =>{
-        dispatch(deleteItemInShoppingList(route.params.product));
-        navigation.navigate("Home");
-    }
-
     return(
         <SafeAreaView style={[header_style.header, {height: header_height, borderBottomWidth: header_padding}]}>
             <View style={top_row}>

@@ -36,7 +36,7 @@ function ViewItem() {
     //const dispatch = useDispatch();
     const [ranking, setRanking] = useState("price");
     //const all_items = useSelector(state => state.all_items);
-    const shopping_list = useSelector(state => state.shopping_list);
+    const shopping_list = useSelector((state)=> state.user.shopping_list_item);
     const [popup, setPopup] = useState(false)
 
     let item_ids = shopping_list[product]
@@ -55,7 +55,7 @@ function ViewItem() {
                     setItemsReceived(true);
                 }).catch(error => console.error(error));
             }catch(error){
-                console.log(error);
+                console.error(error);
             }
         }
 
@@ -65,9 +65,9 @@ function ViewItem() {
                 .then(result => {
                     setAllStores(result.data)
                     setStoresReceived(true);
-                }).catch(error => console.log(error));
+                }).catch(error => console.error(error));
             }catch (error){
-                console.log(error);
+                console.error(error);
             }
         }
 
