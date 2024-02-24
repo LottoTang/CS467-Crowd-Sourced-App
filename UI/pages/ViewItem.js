@@ -16,9 +16,6 @@ import axios from 'axios';
 // function imports
 import { getSelectedBrandsForProduct, getItemsList, getItemSorting, convertItemsOutput } from '../../redux/funtionality/helperFunctions';
 
-// data imports
-import { stores } from '../../testData/testingData2.js';
-
 // component imports
 import StoresList from '../components/StoresList.js'
 import PopupModal from '../components/PopupModal.js'

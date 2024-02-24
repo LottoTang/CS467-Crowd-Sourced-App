@@ -35,7 +35,6 @@ function SelectBrand({route}) {
     const [allBrands, setAllBrands] = useState([]);
     const [itemIDs, setItemIDs] = useState({});
     const [branding, setBranding] = useState([]);
-    const [shoppingList, setShoppingList] = useState("");
 
     // TODO: const brands = getBrandsList(product), where func retrieves from database
     //const all_products = useSelector(state => state.all_products);
@@ -86,29 +85,12 @@ function SelectBrand({route}) {
 
     // Get user ID
     const userId = useSelector(state => state.user._id);
-    
-    // Get shopping list content
-    useEffect(()=>{
-        const getShoppingList = async ()=>{
-            try{
-                const response = await axios.get(`http://10.0.2.2:3000/users/${userId}`);
-                const shopList = response.data.shopping_list_item;
-                setShoppingList(shopList);
-            } catch(error){
-                console.log(error);
-            }
-        }
-
-        getShoppingList();
-    },[]);
+    const shoppingList = useSelector(state => state.user.shopping_list_item)
 
     // Set up connection with store to dispatch signal
     const dispatch = useDispatch();
 
     const navigation = useNavigation();
-
-    // Get shopping list
-    const testShoppingList = useSelector(state=> state.shopList);
 
     const handlePress = ()=>{
         let selected = selected_brands
@@ -152,7 +134,7 @@ function SelectBrand({route}) {
 
             // Update shopping list 
             const newShoppingList = {
-                ...testShoppingList, 
+                ...shoppingList,
                 //[product] : newItems.concat(shoppingList[product] || []),
                 [product] : {newItems},
             };

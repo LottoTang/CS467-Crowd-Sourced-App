@@ -8,7 +8,7 @@ import { user, products, stores, promotions, items, generateShoppingList } from 
 const initial_state = {
     num_items: 0,
     shopping_list_id: 1,
-    user: user,
+    user: {},
     //shopping_list: generateShoppingList(),
     shopping_list: {},
     selected_item: null,
@@ -40,7 +40,7 @@ const homepageReducer = (state= initial_state, action) =>{
             }
             */
             //new_list[action.payload.name] = items
-            new_list[action.payload.name] = action.payload.brands;
+            new_list[action.payload.name] = action.payload.items;
             return {
                 ...state,
                 numOfItems : state.numOfItems + 1,
