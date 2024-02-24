@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // function imports
 import { getBrandsList } from '../../redux/funtionality/helperFunctions';
-import { addItemInShoppingList } from '../../redux/actions/actions.js';
+import { setUser } from '../../redux/actions/actions.js';
 
 // data imports
 import axios from 'axios';
@@ -145,16 +145,16 @@ function SelectBrand({route}) {
                 const response = await axios.patch(`http://10.0.2.2:3000/users/shopping-list-item/${userId}`,
                     copyShoppingList,   
                     //{}
-            ).catch(error => console.log(error));
+            ).then(result => {
+                 // if shopping_list updated, reset redux user
+                 dispatch(setUser(result.data));
+                 })
+            .catch(error => console.log(error));
             } catch(error){
                 console.log(error);
             }
         };
-        // TODO: replace dispatch function with function that accesses database
-        //console.log(idsShoppingList);
-        dispatch(addItemInShoppingList(product, idsShoppingList));
         add_item();
-
         navigation.navigate('Home');
     }
     

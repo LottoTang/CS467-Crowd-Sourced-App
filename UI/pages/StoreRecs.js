@@ -112,7 +112,7 @@ function StoreRecs() {
     const [itemsReceived, setItemsReceived] = useState(false);
     const [storesReceived, setStoresReceived] = useState(false);
 
-    const shopping_list = useSelector(state => state.shopping_list);
+    const shopping_list = useSelector((state)=> state.user.shopping_list_item);
     const [ranking, setRanking] = useState("items");
 
     // Get stores and all items from database

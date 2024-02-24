@@ -30,7 +30,7 @@ const ItemComponent = ({item}) => {
         navigation.navigate('Select Brand', {product: item});
     };
 
-    const shopping_list = useSelector((state)=> state.shopping_list);
+    const shopping_list = useSelector((state)=> state.user.shopping_list_item);
 
     if (item in shopping_list) {
         return (
