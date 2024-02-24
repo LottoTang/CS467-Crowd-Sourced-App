@@ -61,12 +61,12 @@ usersRouter.post('/', async (req, res) => {
         res.status(201).send(user);
       } catch (err) {
         console.error(err);
-        res.status(500).send('Internal Server Error');
+        res.status(500).send('Internal server error.');
       }
     }
   } catch (err) {
     console.error(err);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send('Internal server error.');
   }
 });
 
@@ -94,20 +94,20 @@ usersRouter.patch('/:_id', async (req, res) => {
     if (req.body.city) update.city = req.body.city;
     if (req.body.state) update.state = req.body.state;
     try {
-      // return the number of modified item (Expected: 1)
+      // If updateCount === 1, return the updated document
       const updateCount = await db.updateUser({_id: userID}, update);
-      if (updateCount == 1) {
-          try {
-            const document = await db.findUserById(userID);
-            res.status(200).send(document);
-          } catch (err) {
-            console.error(err);
-            res.status(404).send({Error: 'No user with this users._id exists.'});
-          }
+      if (updateCount === 1) {
+        try {
+          const document = await db.findUserById(userID);
+          res.status(200).send(document);
+        } catch (err) {
+          console.error(err);
+          res.status(404).send({Error: 'No user with this users._id exists.'});
+        }
       }
     } catch (err) {
       console.error(err);
-      res.status(500).send({Error: 'Internal Server Error'});
+      res.status(500).send({Error: 'Internal server error.'});
     }
   } catch (err) {
     console.error(err);
@@ -130,14 +130,25 @@ usersRouter.patch('/shopping-list-item/:_id', async (req, res) => {
       update.shopping_list_item = parsedShoppingListItem;
       try {
         const updateCount = await db.updateUser({_id: userID}, update);
-        res.status(200).send({updateCount: updateCount});
+        // If updateCount === 1, return the updated document
+        if (updateCount === 1) {
+          try {
+            const document = await db.findUserById(userID);
+            res.status(200).send(document);
+          } catch (err) {
+            console.error(err);
+            res
+              .status(404)
+              .send({Error: 'No user with this users._id exists.'});
+          }
+        }
       } catch (err) {
         console.error(err);
-        res.status(500).send({Error: 'Internal Server Error.'});
+        res.status(500).send({Error: 'Internal server error.'});
       }
     } catch (err) {
       console.error(err);
-      res.status(500).send({Error: 'Internal Server Error.'});
+      res.status(500).send({Error: 'Internal server error.'});
     }
   } catch (err) {
     console.error(err);
