@@ -158,8 +158,11 @@ function giveSuggestedItems(products, target_item){
         let product = products[product_id].name
         let dropdown = false
         if (!product) {
-            product = products[product_id]
             dropdown = true
+            product = products[product_id].label
+            if (!product){
+                product = products[product_id]
+            }
         }
 
         //split the words in the item from main list
