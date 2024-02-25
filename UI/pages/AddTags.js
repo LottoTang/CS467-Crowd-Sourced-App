@@ -1,8 +1,11 @@
+// date picker code taken from https://github.com/henninghall/react-native-date-picker?tab=readme-ov-file#example-1-modal
+
 // react imports
 import React from 'react';
 import {
   SafeAreaView,
   Alert,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -12,6 +15,7 @@ import {
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
+import DatePicker from 'react-native-date-picker'
 
 // data imports
 import axios from 'axios';
@@ -38,6 +42,8 @@ function AddTagsPage({route}) {
     const [brand, setBrand] = useState(item.brand);
     const [price, setPrice] = useState(item.price);
     const [sale, setSale] = useState(item.promotion_id);
+    const [endSale, setEnd] = useState(new Date())
+    const [pickDate, setPicker] = useState(false)
 
     // retrieve all of the stores in the user's area, put them in a dict format {name: id}
     const stores_dict = {}
@@ -68,7 +74,8 @@ function AddTagsPage({route}) {
             setTags(found.product_tags)
             setBrand(found.brand)
             setPrice(found.price)
-            setSale(all_promotions[found.promotion_id].type)
+            setSale(all_promotions[found.promotion_id].promotion_type)
+            setEnd(all_promotions[found.promotion_id].end_time)
         }
     }, [store])
 
@@ -140,6 +147,28 @@ function AddTagsPage({route}) {
                 </View>
 
                 <PromotionsDropdown sale={sale} setSale={setSale} promotions={Object.keys(sales_dict)} />
+
+                {sale && sale != "None" ? (
+                    <View>
+                        <DatePicker modal
+                            open={pickDate}
+                            date={endSale}
+                            onConfirm={(date) => {
+                              setPicker(false)
+                              setEnd(date)
+                            }}
+                            onCancel={() => setPicker(false)}
+                        />
+                        <Text style={label_text}>Sale End Date</Text>
+                        <Pressable style={item_style.concat({marginBottom: 15})} onPress={() => setPicker(true)}>
+                            {endSale ? (
+                                <Text style={text_styles.inputText}>{endSale.toDateString()}</Text>
+                            ) : (
+                                <Text style={text_styles.placeholder}>Select a date</Text>
+                            )}
+                        </Pressable>
+                    </View>
+                ) : null}
 
                 <Text style={button} onPress={handleSubmit}>
                     Submit
