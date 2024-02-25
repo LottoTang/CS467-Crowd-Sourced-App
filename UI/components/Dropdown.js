@@ -17,6 +17,12 @@ import PopupModal from './PopupModal.js'
 import {item_style, text_styles} from '../style.js';
 
 function Dropdown ({value, setValue, options, type, placeholder=null}) {
+// Dropdown component is a selectable box similar to text input, that opens a popup when pressed
+
+    // set up default placeholder text in box
+    if (!placeholder) placeholder = `Select a ${type}`
+
+    // popup modal setup
     const [popup, setPopup] = useState(false)
 
     const closePopup = (selection=null) => {
@@ -24,19 +30,19 @@ function Dropdown ({value, setValue, options, type, placeholder=null}) {
         setPopup(false)
     }
 
-    if (!placeholder) placeholder = `Select a ${type}`
-
+    // set up popup options
     let popup_type = "Dropdown"
     if (type != "store") popup_type = ["Dropdown", "Searchable"]
     if (type == "product") popup_type = ["Dropdown", "Searchable", "Select"]
 
-    const [search, setSearch] = useState("")
-    const [suggested_items, setSuggestedItems] = useState(options);
 
+    // search functionality for popups marked as "Searchable"
+    const [suggested_items, setSuggestedItems] = useState(options);
     useEffect(() => {
         setSuggestedItems(options)
     }, [options])
 
+    const [search, setSearch] = useState("")
     const handleInputChange = (text)=>{
         setSearch(text);
         const filter_data = giveSuggestedItems(options, text);
@@ -56,7 +62,7 @@ function Dropdown ({value, setValue, options, type, placeholder=null}) {
                 setSearch={handleInputChange}
             />
             <Pressable style={item_style.concat({marginBottom: 15})} onPress={() => setPopup(true)}>
-                {value ? (
+                {value && value.length > 0 ? (
                     <Text style={text_styles.inputText}>{value.toString()}</Text>
                 ) : (
                     <Text style={text_styles.placeholder}>{placeholder}</Text>
