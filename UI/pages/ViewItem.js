@@ -11,13 +11,12 @@ import {
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
-
-// data imports
-import { fetchItems, fetchStores } from '../../redux/funtionality/connectionMongo.js';
 
 // function imports
 import { getSelectedBrandsForProduct, getItemsList, getItemSorting, convertItemsOutput } from '../../redux/funtionality/helperFunctions';
+
+// data imports
+import { fetchItems, fetchStores } from '../../redux/funtionality/connectionMongo.js';
 
 // component imports
 import StoresList from '../components/StoresList.js'
