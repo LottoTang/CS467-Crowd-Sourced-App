@@ -11,10 +11,12 @@ import {
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
 
 // function imports
 import { giveSuggestedItems } from '../../redux/funtionality/helperFunctions.js';
+
+// data imports
+import { searchProducts } from '../../redux/funtionality/connectionMongo.js';
 
 // style imports
 import styles, {item_style, text_styles, add_button} from '../style.js';
@@ -114,24 +116,14 @@ function AddItems() {
     const all_products = useSelector((state)=>state.all_products);
     const [suggested_items, setSuggestedItems] = useState('');
     const [product_name, setProductName] = useState('');
-    const [productsList, setProductsList] = useState('');
+    const [products_list, setProductsList] = useState('');
 
     // Pull all products from the database
     useEffect(() =>{
         const getProducts = async ()=> {
-            try {
-                await axios.get(`http://10.0.2.2:3000/products/search?name=${product_name}`)
-                .then(result => {
-                    const listOfNames = result.data.map(item => item);
-                    setProductsList(listOfNames);
-                    }
-                    )// 
-                .catch(error => console.log(error));
-            } catch (error){
-                console.log(error);
-            }
+            const products = await searchProducts(product_name)
+            setProductsList(products)
         }
-
         getProducts();
     }, [product_name]);
 
@@ -139,7 +131,7 @@ function AddItems() {
     // Because we don't have access to the database it works with Tomato and Tomato Sauce inputs from the test data
     const handleInputChange = (text)=>{
         setProductName(text);
-        setSuggestedItems(productsList);
+        setSuggestedItems(products_list);
     }
 
   return (

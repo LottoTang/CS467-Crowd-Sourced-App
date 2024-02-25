@@ -68,6 +68,24 @@ async function fetchBrands(product) {
     return res
 }
 
+// fetch all products related to a search
+async function searchProducts(product_name) {
+    let res;
+
+    try{
+        const response = await axios.get(`http://10.0.2.2:3000/products/search`, {
+            params: {
+                name: `${product_name}`,
+            }
+        }).then(result => {
+            res = result.data;
+            })
+        .catch(error => console.error(error));
+    }catch(error){ console.error(error) };
+
+    return res
+}
 
 
-export { getUser, fetchItems, fetchStores, fetchBrands };
+
+export { getUser, fetchItems, fetchStores, fetchBrands, searchProducts };
