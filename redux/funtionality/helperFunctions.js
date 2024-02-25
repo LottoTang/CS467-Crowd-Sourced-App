@@ -159,10 +159,7 @@ function giveSuggestedItems(products, target_item){
         let dropdown = false
         if (!product) {
             dropdown = true
-            product = products[product_id].label
-            if (!product){
-                product = products[product_id]
-            }
+            product = products[product_id]
         }
 
         //split the words in the item from main list
@@ -339,11 +336,11 @@ function getStoresSorting(input_object, sorting){
 
     let sorted_list = Object.values(input_object);
 
-    if (sorting == "price"){
+    if (sorting == "Price"){
         sorted_list.sort((a, b) => a.total_cost - b.total_cost);
-    } else if (sorting == "items"){
+    } else if (sorting == "Items Found"){
         sorted_list.sort((a, b) => b.num_items - a.num_items);
-    } else if (sorting == "store_name"){
+    } else if (sorting == "Store"){
         sorted_list.sort((a, b) => {
             const name_a = a.name.toUpperCase();
             const name_b = b.name.toUpperCase();
@@ -364,10 +361,9 @@ function getStoresSorting(input_object, sorting){
 
 // Function to sort a list of store options for a selected item by price, brand and store
 function getItemSorting(items, sorting, stores){
-    console.log(stores);
-    if (sorting == "price"){
+    if (sorting == "Price"){
         items.sort((a, b) => a.price - b.price);
-    } else if (sorting == "brand"){
+    } else if (sorting == "Brand"){
         items.sort((a, b) => {
 
             // If brand is added to back to the filters, use this
@@ -385,7 +381,7 @@ function getItemSorting(items, sorting, stores){
                 return 0;
             }
         })
-    } else if (sorting == "store"){
+    } else if (sorting == "Store"){
         items.sort((a, b) => {
 
             // Previous format of the database. Save it if database schema changes again.

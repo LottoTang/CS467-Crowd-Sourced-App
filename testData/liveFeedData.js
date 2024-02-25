@@ -47,6 +47,7 @@ const liveFeed = {
         date: "2024/02/20",
         user_id: "user_test05",
         price: 10.95,
+        store_id: "store_1"
     },
 
 };

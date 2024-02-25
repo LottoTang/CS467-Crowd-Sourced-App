@@ -58,16 +58,8 @@ const ItemComponent = ({store, list_len}) => {
 function PopUp({setRanking}) {
     const [popup, setPopup] = useState(false)
 
-    const filter_vals = [
-        {label: "Within 10 miles", value: 10},
-        {label: "Within 5 miles", value: 5},
-        {label: "Within 2 miles", value: 2},
-    ]
-    const sort_vals = [
-        {label: "Price", value: "price"},
-        {label: "Items Found", value: "items"},
-        {label: "Store", value: "store_name"},
-    ]
+    const filter_vals = ["Within 10 miles", "Within 5 miles", "Within 2 miles"]
+    const sort_vals = ["Price", "Items Found", "Store"]
 
     const [popup_type, setType] = useState("Sort")
     const [popup_vals, setVals] = useState(sort_vals)
@@ -85,7 +77,7 @@ function PopUp({setRanking}) {
 
     const closePopup = (selection=null) => {
         if (selection != null) {
-            if (popup_type == "Sort") setRanking(selection.value)
+            if (popup_type == "Sort") setRanking(selection)
         }
         setPopup(false)
     }
@@ -113,7 +105,7 @@ function StoreRecs() {
     const [storesReceived, setStoresReceived] = useState(false);
 
     const shopping_list = useSelector((state)=> state.user.shopping_list_item);
-    const [ranking, setRanking] = useState("items");
+    const [ranking, setRanking] = useState("Items Found");
 
     // Get stores and all items from database
     useEffect(() => {

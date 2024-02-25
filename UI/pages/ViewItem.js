@@ -102,14 +102,10 @@ function ViewItem() {
         navigation.navigate('Select Brand', {product: item, preselected: selected_brands});
     };
 
-    const popup_vals = [
-        {label: "Price", value: "price"},
-        {label: "Store", value: "store"},
-        {label: "Brand", value: "brand"},
-    ]
+    const popup_vals = ["Price", "Store", "Brand"]
 
     const closePopup = (selection=null) => {
-        if (selection != null) setRanking(selection.value)
+        if (selection != null) setRanking(selection)
         setPopup(false)
     }
 

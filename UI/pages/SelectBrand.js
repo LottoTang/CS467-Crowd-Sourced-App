@@ -72,7 +72,7 @@ function SelectBrand({route}) {
                     }
                     setItemIDs(objIds);
                     setAllBrands(brandsList);
-                }).catch(error => console.log(error));
+                }).catch(error => console.error(error));
             } catch(error) {
                 console.error(error);
             }
@@ -143,15 +143,14 @@ function SelectBrand({route}) {
             // Send updated shopping list
             try{
                 const response = await axios.patch(`http://10.0.2.2:3000/users/shopping-list-item/${userId}`,
-                    copyShoppingList,   
-                    //{}
+                    copyShoppingList,
             ).then(result => {
                  // if shopping_list updated, reset redux user
                  dispatch(setUser(result.data));
                  })
-            .catch(error => console.log(error));
+            .catch(error => console.error(error));
             } catch(error){
-                console.log(error);
+                console.error(error);
             }
         };
         add_item();
