@@ -1,7 +1,10 @@
+// date picker code taken from https://github.com/react-native-datetimepicker/datetimepicker?tab=readme-ov-file
+
 // react imports
 import React from 'react';
 import {
   Alert,
+  Pressable,
   StyleSheet,
   Text,
   View,
@@ -14,9 +17,10 @@ import axios from 'axios';
 
 // component imports
 import Dropdown from '../components/Dropdown.js'
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 // style imports
-import styles, {text_styles} from '../style.js';
+import styles, {item_style, text_styles} from '../style.js';
 
 
 const StoresDropdown = ({store, setStore, stores}) => {
@@ -109,7 +113,37 @@ const PromotionsDropdown = ({sale, setSale, promotions}) => {
     )
 }
 
-export { StoresDropdown, TagsDropdown, BrandsDropdown, PromotionsDropdown }
+const SaleDatePicker = ({endSale, setEnd, pickDate, setPicker}) => {
+// Popup shows a calendar that allows selecting a sale end date
+    const handleSelectDate = (event, selectedDate) => {
+        setPicker(false);
+        setEnd(selectedDate);
+    };
+
+    return (
+        <View>
+            {pickDate && (
+                <DateTimePicker
+                    testID="dateTimePicker"
+                    value={endSale}
+                    mode={"date"}
+                    is24Hour={true}
+                    onChange={handleSelectDate}
+                />
+            )}
+            <Text style={label_text}>Sale End Date</Text>
+            <Pressable style={item_style.concat({marginBottom: 15})} onPress={() => setPicker(true)}>
+                {endSale ? (
+                    <Text style={text_styles.inputText}>{endSale.toDateString()}</Text>
+                ) : (
+                    <Text style={text_styles.placeholder}>Select a date</Text>
+                )}
+            </Pressable>
+        </View>
+    )
+}
+
+export { StoresDropdown, TagsDropdown, BrandsDropdown, PromotionsDropdown, SaleDatePicker }
 
 
 const label_text = [text_styles.itemText, {paddingLeft: 8, paddingBottom: 0}]

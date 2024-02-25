@@ -1,5 +1,3 @@
-// date picker code taken from https://github.com/henninghall/react-native-date-picker?tab=readme-ov-file#example-1-modal
-
 // react imports
 import React from 'react';
 import {
@@ -21,7 +19,7 @@ import axios from 'axios';
 import { stores } from "../../testData/testingData2";
 
 // component imports
-import { StoresDropdown, TagsDropdown, BrandsDropdown, PromotionsDropdown } from '../components/AddTagsComponents.js'
+import { StoresDropdown, TagsDropdown, BrandsDropdown, PromotionsDropdown, SaleDatePicker } from '../components/AddTagsComponents.js'
 
 // style imports
 import styles, {item_style, text_styles} from '../style.js';
@@ -148,16 +146,7 @@ function AddTagsPage({route}) {
                 <PromotionsDropdown sale={sale} setSale={setSale} promotions={Object.keys(sales_dict)} />
 
                 {sale && sale != "None" ? (
-                    <View>
-                        <Text style={label_text}>Sale End Date</Text>
-                        <Pressable style={item_style.concat({marginBottom: 15})} onPress={() => setPicker(true)}>
-                            {endSale ? (
-                                <Text style={text_styles.inputText}>{endSale.toDateString()}</Text>
-                            ) : (
-                                <Text style={text_styles.placeholder}>Select a date</Text>
-                            )}
-                        </Pressable>
-                    </View>
+                    <SaleDatePicker endSale={endSale} setEnd={setEnd} pickDate={pickDate} setPicker={setPicker} />
                 ) : null}
 
                 <Text style={button} onPress={handleSubmit}>
