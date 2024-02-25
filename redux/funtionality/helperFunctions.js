@@ -355,7 +355,7 @@ function getStoresSorting(input_object, sorting){
 
 // Function to sort a list of store options for a selected item by price, brand and store
 function getItemSorting(items, sorting, stores){
-    console.log(stores);
+    
     if (sorting == "price"){
         items.sort((a, b) => a.price - b.price);
     } else if (sorting == "brand"){
