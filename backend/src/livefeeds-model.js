@@ -16,7 +16,7 @@ const livefeedsSchema = new mongoose.Schema({
   review: { type: String, required: true },
 }, { versionKey: false });
 
-const Livefeeds = mongoose.model('LiveFeeds', livefeedsSchema, 'LiveFeeds');
+const Livefeeds = mongoose.model('Livefeeds', livefeedsSchema, 'Livefeeds');
 
 
 const createLivefeed = async (
@@ -60,8 +60,42 @@ const getAllLivefeeds = async () => {
     }
   };
 
+  const updateLivefeed = async (
+    livefeeds_id,
+    item_id,
+    store_id,
+    review,
+    item_change,
+    store_change,
+    review_change,
+  ) => {
+    if (item_change === true) {
+      await Livefeeds.updateOne({_id: livefeeds_id}, {$set: {item_id: item_id}});
+    }
+    if (store_change === true) {
+        await Livefeeds.updateOne({_id: livefeeds_id}, {$set: {store_id: store_id}
+        });
+    }
+    if (review_change === true) {
+        await Livefeeds.updateOne({_id: livefeeds_id}, {$set: {review: review}
+        });
+    }
+  };
+
+  const deleteLivefeed = async livefeed_id => {
+    try {
+      let this_livefeed = await Livefeeds.deleteOne({_id: livefeed_id});
+      return this_livefeed; 
+    } catch (error) {
+      console.error('Error finding entry:', error);
+      throw error; // Rethrow the error if needed
+    }
+  };
+
 module.exports = {
     createLivefeed,
     getLivefeedsByID,
-    getAllLivefeeds
+    getAllLivefeeds,
+    updateLivefeed,
+    deleteLivefeed
 };
