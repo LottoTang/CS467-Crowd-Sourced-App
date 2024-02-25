@@ -1,6 +1,7 @@
 // react imports
 import React from 'react';
 import {
+  Alert,
   StyleSheet,
   Text,
   View,
@@ -10,7 +11,6 @@ import { useSelector } from 'react-redux';
 
 // data imports
 import axios from 'axios';
-import { stores } from "../../testData/testingData2";
 
 // component imports
 import Dropdown from '../components/Dropdown.js'
@@ -19,15 +19,8 @@ import Dropdown from '../components/Dropdown.js'
 import styles, {text_styles} from '../style.js';
 
 
-const StoresDropdown = ({store, setStore, user}) => {
+const StoresDropdown = ({store, setStore, stores}) => {
 // Dropdown popup that allows user to select a store input
-    // TODO: pull stores from database
-
-    const available_stores = []
-    for (const store_id in stores) {
-        const store = stores[store_id]
-        if (store.city == user.city && store.state == user.state) available_stores.push(store.name)
-    }
 
     return (
         <View>
@@ -35,7 +28,7 @@ const StoresDropdown = ({store, setStore, user}) => {
             <Dropdown
                 value={store}
                 setValue={setStore}
-                options={available_stores}
+                options={stores}
                 type={"store"}
             />
         </View>
@@ -70,7 +63,7 @@ const BrandsDropdown = ({tags, brand, setBrand}) => {
     const all_products = useSelector(state => state.all_products)
 
     // find possible brands for each selected product tag
-    const [possible_brands, setBrands] = useState(["Please select one or more product tags first"])
+    const [possible_brands, setBrands] = useState([])
     useEffect(() => {
         let brands = new Set()
         for (const tag of tags) {
@@ -81,10 +74,8 @@ const BrandsDropdown = ({tags, brand, setBrand}) => {
         }
         const new_brands = []
         brands.forEach(brand => new_brands.push(brand))
-        if (new_brands.length != 0) setBrands(new_brands)
-        else setBrands(["Please select one or more product tags first"])
+        setBrands(new_brands)
     }, [tags])
-
 
     return (
         <View>
@@ -94,19 +85,15 @@ const BrandsDropdown = ({tags, brand, setBrand}) => {
                 setValue={setBrand}
                 options={possible_brands}
                 type={"brand"}
+                alert={tags.length == 0}
+                alertMsg={["Invalid Product", "Please select at least one product first"]}
             />
         </View>
     )
 }
 
-const PromotionsDropdown = ({sale, setSale}) => {
+const PromotionsDropdown = ({sale, setSale, promotions}) => {
 // Dropdown popup that allows user to select a promotion input
-    const all_promotions = useSelector(state => state.all_promotions)
-    const promotions = ["None"]
-    for (const promotion_id in all_promotions) {
-        const promotion = all_promotions[promotion_id]
-        promotions.push(promotion.promotion_type)
-    }
 
     return (
         <View>

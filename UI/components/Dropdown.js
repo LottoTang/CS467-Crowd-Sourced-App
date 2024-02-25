@@ -1,6 +1,7 @@
 // react imports
 import React from 'react';
 import {
+  Alert,
   Pressable,
   Text,
   View
@@ -16,7 +17,7 @@ import PopupModal from './PopupModal.js'
 // style imports
 import {item_style, text_styles} from '../style.js';
 
-function Dropdown ({value, setValue, options, type, placeholder=null}) {
+function Dropdown ({value, setValue, options, type, placeholder=null, alert=false, alertMsg=[]}) {
 // Dropdown component is a selectable box similar to text input, that opens a popup when pressed
 
     // set up default placeholder text in box
@@ -49,6 +50,12 @@ function Dropdown ({value, setValue, options, type, placeholder=null}) {
         setSuggestedItems(filter_data);
     }
 
+    // open popup if allowed, display alert message otherwise
+    const openPopup = () => {
+        if (alert) Alert.alert(alertMsg[0], alertMsg[1], [{text: 'Ok'}])
+        else setPopup(true)
+    }
+
     return(
         <View>
             <PopupModal
@@ -61,7 +68,7 @@ function Dropdown ({value, setValue, options, type, placeholder=null}) {
                 search={search}
                 setSearch={handleInputChange}
             />
-            <Pressable style={item_style.concat({marginBottom: 15})} onPress={() => setPopup(true)}>
+            <Pressable style={item_style.concat({marginBottom: 15})} onPress={openPopup}>
                 {value && value.length > 0 ? (
                     <Text style={text_styles.inputText}>{value.toString()}</Text>
                 ) : (

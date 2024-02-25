@@ -23,6 +23,10 @@ const SearchBar = ({search, setSearch, addable, add}) => {
 // displays a box at the top where user can search the options
 // includes a button for creating a new option
 
+    // placeholder on search bar, tells user if they can create or not
+    let placeholder = "Search"
+    if (addable) placeholder = "Search/Create"
+
     // addable is false if search is empty or if search text is already an existing option
     if (!search) addable = false
 
@@ -38,7 +42,7 @@ const SearchBar = ({search, setSearch, addable, add}) => {
                     style={[text_styles.placeholder, {width: width}]}
                     value={search}
                     onChangeText={setSearch}
-                    placeholder={"Search"}
+                    placeholder={placeholder}
                     placeholderTextColor={text_styles.placeholder.color}
                 />
                 { addable ? (
