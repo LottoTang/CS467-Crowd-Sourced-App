@@ -48,7 +48,7 @@ function AddTagsPage({route}) {
 
     const handleSubmit = () => {
         // Handle form submission here, you can send the data to a backend or perform any other action.
-        setPrice(price.toFixed(2))
+        //setPrice(price.toFixed(2))
 
         // TODO --> Add request to database
         navigation.navigate("Shopping List");
@@ -57,7 +57,7 @@ function AddTagsPage({route}) {
     const available_stores = []
     for (const store_id in stores) {
         const store = stores[store_id]
-        if (store.city == user.city && store.state == user.state) available_stores.push({label: store.name, value: store.name})
+        if (store.city == user.city && store.state == user.state) available_stores.push(store.name)
     }
 
     const products = []
@@ -67,7 +67,7 @@ function AddTagsPage({route}) {
         products.push(product.name)
     }
 
-    const [possible_brands, setBrands] = useState([{label: "Please select one or more product tags first", value: null}])
+    const [possible_brands, setBrands] = useState(["Please select one or more product tags first"])
     useEffect(() => {
         let brands = new Set()
         for (const tag of tags) {
@@ -77,16 +77,16 @@ function AddTagsPage({route}) {
             }
         }
         const new_brands = []
-        brands.forEach(brand => new_brands.push({label: brand, value: brand}))
+        brands.forEach(brand => new_brands.push(brand))
         if (new_brands.length != 0) setBrands(new_brands)
     }, [tags])
 
 
     const all_promotions = useSelector(state => state.all_promotions)
-    const promotions = [{label: "None", value: null}]
+    const promotions = ["None"]
     for (const promotion_id in all_promotions) {
         const promotion = all_promotions[promotion_id]
-        promotions.push({label: promotion.promotion_type, value: promotion.promotion_type})
+        promotions.push(promotion.promotion_type)
     }
 
 

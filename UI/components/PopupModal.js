@@ -40,18 +40,15 @@ const SearchBar = ({search, setSearch, addable, add}) => {
 
 
 const PopupList = ({data, type, close, search, setSearch}) => {
-// displays a FlatList of the provided data (expects data in a list of {label, value} objects)
+// displays a FlatList of the provided data (expects data in a list of names to display)
     let title;
     if (type == "Sort" || type == "Filter") title = `${type} by:`
 
-    let addable = false
-    if (search) addable = true
-    for (const option of data){
-        if (search == option.label) addable = false
-    }
+    let addable = true
+    if (data.includes(search) || !search) addable = false
 
     const add = (new_item) => {
-        close({label: new_item, value: new_item})
+        close(new_item)
     }
 
     return (
@@ -64,9 +61,9 @@ const PopupList = ({data, type, close, search, setSearch}) => {
             <FlatList
                 data={data}
                 keyExtractor={(item, index)=> index.toString()}
-                renderItem = { ({item: {label, value}}) =>
-                    <Pressable style={item_style} onPress={() => close({value})} >
-                        <Text style={text_styles.itemText}>{label}</Text>
+                renderItem = { ({item}) =>
+                    <Pressable style={item_style} onPress={() => close(item)} >
+                        <Text style={text_styles.itemText}>{item}</Text>
                     </Pressable>
                 }
             />

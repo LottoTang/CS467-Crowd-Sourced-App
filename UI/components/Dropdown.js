@@ -20,10 +20,7 @@ function Dropdown ({value, setValue, options, type, placeholder=null}) {
     const [popup, setPopup] = useState(false)
 
     const closePopup = (selection=null) => {
-        if (selection != null) {
-            if (type == "product") setValue(selection)
-            else setValue(selection.value)
-        }
+        if (selection != null) setValue(selection)
         setPopup(false)
     }
 
