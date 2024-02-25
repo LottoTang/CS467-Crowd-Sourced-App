@@ -57,7 +57,7 @@ function PostPage() {
     const available_stores = []
     for (const store_id in stores) {
         const store = stores[store_id]
-        if (store.city == user.city && store.state == user.state) available_stores.push({label: store.name, value: store.name})
+        if (store.city == user.city && store.state == user.state) available_stores.push(store.name)
     }
 
 

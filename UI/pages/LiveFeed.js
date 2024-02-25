@@ -32,15 +32,12 @@ const Popup = ({store_filter, setStores, post_filter, setPostTypes, stores}) => 
 // Popup component for when user wants to filter live feed data
     const [popup, setPopup] = useState(false)
 
-    const popup_vals = [
-        {label: "Store", value: "store"},
-        {label: "Post Type", value: "post"},
-    ]
+    const popup_vals = ["Store", "Post Type"]
 
     const selectFilter = (selection=null) => {
         if (selection != null){
-            if (selection.value == "store") setStorePopup(true)
-            if (selection.value == "post") setPostTypePopup(true)
+            if (selection == "Store") setStorePopup(true)
+            if (selection == "Post Type") setPostTypePopup(true)
         }
         setPopup(false)
     }

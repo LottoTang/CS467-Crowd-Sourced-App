@@ -18,20 +18,35 @@ import CheckList from './CheckList.js'
 // style imports
 import styles, {item_style, text_styles, add_button, popup_style} from '../style.js';
 
+
 const SearchBar = ({search, setSearch, addable, add}) => {
+// displays a box at the top where user can search the options
+// includes a button for creating a new option
+
+    // placeholder on search bar, tells user if they can create or not
+    let placeholder = "Search"
+    if (addable) placeholder = "Search/Create"
+
+    // addable is false if search is empty or if search text is already an existing option
+    if (!search) addable = false
+
+    // make space for the button next to text input if addable
+    let width = "100%"
+    if (addable) width = "79%"
+
     return(
         <View>
             <Text style={[text_styles.itemText, {paddingLeft: 8, paddingBottom: 0}]}>Search</Text>
             <View style={item_style.concat({marginBottom: 15})}>
                 <TextInput
-                    style={[text_styles.placeholder, {width: "79%"}]}
+                    style={[text_styles.placeholder, {width: width}]}
                     value={search}
                     onChangeText={setSearch}
-                    placeholder={"Search"}
+                    placeholder={placeholder}
                     placeholderTextColor={text_styles.placeholder.color}
                 />
                 { addable ? (
-                    <Text style={button} onPress={()=> add(search)}>+</Text>
+                    <Text style={add_button.concat(popup_style.addButton)} onPress={()=> add(search)}>+</Text>
                 ) : null}
             </View>
         </View>
@@ -40,33 +55,28 @@ const SearchBar = ({search, setSearch, addable, add}) => {
 
 
 const PopupList = ({data, type, close, search, setSearch}) => {
-// displays a FlatList of the provided data (expects data in a list of {label, value} objects)
+// displays a FlatList of the provided array of data
     let title;
     if (type == "Sort" || type == "Filter") title = `${type} by:`
 
-    let addable = false
-    if (search) addable = true
-    for (const option of data){
-        if (search == option.label) addable = false
-    }
-
+    // if new option is created, select it and close the popup
     const add = (new_item) => {
-        close({label: new_item, value: new_item})
+        close(new_item)
     }
 
     return (
         <View style={popup_style.style}>
             { type.includes("Searchable") ? (
-                <SearchBar search={search} setSearch={setSearch} addable={addable} add={add}/>
+                <SearchBar search={search} setSearch={setSearch} addable={!data.includes(search)} add={add}/>
             ) : (
                 <Text style={text_styles.smallTitle}>{title}</Text>
             ) }
             <FlatList
                 data={data}
                 keyExtractor={(item, index)=> index.toString()}
-                renderItem = { ({item: {label, value}}) =>
-                    <Pressable style={item_style} onPress={() => close({value})} >
-                        <Text style={text_styles.itemText}>{label}</Text>
+                renderItem = { ({item}) =>
+                    <Pressable style={item_style} onPress={() => close(item)} >
+                        <Text style={text_styles.itemText}>{item}</Text>
                     </Pressable>
                 }
             />
@@ -75,12 +85,10 @@ const PopupList = ({data, type, close, search, setSearch}) => {
 }
 
 const PopupCheckList = ({data, preselected, close, select_type, popup_type, search, setSearch}) => {
-// displays a checklist of the provided data (expects data in a list of names to display)
+// displays a checklist of the provided array of data
     const [selected_items, setSelectedItems] = useState(preselected)
 
-    let addable = true
-    if (data.includes(search) || !search) addable = false
-
+    // if new option is created, add it and close the popup
     const add = (new_item) => {
         close(selected_items.concat(new_item))
     }
@@ -89,7 +97,7 @@ const PopupCheckList = ({data, preselected, close, select_type, popup_type, sear
         <View style={popup_style.style}>
             <View style={{maxHeight: "65%"}}>
                 { popup_type.includes("Searchable") ? (
-                    <SearchBar search={search} setSearch={setSearch} addable={addable} add={add} />
+                    <SearchBar search={search} setSearch={setSearch} addable={!data.includes(search)} add={add} />
                 ) : null }
                 <CheckList
                     data={data}
@@ -106,7 +114,8 @@ const PopupCheckList = ({data, preselected, close, select_type, popup_type, sear
 }
 
 function PopupModal({popup, popup_type="Sort", data, closePopup, preselected=[], select_type="store", search, setSearch}) {
-    // the popup modal itself, which hides the background and pulls up a white tab with data
+// the popup modal itself, which hides the background and pulls up a white tab with data
+// displays a checklist or a flatlist depending on the popup options passed
     return (
         <View>
             <Modal
@@ -152,10 +161,3 @@ function PopupModal({popup, popup_type="Sort", data, closePopup, preselected=[],
 }
 
 export default PopupModal;
-
-const button = add_button.concat({
-                                         fontSize: 21,
-                                         lineHeight: 20,
-                                         paddingTop: 12,
-                                         height: 29,
-                                     });

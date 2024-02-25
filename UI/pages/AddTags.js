@@ -19,83 +19,101 @@ import axios from 'axios';
 import { stores } from "../../testData/testingData2";
 
 // component imports
-import Dropdown from '../components/Dropdown.js'
+import { StoresDropdown, TagsDropdown, BrandsDropdown, PromotionsDropdown, SaleDatePicker } from '../components/AddTagsComponents.js'
 
 // style imports
-import styles, {item_style, text_styles, add_button} from '../style.js';
+import styles, {item_style, text_styles} from '../style.js';
+
 
 function AddTagsPage({route}) {
 // the Add tags page screen itself with its component
-
     const barcode = route.params.barcode;
-    let item = {name: '', store: '', brand: '', price: 0, product_tags: [], promotion: ''}
+    const user = useSelector(state => state.user);
 
-    // TODO: replace with item retrieved from database based on barcode
-    const all_items = {barcode: item}
-    if (barcode in all_items) item = all_items[barcode]
+    // create empty item and empty form data
+    const [item, setItem] = useState({name: '', store_id: '', brand: '', price: 0, product_tags: [], promotion_id: ''})
 
-    const [store, setStore] = useState(item.store);
+    const [store, setStore] = useState(item.store_id);
     const [name, setName] = useState(item.name);
+    const [tags, setTags] = useState(item.product_tags);
     const [brand, setBrand] = useState(item.brand);
     const [price, setPrice] = useState(item.price);
-    const [tags, setTags] = useState(item.product_tags);
-    const [sale, setSale] = useState(item.promotion);
+    const [sale, setSale] = useState(item.promotion_id);
+    const [endSale, setEnd] = useState(new Date())
+    const [pickDate, setPicker] = useState(false)
 
-    const date = new Date()
-    const user = useSelector(state => state.user);
+    // retrieve all of the stores in the user's area, put them in a dict format {name: id}
+    const stores_dict = {}
+    for (const store_id in stores) {
+        const store = stores[store_id]
+        if (store.city == user.city && store.state == user.state) stores_dict[store.name] = store_id
+    }
+
+    // retrieve all of the promotions, put them in a dict format {name: id}
+    const sales_dict = {None: null}
+    const all_promotions = useSelector(state => state.all_promotions)
+    for (const promotion_id in all_promotions) {
+        const promotion = all_promotions[promotion_id]
+        sales_dict[promotion.promotion_type] = promotion_id
+    }
+
+
+    // once the store has been specified, check if the item already exists there
+    useEffect(()=> {
+        // TODO: replace with item retrieved from database based on barcode
+        const all_items = {barcode: item}
+        if (barcode in all_items) {
+            found = all_items[barcode]
+            setItem(all_items[barcode])
+
+            // auto-populate the info if an item was found
+            setName(found.name)
+            setTags(found.product_tags)
+            setBrand(found.brand)
+            setPrice(found.price)
+            setSale(all_promotions[found.promotion_id].promotion_type)
+            setEnd(all_promotions[found.promotion_id].end_time)
+        }
+    }, [store])
+
 
     const navigation = useNavigation();
 
     const handleSubmit = () => {
-        // Handle form submission here, you can send the data to a backend or perform any other action.
-        setPrice(price.toFixed(2))
+        // verify that all data was input
+        if (!store || !name || tags.length == 0 || !brand || price == 0) {
+            Alert.alert("Invalid Entry", "Please add all necessary information", [{text: 'Ok'}] );
+        } else {
+            // create a new item with the provided data
+            const new_item = {name: name, store_id: stores_dict[store], brand: brand,
+                            price: parseFloat(price).toFixed(2), product_tags: tags,
+                            promotion_id: sales_dict[sale], barcode_id: barcode,
+                            date: new Date(), user_id: user._id}
 
-        // TODO --> Add request to database
-        navigation.navigate("Shopping List");
-    };
+            // verify that this identical item doesn't already exist in database
+            let identical = true
+            for (key in item)
+                if (key == "date" || key == "user_id") continue
+                if (new_item[key] != item[key]) identical = false
 
-    const available_stores = []
-    for (const store_id in stores) {
-        const store = stores[store_id]
-        if (store.city == user.city && store.state == user.state) available_stores.push({label: store.name, value: store.name})
-    }
-
-    const products = []
-    const all_products = useSelector(state => state.all_products)
-    for (product_id in all_products) {
-        const product = all_products[product_id]
-        products.push(product.name)
-    }
-
-    const [possible_brands, setBrands] = useState([{label: "Please select one or more product tags first", value: null}])
-    useEffect(() => {
-        let brands = new Set()
-        for (const tag of tags) {
-            for (const product_id in all_products) {
-                const product = all_products[product_id]
-                if (product.name == tag) product.brands.forEach(brand => brands.add(brand))
+            if (identical) Alert.alert("Duplicate Entry", "This item is already up to date", [{text: 'Ok'}] )
+            else {
+                // add the item to the database
+                // TODO --> Add request to database
             }
+
+            // reset scan tab and go back to shopping list
+            navigation.navigate("Scan");
+            navigation.navigate("Shopping List");
         }
-        const new_brands = []
-        brands.forEach(brand => new_brands.push({label: brand, value: brand}))
-        if (new_brands.length != 0) setBrands(new_brands)
-    }, [tags])
-
-
-    const all_promotions = useSelector(state => state.all_promotions)
-    const promotions = [{label: "None", value: null}]
-    for (const promotion_id in all_promotions) {
-        const promotion = all_promotions[promotion_id]
-        promotions.push({label: promotion.promotion_type, value: promotion.promotion_type})
-    }
+    };
 
 
     return (
     <SafeAreaView style={styles.app}>
         <View style={[styles.container, {justifyContent: 'center'}]}>
             <ScrollView>
-                <Text style={label_text}>Store</Text>
-                <Dropdown value={store} setValue={setStore} options={available_stores} type={"store"}/>
+                <StoresDropdown store={store} setStore={setStore} stores={Object.keys(stores_dict)} />
 
                 <Text style={label_text}>Item Name</Text>
                 <View style={item_style.concat({marginBottom: 15})}>
@@ -106,11 +124,8 @@ function AddTagsPage({route}) {
                     />
                 </View>
 
-                <Text style={label_text}>Product Tags</Text>
-                <Dropdown value={tags} setValue={setTags} options={products} type={"product"}/>
-
-                <Text style={label_text}>Brand</Text>
-                <Dropdown value={brand} setValue={setBrand} options={possible_brands} type={"brand"}/>
+                <TagsDropdown tags={tags} setTags={setTags} />
+                <BrandsDropdown tags={tags} brand={brand} setBrand={setBrand} />
 
                 <Text style={label_text}>Price</Text>
                 <View style={item_style.concat({marginBottom: 15}, styles.row)}>
@@ -128,8 +143,11 @@ function AddTagsPage({route}) {
                     </View>
                 </View>
 
-                <Text style={label_text}>Sale</Text>
-                <Dropdown value={sale} setValue={setSale} options={promotions} type={"sale"} placeholder={"None"}/>
+                <PromotionsDropdown sale={sale} setSale={setSale} promotions={Object.keys(sales_dict)} />
+
+                {sale && sale != "None" ? (
+                    <SaleDatePicker endSale={endSale} setEnd={setEnd} pickDate={pickDate} setPicker={setPicker} />
+                ) : null}
 
                 <Text style={button} onPress={handleSubmit}>
                     Submit

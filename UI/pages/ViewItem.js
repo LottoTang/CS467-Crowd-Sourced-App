@@ -36,7 +36,7 @@ function ViewItem() {
     //const dispatch = useDispatch();
     const [ranking, setRanking] = useState("price");
     //const all_items = useSelector(state => state.all_items);
-    const shopping_list = useSelector(state => state.shopping_list);
+    const shopping_list = useSelector((state)=> state.user.shopping_list_item);
     const [popup, setPopup] = useState(false)
 
     let item_ids = shopping_list[product]
@@ -55,7 +55,7 @@ function ViewItem() {
                     setItemsReceived(true);
                 }).catch(error => console.error(error));
             }catch(error){
-                console.log(error);
+                console.error(error);
             }
         }
 
@@ -65,9 +65,9 @@ function ViewItem() {
                 .then(result => {
                     setAllStores(result.data)
                     setStoresReceived(true);
-                }).catch(error => console.log(error));
+                }).catch(error => console.error(error));
             }catch (error){
-                console.log(error);
+                console.error(error);
             }
         }
 
@@ -102,14 +102,10 @@ function ViewItem() {
         navigation.navigate('Select Brand', {product: item, preselected: selected_brands});
     };
 
-    const popup_vals = [
-        {label: "Price", value: "price"},
-        {label: "Store", value: "store"},
-        {label: "Brand", value: "brand"},
-    ]
+    const popup_vals = ["Price", "Store", "Brand"]
 
     const closePopup = (selection=null) => {
-        if (selection != null) setRanking(selection.value)
+        if (selection != null) setRanking(selection)
         setPopup(false)
     }
 
