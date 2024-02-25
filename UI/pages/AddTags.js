@@ -3,26 +3,25 @@ import React from 'react';
 import {
   SafeAreaView,
   Alert,
-  Pressable,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 
 // data imports
 import axios from 'axios';
-import { stores } from "../../testData/testingData2";
 
 // component imports
-import Dropdown from '../components/Dropdown.js'
+import { StoresDropdown, TagsDropdown, BrandsDropdown, PromotionsDropdown } from '../components/AddTagsComponents.js'
 
 // style imports
-import styles, {item_style, text_styles, add_button} from '../style.js';
+import styles, {item_style, text_styles} from '../style.js';
+
 
 function AddTagsPage({route}) {
 // the Add tags page screen itself with its component
@@ -36,9 +35,9 @@ function AddTagsPage({route}) {
 
     const [store, setStore] = useState(item.store);
     const [name, setName] = useState(item.name);
+    const [tags, setTags] = useState(item.product_tags);
     const [brand, setBrand] = useState(item.brand);
     const [price, setPrice] = useState(item.price);
-    const [tags, setTags] = useState(item.product_tags);
     const [sale, setSale] = useState(item.promotion);
 
     const date = new Date()
@@ -47,55 +46,21 @@ function AddTagsPage({route}) {
     const navigation = useNavigation();
 
     const handleSubmit = () => {
-        // Handle form submission here, you can send the data to a backend or perform any other action.
-        //setPrice(price.toFixed(2))
+        if (!store || !name || tags.length == 0 || !brand || price == 0) console.log("item not selected")
+
+        setPrice(parseFloat(price).toFixed(2))
 
         // TODO --> Add request to database
+        navigation.navigate("Scan");
         navigation.navigate("Shopping List");
     };
-
-    const available_stores = []
-    for (const store_id in stores) {
-        const store = stores[store_id]
-        if (store.city == user.city && store.state == user.state) available_stores.push(store.name)
-    }
-
-    const products = []
-    const all_products = useSelector(state => state.all_products)
-    for (product_id in all_products) {
-        const product = all_products[product_id]
-        products.push(product.name)
-    }
-
-    const [possible_brands, setBrands] = useState(["Please select one or more product tags first"])
-    useEffect(() => {
-        let brands = new Set()
-        for (const tag of tags) {
-            for (const product_id in all_products) {
-                const product = all_products[product_id]
-                if (product.name == tag) product.brands.forEach(brand => brands.add(brand))
-            }
-        }
-        const new_brands = []
-        brands.forEach(brand => new_brands.push(brand))
-        if (new_brands.length != 0) setBrands(new_brands)
-    }, [tags])
-
-
-    const all_promotions = useSelector(state => state.all_promotions)
-    const promotions = ["None"]
-    for (const promotion_id in all_promotions) {
-        const promotion = all_promotions[promotion_id]
-        promotions.push(promotion.promotion_type)
-    }
 
 
     return (
     <SafeAreaView style={styles.app}>
         <View style={[styles.container, {justifyContent: 'center'}]}>
             <ScrollView>
-                <Text style={label_text}>Store</Text>
-                <Dropdown value={store} setValue={setStore} options={available_stores} type={"store"}/>
+                <StoresDropdown store={store} setStore={setStore} user={user} />
 
                 <Text style={label_text}>Item Name</Text>
                 <View style={item_style.concat({marginBottom: 15})}>
@@ -106,11 +71,8 @@ function AddTagsPage({route}) {
                     />
                 </View>
 
-                <Text style={label_text}>Product Tags</Text>
-                <Dropdown value={tags} setValue={setTags} options={products} type={"product"}/>
-
-                <Text style={label_text}>Brand</Text>
-                <Dropdown value={brand} setValue={setBrand} options={possible_brands} type={"brand"}/>
+                <TagsDropdown tags={tags} setTags={setTags} />
+                <BrandsDropdown tags={tags} brand={brand} setBrand={setBrand} />
 
                 <Text style={label_text}>Price</Text>
                 <View style={item_style.concat({marginBottom: 15}, styles.row)}>
@@ -128,8 +90,7 @@ function AddTagsPage({route}) {
                     </View>
                 </View>
 
-                <Text style={label_text}>Sale</Text>
-                <Dropdown value={sale} setValue={setSale} options={promotions} type={"sale"} placeholder={"None"}/>
+                <PromotionsDropdown sale={sale} setSale={setSale} />
 
                 <Text style={button} onPress={handleSubmit}>
                     Submit
