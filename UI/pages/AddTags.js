@@ -15,7 +15,6 @@ import {
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
-import DatePicker from 'react-native-date-picker'
 
 // data imports
 import axios from 'axios';
@@ -150,15 +149,6 @@ function AddTagsPage({route}) {
 
                 {sale && sale != "None" ? (
                     <View>
-                        <DatePicker modal
-                            open={pickDate}
-                            date={endSale}
-                            onConfirm={(date) => {
-                              setPicker(false)
-                              setEnd(date)
-                            }}
-                            onCancel={() => setPicker(false)}
-                        />
                         <Text style={label_text}>Sale End Date</Text>
                         <Pressable style={item_style.concat({marginBottom: 15})} onPress={() => setPicker(true)}>
                             {endSale ? (
