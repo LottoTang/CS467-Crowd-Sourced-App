@@ -11,7 +11,6 @@ import {
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
 
 // function imports
 import { getGoShoppingList, getStoresSorting } from "../../redux/funtionality/helperFunctions";
