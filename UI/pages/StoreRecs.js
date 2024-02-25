@@ -11,12 +11,12 @@ import {
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
 
 // function imports
 import { getGoShoppingList, getStoresSorting } from "../../redux/funtionality/helperFunctions";
 
 // data imports
+import { fetchItems, fetchStores } from '../../redux/funtionality/connectionMongo.js';
 import { items, stores } from "../../testData/testingData2";
 
 // component imports
@@ -101,45 +101,33 @@ function StoreRecs() {
     const user = useSelector(state => state.user);
     const [allItems, setAllItems] = useState([]);
     const [allStores, setAllStores] = useState([]);
-    const [itemsReceived, setItemsReceived] = useState(false);
-    const [storesReceived, setStoresReceived] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const shopping_list = useSelector((state)=> state.user.shopping_list_item);
     const [ranking, setRanking] = useState("Items Found");
 
+    // capture all tags in the shopping list
+    const tags = Object.keys(shopping_list);
+
     // Get stores and all items from database
     useEffect(() => {
-        // capture all tags in the shopping list
-        const tags = Object.keys(shopping_list);
-    
-        // Get stores and all items from database
         const fetchData = async () => {
-            try {
-                const itemsPromises = tags.map(async (tag) => {
-                    const response = await axios.get(`http://10.0.2.2:3000/items/`, {
-                        params: {
-                            tag: `${tag}`,
-                        }
-                    });
-                    return response.data;
-                });
-                const itemsData = await Promise.all(itemsPromises);
-                setAllItems(itemsData);
-                setItemsReceived(true);
-    
-                const storesResponse = await axios.get(`http://10.0.2.2:3000/stores`);
-                setAllStores(storesResponse.data);
-                setStoresReceived(true);
-            } catch (error) {
-                console.error(error);
-            }
+            const itemsPromises = tags.map(async (tag) => {
+                return fetchItems(tag);
+            });
+            const itemsData = await Promise.all(itemsPromises);
+            setAllItems(itemsData);
+
+            const stores = await fetchStores();
+            setAllStores(stores);
+
+            setLoading(false);
         };
-    
         fetchData();
     }, [shopping_list]);
 
     // Ensure we have data from the database
-    if (!storesReceived || !itemsReceived){
+    if (loading){
         return (
             <View>
                 <Text>Loading...</Text>
