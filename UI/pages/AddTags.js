@@ -20,6 +20,7 @@ import { fetchStores, fetchPromotions, getItemByBarcode } from '../../redux/funt
 
 // component imports
 import { StoresDropdown, TagsDropdown, BrandsDropdown, PromotionsDropdown, SaleDatePicker } from '../components/AddTagsComponents.js'
+import Loading from '../components/LoadingPage.js'
 
 // style imports
 import styles, {item_style, text_styles} from '../style.js';
@@ -90,6 +91,10 @@ function AddTagsPage({route}) {
         }
         fetchData()
     }, [store])
+
+    if (loading) {
+        return <Loading />
+    }
 
 
     const navigation = useNavigation();

@@ -17,7 +17,7 @@ import PopupModal from './PopupModal.js'
 // style imports
 import {item_style, text_styles} from '../style.js';
 
-function Dropdown ({value, setValue, options, type, placeholder=null, alert=false, alertMsg=[], searchFunc=()=>options}) {
+function Dropdown ({value, setValue, options, type, placeholder=null, alert=false, alertMsg=[], searchFunc}) {
 // Dropdown component is a selectable box similar to text input, that opens a popup when pressed
 
     // set up default placeholder text in box
@@ -45,6 +45,12 @@ function Dropdown ({value, setValue, options, type, placeholder=null, alert=fals
     // search functionality for popups marked as "Searchable"
     const [search, setSearch] = useState('');
     const [suggested_items, setSuggestedItems] = useState(options);
+
+    if (!searchFunc) searchFunc = () => options
+
+    useEffect(() => {
+        if (type == "brand") setSuggestedItems(options)
+    }, [options])
 
     useEffect(() =>{
         const getData = async ()=> {

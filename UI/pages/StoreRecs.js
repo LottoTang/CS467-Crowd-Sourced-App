@@ -21,6 +21,7 @@ import { items, stores } from "../../testData/testingData2";
 
 // component imports
 import PopupModal from '../components/PopupModal.js'
+import Loading from '../components/LoadingPage.js'
 
 // style imports
 import styles, {item_style, text_styles, add_button, popup_style} from '../style.js'
@@ -127,12 +128,8 @@ function StoreRecs() {
     }, [shopping_list]);
 
     // Ensure we have data from the database
-    if (loading){
-        return (
-            <View>
-                <Text>Loading...</Text>
-            </View>
-        );
+    if (loading) {
+        return <Loading />
     }
 
 

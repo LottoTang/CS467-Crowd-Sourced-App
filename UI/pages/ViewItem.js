@@ -21,6 +21,7 @@ import { fetchItems, fetchStores } from '../../redux/funtionality/connectionMong
 // component imports
 import StoresList from '../components/StoresList.js'
 import PopupModal from '../components/PopupModal.js'
+import Loading from '../components/LoadingPage.js'
 
 // style imports
 import styles, {text_styles, add_button, popup_style} from '../style.js';
@@ -58,12 +59,8 @@ function ViewItem() {
     }, []);
 
 
-    if (loading){
-        return (
-            <View>
-                <Text>Loading...</Text>
-            </View>
-        );
+    if (loading) {
+        return <Loading />
     }
 
 
