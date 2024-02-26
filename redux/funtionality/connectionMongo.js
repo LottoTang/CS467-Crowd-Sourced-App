@@ -86,6 +86,45 @@ async function searchProducts(product_name) {
     return res
 }
 
+// fetch all promotions
+async function fetchPromotions() {
+    let res;
+
+    // TODO: get all promotions doesn't exist
+
+    /*
+    try {
+        const response = await axios.get(`http://10.0.2.2:3000/promotions`
+            ).then(result => {
+                res = result.data
+                })
+            .catch(error => console.log(error))
+    } catch(error) { console.error(error) };
+    */
+
+    return res
+}
 
 
-export { getUser, fetchItems, fetchStores, fetchBrands, searchProducts };
+// fetch an item based on it's barcode and the store where it is located
+async function getItemByBarcode(barcode, store) {
+    let res;
+
+    // TODO: get item by barcode doesn't exist
+
+    /*
+    try {
+        const response = await axios.get(`http://10.0.2.2:3000/promotions`
+            ).then(result => {
+                res = result.data
+                })
+            .catch(error => console.log(error))
+    } catch(error) { console.error(error) };
+    */
+
+    return res
+}
+
+
+
+export { getUser, fetchItems, fetchStores, fetchBrands, searchProducts, fetchPromotions, getItemByBarcode };

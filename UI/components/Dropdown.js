@@ -17,7 +17,7 @@ import PopupModal from './PopupModal.js'
 // style imports
 import {item_style, text_styles} from '../style.js';
 
-function Dropdown ({value, setValue, options, type, placeholder=null, alert=false, alertMsg=[]}) {
+function Dropdown ({value, setValue, options, type, placeholder=null, alert=false, alertMsg=[], searchFunc=()=>options}) {
 // Dropdown component is a selectable box similar to text input, that opens a popup when pressed
 
     // set up default placeholder text in box
@@ -36,25 +36,23 @@ function Dropdown ({value, setValue, options, type, placeholder=null, alert=fals
     if (type != "store") popup_type = ["Dropdown", "Searchable"]
     if (type == "product") popup_type = ["Dropdown", "Searchable", "Select"]
 
-
-    // search functionality for popups marked as "Searchable"
-    const [suggested_items, setSuggestedItems] = useState(options);
-    useEffect(() => {
-        setSuggestedItems(options)
-    }, [options])
-
-    const [search, setSearch] = useState("")
-    const handleInputChange = (text)=>{
-        setSearch(text);
-        const filter_data = giveSuggestedItems(options, text);
-        setSuggestedItems(filter_data);
-    }
-
     // open popup if allowed, display alert message otherwise
     const openPopup = () => {
         if (alert) Alert.alert(alertMsg[0], alertMsg[1], [{text: 'Ok'}])
         else setPopup(true)
     }
+
+    // search functionality for popups marked as "Searchable"
+    const [search, setSearch] = useState('');
+    const [suggested_items, setSuggestedItems] = useState(options);
+
+    useEffect(() =>{
+        const getData = async ()=> {
+            const data = await searchFunc(search)
+            setSuggestedItems(data)
+        }
+        getData();
+    }, [search]);
 
     return(
         <View>
@@ -66,7 +64,7 @@ function Dropdown ({value, setValue, options, type, placeholder=null, alert=fals
                 preselected={value}
                 select_type={type}
                 search={search}
-                setSearch={handleInputChange}
+                setSearch={setSearch}
             />
             <Pressable style={item_style.concat({marginBottom: 15})} onPress={openPopup}>
                 {value && value.length > 0 ? (

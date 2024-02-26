@@ -16,7 +16,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 // data imports
 import axios from 'axios';
-import { stores } from "../../testData/testingData2";
+import { fetchStores, fetchPromotions, getItemByBarcode } from '../../redux/funtionality/connectionMongo.js';
 
 // component imports
 import { StoresDropdown, TagsDropdown, BrandsDropdown, PromotionsDropdown, SaleDatePicker } from '../components/AddTagsComponents.js'
@@ -42,38 +42,53 @@ function AddTagsPage({route}) {
     const [endSale, setEnd] = useState(new Date())
     const [pickDate, setPicker] = useState(false)
 
-    // retrieve all of the stores in the user's area, put them in a dict format {name: id}
-    const stores_dict = {}
-    for (const store_id in stores) {
-        const store = stores[store_id]
-        if (store.city == user.city && store.state == user.state) stores_dict[store.name] = store_id
-    }
+    const [loading, setLoading] = useState(true)
+    const [stores_dict, setStores] = useState({})
+    const [sales_dict, setSales] = useState({None: null})
 
-    // retrieve all of the promotions, put them in a dict format {name: id}
-    const sales_dict = {None: null}
-    const all_promotions = useSelector(state => state.all_promotions)
-    for (const promotion_id in all_promotions) {
-        const promotion = all_promotions[promotion_id]
-        sales_dict[promotion.promotion_type] = promotion_id
-    }
+    useEffect(() => {
+        const fetchData = async () => {
+            // retrieve all of the stores in the user's area, put them in a dict format {name: id}
+            const stores_dict = {}
+            const stores = await fetchStores()
+            for (const store_id in stores) {
+                const store = stores[store_id]
+                stores_dict[store.name] = store_id
+            }
+            setStores(stores_dict)
+
+            // retrieve all of the promotions, put them in a dict format {name: id}
+            const sales_dict = {None: null}
+            const all_promotions = await fetchPromotions()
+            for (const promotion_id in all_promotions) {
+                const promotion = all_promotions[promotion_id]
+                sales_dict[promotion.promotion_type] = promotion_id
+            }
+            setSales(sales_dict)
+
+            setLoading(false)
+        }
+        fetchData()
+    }, [])
 
 
     // once the store has been specified, check if the item already exists there
-    useEffect(()=> {
-        // TODO: replace with item retrieved from database based on barcode
-        const all_items = {barcode: item}
-        if (barcode in all_items) {
-            found = all_items[barcode]
-            setItem(all_items[barcode])
+    useEffect(() => {
+        const fetchData = async () => {
+            const found = await getItemByBarcode(barcode, store)
+            if (found) {
+                setItem(found)
 
-            // auto-populate the info if an item was found
-            setName(found.name)
-            setTags(found.product_tags)
-            setBrand(found.brand)
-            setPrice(found.price)
-            setSale(all_promotions[found.promotion_id].promotion_type)
-            setEnd(all_promotions[found.promotion_id].end_time)
+                // auto-populate the info if an item was found
+                setName(found.name)
+                setTags(found.product_tags)
+                setBrand(found.brand)
+                setPrice(found.price)
+                setSale(all_promotions[found.promotion_id].promotion_type)
+                setEnd(all_promotions[found.promotion_id].end_time)
+            }
         }
+        fetchData()
     }, [store])
 
 
