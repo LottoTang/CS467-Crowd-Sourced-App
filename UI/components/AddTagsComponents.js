@@ -28,7 +28,6 @@ import styles, {item_style, text_styles} from '../style.js';
 
 const StoresDropdown = ({store, setStore, stores}) => {
 // Dropdown popup that allows user to select a store input
-
     return (
         <View>
             <Text style={label_text}>Store</Text>
@@ -61,25 +60,24 @@ const TagsDropdown = ({tags, setTags, setNew, new_products}) => {
     )
 }
 
-const BrandsDropdown = ({tags, brand, setBrand, setNew}) => {
+const BrandsDropdown = ({tags, brand, setBrand, setNew, editable}) => {
 // Dropdown popup that allows user to select a brand input
 
     // find possible brands for each selected product tag
     const [possible_brands, setBrands] = useState([])
     useEffect(() => {
         const fetchData = async () => {
-            let brands = new Set()
+            const brands = []
             for (const tag of tags) {
                 const product_brands = await fetchBrands(tag)
-                product_brands.forEach(brand => brands.add(brand))
+                product_brands.forEach(brand => {if (!brands.includes(brand)) brands.push(brand)})
             }
-            const new_brands = []
-            brands.forEach(brand => new_brands.push(brand))
-            setBrands(new_brands)
+            setBrands(brands)
         }
         fetchData()
     }, [tags])
 
+    // function to call when brands are searched in the dropdown
     const searchFunc = (search)=>{
         return giveSuggestedItems(possible_brands, search)
     }
@@ -96,6 +94,7 @@ const BrandsDropdown = ({tags, brand, setBrand, setNew}) => {
                 alertMsg={["Invalid Product", "Please select at least one product first"]}
                 searchFunc={searchFunc}
                 setNew={setNew}
+                editable={editable}
             />
         </View>
     )
@@ -104,7 +103,7 @@ const BrandsDropdown = ({tags, brand, setBrand, setNew}) => {
 const PromotionsDropdown = ({sale, setSale, promotions, setNew}) => {
 // Dropdown popup that allows user to select a promotion input
 
-    // search functionality for popups marked as "Searchable"
+    // TODO: replace this with promotions search backend function
     const searchFunc = (search)=>{
         return giveSuggestedItems(promotions, search);
     }

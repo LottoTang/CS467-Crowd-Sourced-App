@@ -17,7 +17,7 @@ import PopupModal from './PopupModal.js'
 // style imports
 import {item_style, text_styles} from '../style.js';
 
-function Dropdown ({value, setValue, options, type, placeholder=null, alert=false, alertMsg=[], searchFunc, setNew=()=>{}, new_values}) {
+function Dropdown ({value, setValue, options, type, placeholder=null, alert=false, alertMsg=[], searchFunc, setNew=()=>{}, new_values, editable=true}) {
 // Dropdown component is a selectable box similar to text input, that opens a popup when pressed
 
     // set up default placeholder text in box
@@ -42,16 +42,19 @@ function Dropdown ({value, setValue, options, type, placeholder=null, alert=fals
         else setPopup(true)
     }
 
+
     // search functionality for popups marked as "Searchable"
     const [search, setSearch] = useState('');
     const [suggested_items, setSuggestedItems] = useState(options);
 
     if (!searchFunc) searchFunc = () => options
 
+    // set brands to show all brands list when search is empty
     useEffect(() => {
         if (type == "brand") setSuggestedItems(options)
     }, [options])
 
+    // when the search text changes, call provided search function and update list of options
     useEffect(() =>{
         const getData = async ()=> {
             let data = await searchFunc(search)
@@ -60,6 +63,7 @@ function Dropdown ({value, setValue, options, type, placeholder=null, alert=fals
         }
         getData();
     }, [search]);
+
 
     return(
         <View>
@@ -74,7 +78,7 @@ function Dropdown ({value, setValue, options, type, placeholder=null, alert=fals
                 setSearch={setSearch}
                 setNew={setNew}
             />
-            <Pressable style={item_style.concat({marginBottom: 15})} onPress={openPopup}>
+            <Pressable style={item_style.concat({marginBottom: 15})} onPress={openPopup} disabled={!editable} >
                 {value && value.length > 0 ? (
                     <Text style={text_styles.inputText}>{value.toString()}</Text>
                 ) : (

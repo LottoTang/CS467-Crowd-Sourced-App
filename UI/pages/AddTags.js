@@ -15,7 +15,6 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 
 // data imports
-import axios from 'axios';
 import { fetchStores, fetchProduct, fetchPromotions, getItemByBarcode } from '../../redux/funtionality/connectionMongo.js';
 import { addProduct, updateBrands, createPromotion, addItem, updateItem } from '../../redux/funtionality/postPatchFunctions.js';
 
@@ -37,19 +36,21 @@ function AddTagsPage({route}) {
     // create empty item and empty form data
     const [item, setItem] = useState({name: '', store_id: '', brand: '', price: 0, product_tags: [], promotion_id: ''})
 
+    // form data
     const [store, setStore] = useState(item.store_id);
     const [name, setName] = useState(item.name);
     const [tags, setTags] = useState(item.product_tags);
     const [brand, setBrand] = useState(item.brand);
     const [price, setPrice] = useState(item.price);
     const [sale, setSale] = useState(item.promotion_id);
-    const [endSale, setEnd] = useState(new Date())
-    const [pickDate, setPicker] = useState(false)
 
+    // data loading from database
     const [loading, setLoading] = useState(true)
     const [stores_dict, setStores] = useState({})
     const [sales_dict, setSales] = useState({None: null})
+    const [editable, setEditable] = useState(true)
 
+    // new data to be posted on submit
     const [new_products, setNewProducts] = useState([])
     const [new_brand, setNewBrand] = useState("")
     const [new_sale, setNewSale] = useState("")
@@ -91,13 +92,15 @@ function AddTagsPage({route}) {
             if (found) {
                 setItem(found)
 
+                // disable editing item name and brand
+                setEditable(false)
+
                 // auto-populate the info if an item was found
                 setName(found.name)
                 setTags(found.product_tags)
                 setBrand(found.brand)
                 setPrice(found.price)
                 setSale(all_promotions[found.promotion_id].promotion_type)
-                setEnd(all_promotions[found.promotion_id].end_time)
             }
         }
         fetchData()
@@ -178,11 +181,12 @@ function AddTagsPage({route}) {
                         style={text_styles.inputText}
                         value={name}
                         onChangeText={setName}
+                        editable={editable}
                     />
                 </View>
 
                 <TagsDropdown tags={tags} setTags={setTags} setNew={addNewProduct} new_products={new_products} />
-                <BrandsDropdown tags={tags} brand={brand} setBrand={setBrand} setNew={setNewBrand} />
+                <BrandsDropdown tags={tags} brand={brand} setBrand={setBrand} setNew={setNewBrand} editable={editable} />
 
                 <Text style={label_text}>Price</Text>
                 <View style={item_style.concat({marginBottom: 15}, styles.row)}>
