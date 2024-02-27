@@ -60,7 +60,7 @@ const headerFunc = ({navigation, route, options, back}) => {
                         
                         // Get users shopping list 
                         const shoppingList = user.shopping_list_item;
-                        const newList = removeSelectedItem(shoppingList, item);
+                        const newList = removeSelectedItem(shoppingList, route.params.product);
 
                         // Send update to shopping list 
                         
