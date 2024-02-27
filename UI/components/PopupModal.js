@@ -54,13 +54,14 @@ const SearchBar = ({search, setSearch, addable, add}) => {
 }
 
 
-const PopupList = ({data, type, close, search, setSearch}) => {
+const PopupList = ({data, type, close, search, setSearch, setNew}) => {
 // displays a FlatList of the provided array of data
     let title;
     if (type == "Sort" || type == "Filter") title = `${type} by:`
 
     // if new option is created, select it and close the popup
     const add = (new_item) => {
+        setNew(new_item)
         close(new_item)
     }
 
@@ -84,12 +85,13 @@ const PopupList = ({data, type, close, search, setSearch}) => {
     )
 }
 
-const PopupCheckList = ({data, preselected, close, select_type, popup_type, search, setSearch}) => {
+const PopupCheckList = ({data, preselected, close, select_type, popup_type, search, setSearch, setNew}) => {
 // displays a checklist of the provided array of data
     const [selected_items, setSelectedItems] = useState(preselected)
 
     // if new option is created, add it and close the popup
     const add = (new_item) => {
+        setNew(new_item)
         close(selected_items.concat(new_item))
     }
 
@@ -113,7 +115,7 @@ const PopupCheckList = ({data, preselected, close, select_type, popup_type, sear
     )
 }
 
-function PopupModal({popup, popup_type="Sort", data, closePopup, preselected=[], select_type="store", search, setSearch}) {
+function PopupModal({popup, popup_type="Sort", data, closePopup, preselected=[], select_type="store", search, setSearch, setNew}) {
 // the popup modal itself, which hides the background and pulls up a white tab with data
 // displays a checklist or a flatlist depending on the popup options passed
     return (
@@ -144,6 +146,7 @@ function PopupModal({popup, popup_type="Sort", data, closePopup, preselected=[],
                                 popup_type={popup_type}
                                 search={search}
                                 setSearch={setSearch}
+                                setNew={setNew}
                             />
                         ) : (
                             <PopupList
@@ -152,6 +155,7 @@ function PopupModal({popup, popup_type="Sort", data, closePopup, preselected=[],
                                 close={closePopup}
                                 search={search}
                                 setSearch={setSearch}
+                                setNew={setNew}
                             />
                     )}
                 </View>

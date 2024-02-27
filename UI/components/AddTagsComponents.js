@@ -16,7 +16,6 @@ import { useSelector } from 'react-redux';
 import { giveSuggestedItems } from '../../redux/funtionality/helperFunctions.js';
 
 // data imports
-import axios from 'axios';
 import { searchProducts, fetchBrands } from '../../redux/funtionality/connectionMongo.js';
 
 // component imports
@@ -43,7 +42,7 @@ const StoresDropdown = ({store, setStore, stores}) => {
     )
 }
 
-const TagsDropdown = ({tags, setTags}) => {
+const TagsDropdown = ({tags, setTags, setNew, new_products}) => {
 // Dropdown popup that allows user to select 1+ product tag inputs
     return (
         <View>
@@ -55,12 +54,14 @@ const TagsDropdown = ({tags, setTags}) => {
                 type={"product"}
                 placeholder={"Select at least one product"}
                 searchFunc={searchProducts}
+                setNew={setNew}
+                new_values={new_products}
             />
         </View>
     )
 }
 
-const BrandsDropdown = ({tags, brand, setBrand}) => {
+const BrandsDropdown = ({tags, brand, setBrand, setNew}) => {
 // Dropdown popup that allows user to select a brand input
 
     // find possible brands for each selected product tag
@@ -94,12 +95,13 @@ const BrandsDropdown = ({tags, brand, setBrand}) => {
                 alert={tags.length == 0}
                 alertMsg={["Invalid Product", "Please select at least one product first"]}
                 searchFunc={searchFunc}
+                setNew={setNew}
             />
         </View>
     )
 }
 
-const PromotionsDropdown = ({sale, setSale, promotions}) => {
+const PromotionsDropdown = ({sale, setSale, promotions, setNew}) => {
 // Dropdown popup that allows user to select a promotion input
 
     // search functionality for popups marked as "Searchable"
@@ -117,6 +119,7 @@ const PromotionsDropdown = ({sale, setSale, promotions}) => {
                 type={"sale"}
                 placeholder={"None"}
                 searchFunc={searchFunc}
+                setNew={setNew}
             />
         </View>
     )

@@ -52,7 +52,7 @@ async function fetchStores() {
 
 // fetch all brands for a product
 async function fetchBrands(product) {
-    let res;
+    let res = [];
 
     try{
         const response = await axios.get(`http://10.0.2.2:3000/products/brands`, {
@@ -62,7 +62,10 @@ async function fetchBrands(product) {
         }).then(result => {
             res = result.data;
             })
-        .catch(error => console.error(error));
+        .catch(error => {
+            if (error.response.status == 404) console.log("Product not found")
+            else console.error(error)
+        });
     }catch(error){ console.error(error) };
 
     return res
@@ -75,7 +78,25 @@ async function searchProducts(product_name) {
     try{
         const response = await axios.get(`http://10.0.2.2:3000/products/search`, {
             params: {
-                name: `${product_name}`,
+                name: `${product_name.toLowerCase()}`,
+            }
+        }).then(result => {
+            res = result.data;
+            })
+        .catch(error => console.error(error));
+    }catch(error){ console.error(error) };
+
+    return res
+}
+
+// fetch the product object corresponding to the name
+async function fetchProduct(product_name) {
+    let res;
+
+    try{
+        const response = await axios.get(`http://10.0.2.2:3000/products/`, {
+            params: {
+                name: `${product_name.toLowerCase()}`,
             }
         }).then(result => {
             res = result.data;
@@ -127,4 +148,4 @@ async function getItemByBarcode(barcode, store) {
 
 
 
-export { getUser, fetchItems, fetchStores, fetchBrands, searchProducts, fetchPromotions, getItemByBarcode };
+export { getUser, fetchItems, fetchStores, fetchBrands, searchProducts, fetchProduct, fetchPromotions, getItemByBarcode };

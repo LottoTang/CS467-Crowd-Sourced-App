@@ -17,7 +17,7 @@ import PopupModal from './PopupModal.js'
 // style imports
 import {item_style, text_styles} from '../style.js';
 
-function Dropdown ({value, setValue, options, type, placeholder=null, alert=false, alertMsg=[], searchFunc}) {
+function Dropdown ({value, setValue, options, type, placeholder=null, alert=false, alertMsg=[], searchFunc, setNew=()=>{}, new_values}) {
 // Dropdown component is a selectable box similar to text input, that opens a popup when pressed
 
     // set up default placeholder text in box
@@ -54,7 +54,8 @@ function Dropdown ({value, setValue, options, type, placeholder=null, alert=fals
 
     useEffect(() =>{
         const getData = async ()=> {
-            const data = await searchFunc(search)
+            let data = await searchFunc(search)
+            if (new_values) data = data.concat(new_values)
             setSuggestedItems(data)
         }
         getData();
@@ -71,6 +72,7 @@ function Dropdown ({value, setValue, options, type, placeholder=null, alert=fals
                 select_type={type}
                 search={search}
                 setSearch={setSearch}
+                setNew={setNew}
             />
             <Pressable style={item_style.concat({marginBottom: 15})} onPress={openPopup}>
                 {value && value.length > 0 ? (
