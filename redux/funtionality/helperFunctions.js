@@ -154,17 +154,23 @@ function giveSuggestedItems(products, target_item){
     const targets = target_item.split(" ");
 
     // Iterate through all items in database
-    for (let product_id of Object.keys(products)){
-        product = products[product_id].name
-        
-        //split the words in the item from main list 
+    for (let product_id in products){
+        let product = products[product_id].name
+        let dropdown = false
+        if (!product) {
+            dropdown = true
+            product = products[product_id]
+        }
+
+        //split the words in the item from main list
         let words = product.split(" ");
 
         // check if there is a match for each word in item list with target item
         for (let target in targets){
             if (words.includes(targets[target])){
                 if (!similar_items.includes(product)){
-                    similar_items.push(product);
+                    if (dropdown) similar_items.push(products[product_id])
+                    else similar_items.push(product);
                 }
             }
         }
@@ -330,11 +336,11 @@ function getStoresSorting(input_object, sorting){
 
     let sorted_list = Object.values(input_object);
 
-    if (sorting == "price"){
+    if (sorting == "Price"){
         sorted_list.sort((a, b) => a.total_cost - b.total_cost);
-    } else if (sorting == "items"){
+    } else if (sorting == "Items Found"){
         sorted_list.sort((a, b) => b.num_items - a.num_items);
-    } else if (sorting == "store_name"){
+    } else if (sorting == "Store"){
         sorted_list.sort((a, b) => {
             const name_a = a.name.toUpperCase();
             const name_b = b.name.toUpperCase();
@@ -355,10 +361,9 @@ function getStoresSorting(input_object, sorting){
 
 // Function to sort a list of store options for a selected item by price, brand and store
 function getItemSorting(items, sorting, stores){
-    
-    if (sorting == "price"){
+    if (sorting == "Price"){
         items.sort((a, b) => a.price - b.price);
-    } else if (sorting == "brand"){
+    } else if (sorting == "Brand"){
         items.sort((a, b) => {
 
             // If brand is added to back to the filters, use this
@@ -376,7 +381,7 @@ function getItemSorting(items, sorting, stores){
                 return 0;
             }
         })
-    } else if (sorting == "store"){
+    } else if (sorting == "Store"){
         items.sort((a, b) => {
 
             // Previous format of the database. Save it if database schema changes again.

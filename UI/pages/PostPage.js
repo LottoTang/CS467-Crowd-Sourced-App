@@ -18,7 +18,7 @@ import { stores } from "../../testData/testingData2";
 import axios from 'axios';
 
 // component imports
-import PopupModal from '../components/PopupModal.js'
+import Dropdown from '../components/Dropdown.js'
 
 // style imports
 import styles, {item_style, text_styles, add_button} from '../style.js';
@@ -54,18 +54,10 @@ function PostPage() {
         }
     }
 
-
-    const [popup, setPopup] = useState(false)
-
     const available_stores = []
     for (const store_id in stores) {
         const store = stores[store_id]
-        if (store.city == user.city && store.state == user.state) available_stores.push({label: store.name, value: store_id})
-    }
-
-    const closePopup = (selection=null) => {
-        if (selection != null) setStore(selection.value)
-        setPopup(false)
+        if (store.city == user.city && store.state == user.state) available_stores.push(store.name)
     }
 
 
@@ -73,20 +65,8 @@ function PostPage() {
     <SafeAreaView style={styles.app}>
         <View style={[styles.container, {justifyContent: 'center'}]}>
 
-            <PopupModal
-                popup={popup}
-                popup_type={"Dropdown"}
-                data={available_stores}
-                closePopup={closePopup}
-            />
             <Text style={text_styles.smallTitle}>Store</Text>
-            <Pressable style={item_style.concat({marginBottom: 15})} onPress={() => setPopup(true)}>
-                {stores[store] ? (
-                    <Text style={text_styles.inputText}>{stores[store].name}</Text>
-                ) : (
-                    <Text style={text_styles.placeholder}>Select a store</Text>
-                )}
-            </Pressable>
+            <Dropdown value={store} setValue={setStore} options={available_stores} type={"store"}/>
 
             <Text style={text_styles.smallTitle}>Update</Text>
             <View style={item_style.concat({marginBottom: 15})}>

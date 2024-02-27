@@ -17,6 +17,7 @@ import { setUser } from '../../redux/actions/actions.js';
 
 // data imports
 import axios from 'axios';
+import { fetchBrands, fetchItems } from '../../redux/funtionality/connectionMongo.js';
 
 // component imports
 import CheckList from '../components/CheckList.js'
@@ -36,48 +37,22 @@ function SelectBrand({route}) {
     const [itemIDs, setItemIDs] = useState({});
     const [branding, setBranding] = useState([]);
 
-    // TODO: const brands = getBrandsList(product), where func retrieves from database
-    //const all_products = useSelector(state => state.all_products);
-    //const brands = getBrandsList(product, all_products);
-
     // Collect all brands from database
     useEffect( () => {
         const fillBrands = async ()=>{
-            try{
-                const response = await axios.get(`http://10.0.2.2:3000/items/`, {
-                    params: {
-                        tag: `${product}`,
-                    }
-                }).then(result => {
-                    
-                    const dataValues = result.data;
-                    const brandsList =[];
-                    const objIds = {};
+            const brands = await fetchBrands(product)
 
-                    for (let br in dataValues){
-                        // Make sure a brand is captured only once
-                        if (!brandsList.includes(dataValues[br].brand)){
-                            brandsList.push(dataValues[br].brand);
-                        }
+            const items = await fetchItems(product)
 
-                        // Capture item IDs for adding to shopping list
-                        if (!(dataValues[br].brand in objIds)){
-                            
-                            objIds[dataValues[br].brand] = [dataValues[br]._id];
-                        } else {
-                            
-                            objIds[dataValues[br].brand].push(dataValues[br]._id);
-                        }
-
-                    }
-                    setItemIDs(objIds);
-                    setAllBrands(brandsList);
-                }).catch(error => console.log(error));
-            } catch(error) {
-                console.error(error);
+            const objIds = {};
+            for (const item of items){
+                if (item.brand in objIds) objIds[item.brand].push(item._id)
+                else objIds[item.brand] = [item._id]
             }
-        } 
 
+            setAllBrands(brands)
+            setItemIDs(objIds)
+        }
         fillBrands();
     }, []);
  
@@ -143,15 +118,14 @@ function SelectBrand({route}) {
             // Send updated shopping list
             try{
                 const response = await axios.patch(`http://10.0.2.2:3000/users/shopping-list-item/${userId}`,
-                    copyShoppingList,   
-                    //{}
+                    copyShoppingList,
             ).then(result => {
                  // if shopping_list updated, reset redux user
                  dispatch(setUser(result.data));
                  })
-            .catch(error => console.log(error));
+            .catch(error => console.error(error));
             } catch(error){
-                console.log(error);
+                console.error(error);
             }
         };
         add_item();

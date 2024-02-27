@@ -248,6 +248,12 @@ const popup_style = StyleSheet.create({
         paddingTop: 12,
         height: 22,
     },
+    addButton: {
+        fontSize: 21,
+        lineHeight: 20,
+        paddingTop: 12,
+        height: 29,
+    }
 })
 
 export default styles;

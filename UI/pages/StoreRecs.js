@@ -11,12 +11,12 @@ import {
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
 
 // function imports
 import { getGoShoppingList, getStoresSorting } from "../../redux/funtionality/helperFunctions";
 
 // data imports
+import { fetchItems, fetchStores } from '../../redux/funtionality/connectionMongo.js';
 import { items, stores } from "../../testData/testingData2";
 
 // component imports
@@ -58,16 +58,8 @@ const ItemComponent = ({store, list_len}) => {
 function PopUp({setRanking}) {
     const [popup, setPopup] = useState(false)
 
-    const filter_vals = [
-        {label: "Within 10 miles", value: 10},
-        {label: "Within 5 miles", value: 5},
-        {label: "Within 2 miles", value: 2},
-    ]
-    const sort_vals = [
-        {label: "Price", value: "price"},
-        {label: "Items Found", value: "items"},
-        {label: "Store", value: "store_name"},
-    ]
+    const filter_vals = ["Within 10 miles", "Within 5 miles", "Within 2 miles"]
+    const sort_vals = ["Price", "Items Found", "Store"]
 
     const [popup_type, setType] = useState("Sort")
     const [popup_vals, setVals] = useState(sort_vals)
@@ -85,7 +77,7 @@ function PopUp({setRanking}) {
 
     const closePopup = (selection=null) => {
         if (selection != null) {
-            if (popup_type == "Sort") setRanking(selection.value)
+            if (popup_type == "Sort") setRanking(selection)
         }
         setPopup(false)
     }
@@ -109,45 +101,33 @@ function StoreRecs() {
     const user = useSelector(state => state.user);
     const [allItems, setAllItems] = useState([]);
     const [allStores, setAllStores] = useState([]);
-    const [itemsReceived, setItemsReceived] = useState(false);
-    const [storesReceived, setStoresReceived] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const shopping_list = useSelector((state)=> state.user.shopping_list_item);
-    const [ranking, setRanking] = useState("items");
+    const [ranking, setRanking] = useState("Items Found");
+
+    // capture all tags in the shopping list
+    const tags = Object.keys(shopping_list);
 
     // Get stores and all items from database
     useEffect(() => {
-        // capture all tags in the shopping list
-        const tags = Object.keys(shopping_list);
-    
-        // Get stores and all items from database
         const fetchData = async () => {
-            try {
-                const itemsPromises = tags.map(async (tag) => {
-                    const response = await axios.get(`http://10.0.2.2:3000/items/`, {
-                        params: {
-                            tag: `${tag}`,
-                        }
-                    });
-                    return response.data;
-                });
-                const itemsData = await Promise.all(itemsPromises);
-                setAllItems(itemsData);
-                setItemsReceived(true);
-    
-                const storesResponse = await axios.get(`http://10.0.2.2:3000/stores`);
-                setAllStores(storesResponse.data);
-                setStoresReceived(true);
-            } catch (error) {
-                console.error(error);
-            }
+            const itemsPromises = tags.map(async (tag) => {
+                return fetchItems(tag);
+            });
+            const itemsData = await Promise.all(itemsPromises);
+            setAllItems(itemsData);
+
+            const stores = await fetchStores();
+            setAllStores(stores);
+
+            setLoading(false);
         };
-    
         fetchData();
     }, [shopping_list]);
 
     // Ensure we have data from the database
-    if (!storesReceived || !itemsReceived){
+    if (loading){
         return (
             <View>
                 <Text>Loading...</Text>

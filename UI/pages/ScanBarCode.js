@@ -29,12 +29,12 @@ const ScanBarCode = ()=>{
 
         // This will be activated once we have the app on the phone, for testing purposes we use the below
         setBarcode(event.nativeEvent.codeStringValue);
-        navigation.navigate("ScanInput", {barcode: barcode});
+        navigation.navigate("Add Tags", {barcode: barcode});
     }
 
     const handlePictureTake = ()=>{
         setBarcode("1224121221212");
-        navigation.navigate("ScanInput", {barcode: barcode});
+        navigation.navigate("Add Tags", {barcode: barcode});
     }
 
 

@@ -7,6 +7,7 @@ import {
   Pressable,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from 'react-native';
 import { useState } from 'react';
@@ -18,20 +19,64 @@ import CheckList from './CheckList.js'
 import styles, {item_style, text_styles, add_button, popup_style} from '../style.js';
 
 
-const PopupList = ({data, type, close}) => {
-// displays a FlatList of the provided data
+const SearchBar = ({search, setSearch, addable, add}) => {
+// displays a box at the top where user can search the options
+// includes a button for creating a new option
 
+    // placeholder on search bar, tells user if they can create or not
+    let placeholder = "Search"
+    if (addable) placeholder = "Search/Create"
+
+    // addable is false if search is empty or if search text is already an existing option
+    if (!search) addable = false
+
+    // make space for the button next to text input if addable
+    let width = "100%"
+    if (addable) width = "79%"
+
+    return(
+        <View>
+            <Text style={[text_styles.itemText, {paddingLeft: 8, paddingBottom: 0}]}>Search</Text>
+            <View style={item_style.concat({marginBottom: 15})}>
+                <TextInput
+                    style={[text_styles.placeholder, {width: width}]}
+                    value={search}
+                    onChangeText={setSearch}
+                    placeholder={placeholder}
+                    placeholderTextColor={text_styles.placeholder.color}
+                />
+                { addable ? (
+                    <Text style={add_button.concat(popup_style.addButton)} onPress={()=> add(search)}>+</Text>
+                ) : null}
+            </View>
+        </View>
+    )
+}
+
+
+const PopupList = ({data, type, close, search, setSearch}) => {
+// displays a FlatList of the provided array of data
     let title;
     if (type == "Sort" || type == "Filter") title = `${type} by:`
+
+    // if new option is created, select it and close the popup
+    const add = (new_item) => {
+        close(new_item)
+    }
+
     return (
         <View style={popup_style.style}>
-            <Text style={text_styles.smallTitle}>{title}</Text>
+            { type.includes("Searchable") ? (
+                <SearchBar search={search} setSearch={setSearch} addable={!data.includes(search)} add={add}/>
+            ) : (
+                <Text style={text_styles.smallTitle}>{title}</Text>
+            ) }
             <FlatList
                 data={data}
                 keyExtractor={(item, index)=> index.toString()}
-                renderItem = { ({item: {label, value}}) =>
-                    <Pressable style={item_style} onPress={() => close({value})} >
-                        <Text style={text_styles.itemText}>{label}</Text>
+                renderItem = { ({item}) =>
+                    <Pressable style={item_style} onPress={() => close(item)} >
+                        <Text style={text_styles.itemText}>{item}</Text>
                     </Pressable>
                 }
             />
@@ -39,13 +84,21 @@ const PopupList = ({data, type, close}) => {
     )
 }
 
-const PopupCheckList = ({data, preselected, close, select_type}) => {
-// displays a checklist of the provided data
+const PopupCheckList = ({data, preselected, close, select_type, popup_type, search, setSearch}) => {
+// displays a checklist of the provided array of data
     const [selected_items, setSelectedItems] = useState(preselected)
+
+    // if new option is created, add it and close the popup
+    const add = (new_item) => {
+        close(selected_items.concat(new_item))
+    }
 
     return (
         <View style={popup_style.style}>
-            <View style={{maxHeight: "74%"}}>
+            <View style={{maxHeight: "65%"}}>
+                { popup_type.includes("Searchable") ? (
+                    <SearchBar search={search} setSearch={setSearch} addable={!data.includes(search)} add={add} />
+                ) : null }
                 <CheckList
                     data={data}
                     type={select_type}
@@ -54,14 +107,15 @@ const PopupCheckList = ({data, preselected, close, select_type}) => {
                 />
             </View>
             <Pressable style={[popup_style.selectButton, styles.bottom]} onPress={() => close(selected_items)}>
-                <Text style={[add_button, popup_style.buttonText]}>Filter</Text>
+                <Text style={[add_button, popup_style.buttonText]}>Select</Text>
             </Pressable>
         </View>
     )
 }
 
-function PopupModal({popup, popup_type="Sort", data, closePopup, preselected=[], select_type="store"}) {
-    // the popup modal itself, which hides the background and pulls up a white tab with data
+function PopupModal({popup, popup_type="Sort", data, closePopup, preselected=[], select_type="store", search, setSearch}) {
+// the popup modal itself, which hides the background and pulls up a white tab with data
+// displays a checklist or a flatlist depending on the popup options passed
     return (
         <View>
             <Modal
@@ -81,10 +135,24 @@ function PopupModal({popup, popup_type="Sort", data, closePopup, preselected=[],
                 onRequestClose={() => closePopup()}
             >
                 <View style={popup_style.container}>
-                    { popup_type == "Select" ? (
-                            <PopupCheckList data={data} preselected={preselected} close={closePopup} select_type={select_type}/>
+                    { popup_type.includes("Select") ? (
+                            <PopupCheckList
+                                data={data}
+                                preselected={preselected}
+                                close={closePopup}
+                                select_type={select_type}
+                                popup_type={popup_type}
+                                search={search}
+                                setSearch={setSearch}
+                            />
                         ) : (
-                            <PopupList data={data} type={popup_type} close={closePopup}/>
+                            <PopupList
+                                data={data}
+                                type={popup_type}
+                                close={closePopup}
+                                search={search}
+                                setSearch={setSearch}
+                            />
                     )}
                 </View>
             </Modal>

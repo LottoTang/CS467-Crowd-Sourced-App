@@ -11,10 +11,12 @@ import {
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
 
 // function imports
 import { getSelectedBrandsForProduct, getItemsList, getItemSorting, convertItemsOutput } from '../../redux/funtionality/helperFunctions';
+
+// data imports
+import { fetchItems, fetchStores } from '../../redux/funtionality/connectionMongo.js';
 
 // component imports
 import StoresList from '../components/StoresList.js'
@@ -30,8 +32,7 @@ function ViewItem() {
     const product = useSelector(state=> state.selected_item);
     const [allItem, setAllItem] = useState([]);
     const [allStores, setAllStores] = useState({});
-    const [storesReceived, setStoresReceived] = useState(false);
-    const [itemsReceived, setItemsReceived] = useState(false);
+    const [loading, setLoading] = useState(true);
     const navigation = useNavigation();
     //const dispatch = useDispatch();
     const [ranking, setRanking] = useState("price");
@@ -44,40 +45,20 @@ function ViewItem() {
     
     // Retrieve all items and all stores from database 
     useEffect(()=>{
-        const fetchItems = async ()=>{
-            try{
-                const response = await axios.get(`http://10.0.2.2:3000/items/`, {
-                    params: {
-                        tag: `${product}`,
-                    }
-                }).then(result => {
-                    setAllItem(result.data)
-                    setItemsReceived(true);
-                }).catch(error => console.error(error));
-            }catch(error){
-                console.error(error);
-            }
+        const fetchData = async () => {
+            const items = await fetchItems(product)
+            const stores = await fetchStores()
+
+            setAllItem(items)
+            setAllStores(stores)
+
+            setLoading(false)
         }
-
-        const fetchStores = async () => {
-            try{
-                const response = await axios.get(`http://10.0.2.2:3000/stores`)
-                .then(result => {
-                    setAllStores(result.data)
-                    setStoresReceived(true);
-                }).catch(error => console.error(error));
-            }catch (error){
-                console.error(error);
-            }
-        }
-
-        fetchItems();
-        fetchStores();
-
+        fetchData()
     }, []);
 
 
-    if (!storesReceived || !itemsReceived){
+    if (loading){
         return (
             <View>
                 <Text>Loading...</Text>
@@ -102,14 +83,10 @@ function ViewItem() {
         navigation.navigate('Select Brand', {product: item, preselected: selected_brands});
     };
 
-    const popup_vals = [
-        {label: "Price", value: "price"},
-        {label: "Store", value: "store"},
-        {label: "Brand", value: "brand"},
-    ]
+    const popup_vals = ["Price", "Store", "Brand"]
 
     const closePopup = (selection=null) => {
-        if (selection != null) setRanking(selection.value)
+        if (selection != null) setRanking(selection)
         setPopup(false)
     }
 
