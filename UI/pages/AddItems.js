@@ -116,13 +116,12 @@ function AddItems() {
     const all_products = useSelector((state)=>state.all_products);
     const [suggested_items, setSuggestedItems] = useState('');
     const [product_name, setProductName] = useState('');
-    const [products_list, setProductsList] = useState('');
 
     // Pull all products from the database
     useEffect(() =>{
         const getProducts = async ()=> {
             const products = await searchProducts(product_name)
-            setProductsList(products)
+            setSuggestedItems(products)
         }
         getProducts();
     }, [product_name]);
@@ -131,7 +130,6 @@ function AddItems() {
     // Because we don't have access to the database it works with Tomato and Tomato Sauce inputs from the test data
     const handleInputChange = (text)=>{
         setProductName(text);
-        setSuggestedItems(products_list);
     }
 
   return (
