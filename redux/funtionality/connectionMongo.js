@@ -86,6 +86,17 @@ async function searchProducts(product_name) {
     return res
 }
 
+// Send update shopping list to database
+async function updateShoppingList(userDetails, newShoppingList){
+    try {
+        const response = await axios.patch(`http://10.0.2.2:3000/users/shopping-list-item/${userDetails}`,
+            newShoppingList
+        ).then(result => console.log(result)).catch(error=>console.log(error));
+    }catch (error){
+        console.log(error);
+    }
+}
 
 
-export { getUser, fetchItems, fetchStores, fetchBrands, searchProducts };
+
+export { getUser, fetchItems, fetchStores, fetchBrands, searchProducts, updateShoppingList };

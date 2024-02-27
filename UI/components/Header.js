@@ -10,10 +10,13 @@ import {
 } from 'react-native';
 import {getHeaderTitle} from '@react-navigation/elements';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 
 // function imports
 import { deleteItemInShoppingList } from '../../redux/actions/actions.js';
 import { capitalizeTitle } from '../ui_helpers.js'
+import { removeSelectedItem } from '../../redux/funtionality/helperFunctions.js';
+import { setUser } from '../../redux/actions/actions.js';
 
 // style imports
 import styles, {item_style, text_styles} from '../style.js';
@@ -54,6 +57,28 @@ const headerFunc = ({navigation, route, options, back}) => {
                     text: 'Delete',
                     onPress: () => {
                         dispatch(deleteItemInShoppingList(route.params.product));
+                        
+                        // Get users shopping list 
+                        const shoppingList = user.shopping_list_item;
+                        const newList = removeSelectedItem(shoppingList, item);
+
+                        // Send update to shopping list 
+                        
+                        const updateRequest = async ()=>{
+                            try{
+                                const response = await axios.patch(`http://10.0.2.2:3000/users/shopping-list-item/${user._id}`,
+                                newList
+                                ).then(result => {
+                                // if shopping_list updated, reset redux user
+                                dispatch(setUser(result.data));
+                                }).catch(error=> console.log(error));
+                                
+                            } catch(error){
+                                console.log(error);
+                            }
+                        };
+                        updateRequest();
+                        
                         navigation.navigate("Home");
                     }
                 }

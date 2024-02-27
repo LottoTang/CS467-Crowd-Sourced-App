@@ -73,7 +73,7 @@ const homepageReducer = (state= initial_state, action) =>{
         case "SET_USER":
             return {
                 ...state,
-                user: action.payload.user
+                user: action.payload.user,
             }
         default:
             return state;
