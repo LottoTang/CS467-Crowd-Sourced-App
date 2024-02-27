@@ -19,6 +19,9 @@ import { setUser } from '../../redux/actions/actions.js';
 // data imports
 import axios from 'axios';
 
+// component imports
+import Loading from '../components/LoadingPage.js'
+
 // style imports
 import styles, {large_button} from '../style.js';
 
@@ -64,13 +67,7 @@ function LoginPage() {
     }, [user])
 
     if (isLoading) {
-        return (
-            <SafeAreaView style={styles.app}>
-                <View style={[styles.container, {justifyContent: 'center'}]}>
-                    <Text style={login_style.title}>Loading...</Text>
-                </View>
-            </SafeAreaView>
-        );
+        return <Loading />
     }
 
     return (
