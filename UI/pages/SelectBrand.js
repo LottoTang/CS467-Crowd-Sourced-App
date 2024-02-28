@@ -99,11 +99,8 @@ function SelectBrand({route}) {
             }
         }
        
-        const newItems = []; 
-        for (let num in idsShoppingList){
-            newItems.push({_id: idsShoppingList[num]});
-        }
-
+        const newItems = idsShoppingList.map(itemId => ({_id: itemId}));
+        
         // Method for adding an item in the database
         const add_item = async ()=>{
 
@@ -117,7 +114,7 @@ function SelectBrand({route}) {
 
             // Send updated shopping list
             try{
-                const response = await axios.patch(`http://10.0.2.2:3000/users/shopping-list-item/${userId}`,
+                const response = await axios.patch(`http://10.0.2.2:3000/users/shopping-list-item/${userId}/`,
                     copyShoppingList,
             ).then(result => {
                  // if shopping_list updated, reset redux user

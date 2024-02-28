@@ -513,7 +513,17 @@ function removeSelectedItem(shoppingList, targetItem){
     return copyList;
 }
 
+// Helper method to prepare shopping list message 
+function prepareShoppingListInput(product, itemList, allItems){
+    let newShoppingList = {...itemList};
+
+    const values = allItems.map(itemValue => ({_id: itemValue._id.toString()}));
+    newShoppingList[product] = values;
+
+    return newShoppingList;
+}
+
 
 export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForProduct, getItemsList }
 export { getShoppingListItemsInStore, getProductInShoppingListDetails, getGoShoppingList, getStoresSorting, getItemSorting }
-export { returnLiveFeeds, filterLiveFeeds, convertItemsOutput, removeSelectedItem }
+export { returnLiveFeeds, filterLiveFeeds, convertItemsOutput, removeSelectedItem, prepareShoppingListInput }

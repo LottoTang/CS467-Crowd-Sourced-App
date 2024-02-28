@@ -146,6 +146,20 @@ async function getItemByBarcode(barcode, store) {
     return res
 }
 
+// Fetch all live feeds from database 
+async function getAllLiveFeeds(){
 
+    let data;
+    try{
+        const response = await axios.get(`http://10.0.2.2:3000/livefeeds/`
+        .then(result => {
+            data = result.data;
+        })).catch(error => console.log(error));
+    } catch(error){
+        console.log(error);
+    }
 
-export { getUser, fetchItems, fetchStores, fetchBrands, searchProducts, fetchProduct, fetchPromotions, getItemByBarcode };
+    return data;
+}
+
+export { getUser, fetchItems, fetchStores, fetchBrands, searchProducts, fetchProduct, fetchPromotions, getItemByBarcode, getAllLiveFeeds };
