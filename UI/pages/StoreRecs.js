@@ -36,8 +36,8 @@ const ItemComponent = ({store, list_len}) => {
 
     return (
         <Pressable style={[item_style]} onPress={()=>handleStore() } >
-            <View style={[styles.wide_row, {alignSelf: 'center'}]}>
-                <Text style={[text_styles.smallTitle, {marginLeft: 0, marginTop: 0}]}>
+            <View style={[styles.wide_row, {alignSelf: 'center', maxWidth: '65%', paddingTop: 7}]}>
+                <Text style={[text_styles.smallTitle, {marginLeft: 0, marginTop: 0, lineHeight: 25}]}>
                     {store.name}
                 </Text>
                 <Text style={[text_styles.itemText, {paddingTop: 0, paddingBottom: 0}]}>
