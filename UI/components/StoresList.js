@@ -6,9 +6,11 @@ import {
   Text,
   View,
 } from 'react-native';
+import { useState, useEffect } from 'react';
 
 // data imports
 import { stores, products, items, promotions} from "../../testData/testingData2";
+
 
 // style imports
 import styles, {item_style, text_styles,} from '../style.js';
@@ -27,13 +29,6 @@ const ItemComponent = ({item}) => {
     const time = "4 hours"
     const user = "shoppingpro50"
 
-    const promotion = promotions[item.promotion]
-    let promotion_type = null
-    if (promotion) {
-        promotion_type = promotion.promotion_type
-        width = "65%"
-    }
-
     return (
         <View style={item_style}>
             <View style={[styles.wide_row, {alignSelf: 'center', maxWidth: width}]}>
@@ -49,9 +44,9 @@ const ItemComponent = ({item}) => {
             </View>
             { item.price ? (
                 <View style={{alignSelf: 'center', maxWidth: '35%'}}>
-                    { promotion ? (
+                    { item.promotion ? (
                         <Text style={[text_styles.itemText, {marginTop: 4, paddingBottom: 0, color: styles.headerColor.color, textAlign: 'right', lineHeight: 15}]}>
-                            Sale: {promotion_type}!!
+                            Sale: {item.promotion}!!
                         </Text>
                     ) : null}
                     <Text style={[text_styles.smallTitle, {alignSelf: 'flex-end', lineHeight: 25}]}>

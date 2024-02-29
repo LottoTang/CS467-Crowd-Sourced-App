@@ -31,8 +31,7 @@ import Icon from 'react-native-vector-icons/Feather';
 function ViewItem() {
 // the View Item screen itself with its components
     const product = useSelector(state=> state.selected_item);
-    const [allItem, setAllItem] = useState([]);
-    const [allStores, setAllStores] = useState({});
+    const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigation = useNavigation();
     //const dispatch = useDispatch();
@@ -44,15 +43,12 @@ function ViewItem() {
     let item_ids = shopping_list[product]
     if (!item_ids) item_ids = []
     
-    // Retrieve all items and all stores from database 
+    // Retrieve all items from database
     useEffect(()=>{
         const fetchData = async () => {
-            const items = await fetchItems(product)
-            const stores = await fetchStores()
-
-            setAllItem(items)
-            setAllStores(stores)
-
+            const data_items = await fetchItems(product)
+            const reformatted_items = await convertItemsOutput(data_items)
+            setItems(reformatted_items)
             setLoading(false)
         }
         fetchData()
@@ -63,13 +59,11 @@ function ViewItem() {
         return <Loading />
     }
 
-
-    const items = convertItemsOutput(allItem, allStores);
     //const items = getItemsList(item_ids, all_items);
     const selected_brands = getSelectedBrandsForProduct(items);
 
     //const ranked_data = getItemSorting(items, ranking, stores);
-    const ranked_data = getItemSorting(items, ranking, allStores);
+    const ranked_data = getItemSorting(items, ranking);
 
     if (!product) {
         return <Text>No product selected</Text>;

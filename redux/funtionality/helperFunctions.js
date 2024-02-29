@@ -3,6 +3,8 @@
 // import data from test file 2
 import { items, products, stores, promotions } from "../../testData/testingData2";
 
+import { getStoreName, getPromotionName } from '../../redux/funtionality/connectionMongo.js';
+
 // Test data
 const testData = [
     { item_id: "123", store_id: "Shoprite", name: "tomato sauce", brand: "Barilla", category: "groceries", price: 4.99 },
@@ -340,7 +342,7 @@ function getStoresSorting(input_object, sorting){
 }
 
 // Function to sort a list of store options for a selected item by price, brand and store
-function getItemSorting(items, sorting, stores){
+function getItemSorting(items, sorting){
     if (sorting == "Price"){
         items.sort((a, b) => a.price - b.price);
     } else if (sorting == "Brand"){
@@ -469,36 +471,19 @@ function filterLiveFeeds(liveFeeds, filter){
 
 }
 
-// Functionality for collecting the data from the user and preparing the request for updating the price of an item
-function sendRequestToUpdatePrice(store, brand, price, tag, date, barcode, promotion){
-    
-}
-
-// Helper method to return the store name from a store given an id number.
-// Used in the convertItemsOutput function
-function helperGetStoreName(store_id, storesList){
-    
-    for (let store in storesList){
-        
-        if (storesList[store]._id == store_id){
-            return storesList[store].name;
-        }
-    }
-
-    return "Store not in database yet";
-}
 
 // Helper method to take input from the database and return it to a format for the ViewItem page
-function convertItemsOutput(databaseItems, databaseStores){
+async function convertItemsOutput(databaseItems){
     const output = [];
-    for (let value in databaseItems){
+    for (let item of databaseItems){
         const element = {};
-        element.brand = databaseItems[value].brand;
-        element.name = databaseItems[value].name;
-        element.price = databaseItems[value].price;
-        element.product = databaseItems[value]._id;
-        element.promotion = databaseItems[value].promotion_id;
-        element.store = helperGetStoreName(databaseItems[value].store_id, databaseStores);
+        element.brand = item.brand;
+        element.name = item.name;
+        element.price = item.price;
+        element.product = item._id;
+        if (item.promotion_id) element.promotion = await getPromotionName(item.promotion_id);
+        element.store = await getStoreName(item.store_id);
+        if (!element.store) element.store = "Store not in database yet"
         output.push(element);
     }
 
