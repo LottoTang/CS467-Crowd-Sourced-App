@@ -9,13 +9,23 @@ const itemsRouter = express.Router();
 const bodyParser = require('body-parser');
 
 const {authChecker} = require("./users-controller.js");
-const {createItem, getItemByID, updateItem, getItemsByTag} = require("./items-model.js");
+const {createItem, getItemByID, updateItem, getItemsByTag, getItemByBarcode} = require("./items-model.js");
 const {Promotions} = require("./promotions-model.js");
 // const {Stores} = require("./stores-model.js");
 
 // use body parser to parse json requests
 itemsRouter.use(bodyParser.json());
 
+
+itemsRouter.get("/barcode", async (req, res) => {
+    try {
+        let item = await getItemByBarcode(req.query.barcode_id, req.query.store_id);
+        res.status(200).json(item);
+    } catch (error) {
+        // console.error(error);
+        res.status(500).json({ error: 'No item with this barcode exists' });
+    }
+})
 
 itemsRouter.get("/:id", async (req, res) => {
     try {

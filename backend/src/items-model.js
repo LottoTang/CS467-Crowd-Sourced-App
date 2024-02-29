@@ -18,7 +18,7 @@ const itemsSchema = new mongoose.Schema({
   name: { type: String, required: true },
   brand: { type: String, required: true },
   price: { type: Number, required: true },
-  barcode_id: { type: String },
+  barcode_id: { type: String, required: false },
   promotion_id: { type: mongoose.Schema.Types.ObjectId, required: false }
 }, { versionKey: false });
 
@@ -68,8 +68,28 @@ const getItemByID = async item_id => {
   }
 };
 
+const getItemByBarcode = async (barcode_id, store_id) => {
+  try {
+    let found_items = await Items.find({barcode_id: barcode_id});
+    let found_item = null;
+    for (let i = 0; i < found_items.length; i++) {
+      if (found_items[i].store_id = store_id) {
+        found_item = found_items[i]
+      }
+    }
+    return found_item; // Return the found item
+  } catch (error) {
+    // Handle the error
+    console.error('Error finding entry:', error);
+    throw error; // Rethrow the error if needed
+  }
+};
+
+
+
+
+
 const getItemsByTag = async tag => {
-  // PRODUCT_TAGS FIRST
   // PRODUCT_TAGS WILL BE LIST OF STRINGS
   try {
     let all_items = await Items.find();
@@ -114,5 +134,6 @@ module.exports = {
   createItem,
   getItemByID,
   updateItem,
-  getItemsByTag
+  getItemsByTag,
+  getItemByBarcode
 };
