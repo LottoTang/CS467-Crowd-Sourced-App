@@ -192,28 +192,49 @@ function getItemsList(item_ids, all_items) {
 }
 
 //Helper method to extract items available and items missing from the shopping list in a particular store
-function getShoppingListItemsInStore(shopping_list, store_name, all_items, all_stores){
-
+async function getShoppingListItemsInStore(shopping_list, store_id){
     const breakdown = {items_available: [], items_missing: []};
 
-    // First capture the items available
-    for (let item in shopping_list){
-
-        for (let store in all_stores){
-            if (all_stores[store].name == store_name){
-                for (let item_id in all_items){
-                    if (shopping_list[item].includes(item_id) && all_items[item_id].store == store && !breakdown.items_available.includes(item)){
-                        breakdown.items_available.push(item);
+    // iterate over all products in the shopping list
+    for (let product in shopping_list){
+        // check each item stored in that product's list
+        for (let item_id of shopping_list[product]) {
+            if (item_id) {
+                const item = await getItem(item_id._id)
+                if (item) {
+                    // if that item is in the provided store, add it to the items_available
+                    if (item.store_id == store_id) {
+                        breakdown.items_available.push(product)
+                        // once one item has been found, no need to check other items
+                        break
                     }
                 }
             }
         }
+        // if no items were found for that product, add it to the items_missing
+        if (!breakdown.items_available.includes(product)) {
+            breakdown.items_missing.push(product)
+        }
+
+        /*
+        for (let store in all_stores){
+            if (all_stores[store].name == store_name){
+                for (let item_id in all_items){
+                    if (shopping_list[product].includes(item_id) && all_items[item_id].store == store && !breakdown.items_available.includes(product)){
+                        breakdown.items_available.push(product);
+                    }
+                }
+            }
+        }
+        */
     }
 
+    /*
     // Capture missing items
     for (let missing_item in shopping_list){
         if (!breakdown.items_available.includes(missing_item)) breakdown.items_missing.push(missing_item);
     }
+    */
 
     return breakdown;
 
@@ -279,14 +300,15 @@ async function getGoShoppingList(shopping_list, stores, city, state){
     const store_details = {};
     
     // Capture the name off each store
-    for (let store in stores){
-        if (stores[store].city == city && stores[store].state == state){
+    for (let store of stores){
+        if (store.city == city && store.state == state){
 
-            if (!(stores[store]._id in store_details)){
-                store_details[stores[store]._id] = {
-                    name: stores[store].name,
+            if (!(store._id in store_details)){
+                store_details[store._id] = {
+                    name: store.name,
                     total_cost: 0,
                     num_items: 0,
+                    _id: store._id
                 }
             }
             /*
