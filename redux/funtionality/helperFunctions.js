@@ -526,7 +526,38 @@ function prepareShoppingListInput(product, itemList, allItems){
     return newShoppingList;
 }
 
+// Helper function to populate a list of selected items to push after in database
+function getListOfBrandsForDB(selected_brands, itemIDs, setBranding, branding){
+
+    const idsShoppingList = [];
+
+    if (selected_brands.includes("Any brand")){
+        
+        for (let key in itemIDs){
+
+            for (let item in itemIDs[key]){
+                idsShoppingList.push(itemIDs[key][item]);
+                setBranding([...branding, {_id: itemIDs[key][item]}]);
+            }
+        }
+    } else {
+
+        for (let key in itemIDs){
+
+            if (selected_brands.includes(key)){
+                for (let item in itemIDs[key]){
+                    idsShoppingList.push(itemIDs[key][item]);
+                    setBranding([...branding, {_id: itemIDs[key][item]}]);
+                }
+            }
+        }
+    }
+
+    const newItems = idsShoppingList.map(itemId => ({_id: itemId}));
+
+    return newItems;
+}
 
 export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForProduct, getItemsList }
 export { getShoppingListItemsInStore, getProductInShoppingListDetails, getGoShoppingList, getStoresSorting, getItemSorting }
-export { returnLiveFeeds, filterLiveFeeds, convertItemsOutput, removeSelectedItem, prepareShoppingListInput }
+export { returnLiveFeeds, filterLiveFeeds, convertItemsOutput, removeSelectedItem, prepareShoppingListInput, getListOfBrandsForDB }

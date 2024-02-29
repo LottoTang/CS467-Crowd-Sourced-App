@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 // function imports
-import { getBrandsList } from '../../redux/funtionality/helperFunctions';
+import { getBrandsList, getListOfBrandsForDB } from '../../redux/funtionality/helperFunctions';
 import { setUser } from '../../redux/actions/actions.js';
 
 // data imports
@@ -72,7 +72,7 @@ function SelectBrand({route}) {
         if (selected_brands.includes("Any brand")) selected = brands
 
 
-        
+        /*
         const idsShoppingList = [];
 
         // Populate list of brands with item ids
@@ -100,18 +100,33 @@ function SelectBrand({route}) {
         }
        
         const newItems = idsShoppingList.map(itemId => ({_id: itemId}));
-        
+        */
+
+        const brandIds = getListOfBrandsForDB(selected_brands, itemIDs, setBranding, branding);
+
+        /*
+        // Update shopping list 
+        const newShoppingList = {
+            ...shoppingList,
+            //[product] : newItems.concat(shoppingList[product] || []),
+            [product] : {newItems},
+        };
+        const copyShoppingList = {...newShoppingList};
+        */
+
         // Method for adding an item in the database
         const add_item = async ()=>{
 
+            const newItems = JSON.parse(JSON.stringify(brandIds));
             // Update shopping list 
             const newShoppingList = {
                 ...shoppingList,
                 //[product] : newItems.concat(shoppingList[product] || []),
-                [product] : {newItems},
+                [product] : newItems,
             };
             const copyShoppingList = {...newShoppingList};
-
+            
+            //console.log(copyShoppingList);
             // Send updated shopping list
             try{
                 const response = await axios.patch(`http://10.0.2.2:3000/users/shopping-list-item/${userId}/`,
