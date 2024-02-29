@@ -16,7 +16,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getSelectedBrandsForProduct, getItemsList, getItemSorting, convertItemsOutput } from '../../redux/funtionality/helperFunctions';
 
 // data imports
-import { fetchItems, fetchStores } from '../../redux/funtionality/connectionMongo.js';
+import { getItem, fetchItems, fetchStores } from '../../redux/funtionality/connectionMongo.js';
 
 // component imports
 import StoresList from '../components/StoresList.js'
@@ -46,8 +46,13 @@ function ViewItem() {
     // Retrieve all items from database
     useEffect(()=>{
         const fetchData = async () => {
-            const data_items = await fetchItems(product)
-            const reformatted_items = await convertItemsOutput(data_items)
+            let data = []
+            for (const id of item_ids) {
+                const item = await getItem(id)
+                data.push(item)
+            }
+
+            const reformatted_items = await convertItemsOutput(data)
             setItems(reformatted_items)
             setLoading(false)
         }
