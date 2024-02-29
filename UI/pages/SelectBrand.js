@@ -81,12 +81,9 @@ function SelectBrand({route}) {
                 }
             }
         }
-       
-        const newItems = []; 
-        for (let id of idsShoppingList){
-            newItems.push({_id: id});
-        }
-
+      
+        const newItems = idsShoppingList.map(itemId => ({_id: itemId}));
+        
         // Method for adding an item in the database
         const add_item = async ()=>{
 
