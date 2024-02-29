@@ -61,9 +61,6 @@ const getProductBySubstring = async (name) => {
   const productNames = [];
   try {
       let this_product = await Products.find({ name: {$regex: name} });
-      // for (let i = 0; i < this_product.length; i++) {
-      //   productNames.push(this_product[i].name);
-      // }
       const productNames = this_product.map(product => product.name);
       return productNames; 
     } catch (error) {
