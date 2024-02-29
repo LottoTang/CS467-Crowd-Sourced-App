@@ -3,7 +3,7 @@
 // import data from test file 2
 import { items, products, stores, promotions } from "../../testData/testingData2";
 
-import { getStoreName, getPromotionName } from '../../redux/funtionality/connectionMongo.js';
+import { getItem, getStoreName, getPromotionName } from '../../redux/funtionality/connectionMongo.js';
 
 // Test data
 const testData = [
@@ -232,13 +232,24 @@ function getProductInShoppingListDetails(item_name, shopping_list){
 }
 
 // Helper method to get the minimum price for an item in a store in the list of items
-function getLowestPriceItem(items_list, store_id, items){
+async function getLowestPriceItem(items_list, store_id){
     
     let lowest_price = 10000;
 
     // Iterate through the list of items
-    for (let item in items_list){
-        
+    for (let item_id of items_list){
+        if (item_id) {
+            const item = await getItem(item_id._id)
+            if (item) {
+                if (item.store_id == store_id) {
+                    if (item.price < lowest_price){
+                        lowest_price = item.price;
+                    }
+                }
+            }
+        }
+
+        /*
         // Check if available in target store
         for (let itemDet in items[0]){
             if(items[0][itemDet].store_id == store_id){
@@ -248,7 +259,7 @@ function getLowestPriceItem(items_list, store_id, items){
             }
         }
 
-        /*
+
         // Previous schema design
         if (items[items_list[item]].store == store_id){
             if (items[items_list[item]].price < lowest_price){
@@ -263,7 +274,7 @@ function getLowestPriceItem(items_list, store_id, items){
 
 
 // Method to return stores, number of items and total cost - Adjusted based on latest database schema
-function getGoShoppingList(shopping_list, items, stores, city, state){
+async function getGoShoppingList(shopping_list, stores, city, state){
 
     const store_details = {};
     
@@ -293,12 +304,12 @@ function getGoShoppingList(shopping_list, items, stores, city, state){
     // Iterate through every item in the shopping list
     for (let shopping_item in shopping_list){
         
-        // Capture all brands selected for an item in the shopping list
-        const list_brands = shopping_list[shopping_item];
+        // Capture all items connected to a product in the shopping list
+        const ids_list = shopping_list[shopping_item];
         //Get lowest price for an item in each store
 
         for (let store in store_details){
-            const lowest_price = getLowestPriceItem(list_brands, store, items);
+            const lowest_price = await getLowestPriceItem(ids_list, store);
 
             if (lowest_price < 10000){
                 store_details[store].total_cost = store_details[store].total_cost + lowest_price;
@@ -307,7 +318,7 @@ function getGoShoppingList(shopping_list, items, stores, city, state){
         }
        
     }
-    
+
     return store_details;
     
 }
