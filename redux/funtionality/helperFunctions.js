@@ -405,7 +405,7 @@ function returnLiveFeeds(feeds, stores, items, products){
         feedInput.review = feeds[feed].review;
         
         // Check if it is a store related or item related message
-        if (feeds[feed].price !== undefined){
+        if (feeds[feed].price != undefined){
 
             feedInput.pricing = feeds[feed].price;
         }
@@ -415,14 +415,15 @@ function returnLiveFeeds(feeds, stores, items, products){
                 
             if (item == feeds[feed].item_id){
 
-                const productName = products[items[item].product];
-                feedInput.item = productName.name + " - " + items[item].brand;
+                feedInput.item = items[item].name;
                 feedInput.brand = items[item].brand;
 
                 // Populate for item post
                 if (feeds[feed].price != undefined){
-                    feeds[feed].review = productName.name + " - " + items[item].brand + " $" + feeds[feed].price;
+                    feeds[feed].review = items[item].name + " - " + items[item].brand + " $" + feeds[feed].price;
+                    feedInput.review = feeds[feed].review;
                 }
+                
             }
         } 
 
@@ -437,17 +438,19 @@ function returnLiveFeeds(feeds, stores, items, products){
 
         feedResults.push(feedInput);
     }
-
+    
     return feedResults
 }
 
 // Helper method to provide filter for all feeds in the feeds page
 // It takes as argument the return value from returnLiveFeeds, the filtered value and the filter you want to apply
 function filterLiveFeeds(liveFeeds, filter){
-    
+
+    const feedsCopy = JSON.parse(JSON.stringify(liveFeeds));
+
     if (filter.metric != "all"){
         const feedsObject = Object.fromEntries(
-            Object.entries(liveFeeds).filter(([key, value])=>{
+            Object.entries(feedsCopy).filter(([key, value])=>{
                 
                 //Check store change
                 if (filter.store != "all" && (filter.post == "all" || (filter.post.includes("Item Updates") && filter.post.includes("Store Reviews"))))
@@ -457,14 +460,14 @@ function filterLiveFeeds(liveFeeds, filter){
                 else if (filter.store == "all" && filter.post.includes("Item Updates") && !filter.post.includes("Store Reviews")) return value.pricing > -1;
                 else if (filter.store == "all" && (filter.post.includes("Store Reviews") && !filter.post.includes("Item Updates"))) return value.pricing == -1;
                 
-                else return liveFeeds;
+                else return feedsCopy;
             })
-        );
+        ); 
 
         return Object.values(feedsObject);
         
     } else {
-        return liveFeeds;
+        return feedsCopy;
     }
 
 }

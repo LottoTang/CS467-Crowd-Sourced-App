@@ -151,10 +151,10 @@ async function getAllLiveFeeds(){
 
     let data;
     try{
-        const response = await axios.get(`http://10.0.2.2:3000/livefeeds/`
+        const response = await axios.get(`http://10.0.2.2:3000/livefeeds`)
         .then(result => {
             data = result.data;
-        })).catch(error => console.log(error));
+        }).catch(error => console.log(error));
     } catch(error){
         console.log(error);
     }

@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux';
 
 // function imports
 import { returnLiveFeeds, filterLiveFeeds } from "../../redux/funtionality/helperFunctions";
+import { fetchStores, getAllLiveFeeds, fetchItems, fetchProduct } from '../../redux/funtionality/connectionMongo.js';
 
 // data imports
 import { stores, products, items, promotions} from "../../testData/testingData2";
@@ -27,7 +28,7 @@ import PopupModal from '../components/PopupModal.js'
 // style imports
 import styles, { item_style, text_styles, add_button, large_button, popup_style } from '../style.js';
 
-
+ 
 const Popup = ({store_filter, setStores, post_filter, setPostTypes, stores}) => {
 // Popup component for when user wants to filter live feed data
     const [popup, setPopup] = useState(false)
@@ -113,19 +114,85 @@ const Popup = ({store_filter, setStores, post_filter, setPostTypes, stores}) => 
 function LiveFeed() {
 // the Live Feed page screen itself with its components
     const user = useSelector(state => state.user);
+    const shoppingList = useSelector(state=> state.user.shopping_list_item);
+    const [updatedData, setUpdatedData] = useState([]);
+    const [storesList, setStoresList] = useState();
+    const [allItemData, setAllItemData] = useState();
+    const [allStoreData, setAllStoreData] = useState();
+    const [allProductData, setAllProductData] = useState();
+    const [allFeedData, setAllFeedData] = useState();
 
     const [filter, setFilter] = useState({metric: "all", store: "all", post: "all"});
 
-    const available_stores = {}
-    for (const store_id in stores) {
-        const store = stores[store_id]
-        if (store.city == user.city && store.state == user.state) available_stores[store_id] = store
-    }
+    // Collect all data from database
+    useEffect(()=>{
+        
+        const collectData = async () =>{
+            const feedsData = await getAllLiveFeeds();
+            const storesData = await fetchStores();
+            const allItems = {};
+            const allProducts = {};
+            const allStores = {};
+            const allFeeds = {};
 
-    const feedData = returnLiveFeeds(liveFeed, available_stores, items, products);
-    const [updatedData, setUpdatedData] = useState(feedData);
+            // populate store data
+            for (let store in storesData){
+                allStores[storesData[store]._id] = storesData[store];
+            }
+            setAllStoreData(allStores);
 
-    const navigation = useNavigation();
+            // populate feeds data
+            for (let feed in feedsData){
+                allFeeds[feedsData[feed]._id] = feedsData[feed];
+            }
+            setAllFeedData(allFeeds);
+
+
+            // Get all items in shopping list and products in shopping list
+            for (let item in shoppingList){
+
+                // get item details
+                const itemData = await fetchItems(item);
+                for (let value in itemData){
+                    allItems[itemData[value]._id] = itemData[value];
+                }
+
+                // get product details
+                const productData = await fetchProduct(item);
+                allProducts[productData._id] = productData;
+                
+            } 
+            setAllItemData(allItems);
+            setAllProductData(allProducts);
+            
+            const result = returnLiveFeeds(allFeeds, allStores, allItems, allProducts);
+            setUpdatedData(result);
+            
+            // Populate stores for filter
+            const filterStore = {};
+            for (let store in allStores){
+                if (allStores[store].city == user.city && allStores[store].state == user.state){
+                    filterStore[allStores[store]._id] = {
+                        city: allStores[store].city,
+                        name: allStores[store].name,
+                        state: allStores[store].state,
+                    };
+                }
+            }
+            setStoresList(filterStore);
+        }
+
+        collectData();
+        
+
+    }, []); 
+
+    //const feedData = returnLiveFeeds(liveFeed, available_stores, items, products);
+    //const [updatedData, setUpdatedData] = useState(feedData);
+    // Populate data with latest info from database
+    const available_stores = storesList;
+
+    const navigation = useNavigation(); 
 
     const [store_filter, setStores] = useState("all")
     const [post_filter, setPostTypes] = useState("all")
@@ -145,7 +212,9 @@ function LiveFeed() {
     }, [post_filter])
 
     useEffect(() => {
-        const newData = filterLiveFeeds(feedData, filter);
+        // Recreate the copy feeds to avoid permanent change in the data
+        const copyFeeds = returnLiveFeeds(allFeedData, allStoreData, allItemData, allProductData);
+        const newData = filterLiveFeeds(copyFeeds, filter);
         setUpdatedData(newData);
     }, [filter])
 
