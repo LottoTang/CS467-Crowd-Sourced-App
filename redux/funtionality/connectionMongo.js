@@ -162,4 +162,20 @@ async function getAllLiveFeeds(){
     return data;
 }
 
+// Send a new post to the database for a store
+async function postNewFeed(user, item, store, review){
+    try{
+        const response = await axios.post(`http://10.0.2.2:3000/`, 
+        {
+            item_id: item,
+            store_id: store,
+            review: review
+        }
+        ).then(result => console.log(result.data)).catch(error=> console.log(error));
+    }catch (error){
+        console.log(error);
+    }
+}
+
 export { getUser, fetchItems, fetchStores, fetchBrands, searchProducts, fetchProduct, fetchPromotions, getItemByBarcode, getAllLiveFeeds };
+export { postNewFeed };
