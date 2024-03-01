@@ -198,10 +198,10 @@ async function getAllLiveFeeds(){
 
     let data;
     try{
-        const response = await axios.get(`http://10.0.2.2:3000/livefeeds/`
+        const response = await axios.get(`http://10.0.2.2:3000/livefeeds`)
         .then(result => {
             data = result.data;
-        })).catch(error => console.log(error));
+        }).catch(error => console.log(error));
     } catch(error){
         console.log(error);
     }
@@ -209,4 +209,37 @@ async function getAllLiveFeeds(){
     return data;
 }
 
+// Send a new post to the database for a store
+async function postNewFeed(user, item, store, review){
+    try{
+        const response = await axios.post(`http://10.0.2.2:3000/`, 
+        {
+            item_id: item,
+            store_id: store,
+            review: review
+        }
+        ).then(result => console.log(result.data)).catch(error=> console.log(error));
+    }catch (error){
+        console.log(error);
+    }
+}
+
+
+// Get all items with a particular tag
+async function getAllItemsWithTag(storeData){
+
+    try{
+        const response =await axios.get(`http://10.0.2.2:3000/items/allitems`)
+        .then(result =>{
+            //allItems = result.data;
+            storeData(result.data);
+        }).catch(error=> console.log(error));
+    }catch(error){
+        console.log(error);
+    }
+
+}
+
 export { getUser, getItem, fetchItems, getStoreName, fetchStores, fetchBrands, searchProducts, fetchProduct, getPromotionName, fetchPromotions, getItemByBarcode, getAllLiveFeeds };
+
+export { postNewFeed, getAllItemsWithTag };

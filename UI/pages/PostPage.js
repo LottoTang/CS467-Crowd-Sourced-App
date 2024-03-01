@@ -20,6 +20,9 @@ import axios from 'axios';
 // component imports
 import Dropdown from '../components/Dropdown.js'
 
+// import helpers
+import { postNewFeed } from '../../redux/funtionality/connectionMongo.js';
+
 // style imports
 import styles, {item_style, text_styles, add_button} from '../style.js';
 
@@ -30,7 +33,7 @@ function PostPage() {
     const [store, setStore] = useState();
     const [review, setReview] = useState();
 
-    const navigation = useNavigation();
+    const navigation = useNavigation(); 
 
     const handlePost = () => {
         if (store == undefined) Alert.alert("Invalid Store", "Please select a store.", [{text: 'Ok'}] );
@@ -38,13 +41,7 @@ function PostPage() {
         else {
             // Handle form submission here, you can send the data to a backend or perform any other action.
             const fetchData = async () => {
-                try {
-                    //const response = await axios.post(`https://localhost:3000/products`);
-                    //const result = await response.json();
-                    //console.log(result);
-                } catch (error) {
-                    console.error(error);
-                }
+                //const response = await postNewFeed(user, item=null, store, review);
             };
             fetchData();
 

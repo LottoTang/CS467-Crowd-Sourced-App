@@ -440,7 +440,7 @@ function returnLiveFeeds(feeds, stores, items, products){
         feedInput.review = feeds[feed].review;
         
         // Check if it is a store related or item related message
-        if (feeds[feed].price !== undefined){
+        if (feeds[feed].price != undefined){
 
             feedInput.pricing = feeds[feed].price;
         }
@@ -450,14 +450,15 @@ function returnLiveFeeds(feeds, stores, items, products){
                 
             if (item == feeds[feed].item_id){
 
-                const productName = products[items[item].product];
-                feedInput.item = productName.name + " - " + items[item].brand;
+                feedInput.item = items[item].name;
                 feedInput.brand = items[item].brand;
 
                 // Populate for item post
                 if (feeds[feed].price != undefined){
-                    feeds[feed].review = productName.name + " - " + items[item].brand + " $" + feeds[feed].price;
+                    feeds[feed].review = items[item].name + " - " + items[item].brand + " $" + feeds[feed].price;
+                    feedInput.review = feeds[feed].review;
                 }
+                
             }
         } 
 
@@ -472,17 +473,27 @@ function returnLiveFeeds(feeds, stores, items, products){
 
         feedResults.push(feedInput);
     }
-
-    return feedResults
+    
+    // clear data if a feed is empty 
+    const finalFeed =[]
+    for (let key in feedResults){
+        if (feedResults[key].review != ""){
+            finalFeed.push(feedResults[key]);
+        }
+    }
+    
+    return finalFeed;
 }
 
 // Helper method to provide filter for all feeds in the feeds page
 // It takes as argument the return value from returnLiveFeeds, the filtered value and the filter you want to apply
 function filterLiveFeeds(liveFeeds, filter){
-    
+
+    const feedsCopy = JSON.parse(JSON.stringify(liveFeeds));
+
     if (filter.metric != "all"){
         const feedsObject = Object.fromEntries(
-            Object.entries(liveFeeds).filter(([key, value])=>{
+            Object.entries(feedsCopy).filter(([key, value])=>{
                 
                 //Check store change
                 if (filter.store != "all" && (filter.post == "all" || (filter.post.includes("Item Updates") && filter.post.includes("Store Reviews"))))
@@ -492,14 +503,14 @@ function filterLiveFeeds(liveFeeds, filter){
                 else if (filter.store == "all" && filter.post.includes("Item Updates") && !filter.post.includes("Store Reviews")) return value.pricing > -1;
                 else if (filter.store == "all" && (filter.post.includes("Store Reviews") && !filter.post.includes("Item Updates"))) return value.pricing == -1;
                 
-                else return liveFeeds;
+                else return feedsCopy;
             })
-        );
+        ); 
 
         return Object.values(feedsObject);
         
     } else {
-        return liveFeeds;
+        return feedsCopy;
     }
 
 }
@@ -541,7 +552,55 @@ function prepareShoppingListInput(product, itemList, allItems){
     return newShoppingList;
 }
 
+// Helper function to populate a list of selected items to push after in database
+function getListOfBrandsForDB(selected_brands, itemIDs){
+
+    const idsShoppingList = [];
+
+    if (selected_brands.includes("Any brand")){
+        
+        for (let key in itemIDs){
+
+            for (let item in itemIDs[key]){
+                idsShoppingList.push(itemIDs[key][item]);
+            }
+        }
+    } else {
+
+        for (let key in itemIDs){
+
+            if (selected_brands.includes(key)){
+                for (let item in itemIDs[key]){
+                    idsShoppingList.push(itemIDs[key][item]);
+                }
+            }
+        }
+    }
+
+    const newItems = idsShoppingList.map(itemId => ({_id: itemId}));
+    return newItems;
+}
+
+// Helper method to take the list and add the new product and return the object
+function prepareShoppingList(currentList, allItems){
+    
+    const newShoppingList = {};
+    
+    for (let item in currentList){
+        newShoppingList[item] = [];
+        for (let itemId in allItems){
+            for (let code in currentList[item]){
+                if (currentList[item][code]._id == allItems[itemId]._id){
+                    newShoppingList[item].push(allItems[itemId].brand);
+                }
+            }
+        }
+    }
+    
+    return newShoppingList;
+}
 
 export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForProduct, getItemsList }
 export { getShoppingListItemsInStore, getProductInShoppingListDetails, getGoShoppingList, getStoresSorting, getItemSorting }
-export { returnLiveFeeds, filterLiveFeeds, convertItemsOutput, removeSelectedItem, prepareShoppingListInput }
+export { returnLiveFeeds, filterLiveFeeds, convertItemsOutput, removeSelectedItem, prepareShoppingListInput, getListOfBrandsForDB }
+export { prepareShoppingList }
