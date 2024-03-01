@@ -35,7 +35,6 @@ function SelectBrand({route}) {
     const [selected_brands, setSelectedItems] = useState(preselected)
     const [allBrands, setAllBrands] = useState([]);
     const [itemIDs, setItemIDs] = useState({});
-    const [branding, setBranding] = useState([]);
 
     // Collect all brands from database
     useEffect( () => {
@@ -70,52 +69,36 @@ function SelectBrand({route}) {
     const handlePress = ()=>{
         let selected = selected_brands
         if (selected_brands.includes("Any brand")) selected = brands
-
-
         
         const idsShoppingList = [];
 
         // Populate list of brands with item ids
-        
-        if (selected_brands.includes("Any brand")){
-        
-            for (let key in itemIDs){
 
-                for (let item in itemIDs[key]){
-                    idsShoppingList.push(itemIDs[key][item]);
-                    setBranding([...branding, {_id: itemIDs[key][item]}]);
-                }
-            }
-        } else {
-
-            for (let key in itemIDs){
-
-                if (selected_brands.includes(key)){
-                    for (let item in itemIDs[key]){
-                        idsShoppingList.push(itemIDs[key][item]);
-                        setBranding([...branding, {_id: itemIDs[key][item]}]);
-                    }
+        for (let brand in itemIDs){
+            if (selected.includes(brand)){
+                for (let id of itemIDs[brand]){
+                    idsShoppingList.push(id);
                 }
             }
         }
-       
+      
         const newItems = idsShoppingList.map(itemId => ({_id: itemId}));
         
         // Method for adding an item in the database
         const add_item = async ()=>{
 
+
             // Update shopping list 
             const newShoppingList = {
                 ...shoppingList,
                 //[product] : newItems.concat(shoppingList[product] || []),
-                [product] : {newItems},
+                [product] : newItems,
             };
-            const copyShoppingList = {...newShoppingList};
 
             // Send updated shopping list
             try{
-                const response = await axios.patch(`http://10.0.2.2:3000/users/shopping-list-item/${userId}/`,
-                    copyShoppingList,
+                const response = await axios.patch(`http://10.0.2.2:3000/users/shopping-list-item/${userId}`,
+                    newShoppingList,
             ).then(result => {
                  // if shopping_list updated, reset redux user
                  dispatch(setUser(result.data));
@@ -128,7 +111,8 @@ function SelectBrand({route}) {
         add_item();
         navigation.navigate('Home');
     }
-    
+
+
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
