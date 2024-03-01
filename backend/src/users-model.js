@@ -67,9 +67,9 @@ const updateUser = async (filter, update) => {
   return result.modifiedCount;
 };
 
-// UPDATE: Update the feed_item_count
-const updateFeedItemCount = async _id => {
-  const result = await Users.updateOne(
+// UPDATE: Update the shopping_level
+const updateUserShoppingLevel = async _id => {
+  const updateFeedItemCount = await Users.updateOne(
     {
       _id: _id,
     },
@@ -79,16 +79,14 @@ const updateFeedItemCount = async _id => {
       },
     },
   );
-  return result.modifiedCount;
-};
 
-// UPDATE: Update the shopping_level
-const updateUserShoppingLevel = async _id => {
   const document = await Users.findOne({_id: _id});
+
   // Max level reached
   if (document.shopping_level === 5) {
     return;
   }
+
   const userFeedItemCount = document.feed_item_count;
   var userShoppingLevel = 0;
   switch (true) {
@@ -113,7 +111,9 @@ const updateUserShoppingLevel = async _id => {
     {_id: _id},
     {shopping_level: userShoppingLevel},
   );
-  return result.modifiedCount;
+
+  // Return the number of FeedItemCount (Expected: 1)
+  return updateFeedItemCount.modifiedCount;
 };
 
 // UTILITY FUNCTION: Parse shopping_list_item with items.id
@@ -169,7 +169,6 @@ module.exports = {
   findUserById,
   findUserByAuthSub,
   updateUser,
-  updateFeedItemCount,
   updateUserShoppingLevel,
   parseShoppingListItem,
 };
