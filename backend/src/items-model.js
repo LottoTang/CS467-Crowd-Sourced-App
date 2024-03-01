@@ -55,6 +55,20 @@ const createItem = async (
     });
 };
 
+const getAllItems = async item_id => {
+  try {
+    let these_items = await Items.find();
+    // Handle the found item
+    // console.log('Entry found successfully:', this_item);
+    return these_items; // Return the found item
+  } catch (error) {
+    // Handle the error
+    console.error('Error finding entry:', error);
+    throw error; // Rethrow the error if needed
+  }
+};
+
+
 const getItemByID = async item_id => {
   try {
     let this_item = await Items.findOne({_id: item_id});
@@ -84,9 +98,6 @@ const getItemByBarcode = async (barcode_id, store_id) => {
     throw error; // Rethrow the error if needed
   }
 };
-
-
-
 
 
 const getItemsByTag = async tag => {
@@ -135,5 +146,6 @@ module.exports = {
   getItemByID,
   updateItem,
   getItemsByTag,
-  getItemByBarcode
+  getItemByBarcode,
+  getAllItems
 };

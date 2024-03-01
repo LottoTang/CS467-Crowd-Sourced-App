@@ -69,10 +69,22 @@ const getProductBySubstring = async (name) => {
     }
 }
 
+const updateProduct = async (promotion_id, brand, add_brand) => {
+  if (add_brand === true) {
+    // await Products.updateOne({ _id: promotion_id}, {"$set": {"promotion_type": promotion_type}} );
+    let this_product = await Products.findOne({ _id: promotion_id});
+    this_product.brands.push(brand)
+    console.log(this_product)
+    let updated_product = await Products.updateOne({ _id: promotion_id}, {$set: {brands: this_product.brands}});
+    // save the change
+  }
+}
+
 module.exports = {
     Products,
     createProduct,
     getProductByName,
     getBrandsOfProduct,
-    getProductBySubstring
+    getProductBySubstring,
+    updateProduct
 }
