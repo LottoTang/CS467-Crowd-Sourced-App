@@ -48,7 +48,7 @@ function ViewItem() {
         const fetchData = async () => {
             let data = []
             for (const id of item_ids) {
-                const item = await getItem(id)
+                const item = await getItem(id._id)
                 data.push(item)
             }
 

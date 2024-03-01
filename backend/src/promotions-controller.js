@@ -7,9 +7,20 @@ const app = express();
 const promotionsRouter = express.Router();
 const bodyParser = require('body-parser');
 
-const {createPromotion, getPromotionByID, deletePromotion, updatePromotion} = require("./promotions-model.js");
+const {createPromotion, getPromotionByID, deletePromotion, updatePromotion, getPromotionBySubstring} = require("./promotions-model.js");
 
 promotionsRouter.use(bodyParser.json());
+
+promotionsRouter.get("/search", async (req, res) => {
+    // get all promotions with a substring in them
+    try {
+        let foundPromotion = await getPromotionBySubstring(req.query.promotion_type);
+        res.status(200).json(foundPromotion);
+    } catch (error) {
+        console.error(error);
+        res.status(404).send({ error: 'No promotion names containing this substring exist.'});
+    }
+})
 
 promotionsRouter.get("/:id", async (req, res) => {
     try {

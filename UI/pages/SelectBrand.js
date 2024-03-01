@@ -12,12 +12,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 // function imports
-import { getBrandsList } from '../../redux/funtionality/helperFunctions';
+import { getBrandsList, getListOfBrandsForDB, prepareShoppingList } from '../../redux/funtionality/helperFunctions';
 import { setUser } from '../../redux/actions/actions.js';
 
 // data imports
 import axios from 'axios';
-import { fetchBrands, fetchItems } from '../../redux/funtionality/connectionMongo.js';
+import { fetchBrands, fetchItems, getAllItemsWithTag } from '../../redux/funtionality/connectionMongo.js';
 
 // component imports
 import CheckList from '../components/CheckList.js'
@@ -25,6 +25,7 @@ import CheckList from '../components/CheckList.js'
 // style imports
 import styles, {text_styles, add_button} from '../style.js';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { brandsList } from '../../testData/testingData.js';
 
 
 function SelectBrand({route}) {
@@ -34,28 +35,19 @@ function SelectBrand({route}) {
 
     const [selected_brands, setSelectedItems] = useState(preselected)
     const [allBrands, setAllBrands] = useState([]);
-    const [itemIDs, setItemIDs] = useState({});
+    const [allItems, setAllItems] = useState([]);
 
     // Collect all brands from database
     useEffect( () => {
         const fillBrands = async ()=>{
             const brands = await fetchBrands(product)
-
-            const items = await fetchItems(product)
-
-            const objIds = {};
-            for (const item of items){
-                if (item.brand in objIds) objIds[item.brand].push(item._id)
-                else objIds[item.brand] = [item._id]
-            }
-
             setAllBrands(brands)
-            setItemIDs(objIds)
+            getAllItemsWithTag(setAllItems);
         }
         fillBrands();
     }, []);
  
-    brands = allBrands;
+    const brands = allBrands;
 
     // Get user ID
     const userId = useSelector(state => state.user._id);
@@ -63,54 +55,37 @@ function SelectBrand({route}) {
 
     // Set up connection with store to dispatch signal
     const dispatch = useDispatch();
-
     const navigation = useNavigation();
+    const shoppingData = prepareShoppingList(shoppingList, allItems);
 
-    const handlePress = ()=>{
+    const handlePress = async ()=>{
         let selected = selected_brands
         if (selected_brands.includes("Any brand")) selected = brands
-        
-        const idsShoppingList = [];
 
-        // Populate list of brands with item ids
-
-        for (let brand in itemIDs){
-            if (selected.includes(brand)){
-                for (let id of itemIDs[brand]){
-                    idsShoppingList.push(id);
-                }
-            }
-        }
-      
-        const newItems = idsShoppingList.map(itemId => ({_id: itemId}));
-        
-        // Method for adding an item in the database
-        const add_item = async ()=>{
-
-
-            // Update shopping list 
-            const newShoppingList = {
-                ...shoppingList,
-                //[product] : newItems.concat(shoppingList[product] || []),
-                [product] : newItems,
-            };
-
-            // Send updated shopping list
-            try{
-                const response = await axios.patch(`http://10.0.2.2:3000/users/shopping-list-item/${userId}`,
-                    newShoppingList,
-            ).then(result => {
-                 // if shopping_list updated, reset redux user
-                 dispatch(setUser(result.data));
-                 })
-            .catch(error => console.error(error));
-            } catch(error){
-                console.error(error);
-            }
+        // Update shopping list 
+        const newShoppingList = {
+            ...(shoppingData ||{}),
+            [product]: selected
         };
-        add_item();
+            
+        // Send updated shopping list
+        try{
+            const response = await axios.patch(`http://10.0.2.2:3000/users/shopping-list-item/${userId}/`,
+                newShoppingList,
+        )
+        .then(result => {
+            // if shopping_list updated, reset redux user
+            dispatch(setUser(result.data));
+            })
+        .catch(error => console.error(error));
+        } catch(error){
+            console.error(error);
+        }
+        
         navigation.navigate('Home');
     }
+
+
 
 
     return (
