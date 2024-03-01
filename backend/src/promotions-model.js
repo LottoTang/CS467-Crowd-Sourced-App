@@ -74,10 +74,23 @@ const updatePromotion = async (promotion_id, promotion_type, start_time, end_tim
   }
 }
 
+const getPromotionBySubstring = async (promotion_type) => {
+  const promotionNames = [];
+  try {
+      let this_promotion = await Promotions.find({ promotion_type: {$regex: promotion_type} });
+      const promotionNames = this_promotion.map(promotion => promotion.promotion_type);
+      return promotionNames; 
+    } catch (error) {
+      console.error('Error finding entry:', error);
+      throw error; 
+    }
+}
+
 module.exports = {
     Promotions,
     createPromotion,
     getPromotionByID,
     deletePromotion,
-    updatePromotion
+    updatePromotion,
+    getPromotionBySubstring
 }
