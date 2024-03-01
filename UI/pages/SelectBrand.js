@@ -17,7 +17,7 @@ import { setUser } from '../../redux/actions/actions.js';
 
 // data imports
 import axios from 'axios';
-import { fetchBrands, fetchItems } from '../../redux/funtionality/connectionMongo.js';
+import { fetchBrands, fetchItems, getAllItemsWithTag } from '../../redux/funtionality/connectionMongo.js';
 
 // component imports
 import CheckList from '../components/CheckList.js'
@@ -35,23 +35,14 @@ function SelectBrand({route}) {
 
     const [selected_brands, setSelectedItems] = useState(preselected)
     const [allBrands, setAllBrands] = useState([]);
-    const [itemIDs, setItemIDs] = useState({});
+    const [allItems, setAllItems] = useState([]);
 
     // Collect all brands from database
     useEffect( () => {
         const fillBrands = async ()=>{
             const brands = await fetchBrands(product)
-
-            const items = await fetchItems(product)
-
-            const objIds = {};
-            for (const item of items){
-                if (item.brand in objIds) objIds[item.brand].push(item._id)
-                else objIds[item.brand] = [item._id]
-            }
-
             setAllBrands(brands)
-            setItemIDs(objIds)
+            getAllItemsWithTag(setAllItems);
         }
         fillBrands();
     }, []);
@@ -64,24 +55,17 @@ function SelectBrand({route}) {
 
     // Set up connection with store to dispatch signal
     const dispatch = useDispatch();
-
     const navigation = useNavigation();
+    const shoppingData = prepareShoppingList(shoppingList, allItems);
 
     const handlePress = async ()=>{
         let selected = selected_brands
         if (selected_brands.includes("Any brand")) selected = brands
 
-        const brandIds = getListOfBrandsForDB(selected_brands, itemIDs);
-
-        const testSh = prepareShoppingList(shoppingList, product, brandIds);
-        console.log(testSh);
-
-        // Method for adding an item in the database
-
         // Update shopping list 
         const newShoppingList = {
-            ...(shoppingList ||{}),
-            [product] : {brandIds},
+            ...(shoppingData ||{}),
+            [product]: selected
         };
             
         // Send updated shopping list
@@ -100,7 +84,8 @@ function SelectBrand({route}) {
         
         navigation.navigate('Home');
     }
-    
+
+
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>

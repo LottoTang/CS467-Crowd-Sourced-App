@@ -564,23 +564,21 @@ function getListOfBrandsForDB(selected_brands, itemIDs){
 }
 
 // Helper method to take the list and add the new product and return the object
-function prepareShoppingList(currentList, newproduct, newids){
-
-    const newShoppingList = {...currentList};
-    /*
+function prepareShoppingList(currentList, allItems){
+    
+    const newShoppingList = {};
+    
     for (let item in currentList){
-        let itemsList = [];
-        for (let id in currentList[item]){
-            const element = { _id : currentList[item][id]._id};
-            itemsList.push(element);
+        newShoppingList[item] = [];
+        for (let itemId in allItems){
+            for (let code in currentList[item]){
+                if (currentList[item][code]._id == allItems[itemId]._id){
+                    newShoppingList[item].push(allItems[itemId].brand);
+                }
+            }
         }
-        newShoppingList[item] = {
-            brandIds: itemsList
-        };
     }
-    */
-    newShoppingList[newproduct] = newids;
-
+    
     return newShoppingList;
 }
 

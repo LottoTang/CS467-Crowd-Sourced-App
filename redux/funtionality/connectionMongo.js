@@ -177,5 +177,21 @@ async function postNewFeed(user, item, store, review){
     }
 }
 
+
+// Get all items with a particular tag
+async function getAllItemsWithTag(storeData){
+
+    try{
+        const response =await axios.get(`http://10.0.2.2:3000/items/allitems`)
+        .then(result =>{
+            //allItems = result.data;
+            storeData(result.data);
+        }).catch(error=> console.log(error));
+    }catch(error){
+        console.log(error);
+    }
+
+}
+
 export { getUser, fetchItems, fetchStores, fetchBrands, searchProducts, fetchProduct, fetchPromotions, getItemByBarcode, getAllLiveFeeds };
-export { postNewFeed };
+export { postNewFeed, getAllItemsWithTag };
