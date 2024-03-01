@@ -155,12 +155,13 @@ usersRouter.patch('/shopping-list-item/:_id', async (req, res) => {
   }
 });
 
-usersRouter.patch('/test/:_id', async (req, res) => {
+// Testing Code for Updating shopping_level
+usersRouter.patch('/shopping_level/:_id', async (req, res) => {
   const userID = req.params._id;
   try {
     const document = db.findUserById(userID);
     try {
-      const updateCount = await db.updateFeedItemCount(userID);
+      const updateCount = await db.updateUserShoppingLevel(userID);
       if (updateCount === 1) {
         try {
           const document = await db.findUserById(userID);
