@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 // function imports
-import { getBrandsList, getListOfBrandsForDB } from '../../redux/funtionality/helperFunctions';
+import { getBrandsList, getListOfBrandsForDB, prepareShoppingList } from '../../redux/funtionality/helperFunctions';
 import { setUser } from '../../redux/actions/actions.js';
 
 // data imports
@@ -73,33 +73,31 @@ function SelectBrand({route}) {
 
         const brandIds = getListOfBrandsForDB(selected_brands, itemIDs);
 
-        // Method for adding an item in the database
-        //const add_item = async ()=>{
+        const testSh = prepareShoppingList(shoppingList, product, brandIds);
+        console.log(testSh);
 
-            // Update shopping list 
-            const newShoppingList = {
-                ...shoppingList,
-                //[product] : newItems.concat(shoppingList[product] || []),
-                //[product] : {brandIds},
-                [product] : {brandIds},
-            };
+        // Method for adding an item in the database
+
+        // Update shopping list 
+        const newShoppingList = {
+            ...(shoppingList ||{}),
+            [product] : {brandIds},
+        };
             
-            // Send updated shopping list
-            try{
-                const response = await axios.patch(`http://10.0.2.2:3000/users/shopping-list-item/${userId}/`,
-                    newShoppingList,
-            )
-            .then(result => {
-                 // if shopping_list updated, reset redux user
-                 dispatch(setUser(result.data));
-                 console.log(result.data);
-                })
-            .catch(error => console.error(error));
-            } catch(error){
-                console.error(error);
-            }
-        //};
-        //add_item();
+        // Send updated shopping list
+        try{
+            const response = await axios.patch(`http://10.0.2.2:3000/users/shopping-list-item/${userId}/`,
+                newShoppingList,
+        )
+        .then(result => {
+            // if shopping_list updated, reset redux user
+            dispatch(setUser(result.data));
+            })
+        .catch(error => console.error(error));
+        } catch(error){
+            console.error(error);
+        }
+        
         navigation.navigate('Home');
     }
     

@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 import { useState, useEffect } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
 // function imports
@@ -121,6 +121,7 @@ function LiveFeed() {
     const [allStoreData, setAllStoreData] = useState();
     const [allProductData, setAllProductData] = useState();
     const [allFeedData, setAllFeedData] = useState();
+    const isFocused = useIsFocused();
 
     const [filter, setFilter] = useState({metric: "all", store: "all", post: "all"});
 
@@ -185,7 +186,8 @@ function LiveFeed() {
         collectData();
         
 
-    }, []); 
+    },[isFocused]); 
+    
 
     //const feedData = returnLiveFeeds(liveFeed, available_stores, items, products);
     //const [updatedData, setUpdatedData] = useState(feedData);

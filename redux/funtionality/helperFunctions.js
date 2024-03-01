@@ -439,7 +439,15 @@ function returnLiveFeeds(feeds, stores, items, products){
         feedResults.push(feedInput);
     }
     
-    return feedResults
+    // clear data if a feed is empty 
+    const finalFeed =[]
+    for (let key in feedResults){
+        if (feedResults[key].review != ""){
+            finalFeed.push(feedResults[key]);
+        }
+    }
+    
+    return finalFeed;
 }
 
 // Helper method to provide filter for all feeds in the feeds page
@@ -555,6 +563,28 @@ function getListOfBrandsForDB(selected_brands, itemIDs){
     return newItems;
 }
 
+// Helper method to take the list and add the new product and return the object
+function prepareShoppingList(currentList, newproduct, newids){
+
+    const newShoppingList = {...currentList};
+    /*
+    for (let item in currentList){
+        let itemsList = [];
+        for (let id in currentList[item]){
+            const element = { _id : currentList[item][id]._id};
+            itemsList.push(element);
+        }
+        newShoppingList[item] = {
+            brandIds: itemsList
+        };
+    }
+    */
+    newShoppingList[newproduct] = newids;
+
+    return newShoppingList;
+}
+
 export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForProduct, getItemsList }
 export { getShoppingListItemsInStore, getProductInShoppingListDetails, getGoShoppingList, getStoresSorting, getItemSorting }
 export { returnLiveFeeds, filterLiveFeeds, convertItemsOutput, removeSelectedItem, prepareShoppingListInput, getListOfBrandsForDB }
+export { prepareShoppingList }
