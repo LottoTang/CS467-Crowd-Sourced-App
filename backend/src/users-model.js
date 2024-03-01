@@ -79,7 +79,10 @@ const updateFeedItemCount = async _id => {
       },
     },
   );
-  return result.modifiedCount;
+  if (result.modifiedCount === 1) {
+    console.log("Updated User's feed_item_count.");
+    updateUserShoppingLevel(_id);
+  }
 };
 
 // UPDATE: Update the shopping_level

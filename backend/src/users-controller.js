@@ -155,4 +155,29 @@ usersRouter.patch('/shopping-list-item/:_id', async (req, res) => {
   }
 });
 
+usersRouter.patch('/test/:_id', async (req, res) => {
+  const userID = req.params._id;
+  try {
+    const document = db.findUserById(userID);
+    try {
+      const updateCount = await db.updateFeedItemCount(userID);
+      if (updateCount === 1) {
+        try {
+          const document = await db.findUserById(userID);
+          res.status(200).send(document);
+        } catch (err) {
+          console.error(err);
+          res.status(404).send({Error: 'No user with this users._id exists.'});
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).send({Error: 'Internal server error.'});
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(404).send({Error: 'No user with this users._id exists.'});
+  }
+});
+
 module.exports = {usersRouter};
