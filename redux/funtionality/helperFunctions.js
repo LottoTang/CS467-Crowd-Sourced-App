@@ -3,6 +3,8 @@
 // import data from test file 2
 import { items, products, stores, promotions } from "../../testData/testingData2";
 
+import { getItem, getStoreName, getPromotionName } from '../../redux/funtionality/connectionMongo.js';
+
 // Test data
 const testData = [
     { item_id: "123", store_id: "Shoprite", name: "tomato sauce", brand: "Barilla", category: "groceries", price: 4.99 },
@@ -190,28 +192,49 @@ function getItemsList(item_ids, all_items) {
 }
 
 //Helper method to extract items available and items missing from the shopping list in a particular store
-function getShoppingListItemsInStore(shopping_list, store_name, all_items, all_stores){
-
+async function getShoppingListItemsInStore(shopping_list, store_id){
     const breakdown = {items_available: [], items_missing: []};
 
-    // First capture the items available
-    for (let item in shopping_list){
-
-        for (let store in all_stores){
-            if (all_stores[store].name == store_name){
-                for (let item_id in all_items){
-                    if (shopping_list[item].includes(item_id) && all_items[item_id].store == store && !breakdown.items_available.includes(item)){
-                        breakdown.items_available.push(item);
+    // iterate over all products in the shopping list
+    for (let product in shopping_list){
+        // check each item stored in that product's list
+        for (let item_id of shopping_list[product]) {
+            if (item_id) {
+                const item = await getItem(item_id._id)
+                if (item) {
+                    // if that item is in the provided store, add it to the items_available
+                    if (item.store_id == store_id) {
+                        breakdown.items_available.push(product)
+                        // once one item has been found, no need to check other items
+                        break
                     }
                 }
             }
         }
+        // if no items were found for that product, add it to the items_missing
+        if (!breakdown.items_available.includes(product)) {
+            breakdown.items_missing.push(product)
+        }
+
+        /*
+        for (let store in all_stores){
+            if (all_stores[store].name == store_name){
+                for (let item_id in all_items){
+                    if (shopping_list[product].includes(item_id) && all_items[item_id].store == store && !breakdown.items_available.includes(product)){
+                        breakdown.items_available.push(product);
+                    }
+                }
+            }
+        }
+        */
     }
 
+    /*
     // Capture missing items
     for (let missing_item in shopping_list){
         if (!breakdown.items_available.includes(missing_item)) breakdown.items_missing.push(missing_item);
     }
+    */
 
     return breakdown;
 
@@ -230,13 +253,24 @@ function getProductInShoppingListDetails(item_name, shopping_list){
 }
 
 // Helper method to get the minimum price for an item in a store in the list of items
-function getLowestPriceItem(items_list, store_id, items){
+async function getLowestPriceItem(items_list, store_id){
     
     let lowest_price = 10000;
 
     // Iterate through the list of items
-    for (let item in items_list){
-        
+    for (let item_id of items_list){
+        if (item_id) {
+            const item = await getItem(item_id._id)
+            if (item) {
+                if (item.store_id == store_id) {
+                    if (item.price < lowest_price){
+                        lowest_price = item.price;
+                    }
+                }
+            }
+        }
+
+        /*
         // Check if available in target store
         for (let itemDet in items[0]){
             if(items[0][itemDet].store_id == store_id){
@@ -246,7 +280,7 @@ function getLowestPriceItem(items_list, store_id, items){
             }
         }
 
-        /*
+
         // Previous schema design
         if (items[items_list[item]].store == store_id){
             if (items[items_list[item]].price < lowest_price){
@@ -261,19 +295,20 @@ function getLowestPriceItem(items_list, store_id, items){
 
 
 // Method to return stores, number of items and total cost - Adjusted based on latest database schema
-function getGoShoppingList(shopping_list, items, stores, city, state){
+async function getGoShoppingList(shopping_list, stores, city, state){
 
     const store_details = {};
     
     // Capture the name off each store
-    for (let store in stores){
-        if (stores[store].city == city && stores[store].state == state){
+    for (let store of stores){
+        if (store.city == city && store.state == state){
 
-            if (!(stores[store]._id in store_details)){
-                store_details[stores[store]._id] = {
-                    name: stores[store].name,
+            if (!(store._id in store_details)){
+                store_details[store._id] = {
+                    name: store.name,
                     total_cost: 0,
                     num_items: 0,
+                    _id: store._id
                 }
             }
             /*
@@ -291,12 +326,12 @@ function getGoShoppingList(shopping_list, items, stores, city, state){
     // Iterate through every item in the shopping list
     for (let shopping_item in shopping_list){
         
-        // Capture all brands selected for an item in the shopping list
-        const list_brands = shopping_list[shopping_item];
+        // Capture all items connected to a product in the shopping list
+        const ids_list = shopping_list[shopping_item];
         //Get lowest price for an item in each store
 
         for (let store in store_details){
-            const lowest_price = getLowestPriceItem(list_brands, store, items);
+            const lowest_price = await getLowestPriceItem(ids_list, store);
 
             if (lowest_price < 10000){
                 store_details[store].total_cost = store_details[store].total_cost + lowest_price;
@@ -305,7 +340,7 @@ function getGoShoppingList(shopping_list, items, stores, city, state){
         }
        
     }
-    
+
     return store_details;
     
 }
@@ -340,7 +375,7 @@ function getStoresSorting(input_object, sorting){
 }
 
 // Function to sort a list of store options for a selected item by price, brand and store
-function getItemSorting(items, sorting, stores){
+function getItemSorting(items, sorting){
     if (sorting == "Price"){
         items.sort((a, b) => a.price - b.price);
     } else if (sorting == "Brand"){
@@ -480,36 +515,19 @@ function filterLiveFeeds(liveFeeds, filter){
 
 }
 
-// Functionality for collecting the data from the user and preparing the request for updating the price of an item
-function sendRequestToUpdatePrice(store, brand, price, tag, date, barcode, promotion){
-    
-}
-
-// Helper method to return the store name from a store given an id number.
-// Used in the convertItemsOutput function
-function helperGetStoreName(store_id, storesList){
-    
-    for (let store in storesList){
-        
-        if (storesList[store]._id == store_id){
-            return storesList[store].name;
-        }
-    }
-
-    return "Store not in database yet";
-}
 
 // Helper method to take input from the database and return it to a format for the ViewItem page
-function convertItemsOutput(databaseItems, databaseStores){
+async function convertItemsOutput(databaseItems){
     const output = [];
-    for (let value in databaseItems){
+    for (let item of databaseItems){
         const element = {};
-        element.brand = databaseItems[value].brand;
-        element.name = databaseItems[value].name;
-        element.price = databaseItems[value].price;
-        element.product = databaseItems[value]._id;
-        element.promotion = databaseItems[value].promotion_id;
-        element.store = helperGetStoreName(databaseItems[value].store_id, databaseStores);
+        element.brand = item.brand;
+        element.name = item.name;
+        element.price = item.price;
+        element.product = item._id;
+        if (item.promotion_id) element.promotion = await getPromotionName(item.promotion_id);
+        element.store = await getStoreName(item.store_id);
+        if (!element.store) element.store = "Store not in database yet"
         output.push(element);
     }
 

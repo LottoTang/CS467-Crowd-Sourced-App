@@ -86,6 +86,8 @@ function SelectBrand({route}) {
     }
 
 
+
+
     return (
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>

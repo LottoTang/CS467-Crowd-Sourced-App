@@ -17,6 +17,21 @@ async function getUser(user_id) {
     return res
 }
 
+// fetches an item based on the item id
+async function getItem(item_id) {
+    let res;
+
+    try {
+        const response = await axios.get(`http://10.0.2.2:3000/items/${item_id}`, {}
+            ).then(result => {
+                res = result.data
+                })
+            .catch(error => console.log(error))
+    } catch(error) { console.error(error) };
+
+    return res
+}
+
 // fetch all items that include the specified product in their tags
 async function fetchItems(product) {
     let res;
@@ -32,6 +47,22 @@ async function fetchItems(product) {
         .catch(error => console.error(error));
     }catch(error){ console.error(error) };
 
+    return res
+}
+
+// fetch a store from the given id and return the name
+async function getStoreName(store_id) {
+    let res;
+
+    try{
+        const response = await axios.get(`http://10.0.2.2:3000/stores/${store_id}`, {}
+        ).then(result => {
+            res = result.data;
+            })
+        .catch(error => console.error(error));
+    }catch(error){ console.error(error) };
+
+    if (res) return res.name
     return res
 }
 
@@ -104,6 +135,22 @@ async function fetchProduct(product_name) {
         .catch(error => console.error(error));
     }catch(error){ console.error(error) };
 
+    return res
+}
+
+// fetch a promotion from the given id and return the type
+async function getPromotionName(promotion_id) {
+    let res;
+
+    try{
+        const response = await axios.get(`http://10.0.2.2:3000/promotions/${promotion_id}`, {}
+        ).then(result => {
+            res = result.data;
+            })
+        .catch(error => console.error(error));
+    }catch(error){ console.error(error) };
+
+    if (res) return res.promotion_type
     return res
 }
 
@@ -193,5 +240,6 @@ async function getAllItemsWithTag(storeData){
 
 }
 
-export { getUser, fetchItems, fetchStores, fetchBrands, searchProducts, fetchProduct, fetchPromotions, getItemByBarcode, getAllLiveFeeds };
+export { getUser, getItem, fetchItems, getStoreName, fetchStores, fetchBrands, searchProducts, fetchProduct, getPromotionName, fetchPromotions, getItemByBarcode, getAllLiveFeeds };
+
 export { postNewFeed, getAllItemsWithTag };

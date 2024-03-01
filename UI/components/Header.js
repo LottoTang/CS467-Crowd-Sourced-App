@@ -74,7 +74,7 @@ const headerFunc = ({navigation, route, options, back}) => {
                             }
                         };
                         getData();
-                        //const updatedShoppingList = prepareShoppingList(newList, allItems);
+                        const updatedShoppingList = prepareShoppingList(newList, allItems);
                         //console.log(allItems)
                         //console.log(updatedShoppingList);
                         // Send update to shopping list 

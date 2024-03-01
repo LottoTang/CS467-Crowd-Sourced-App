@@ -52,13 +52,20 @@ function ItemsAtStore({route}) {
     const store = route.params.store
 
     const shopping_list = useSelector((state)=> state.user.shopping_list_item);
-    const all_items = useSelector(state => state.all_items);
-    const all_stores = useSelector(state => state.all_stores);
 
     // collect dictionary of items available/missing
-    const breakdown_items = getShoppingListItemsInStore(shopping_list, store.name, all_items, all_stores);
-    const items_found = breakdown_items.items_available;
-    const items_missing = breakdown_items.items_missing;
+    const [items_found, setFound] = useState([])
+    const [items_missing, setMissing] = useState([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const breakdown = await getShoppingListItemsInStore(shopping_list, store._id);
+            setFound(breakdown.items_available)
+            setMissing(breakdown.items_missing)
+            setUnselectedItems(breakdown.items_available)
+        }
+        fetchData()
+    }, [])
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
@@ -69,7 +76,7 @@ function ItemsAtStore({route}) {
     };
 
 
-    const [unselected_products, setUnselectedItems] = useState(items_found)
+    const [unselected_products, setUnselectedItems] = useState([])
     const [selected_products, setSelectedItems] = useState([])
 
     const handleSelect = (item, isSelected) => {
