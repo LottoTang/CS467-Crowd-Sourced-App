@@ -1,5 +1,5 @@
 // react imports
-import React from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   Alert,
@@ -15,8 +15,9 @@ import axios from 'axios';
 // function imports
 import { deleteItemInShoppingList } from '../../redux/actions/actions.js';
 import { capitalizeTitle } from '../ui_helpers.js'
-import { removeSelectedItem } from '../../redux/funtionality/helperFunctions.js';
+import { removeSelectedItem, prepareShoppingList } from '../../redux/funtionality/helperFunctions.js';
 import { setUser } from '../../redux/actions/actions.js';
+import { getAllItemsWithTag } from '../../redux/funtionality/connectionMongo.js';
 
 // style imports
 import styles, {item_style, text_styles} from '../style.js';
@@ -25,6 +26,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const headerFunc = ({navigation, route, options, back}) => {
 // the Header at the top of each screen, including back button, title, and username
     const user = useSelector(state => state.user);
+    const [allItems, setAllItems] = useState([]);
 
     const title = getHeaderTitle(options, route.name);
 
@@ -62,12 +64,25 @@ const headerFunc = ({navigation, route, options, back}) => {
                         const shoppingList = user.shopping_list_item;
                         const newList = removeSelectedItem(shoppingList, route.params.product);
 
+                        // get all items to update shopping list with brands
+                        const getData = async ()=>{
+                            try{
+                                const response = await axios.get(`http://10.0.2.2:3000/items/allitems`)
+                                .then(result => setAllItems(result.data)).catch(error=>console.log(error));
+                            }catch(error) {
+                                console.log(error);
+                            }
+                        };
+                        getData();
+                        //const updatedShoppingList = prepareShoppingList(newList, allItems);
+                        //console.log(allItems)
+                        //console.log(updatedShoppingList);
                         // Send update to shopping list 
                         
                         const updateRequest = async ()=>{
                             try{
                                 const response = await axios.patch(`http://10.0.2.2:3000/users/shopping-list-item/${user._id}`,
-                                newList
+                                updatedShoppingList
                                 ).then(result => {
                                 // if shopping_list updated, reset redux user
                                 dispatch(setUser(result.data));
