@@ -15,7 +15,8 @@ const initial_state = {
     all_items: items,
     all_products: products,
     all_stores: stores,
-    all_promotions: promotions
+    all_promotions: promotions,
+    shopping_list_content: {}
 };
 
 
@@ -74,6 +75,11 @@ const homepageReducer = (state= initial_state, action) =>{
             return {
                 ...state,
                 user: action.payload.user,
+            }
+        case "SHOPPING_LIST_CONTENT":
+            return {
+                ...state,
+                shopping_list_content: action.payload.shopping_list_content
             }
         default:
             return state;

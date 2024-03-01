@@ -11,3 +11,4 @@ export const EDIT_ITEM = "EDIT_ITEM";
 export const EDITING = "EDITING";
 export const DELETE_ITEM = "DELETE_ITEM";
 export const SET_USER = "SET_USER";
+export const SHOPPING_LIST_CONTENT = "SHOPPING_LIST_CONTENT";
