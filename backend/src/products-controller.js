@@ -7,7 +7,7 @@ const app = express();
 const productsRouter = express.Router();
 const bodyParser = require('body-parser');
 
-const {getProductByName, createProduct, getBrandsOfProduct, getProductBySubstring} = require("./products-model.js");
+const {getProductByName, createProduct, getBrandsOfProduct, getProductBySubstring, updateProduct} = require("./products-model.js");
 
 productsRouter.use(bodyParser.json());
 
@@ -57,6 +57,28 @@ productsRouter.get("/brands", async (req, res) => {
         res.status(404).send({ error: 'No product with this name exists.'});
     }
 })
+
+productsRouter.patch("/:id", async (req, res) => {
+    // Things that can be changed: promotion_id and price
+    const keys = Object.keys(req.body)
+    const reqLength = Object.keys(req.body).length
+    let add_brand = false;
+
+    
+    for (let i = 0; i < reqLength; i++) {
+        if (keys[i] === "brand") {
+            add_brand = true
+        }
+    }
+
+    try {
+        await updateProduct(req.params.id, req.body.brand, add_brand);
+        res.status(204).end();
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Something went wrong' });
+    }
+}) 
 
 
 module.exports = {productsRouter};
