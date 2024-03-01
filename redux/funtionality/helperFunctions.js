@@ -527,7 +527,7 @@ function prepareShoppingListInput(product, itemList, allItems){
 }
 
 // Helper function to populate a list of selected items to push after in database
-function getListOfBrandsForDB(selected_brands, itemIDs, setBranding, branding){
+function getListOfBrandsForDB(selected_brands, itemIDs){
 
     const idsShoppingList = [];
 
@@ -537,7 +537,6 @@ function getListOfBrandsForDB(selected_brands, itemIDs, setBranding, branding){
 
             for (let item in itemIDs[key]){
                 idsShoppingList.push(itemIDs[key][item]);
-                setBranding([...branding, {_id: itemIDs[key][item]}]);
             }
         }
     } else {
@@ -547,14 +546,12 @@ function getListOfBrandsForDB(selected_brands, itemIDs, setBranding, branding){
             if (selected_brands.includes(key)){
                 for (let item in itemIDs[key]){
                     idsShoppingList.push(itemIDs[key][item]);
-                    setBranding([...branding, {_id: itemIDs[key][item]}]);
                 }
             }
         }
     }
 
     const newItems = idsShoppingList.map(itemId => ({_id: itemId}));
-
     return newItems;
 }
 

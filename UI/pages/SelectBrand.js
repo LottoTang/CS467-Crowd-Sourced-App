@@ -25,6 +25,7 @@ import CheckList from '../components/CheckList.js'
 // style imports
 import styles, {text_styles, add_button} from '../style.js';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { brandsList } from '../../testData/testingData.js';
 
 
 function SelectBrand({route}) {
@@ -35,7 +36,6 @@ function SelectBrand({route}) {
     const [selected_brands, setSelectedItems] = useState(preselected)
     const [allBrands, setAllBrands] = useState([]);
     const [itemIDs, setItemIDs] = useState({});
-    const [branding, setBranding] = useState([]);
 
     // Collect all brands from database
     useEffect( () => {
@@ -56,7 +56,7 @@ function SelectBrand({route}) {
         fillBrands();
     }, []);
  
-    brands = allBrands;
+    const brands = allBrands;
 
     // Get user ID
     const userId = useSelector(state => state.user._id);
@@ -67,80 +67,39 @@ function SelectBrand({route}) {
 
     const navigation = useNavigation();
 
-    const handlePress = ()=>{
+    const handlePress = async ()=>{
         let selected = selected_brands
         if (selected_brands.includes("Any brand")) selected = brands
 
-
-        /*
-        const idsShoppingList = [];
-
-        // Populate list of brands with item ids
-        
-        if (selected_brands.includes("Any brand")){
-        
-            for (let key in itemIDs){
-
-                for (let item in itemIDs[key]){
-                    idsShoppingList.push(itemIDs[key][item]);
-                    setBranding([...branding, {_id: itemIDs[key][item]}]);
-                }
-            }
-        } else {
-
-            for (let key in itemIDs){
-
-                if (selected_brands.includes(key)){
-                    for (let item in itemIDs[key]){
-                        idsShoppingList.push(itemIDs[key][item]);
-                        setBranding([...branding, {_id: itemIDs[key][item]}]);
-                    }
-                }
-            }
-        }
-       
-        const newItems = idsShoppingList.map(itemId => ({_id: itemId}));
-        */
-
-        const brandIds = getListOfBrandsForDB(selected_brands, itemIDs, setBranding, branding);
-
-        /*
-        // Update shopping list 
-        const newShoppingList = {
-            ...shoppingList,
-            //[product] : newItems.concat(shoppingList[product] || []),
-            [product] : {newItems},
-        };
-        const copyShoppingList = {...newShoppingList};
-        */
+        const brandIds = getListOfBrandsForDB(selected_brands, itemIDs);
 
         // Method for adding an item in the database
-        const add_item = async ()=>{
+        //const add_item = async ()=>{
 
-            const newItems = JSON.parse(JSON.stringify(brandIds));
             // Update shopping list 
             const newShoppingList = {
                 ...shoppingList,
                 //[product] : newItems.concat(shoppingList[product] || []),
-                [product] : newItems,
+                //[product] : {brandIds},
+                [product] : {brandIds},
             };
-            const copyShoppingList = {...newShoppingList};
             
-            //console.log(copyShoppingList);
             // Send updated shopping list
             try{
                 const response = await axios.patch(`http://10.0.2.2:3000/users/shopping-list-item/${userId}/`,
-                    copyShoppingList,
-            ).then(result => {
+                    newShoppingList,
+            )
+            .then(result => {
                  // if shopping_list updated, reset redux user
                  dispatch(setUser(result.data));
-                 })
+                 console.log(result.data);
+                })
             .catch(error => console.error(error));
             } catch(error){
                 console.error(error);
             }
-        };
-        add_item();
+        //};
+        //add_item();
         navigation.navigate('Home');
     }
     
