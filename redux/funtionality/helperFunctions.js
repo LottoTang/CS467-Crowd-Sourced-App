@@ -252,47 +252,6 @@ function getProductInShoppingListDetails(item_name, shopping_list){
     return product_details;
 }
 
-// Helper method to get the minimum price for an item in a store in the list of items
-async function getLowestPriceItem(items_list, store_id){
-    
-    let lowest_price = 10000;
-
-    // Iterate through the list of items
-    for (let item_id of items_list){
-        if (item_id) {
-            const item = await getItem(item_id._id)
-            if (item) {
-                if (item.store_id == store_id) {
-                    if (item.price < lowest_price){
-                        lowest_price = item.price;
-                    }
-                }
-            }
-        }
-
-        /*
-        // Check if available in target store
-        for (let itemDet in items[0]){
-            if(items[0][itemDet].store_id == store_id){
-                if (items[0][itemDet].price < lowest_price){
-                    lowest_price = items[0][itemDet].price;
-                }
-            }
-        }
-
-
-        // Previous schema design
-        if (items[items_list[item]].store == store_id){
-            if (items[items_list[item]].price < lowest_price){
-                lowest_price = items[items_list[item]].price;
-            }
-        }
-        */
-    }
-
-    return lowest_price;
-}
-
 
 // Method to return stores, number of items and total cost - Adjusted based on latest database schema
 async function getGoShoppingList(shopping_list, stores, city, state){
@@ -311,15 +270,6 @@ async function getGoShoppingList(shopping_list, stores, city, state){
                     _id: store._id
                 }
             }
-            /*
-            if (!(store in store_details)){
-                store_details[store] = {
-                    name: stores[store].name,
-                    total_cost: 0,
-                    num_items: 0,
-                };
-            }
-            */
         }
     }
 
@@ -330,15 +280,12 @@ async function getGoShoppingList(shopping_list, stores, city, state){
         const ids_list = shopping_list[shopping_item];
         //Get lowest price for an item in each store
 
-        for (let store in store_details){
-            const lowest_price = await getLowestPriceItem(ids_list, store);
-
-            if (lowest_price < 10000){
-                store_details[store].total_cost = store_details[store].total_cost + lowest_price;
-                store_details[store].num_items = store_details[store].num_items + 1;
-            }
+        for (const id of ids_list) {
+            const item = await getItem(id._id)
+            const store = store_details[item.store_id]
+            store.total_cost += item.price
+            store.num_items += 1
         }
-       
     }
 
     return store_details;

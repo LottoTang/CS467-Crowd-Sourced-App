@@ -89,11 +89,6 @@ function ViewItem() {
 
     }, []);
 
-
-    if (loading) {
-        return <Loading />
-    }
-
     //const items = getItemsList(item_ids, all_items);
     const selected_brands = getSelectedBrandsForProduct(items);
 
@@ -102,10 +97,6 @@ function ViewItem() {
 
     // set the shopping list content
     dispatch(setShoppingListContent(storeItems));
-
-    if (!product) {
-        return <Text>No product selected</Text>;
-    }
 
     const handleEditItem = (item) => {
         // Go to select brand page
@@ -119,6 +110,13 @@ function ViewItem() {
         setPopup(false)
     }
 
+    if (loading) {
+        return <Loading />
+    }
+
+    if (!product) {
+        return <Text>No product selected</Text>;
+    }
 
     return (
     <SafeAreaView style={styles.app}>
