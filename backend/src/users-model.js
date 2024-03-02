@@ -132,14 +132,14 @@ const parseShoppingListItem = async products => {
       shoppingList[productTag] = [];
       for (brandName of brand) {
         try {
-          const document = await Items.findOne(
+          const collection = await Items.find(
             {
               product_tags: productTag,
               brand: brandName,
             },
             {_id: 1},
           );
-          shoppingList[productTag].push(document);
+          shoppingList[productTag] = collection;
         } catch (err) {
           console.error(err);
         }
