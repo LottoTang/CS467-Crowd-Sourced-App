@@ -11,13 +11,14 @@ import {
 import {getHeaderTitle} from '@react-navigation/elements';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import { useEffect } from 'react';
 
 // function imports
 import { deleteItemInShoppingList } from '../../redux/actions/actions.js';
 import { capitalizeTitle } from '../ui_helpers.js'
 import { removeSelectedItem, prepareShoppingList } from '../../redux/funtionality/helperFunctions.js';
 import { setUser } from '../../redux/actions/actions.js';
-import { getAllItemsWithTag } from '../../redux/funtionality/connectionMongo.js';
+import { getAllItemsWithTag, getItem } from '../../redux/funtionality/connectionMongo.js';
 
 // style imports
 import styles, {item_style, text_styles} from '../style.js';
@@ -27,9 +28,10 @@ const headerFunc = ({navigation, route, options, back}) => {
 // the Header at the top of each screen, including back button, title, and username
     const user = useSelector(state => state.user);
     const [allItems, setAllItems] = useState([]);
+    const shopping_list_content = useSelector(state => state.shopping_list_content);
 
     const title = getHeaderTitle(options, route.name);
-
+ 
     let header_height = 116
     if (title == "") header_height = 63
 
@@ -47,6 +49,20 @@ const headerFunc = ({navigation, route, options, back}) => {
 
     const dispatch = useDispatch();
 
+    /*
+    // Alternative method without using Redux but makes app too slow if shopping list is too large
+    const getItemData = ()=>{
+        const getData = async ()=>{
+            await getAllItemsWithTag(setAllItems);
+        }
+        
+        setTimeout(()=>{
+            getData();
+        }, 500);
+    }
+    getItemData();*/
+
+
     const deleteAlert = (item) => {
         Alert.alert(`Delete ${capitalizeTitle(item)}`,
             `Are you sure you want to remove ${item} from your shopping list?`,
@@ -61,23 +77,10 @@ const headerFunc = ({navigation, route, options, back}) => {
                         dispatch(deleteItemInShoppingList(route.params.product));
                         
                         // Get users shopping list 
-                        const shoppingList = user.shopping_list_item;
-                        const newList = removeSelectedItem(shoppingList, route.params.product);
-
-                        // get all items to update shopping list with brands
-                        const getData = async ()=>{
-                            try{
-                                const response = await axios.get(`http://10.0.2.2:3000/items/allitems`)
-                                .then(result => setAllItems(result.data)).catch(error=>console.log(error));
-                            }catch(error) {
-                                console.log(error);
-                            }
-                        };
-                        getData();
-                        const updatedShoppingList = prepareShoppingList(newList, allItems);
-                        //console.log(allItems)
-                        //console.log(updatedShoppingList);
-                        // Send update to shopping list 
+                        //const shoppingList = user.shopping_list_item;                      
+                        //const newList = removeSelectedItem(shoppingList, route.params.product);
+                        //const updatedShoppingList = prepareShoppingList(newList, allItems);
+                        const updatedShoppingList = removeSelectedItem(shopping_list_content, route.params.product);
                         
                         const updateRequest = async ()=>{
                             try{

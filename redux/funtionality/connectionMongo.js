@@ -224,7 +224,7 @@ async function postNewFeed(user, item, store, review){
 }
 
 
-// Get all items with a particular tag
+// Get all items from database and store them in a state using the set state method storeData
 async function getAllItemsWithTag(storeData){
 
     try{
