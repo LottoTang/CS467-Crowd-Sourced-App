@@ -18,22 +18,19 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const ItemComponent = ({item, stores_only}) => {
 // item component that holds either live feed post or item data
     let title, subtitle, time, user, width;
-    if (item.price){
-        title = item.name
-        subtitle = stores[item.store].name
+    if (item.pricing != -1){
+        title = item.item
+        subtitle = item.store
         width = "75%"
-
-        // TODO: replace this with data from the database; not sure how it's going to be pulled
-        time = "4 hours"
-        user = "shoppingpro50"
     }
     else {
         title = item.review
         subtitle = item.store
         width = "100%"
-        time = item.date
-        user = item.user
     }
+
+    time = item.date
+    user = item.user
 
     const promotion = promotions[item.promotion]
     let promotion_type = null
@@ -44,12 +41,10 @@ const ItemComponent = ({item, stores_only}) => {
 
     return (
         <View style={item_style}>
-            <View style={{width: "100%"}}>
+            <View style={[styles.wide_row, {alignSelf: 'center', maxWidth: width}]}>
                 <Text style={[text_styles.smallTitle, view_style.largeText]}>
                     {title}
                 </Text>
-            </View>
-            <View style={[styles.wide_row, {alignSelf: 'center', maxWidth: width}]}>
                 <Text style={[text_styles.itemText, {paddingTop: 0, paddingBottom: 0, lineHeight: 15}]}>
                     {subtitle}
                 </Text>
@@ -57,15 +52,15 @@ const ItemComponent = ({item, stores_only}) => {
                     Last updated {time} ago by {user}
                 </Text>
             </View>
-            { item.price ? (
-                <View style={{alignSelf: 'flex-start'}}>
+            { item.pricing != -1 ? (
+                <View style={{alignSelf: 'center'}}>
                     { promotion ? (
                         <Text style={[text_styles.itemText, {marginTop: 4, paddingBottom: 0, color: styles.headerColor.color, textAlign: 'right', lineHeight: 15}]}>
                             Sale: {promotion_type}!!
                         </Text>
                     ) : null}
                     <Text style={[text_styles.smallTitle, {alignSelf: 'flex-end', lineHeight: 25}]}>
-                        {item.price.toLocaleString('en', {style: "currency", currency: "USD"})}
+                        {parseFloat(item.pricing).toLocaleString('en', {style: "currency", currency: "USD"})}
                     </Text>
                 </View>
             ) : null}
