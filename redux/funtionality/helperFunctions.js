@@ -588,10 +588,10 @@ function prepareShoppingList(currentList, allItems){
     
     for (let item in currentList){
         newShoppingList[item] = [];
-        for (let item of allItems){
-            for (let id_obj of currentList[item]){
-                if (id_obj._id == item._id){
-                    newShoppingList[item].push(item.brand);
+        for (let itemId in allItems){
+            for (let code in currentList[item]){
+                if (currentList[item][code]._id == allItems[itemId]._id){
+                    newShoppingList[item].push(allItems[itemId].brand);
                 }
             }
         }
