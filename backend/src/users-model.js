@@ -132,14 +132,14 @@ const parseShoppingListItem = async products => {
       shoppingList[productTag] = [];
       for (brandName of brand) {
         try {
-          const document = await Items.findOne(
+          const collection = await Items.find(
             {
               product_tags: productTag,
               brand: brandName,
             },
             {_id: 1},
           );
-          shoppingList[productTag].push(document);
+          collection.forEach(item => shoppingList[productTag].push(item));
         } catch (err) {
           console.error(err);
         }
@@ -153,7 +153,7 @@ const parseShoppingListItem = async products => {
           },
           {_id: 1},
         );
-        shoppingList[productTag] = collection;
+        collection.forEach(item => shoppingList[productTag].push(item));
       } catch (err) {
         console.error(err);
       }
