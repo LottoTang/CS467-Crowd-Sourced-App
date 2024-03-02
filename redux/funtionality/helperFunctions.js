@@ -587,14 +587,16 @@ function prepareShoppingList(currentList, allItems){
     const newShoppingList = {};
     
     for (let item in currentList){
-        newShoppingList[item] = [];
-        for (let itemId in allItems){
-            for (let code in currentList[item]){
-                if (currentList[item][code]._id == allItems[itemId]._id){
-                    newShoppingList[item].push(allItems[itemId].brand);
+        const brands = new Set();
+        for (let item_obj of allItems){
+            for (let id_obj of currentList[item]){
+                if (id_obj._id == item_obj._id){
+                    brands.add(item_obj.brand);
                 }
             }
         }
+        newShoppingList[item] = []
+        brands.forEach(brand => newShoppingList[item].push(brand));
     }
     
     return newShoppingList;
