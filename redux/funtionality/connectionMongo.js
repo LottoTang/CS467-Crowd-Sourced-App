@@ -17,6 +17,21 @@ async function getUser(user_id) {
     return res
 }
 
+// fetches an item based on the item id
+async function getItem(item_id) {
+    let res;
+
+    try {
+        const response = await axios.get(`http://10.0.2.2:3000/items/${item_id}`, {}
+            ).then(result => {
+                res = result.data
+                })
+            .catch(error => console.log(error))
+    } catch(error) { console.error(error) };
+
+    return res
+}
+
 // fetch all items that include the specified product in their tags
 async function fetchItems(product) {
     let res;
@@ -32,6 +47,22 @@ async function fetchItems(product) {
         .catch(error => console.error(error));
     }catch(error){ console.error(error) };
 
+    return res
+}
+
+// fetch a store from the given id and return the name
+async function getStoreName(store_id) {
+    let res;
+
+    try{
+        const response = await axios.get(`http://10.0.2.2:3000/stores/${store_id}`, {}
+        ).then(result => {
+            res = result.data;
+            })
+        .catch(error => console.error(error));
+    }catch(error){ console.error(error) };
+
+    if (res) return res.name
     return res
 }
 
@@ -107,6 +138,22 @@ async function fetchProduct(product_name) {
     return res
 }
 
+// fetch a promotion from the given id and return the type
+async function getPromotionName(promotion_id) {
+    let res;
+
+    try{
+        const response = await axios.get(`http://10.0.2.2:3000/promotions/${promotion_id}`, {}
+        ).then(result => {
+            res = result.data;
+            })
+        .catch(error => console.error(error));
+    }catch(error){ console.error(error) };
+
+    if (res) return res.promotion_type
+    return res
+}
+
 // fetch all promotions
 async function fetchPromotions() {
     let res;
@@ -151,10 +198,10 @@ async function getAllLiveFeeds(){
 
     let data;
     try{
-        const response = await axios.get(`http://10.0.2.2:3000/livefeeds/`
+        const response = await axios.get(`http://10.0.2.2:3000/livefeeds`)
         .then(result => {
             data = result.data;
-        })).catch(error => console.log(error));
+        }).catch(error => console.log(error));
     } catch(error){
         console.log(error);
     }
@@ -162,4 +209,37 @@ async function getAllLiveFeeds(){
     return data;
 }
 
-export { getUser, fetchItems, fetchStores, fetchBrands, searchProducts, fetchProduct, fetchPromotions, getItemByBarcode, getAllLiveFeeds };
+// Send a new post to the database for a store
+async function postNewFeed(user, item, store, review){
+    try{
+        const response = await axios.post(`http://10.0.2.2:3000/`, 
+        {
+            item_id: item,
+            store_id: store,
+            review: review
+        }
+        ).then(result => console.log(result.data)).catch(error=> console.log(error));
+    }catch (error){
+        console.log(error);
+    }
+}
+
+
+// Get all items with a particular tag
+async function getAllItemsWithTag(storeData){
+
+    try{
+        const response =await axios.get(`http://10.0.2.2:3000/items/allitems`)
+        .then(result =>{
+            //allItems = result.data;
+            storeData(result.data);
+        }).catch(error=> console.log(error));
+    }catch(error){
+        console.log(error);
+    }
+
+}
+
+export { getUser, getItem, fetchItems, getStoreName, fetchStores, fetchBrands, searchProducts, fetchProduct, getPromotionName, fetchPromotions, getItemByBarcode, getAllLiveFeeds };
+
+export { postNewFeed, getAllItemsWithTag };

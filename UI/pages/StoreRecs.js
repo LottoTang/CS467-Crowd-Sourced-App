@@ -36,8 +36,8 @@ const ItemComponent = ({store, list_len}) => {
 
     return (
         <Pressable style={[item_style]} onPress={()=>handleStore() } >
-            <View style={[styles.wide_row, {alignSelf: 'center'}]}>
-                <Text style={[text_styles.smallTitle, {marginLeft: 0, marginTop: 0}]}>
+            <View style={[styles.wide_row, {alignSelf: 'center', maxWidth: '65%', paddingTop: 7}]}>
+                <Text style={[text_styles.smallTitle, {marginLeft: 0, marginTop: 0, lineHeight: 25}]}>
                     {store.name}
                 </Text>
                 <Text style={[text_styles.itemText, {paddingTop: 0, paddingBottom: 0}]}>
@@ -100,7 +100,6 @@ function PopUp({setRanking}) {
 function StoreRecs() {
 // the Store Recommendation screen itself with its components
     const user = useSelector(state => state.user);
-    const [allItems, setAllItems] = useState([]);
     const [allStores, setAllStores] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -110,17 +109,16 @@ function StoreRecs() {
     // capture all tags in the shopping list
     const tags = Object.keys(shopping_list);
 
+    const [stores_breakdown, setBreakdown] = useState({})
+
     // Get stores and all items from database
     useEffect(() => {
         const fetchData = async () => {
-            const itemsPromises = tags.map(async (tag) => {
-                return fetchItems(tag);
-            });
-            const itemsData = await Promise.all(itemsPromises);
-            setAllItems(itemsData);
-
             const stores = await fetchStores();
             setAllStores(stores);
+
+            const breakdown = await getGoShoppingList(shopping_list, stores, user.city, user.state)
+            setBreakdown(breakdown)
 
             setLoading(false);
         };
@@ -135,7 +133,6 @@ function StoreRecs() {
 
 
     //const stores_breakdown = getGoShoppingList(shopping_list, items, stores, user.city, user.state);
-    const stores_breakdown = getGoShoppingList(shopping_list, allItems, allStores, user.city, user.state);
     const ranked_data = getStoresSorting(stores_breakdown, ranking);
 
     return (
