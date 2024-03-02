@@ -139,7 +139,7 @@ const parseShoppingListItem = async products => {
             },
             {_id: 1},
           );
-          collection.forEach(item => shoppingList[productTag].push(item));
+          shoppingList[productTag] = collection;
         } catch (err) {
           console.error(err);
         }
@@ -153,7 +153,7 @@ const parseShoppingListItem = async products => {
           },
           {_id: 1},
         );
-        collection.forEach(item => shoppingList[productTag].push(item));
+        shoppingList[productTag] = collection;
       } catch (err) {
         console.error(err);
       }
