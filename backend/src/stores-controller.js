@@ -53,6 +53,7 @@ storesRouter.post('/add-all', async (req, res) => {
     }
   } catch (err) {
     console.error(err);
+    res.status(500).send({Error: 'Internal server error.'});
   }
 });
 
@@ -75,7 +76,7 @@ storesRouter.get('/', async (req, res) => {
     res.status(200).send(collection);
   } catch (err) {
     console.error(err);
-    res.status(500).send();
+    res.status(500).send({Error: 'Internal server error.'});
   }
 });
 
@@ -120,6 +121,7 @@ storesRouter.delete('/:_id', async (req, res) => {
     res.status(200).send({deleteCount: deleteCount});
   } catch (err) {
     console.error(err);
+    res.status(404).send({Error: 'No store with this stores._id exists.'});
   }
 });
 
@@ -130,6 +132,7 @@ storesRouter.delete('', async (req, res) => {
     res.status(200).send({deleteCount: deleteCount});
   } catch (err) {
     console.error(err);
+    res.status(500).send({Error: 'Internal server error.'});
   }
 });
 
