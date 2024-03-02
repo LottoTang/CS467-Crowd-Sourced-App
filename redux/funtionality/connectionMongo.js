@@ -154,21 +154,20 @@ async function getPromotionName(promotion_id) {
     return res
 }
 
-// fetch all promotions
-async function fetchPromotions() {
+// fetch all promotions related to a search
+async function searchPromotions(search) {
     let res;
 
-    // TODO: get all promotions doesn't exist
-
-    /*
     try {
-        const response = await axios.get(`http://10.0.2.2:3000/promotions`
-            ).then(result => {
+        const response = await axios.get(`http://10.0.2.2:3000/promotions/search`, {
+            params: {
+                promotion_type: search
+            }
+            }).then(result => {
                 res = result.data
                 })
             .catch(error => console.log(error))
     } catch(error) { console.error(error) };
-    */
 
     return res
 }
@@ -178,17 +177,17 @@ async function fetchPromotions() {
 async function getItemByBarcode(barcode, store) {
     let res;
 
-    // TODO: get item by barcode doesn't exist
-
-    /*
     try {
-        const response = await axios.get(`http://10.0.2.2:3000/promotions`
-            ).then(result => {
+        const response = await axios.get(`http://10.0.2.2:3000/items/barcode`, {
+            params: {
+                barcode_id: barcode,
+                store_id: store
+            }
+            }).then(result => {
                 res = result.data
                 })
             .catch(error => console.log(error))
     } catch(error) { console.error(error) };
-    */
 
     return res
 }
@@ -240,6 +239,6 @@ async function getAllItemsWithTag(storeData){
 
 }
 
-export { getUser, getItem, fetchItems, getStoreName, fetchStores, fetchBrands, searchProducts, fetchProduct, getPromotionName, fetchPromotions, getItemByBarcode, getAllLiveFeeds };
+export { getUser, getItem, fetchItems, getStoreName, fetchStores, fetchBrands, searchProducts, fetchProduct, getPromotionName, searchPromotions, getItemByBarcode, getAllLiveFeeds };
 
 export { postNewFeed, getAllItemsWithTag };

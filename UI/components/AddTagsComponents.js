@@ -16,7 +16,7 @@ import { useSelector } from 'react-redux';
 import { giveSuggestedItems } from '../../redux/funtionality/helperFunctions.js';
 
 // data imports
-import { searchProducts, fetchBrands } from '../../redux/funtionality/connectionMongo.js';
+import { searchProducts, fetchBrands, searchPromotions } from '../../redux/funtionality/connectionMongo.js';
 
 // component imports
 import Dropdown from '../components/Dropdown.js'
@@ -102,12 +102,6 @@ const BrandsDropdown = ({tags, brand, setBrand, setNew, editable}) => {
 
 const PromotionsDropdown = ({sale, setSale, promotions, setNew}) => {
 // Dropdown popup that allows user to select a promotion input
-
-    // TODO: replace this with promotions search backend function
-    const searchFunc = (search)=>{
-        return giveSuggestedItems(promotions, search);
-    }
-
     return (
         <View>
             <Text style={label_text}>Sale</Text>
@@ -117,7 +111,7 @@ const PromotionsDropdown = ({sale, setSale, promotions, setNew}) => {
                 options={promotions}
                 type={"sale"}
                 placeholder={"None"}
-                searchFunc={searchFunc}
+                searchFunc={searchPromotions}
                 setNew={setNew}
             />
         </View>
