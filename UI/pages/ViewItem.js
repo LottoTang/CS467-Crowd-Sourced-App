@@ -14,9 +14,10 @@ import { useSelector, useDispatch } from 'react-redux';
 
 // function imports
 import { getSelectedBrandsForProduct, getItemsList, getItemSorting, convertItemsOutput } from '../../redux/funtionality/helperFunctions';
+import { setShoppingListContent } from '../../redux/actions/actions.js';
 
 // data imports
-import { getItem, fetchItems, fetchStores } from '../../redux/funtionality/connectionMongo.js';
+import { getItem, fetchItems, fetchStores, getAllItemsWithTag } from '../../redux/funtionality/connectionMongo.js';
 
 // component imports
 import StoresList from '../components/StoresList.js'
@@ -34,11 +35,13 @@ function ViewItem() {
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigation = useNavigation();
-    //const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const [ranking, setRanking] = useState("price");
     //const all_items = useSelector(state => state.all_items);
     const shopping_list = useSelector((state)=> state.user.shopping_list_item);
     const [popup, setPopup] = useState(false)
+    const [storeItems, setStoreItems] = useState([]);
+    //const [tempData, setTempData] = useState([]);
 
     let item_ids = shopping_list[product]
     if (!item_ids) item_ids = []
@@ -51,12 +54,39 @@ function ViewItem() {
                 const item = await getItem(id._id)
                 data.push(item)
             }
+            
+            const captureData = {};
+            for (let value in shopping_list){
+                
+                const promises = shopping_list[value].map(async (id) => {
+                    const item = await getItem(id._id);
+                    return { productId: value, brand: item.brand };
+                });
+                const tempItems = await Promise.all(promises);
+                
 
+                const tempObj = {};
+                for (const { productId, brand } of tempItems) {
+                    //console.log(brand)
+                    if (!tempObj[productId]) {
+                        tempObj[productId] = [];
+                    }
+                    tempObj[productId].push(brand);
+                }
+
+                captureData[value] = tempObj[value];
+                //setStoreItems(tempObj);
+            }
+            
+            setStoreItems(captureData);
+            
             const reformatted_items = await convertItemsOutput(data)
             setItems(reformatted_items)
             setLoading(false)
         }
+
         fetchData()
+
     }, []);
 
 
@@ -69,6 +99,9 @@ function ViewItem() {
 
     //const ranked_data = getItemSorting(items, ranking, stores);
     const ranked_data = getItemSorting(items, ranking);
+
+    // set the shopping list content
+    dispatch(setShoppingListContent(storeItems));
 
     if (!product) {
         return <Text>No product selected</Text>;

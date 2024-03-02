@@ -1,6 +1,6 @@
 // File to handle all actions for redux
 
-import { ADD_ITEM, VIEW_ITEM, NEW_SHOPPING_LIST, STORE_RECOMMENDATIONS, DELETE_ITEM, SET_USER } from "./actionTypes";
+import { ADD_ITEM, VIEW_ITEM, NEW_SHOPPING_LIST, STORE_RECOMMENDATIONS, DELETE_ITEM, SET_USER, SHOPPING_LIST_CONTENT } from "./actionTypes";
 import { testNewShoppingList } from "../../testData/testingData";
 
 // Use to add an item in shopping list
@@ -42,4 +42,12 @@ const setUser = (user) => {
     };
 };
 
-export {addItemInShoppingList, viewSelectedItem, createNewShoppingList, deleteItemInShoppingList, setUser};
+// Set content of shopping list for the delete function update
+const setShoppingListContent = (content) =>{
+    return {
+        type: SHOPPING_LIST_CONTENT,
+        payload: {shopping_list_content: content},
+    }
+};
+
+export {addItemInShoppingList, viewSelectedItem, createNewShoppingList, deleteItemInShoppingList, setUser, setShoppingListContent};
