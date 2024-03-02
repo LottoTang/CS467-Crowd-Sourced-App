@@ -121,7 +121,7 @@ storesRouter.delete('/:_id', async (req, res) => {
     res.status(200).send({deleteCount: deleteCount});
   } catch (err) {
     console.error(err);
-    res.status(500).send({Error: 'Internal server error.'});
+    res.status(404).send({Error: 'No store with this stores._id exists.'});
   }
 });
 
