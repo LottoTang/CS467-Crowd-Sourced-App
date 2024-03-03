@@ -103,7 +103,7 @@ function ItemsAtStore({route}) {
 
     const clearSelected = () => {
         for (const product of selected_products){
-            dispatch(deleteItemInShoppingList(product));
+
         }
         setSelectedItems([])
     };

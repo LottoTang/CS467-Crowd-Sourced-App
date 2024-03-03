@@ -77,4 +77,22 @@ async function updateItem(item_id, item) {
     };
 }
 
-export { addProduct, updateBrands, createPromotion, addItem, updateItem }
+// update the shopping list
+async function updateShoppingList(user_id, new_list) {
+    let res;
+
+    try {
+        const response = await axios.patch(`http://10.0.2.2:3000/users/shopping-list-item/${user_id}`,
+            new_list
+        ).then(result => {
+            res = result.data;
+            })
+        .catch(error => console.log(error))
+    } catch(error) {
+        console.error(error);
+    };
+
+    return res
+}
+
+export { addProduct, updateBrands, createPromotion, addItem, updateItem, updateShoppingList }
