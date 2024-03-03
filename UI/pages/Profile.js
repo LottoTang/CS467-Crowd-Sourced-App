@@ -41,7 +41,7 @@ function ProfilePage() {
     let text = "levels"
     if (master - user.shopping_level == 1) text = "level"
 
-    const level_names = ["Beginner Shopper", "Frequent Shopper", "Seasoned Shopper", "Experienced Shopper", "Master Shopper"]
+    const level_names = ["Beginner Shopper", "Seasoned Shopper", "Experienced Shopper", "Master Shopper"]
 
     return (
     <SafeAreaView style={styles.app}>
