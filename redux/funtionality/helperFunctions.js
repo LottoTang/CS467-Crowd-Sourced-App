@@ -373,7 +373,7 @@ function getItemSorting(items, sorting){
 function returnLiveFeeds(feeds, stores, items, products){
 
     let feedResults = [];
-
+    
     for (let feed in feeds){
         if(!(feeds[feed].store_id in stores)) continue
         let feedInput = {
@@ -382,7 +382,8 @@ function returnLiveFeeds(feeds, stores, items, products){
             store: "",
             user: feeds[feed].user_id,
             date: feeds[feed].date, brand: "",
-            pricing: -1
+            pricing: -1,
+            promotion: null
         };
         feedInput.review = feeds[feed].review;
         
@@ -394,9 +395,9 @@ function returnLiveFeeds(feeds, stores, items, products){
 
         // Get item information
         for (let item in items){
-                
+            
             if (item == feeds[feed].item_id){
-
+                
                 feedInput.item = items[item].name;
                 feedInput.brand = items[item].brand;
 
@@ -404,6 +405,11 @@ function returnLiveFeeds(feeds, stores, items, products){
                 if (feeds[feed].price != undefined){
                     feeds[feed].review = items[item].name + " - " + items[item].brand + " $" + feeds[feed].price;
                     feedInput.review = feeds[feed].review;
+                }
+
+                // Check if item has a promotion 
+                if (items[item].promotion_id){
+                    feedInput.promotion = items[item].promotion_id;
                 }
                 
             }
@@ -428,7 +434,7 @@ function returnLiveFeeds(feeds, stores, items, products){
             finalFeed.push(feedResults[key]);
         }
     }
-    
+    //console.log(finalFeed);
     return finalFeed;
 }
 
