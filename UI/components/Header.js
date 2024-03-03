@@ -14,7 +14,6 @@ import axios from 'axios';
 import { useEffect } from 'react';
 
 // function imports
-import { deleteItemInShoppingList } from '../../redux/actions/actions.js';
 import { capitalizeTitle } from '../ui_helpers.js'
 import { removeSelectedItem, prepareShoppingList } from '../../redux/funtionality/helperFunctions.js';
 import { setUser } from '../../redux/actions/actions.js';
@@ -74,12 +73,6 @@ const headerFunc = ({navigation, route, options, back}) => {
                 {
                     text: 'Delete',
                     onPress: () => {
-                        dispatch(deleteItemInShoppingList(route.params.product));
-                        
-                        // Get users shopping list 
-                        //const shoppingList = user.shopping_list_item;                      
-                        //const newList = removeSelectedItem(shoppingList, route.params.product);
-                        //const updatedShoppingList = prepareShoppingList(newList, allItems);
                         const updatedShoppingList = removeSelectedItem(shopping_list_content, route.params.product);
                         
                         const updateRequest = async ()=>{

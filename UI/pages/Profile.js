@@ -36,7 +36,7 @@ function ProfilePage() {
     }
 
     // highest shopper level
-    const master = 5
+    const master = 4
 
     let text = "levels"
     if (master - user.shopping_level == 1) text = "level"
