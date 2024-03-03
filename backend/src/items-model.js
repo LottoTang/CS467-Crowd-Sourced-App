@@ -87,7 +87,7 @@ const getItemByBarcode = async (barcode_id, store_id) => {
     let found_items = await Items.find({barcode_id: barcode_id});
     let found_item = null;
     for (let i = 0; i < found_items.length; i++) {
-      if (found_items[i].store_id = store_id) {
+      if (found_items[i].store_id == store_id || store_id == "any") {
         found_item = found_items[i]
       }
     }
