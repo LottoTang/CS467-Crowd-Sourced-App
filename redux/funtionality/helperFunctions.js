@@ -542,8 +542,7 @@ function prepareShoppingList(currentList, allItems){
                 }
             }
         }
-        newShoppingList[item] = []
-        brands.forEach(brand => newShoppingList[item].push(brand));
+        newShoppingList[item] = Array.from(brands)
     }
     
     return newShoppingList;
