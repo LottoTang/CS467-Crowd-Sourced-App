@@ -19,6 +19,7 @@ const usersSchema = new mongoose.Schema(
     state: {type: String, required: true},
     shopping_level: {type: Number, required: true},
     feed_item_count: {type: Number, required: true},
+    user_creation_date: {type: Date, default: '2024-03-01'},
   },
   {minimize: false},
 );
@@ -116,13 +117,55 @@ const updateUserShoppingLevel = async _id => {
   return updateFeedItemCount.modifiedCount;
 };
 
-// UTILITY FUNCTION: Parse shopping_list_item with items.id
+// UPDATE: Lower the shopping_level
+const lowerUserShoppingLevel = async _id => {
+  const document = await Users.findOne({_id: _id});
+  if (document.feed_item_count === 0) {
+    return 0;
+  }
+  const lowerFeedItemCount = await Users.updateOne(
+    {
+      _id: _id,
+    },
+    {
+      $inc: {
+        feed_item_count: -1,
+      },
+    },
+  );
+  const userFeedItemCount = document.feed_item_count - 1;
+  var userShoppingLevel = 0;
+  switch (true) {
+    case userFeedItemCount >= 0 && userFeedItemCount <= 2:
+      userShoppingLevel = 1;
+      break;
+    case userFeedItemCount >= 3 && userFeedItemCount <= 4:
+      userShoppingLevel = 2;
+      break;
+    case userFeedItemCount >= 5 && userFeedItemCount <= 6:
+      userShoppingLevel = 3;
+      break;
+    case userFeedItemCount >= 7 && userFeedItemCount <= 8:
+      userShoppingLevel = 4;
+      break;
+    case userFeedItemCount >= 9:
+      userShoppingLevel = 5;
+      break;
+  }
+  // Update the new shopping level back to database
+  const result = await Users.updateOne(
+    {_id: _id},
+    {shopping_level: userShoppingLevel},
+  );
 
+  // Return the number of FeedItemCount (Expected: 1)
+  return lowerFeedItemCount.modifiedCount;
+};
+
+// UTILITY FUNCTION: Parse shopping_list_item with items.id
 // Expected input:  {"Products.name": ["brandA", "brandB"]}
 // Example input:   {"tomato sauce": ["Barilla, Ragu"]}
-
 // Expected output: {"Products.name": {["items_id1", "items_id2"]}}
-
 const parseShoppingListItem = async products => {
   const shoppingListItems = Object.entries(products);
   const shoppingList = {};
@@ -170,5 +213,6 @@ module.exports = {
   findUserByAuthSub,
   updateUser,
   updateUserShoppingLevel,
+  lowerUserShoppingLevel,
   parseShoppingListItem,
 };

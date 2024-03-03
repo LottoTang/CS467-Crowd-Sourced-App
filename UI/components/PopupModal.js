@@ -108,9 +108,11 @@ const PopupCheckList = ({data, preselected, close, select_type, popup_type, sear
                     setSelectedItems={setSelectedItems}
                 />
             </View>
-            <Pressable style={[popup_style.selectButton, styles.bottom]} onPress={() => close(selected_items)}>
-                <Text style={[add_button, popup_style.buttonText]}>Select</Text>
-            </Pressable>
+            <View style={styles.bottom} >
+                <Pressable style={[popup_style.selectButton]} onPress={() => close(selected_items)}>
+                    <Text style={[add_button, popup_style.buttonText]}>Select</Text>
+                </Pressable>
+            </View>
         </View>
     )
 }

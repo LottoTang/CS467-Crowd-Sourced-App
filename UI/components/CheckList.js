@@ -45,6 +45,10 @@ const ItemComponent = ({item, func=()=>{}, selected_items, setSelectedItems}) =>
         else setIcon("checkbox-blank-outline");
     }, [selected]);
 
+    useEffect(() => {
+        setSelected(selected_items.includes(item))
+    }, [item])
+
     return (
         <Pressable style={item_style} onPress={() => handleSelectItem(item)}>
             <Text style={text_styles.itemText}>

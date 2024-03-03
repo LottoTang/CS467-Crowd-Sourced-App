@@ -15,7 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 
 // data imports
-import { fetchStores, fetchProduct, getPromotionName, fetchPromotions, getItemByBarcode } from '../../redux/funtionality/connectionMongo.js';
+import { fetchStores, fetchProduct, getPromotion, fetchPromotions, getItemByBarcode } from '../../redux/funtionality/connectionMongo.js';
 import { addProduct, updateBrands, createPromotion, addItem, updateItem } from '../../redux/funtionality/postPatchFunctions.js';
 
 // component imports
@@ -108,8 +108,8 @@ function AddTagsPage({route}) {
                 setPrice(found.price)
 
                 if (found.promotion_id){
-                    let promo = await getPromotionName(found.promotion_id)
-                    setSale(promo)
+                    let promo = await getPromotion(found.promotion_id)
+                    if (promo) setSale(promo.promotion_type)
                 } else setSale("None")
             } else {
                 setItem({name: '', store_id: '', brand: '', price: 0, product_tags: [], promotion_id: ''})

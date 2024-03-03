@@ -139,7 +139,7 @@ async function fetchProduct(product_name) {
 }
 
 // fetch a promotion from the given id and return the type
-async function getPromotionName(promotion_id) {
+async function getPromotion(promotion_id) {
     let res;
 
     try{
@@ -150,7 +150,6 @@ async function getPromotionName(promotion_id) {
         .catch(error => console.error(error));
     }catch(error){ console.error(error) };
 
-    if (res) return res.promotion_type
     return res
 }
 
@@ -239,6 +238,6 @@ async function getAllItemsWithTag(storeData){
 
 }
 
-export { getUser, getItem, fetchItems, getStoreName, fetchStores, fetchBrands, searchProducts, fetchProduct, getPromotionName, searchPromotions, getItemByBarcode, getAllLiveFeeds };
+export { getUser, getItem, fetchItems, getStoreName, fetchStores, fetchBrands, searchProducts, fetchProduct, getPromotion, searchPromotions, getItemByBarcode, getAllLiveFeeds };
 
 export { postNewFeed, getAllItemsWithTag };

@@ -17,7 +17,6 @@ import { getGoShoppingList, getStoresSorting } from "../../redux/funtionality/he
 
 // data imports
 import { fetchItems, fetchStores } from '../../redux/funtionality/connectionMongo.js';
-import { items, stores } from "../../testData/testingData2";
 
 // component imports
 import PopupModal from '../components/PopupModal.js'

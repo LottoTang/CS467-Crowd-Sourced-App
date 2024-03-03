@@ -14,7 +14,6 @@ import axios from 'axios';
 import { useEffect } from 'react';
 
 // function imports
-import { deleteItemInShoppingList } from '../../redux/actions/actions.js';
 import { capitalizeTitle } from '../ui_helpers.js'
 import { removeSelectedItem, prepareShoppingList } from '../../redux/funtionality/helperFunctions.js';
 import { setUser } from '../../redux/actions/actions.js';
@@ -81,7 +80,7 @@ const headerFunc = ({navigation, route, options, back}) => {
 
                         const res = await updateShoppingList(user._id, updatedList)
                         dispatch(setUser(res));
-                        
+
                         navigation.navigate("Home");
                     }
                 }
