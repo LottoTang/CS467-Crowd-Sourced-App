@@ -224,18 +224,19 @@ async function postNewFeed(user, item, store, review){
 
 
 // Get all items from database and store them in a state using the set state method storeData
-async function getAllItemsWithTag(storeData){
+async function getAllItemsWithTag(){
+    let res;
 
     try{
         const response =await axios.get(`http://10.0.2.2:3000/items/allitems`)
         .then(result =>{
-            //allItems = result.data;
-            storeData(result.data);
+            res = result.data
         }).catch(error=> console.log(error));
     }catch(error){
         console.log(error);
     }
 
+    return res
 }
 
 export { getUser, getItem, fetchItems, getStoreName, fetchStores, fetchBrands, searchProducts, fetchProduct, getPromotion, searchPromotions, getItemByBarcode, getAllLiveFeeds };

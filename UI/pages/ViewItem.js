@@ -60,7 +60,8 @@ function ViewItem() {
             setItems(reformatted_items)
             setLoading(false)
 
-            getAllItemsWithTag(setAllItems);
+            const all_items = await getAllItemsWithTag();
+            setAllItems(all_items)
         }
 
         fetchData()

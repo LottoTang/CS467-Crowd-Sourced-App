@@ -18,6 +18,7 @@ import { setUser } from '../../redux/actions/actions.js';
 // data imports
 import axios from 'axios';
 import { fetchBrands, fetchItems, getAllItemsWithTag } from '../../redux/funtionality/connectionMongo.js';
+import { updateShoppingList } from '../../redux/funtionality/postPatchFunctions.js';
 
 // component imports
 import CheckList from '../components/CheckList.js'
@@ -42,7 +43,8 @@ function SelectBrand({route}) {
         const fillBrands = async ()=>{
             const brands = await fetchBrands(product)
             setAllBrands(brands)
-            getAllItemsWithTag(setAllItems);
+            const all_items = await getAllItemsWithTag();
+            setAllItems(all_items)
         }
         fillBrands();
     }, []);
@@ -67,20 +69,9 @@ function SelectBrand({route}) {
             ...(shoppingData ||{}),
             [product]: selected
         };
-            
-        // Send updated shopping list
-        try{
-            const response = await axios.patch(`http://10.0.2.2:3000/users/shopping-list-item/${userId}/`,
-                newShoppingList,
-        )
-        .then(result => {
-            // if shopping_list updated, reset redux user
-            dispatch(setUser(result.data));
-            })
-        .catch(error => console.error(error));
-        } catch(error){
-            console.error(error);
-        }
+
+        const res = await updateShoppingList(userId, newShoppingList)
+        dispatch(setUser(res));
         
         navigation.navigate('Home');
     }
