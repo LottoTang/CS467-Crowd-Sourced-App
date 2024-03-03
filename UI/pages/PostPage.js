@@ -21,7 +21,7 @@ import axios from 'axios';
 import Dropdown from '../components/Dropdown.js'
 
 // import helpers
-import { postNewFeed, fetchStores, makeLiveFeedPost } from '../../redux/funtionality/connectionMongo.js';
+import { postNewFeed, fetchStores, makeLiveFeedPost, updateLastPostDateForUser, increaseItemCount } from '../../redux/funtionality/connectionMongo.js';
 import { getUniqueStoreNames } from '../../redux/funtionality/helperFunctions.js';
 
 // style imports
@@ -38,6 +38,8 @@ function PostPage() {
     const [storeID, setStoreID] = useState("");
 
     const navigation = useNavigation(); 
+
+    const todayDate = new Date();
 
     // Get all stores from database
     useEffect(()=>{
@@ -68,17 +70,26 @@ function PostPage() {
     if (!dataReceived){
         return (<Text>Loading...</Text>)
     }
-
+    
     const handlePost = () => {
         if (store == undefined) Alert.alert("Invalid Store", "Please select a store.", [{text: 'Ok'}] );
         else if (review == undefined) Alert.alert("Invalid Update", "Please write an update.", [{text: 'Ok'}] );
         else {
             // Handle form submission here, you can send the data to a backend or perform any other action.
             const fetchData = async () => {
-                const response = await makeLiveFeedPost(null, storeID, review);
+
+                // Send post to live feeds
+                await makeLiveFeedPost(null, storeID, review);
+
+                // Update latest post date for the user 
+                await updateLastPostDateForUser(user._id, todayDate);
+
+                // Update post feeds count for the user 
+                await increaseItemCount(user._id);
+                
             };
             fetchData();
-
+            
             setStore();
             setReview();
             navigation.navigate("LiveFeed")

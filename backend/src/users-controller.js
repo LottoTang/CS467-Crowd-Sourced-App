@@ -93,6 +93,7 @@ usersRouter.patch('/:_id', async (req, res) => {
     if (req.body.username) update.username = req.body.username;
     if (req.body.city) update.city = req.body.city;
     if (req.body.state) update.state = req.body.state;
+    if (req.body.user_creation_date) update.user_creation_date = req.body.user_creation_date;
     try {
       // If updateCount === 1, return the updated document
       const updateCount = await db.updateUser({_id: userID}, update);

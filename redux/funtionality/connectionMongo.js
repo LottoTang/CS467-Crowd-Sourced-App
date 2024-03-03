@@ -255,7 +255,8 @@ async function makeLiveFeedPost(item_id, store_id, review){
 // Method to increase posts count for the user
 async function increaseItemCount(user_id){
     try {
-        const response = await axios.patch(`http://10.0.2.2:3000/shopping_level/${user_id}`)
+        const response = await axios.patch(`http://10.0.2.2:3000/users/shopping_level/${user_id}`)
+        .then(result=> console.log("Feeds count increased"))
         .catch(error => console.log(error));
     }catch(error){
         console.log(error);
@@ -263,10 +264,17 @@ async function increaseItemCount(user_id){
 }
 
 // Method to update users level 
-async function changeUsersLevel(){
+async function updateLastPostDateForUser(user_id, date){
+    try{
+        const response = await axios.patch(`http://10.0.2.2:3000/users/${user_id}`,{
+            user_creation_date: date,
+        }).then(result=>console.log(result.config.data)).catch(error=>console.log(error));
+    } catch(error){
+        console.log(error);
+    }
 
 }
 
 export { getUser, getItem, fetchItems, getStoreName, fetchStores, fetchBrands, searchProducts, fetchProduct, getPromotion, searchPromotions, getItemByBarcode, getAllLiveFeeds };
 
-export { postNewFeed, getAllItemsWithTag, makeLiveFeedPost, increaseItemCount};
+export { postNewFeed, getAllItemsWithTag, makeLiveFeedPost, increaseItemCount, updateLastPostDateForUser};

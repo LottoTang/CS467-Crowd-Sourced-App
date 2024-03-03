@@ -89,28 +89,27 @@ const updateUserShoppingLevel = async _id => {
   }
 
   const userFeedItemCount = document.feed_item_count;
+  const newFeedItemCount = userFeedItemCount + 1;
   var userShoppingLevel = 0;
   switch (true) {
-    case userFeedItemCount >= 0 && userFeedItemCount <= 2:
+    case userFeedItemCount >= 0 && userFeedItemCount <= 15:
       userShoppingLevel = 1;
       break;
-    case userFeedItemCount >= 3 && userFeedItemCount <= 4:
+    case userFeedItemCount >= 16 && userFeedItemCount <= 30:
       userShoppingLevel = 2;
       break;
-    case userFeedItemCount >= 5 && userFeedItemCount <= 6:
+    case userFeedItemCount >= 31 && userFeedItemCount <= 50:
       userShoppingLevel = 3;
       break;
-    case userFeedItemCount >= 7 && userFeedItemCount <= 8:
+    case userFeedItemCount >= 51:
       userShoppingLevel = 4;
-      break;
-    case userFeedItemCount >= 9:
-      userShoppingLevel = 5;
       break;
   }
   // Update the new shopping level back to database
   const result = await Users.updateOne(
     {_id: _id},
     {shopping_level: userShoppingLevel},
+    {feed_item_count: newFeedItemCount},
   );
 
   // Return the number of FeedItemCount (Expected: 1)
