@@ -133,22 +133,20 @@ const lowerUserShoppingLevel = async _id => {
     },
   );
   const userFeedItemCount = document.feed_item_count - 1;
-  var userShoppingLevel = 0;
+  const usersLevel = document.shopping_level;
+  var userShoppingLevel = 1;
   switch (true) {
-    case userFeedItemCount >= 0 && userFeedItemCount <= 2:
+    case usersLevel >= 0 && usersLevel <= 1:
       userShoppingLevel = 1;
       break;
-    case userFeedItemCount >= 3 && userFeedItemCount <= 4:
+    case usersLevel >= 2 && usersLevel < 3:
+      userShoppingLevel = 1;
+      break;
+    case usersLevel >= 3 && usersLevel < 4:
       userShoppingLevel = 2;
       break;
-    case userFeedItemCount >= 5 && userFeedItemCount <= 6:
+    case usersLevel >= 4:
       userShoppingLevel = 3;
-      break;
-    case userFeedItemCount >= 7 && userFeedItemCount <= 8:
-      userShoppingLevel = 4;
-      break;
-    case userFeedItemCount >= 9:
-      userShoppingLevel = 5;
       break;
   }
   // Update the new shopping level back to database
