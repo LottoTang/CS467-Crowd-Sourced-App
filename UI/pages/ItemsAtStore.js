@@ -109,16 +109,14 @@ function ItemsAtStore({route}) {
 
     const clearSelected = async () => {
         const allItems = await getAllItemsWithTag();
-        console.log(allItems)
 
         let updatedList = prepareShoppingList(shopping_list, allItems);
-        console.log(updatedList)
         for (const product of selected_products){
             updatedList = removeSelectedItem(updatedList, product);
         }
-        console.log(updatedList)
         const res = await updateShoppingList(user._id, updatedList)
         dispatch(setUser(res));
+        setShoppingList(res.shopping_list_item)
 
         setSelectedItems([])
     };
