@@ -14,34 +14,11 @@ const initial_state = {
 
 const homepageReducer = (state= initial_state, action) =>{
     switch (action.type){
-        case "ADD_ITEM":
-            const new_list = {...state.shopping_list}
-            const items = []
-
-            new_list[action.payload.name] = action.payload.items;
-            return {
-                ...state,
-                numOfItems : state.numOfItems + 1,
-                shopping_list : new_list
-            };
-
         case "VIEW_ITEM":
             return {
                 ...state,
                 selected_item: action.payload,
             };
-
-        case "DELETE_ITEM":
-            
-            const newList = Object.fromEntries(
-                Object.entries(state.user.shopping_list_item).filter(([key, value])=>{
-                    return key != action.payload;
-            }));
-
-            return {
-                ...state,
-                shopping_list: newList,
-            }
 
         case "SET_USER":
             return {
