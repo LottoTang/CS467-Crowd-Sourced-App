@@ -6,9 +6,10 @@ import {
   Text,
   View,
 } from 'react-native';
+import { useState, useEffect } from 'react';
 
 // data imports
-import { stores, products, items, promotions} from "../../testData/testingData2";
+import { getPromotion } from '../../redux/funtionality/connectionMongo.js';
 
 // style imports
 import styles, {item_style, text_styles,} from '../style.js';
@@ -32,12 +33,19 @@ const ItemComponent = ({item, stores_only}) => {
     time = item.date
     user = item.user
 
-    const promotion = promotions[item.promotion]
-    let promotion_type = null
-    if (promotion) {
-        promotion_type = promotion.promotion_type
-        width = "50%"
-    }
+    const promotion_id = item.promotion
+    const [promotion, setPromotion] = useState()
+
+    useEffect(() => {
+        fetchData = async () => {
+            if (promotion_id) {
+                const promo = await getPromotion(promotion_id)
+                setPromotion(promo.promotion_type)
+                width = "50%"
+            }
+        }
+        fetchData()
+    }, [item])
 
     return (
         <View style={item_style}>
@@ -54,9 +62,9 @@ const ItemComponent = ({item, stores_only}) => {
             </View>
             { item.pricing != -1 ? (
                 <View style={{alignSelf: 'center'}}>
-                    { promotion ? (
+                    { promotion_id ? (
                         <Text style={[text_styles.itemText, {marginTop: 4, paddingBottom: 0, color: styles.headerColor.color, textAlign: 'right', lineHeight: 15}]}>
-                            Sale: {promotion_type}!!
+                            Sale: {promotion}!!
                         </Text>
                     ) : null}
                     <Text style={[text_styles.smallTitle, {alignSelf: 'flex-end', lineHeight: 25}]}>

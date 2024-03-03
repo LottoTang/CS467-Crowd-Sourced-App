@@ -3,7 +3,7 @@
 // import data from test file 2
 import { items, products, stores, promotions } from "../../testData/testingData2";
 
-import { getItem, getStoreName, getPromotionName } from '../../redux/funtionality/connectionMongo.js';
+import { getItem, getStoreName, getPromotion } from '../../redux/funtionality/connectionMongo.js';
 
 // Test data
 const testData = [
@@ -478,7 +478,10 @@ async function convertItemsOutput(databaseItems){
         element.name = item.name;
         element.price = item.price;
         element.product = item._id;
-        if (item.promotion_id) element.promotion = await getPromotionName(item.promotion_id);
+        if (item.promotion_id) {
+            const promo = await getPromotion(item.promotion_id)
+            element.promotion = promo.promotion_type;
+        }
         element.store = await getStoreName(item.store_id);
         if (!element.store) element.store = "Store not in database yet"
         output.push(element);
