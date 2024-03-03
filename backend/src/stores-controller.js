@@ -57,6 +57,28 @@ storesRouter.post('/add-all', async (req, res) => {
   }
 });
 
+// UTILITY ROUTE: Search Store(s) by substring
+// If input is empty, return all the Stores in the database
+storesRouter.get('/search', async (req, res) => {
+  const storeQuery = req.query.name;
+  if (!storeQuery) {
+    try {
+      const allStoreList = await db.findAllStores();
+      res.status(200).send(allStoreList);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send({Error: 'Internal server error.'});
+    }
+  }
+  try {
+    const storeList = await db.getStoreBySubstring(storeQuery);
+    res.status(200).send(storeList);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({Error: 'Internal server error.'});
+  }
+});
+
 // READ: Read a Store
 storesRouter.get('/:_id', async (req, res) => {
   const storeID = req.params._id;

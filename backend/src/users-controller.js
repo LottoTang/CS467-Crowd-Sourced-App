@@ -156,7 +156,7 @@ usersRouter.patch('/shopping-list-item/:_id', async (req, res) => {
   }
 });
 
-// Testing Code for Updating shopping_level
+// UPDATE: Increase feed_item_count and user_shopping_level
 usersRouter.patch('/shopping_level/:_id', async (req, res) => {
   const userID = req.params._id;
   try {
@@ -164,6 +164,35 @@ usersRouter.patch('/shopping_level/:_id', async (req, res) => {
     try {
       const updateCount = await db.updateUserShoppingLevel(userID);
       if (updateCount === 1) {
+        try {
+          const document = await db.findUserById(userID);
+          res.status(200).send(document);
+        } catch (err) {
+          console.error(err);
+          res.status(404).send({Error: 'No user with this users._id exists.'});
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).send({Error: 'Internal server error.'});
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(404).send({Error: 'No user with this users._id exists.'});
+  }
+});
+
+// UPDATE: Decrease feed_item_count and user_shopping_level
+usersRouter.patch('/lower_shopping_level/:_id', async (req, res) => {
+  const userID = req.params._id;
+  try {
+    const document = db.findUserById(userID);
+    try {
+      const updateCount = await db.lowerUserShoppingLevel(userID);
+      // updateCount: 0
+      // (User already with 0 item_feed_count, cannot deduct anymore)
+      // updateCount: 1 (deducted item_feed_count and checked shopping_level)
+      if (updateCount === 0 || updateCount === 1) {
         try {
           const document = await db.findUserById(userID);
           res.status(200).send(document);

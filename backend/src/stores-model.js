@@ -62,7 +62,7 @@ const deleteAll = async () => {
   return collection.deletedCount;
 };
 
-// UTILITY FUNCTION
+// UTILITY FUNCTION: Add Store(s) to Database
 const readStoresFromCSV = async () => {
   return new Promise(function (resolve, reject) {
     const data = [];
@@ -80,6 +80,15 @@ const readStoresFromCSV = async () => {
   });
 };
 
+// UTILITY FUNCTION: Search Store(s) by substring (from Jacyln)
+// Input: Capitalize for every 1st letter in a word
+// e.g. "Trader's Joe", "Walmart Axxxx Bxxx Cxxxx"
+const getStoreBySubstring = async name => {
+  var this_store = await Stores.find({name: {$regex: name}});
+  var storeNames = this_store.map(store => store.name);
+  return storeNames;
+};
+
 module.exports = {
   Stores,
   createStores,
@@ -90,4 +99,5 @@ module.exports = {
   deleteById,
   deleteAll,
   readStoresFromCSV,
+  getStoreBySubstring,
 };
