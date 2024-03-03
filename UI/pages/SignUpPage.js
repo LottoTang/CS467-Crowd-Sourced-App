@@ -92,24 +92,37 @@ function SignUpPage({route}) {
                 reqFunc = axios.patch
                 user_id = route.params.user._id
             }
-            try{
-                const response = await reqFunc(`http://10.0.2.2:3000/users/${user_id}`,
-                    {
-                        auth_sub: user.auth_sub,
-                        email: user.email,
-                        firstname: first_name,
-                        lastname: last_name,
-                        username: username,
-                        city: city,
-                        state: state
-                    }
-                ).then(async result => {
-                    dispatch(setUser(result.data));
-                    navigation.navigate("Tabs")
-                })
-                .catch(error => console.log(error))
-            } catch(error) {
-                console.error(error);
+
+            const new_user = {
+                auth_sub: user.auth_sub,
+                email: user.email,
+                firstname: first_name,
+                lastname: last_name,
+                username: username,
+                city: city,
+                state: state
+            }
+
+            // verify if user data has changed or not
+            let identical = true
+            for (key in new_user) {
+                if (new_user[key] !== user[key]) identical = false
+            }
+
+            if (identical) navigation.navigate("Tabs")
+
+            else {
+                try{
+                    const response = await reqFunc(`http://10.0.2.2:3000/users/${user_id}`,
+                        new_user
+                    ).then(async result => {
+                        dispatch(setUser(result.data));
+                        navigation.navigate("Tabs")
+                    })
+                    .catch(error => console.log(error))
+                } catch(error) {
+                    console.error(error);
+                }
             }
         }
     }
