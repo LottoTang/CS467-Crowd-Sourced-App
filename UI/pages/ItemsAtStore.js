@@ -107,18 +107,16 @@ function ItemsAtStore({route}) {
         }
     }
 
-
-    const [allItems, setAllItems] = useState([]);
-
     const clearSelected = async () => {
-        await getAllItemsWithTag(setAllItems);
+        const allItems = await getAllItemsWithTag();
         console.log(allItems)
 
-        const updatedList = prepareShoppingList(shopping_list, allItems);
+        let updatedList = prepareShoppingList(shopping_list, allItems);
         console.log(updatedList)
         for (const product of selected_products){
             updatedList = removeSelectedItem(updatedList, product);
         }
+        console.log(updatedList)
         const res = await updateShoppingList(user._id, updatedList)
         dispatch(setUser(res));
 

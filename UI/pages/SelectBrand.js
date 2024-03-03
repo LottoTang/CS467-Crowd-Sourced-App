@@ -43,7 +43,8 @@ function SelectBrand({route}) {
         const fillBrands = async ()=>{
             const brands = await fetchBrands(product)
             setAllBrands(brands)
-            getAllItemsWithTag(setAllItems);
+            const all_items = await getAllItemsWithTag();
+            setAllItems(all_items)
         }
         fillBrands();
     }, []);
