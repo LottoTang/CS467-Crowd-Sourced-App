@@ -19,7 +19,7 @@ const usersSchema = new mongoose.Schema(
     state: {type: String, required: true},
     shopping_level: {type: Number, required: true},
     feed_item_count: {type: Number, required: true},
-    user_creation_date: {type: Date, default: '2023-03-01'},
+    user_creation_date: {type: Date, default: '2024-03-01'},
   },
   {minimize: false},
 );
