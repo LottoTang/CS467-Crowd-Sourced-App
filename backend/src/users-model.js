@@ -84,7 +84,7 @@ const updateUserShoppingLevel = async _id => {
   const document = await Users.findOne({_id: _id});
 
   // Max level reached
-  if (document.shopping_level === 5) {
+  if (document.shopping_level === 4) {
     return;
   }
 

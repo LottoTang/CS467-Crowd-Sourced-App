@@ -21,7 +21,7 @@ import axios from 'axios';
 import Dropdown from '../components/Dropdown.js'
 
 // import helpers
-import { postNewFeed, fetchStores } from '../../redux/funtionality/connectionMongo.js';
+import { postNewFeed, fetchStores, makeLiveFeedPost } from '../../redux/funtionality/connectionMongo.js';
 import { getUniqueStoreNames } from '../../redux/funtionality/helperFunctions.js';
 
 // style imports
@@ -56,6 +56,15 @@ function PostPage() {
 
     }, []);
 
+    // Get the store ID for submitting a message 
+    useEffect(()=>{
+        if (store){
+            const index = store.indexOf("-");
+            const id = store.substring(index + 1);
+            setStoreID(id);
+        }
+    }, [store])
+
     if (!dataReceived){
         return (<Text>Loading...</Text>)
     }
@@ -66,7 +75,7 @@ function PostPage() {
         else {
             // Handle form submission here, you can send the data to a backend or perform any other action.
             const fetchData = async () => {
-                //const response = await postNewFeed(user, item=null, store, review);
+                const response = await makeLiveFeedPost(null, storeID, review);
             };
             fetchData();
 
@@ -77,17 +86,10 @@ function PostPage() {
     }
 
     const available_stores = []
-    //for (const store_id in stores) {
-    //    const store = stores[store_id]
-    //    if (store.city == user.city && store.state == user.state) available_stores.push(store.name)
-    //}
     for (let store_count in storesDropdown){
         const store = storesDropdown[store_count];
         if (store.city == user.city && store.state == user.state) available_stores.push(store.name + " -" + store._id);
     }
-
-    // Get the store ID for submitting a message 
-    
 
 
     return (

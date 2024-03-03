@@ -238,6 +238,34 @@ async function getAllItemsWithTag(storeData){
 
 }
 
+// Method to make a new post 
+async function makeLiveFeedPost(item_id, store_id, review){
+    try {
+        const response = await axios.post(`http://10.0.2.2:3000/livefeeds`,{
+            item_id: item_id,
+            store_id: store_id,
+            review: review
+        }).then(result => console.log(result.config.data)).catch(error => console.log(error));
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+// Method to increase posts count for the user
+async function increaseItemCount(user_id){
+    try {
+        const response = await axios.patch(`http://10.0.2.2:3000/shopping_level/${user_id}`)
+        .catch(error => console.log(error));
+    }catch(error){
+        console.log(error);
+    }
+}
+
+// Method to update users level 
+async function changeUsersLevel(){
+
+}
+
 export { getUser, getItem, fetchItems, getStoreName, fetchStores, fetchBrands, searchProducts, fetchProduct, getPromotion, searchPromotions, getItemByBarcode, getAllLiveFeeds };
 
-export { postNewFeed, getAllItemsWithTag };
+export { postNewFeed, getAllItemsWithTag, makeLiveFeedPost, increaseItemCount};
