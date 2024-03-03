@@ -13,9 +13,13 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 
 // function imports
-import { getShoppingListItemsInStore, getProductInShoppingListDetails } from "../../redux/funtionality/helperFunctions";
-import { viewSelectedItem, deleteItemInShoppingList } from '../../redux/actions/actions.js';
+import { getShoppingListItemsInStore, getProductInShoppingListDetails, removeSelectedItem, prepareShoppingList } from "../../redux/funtionality/helperFunctions";
+import { viewSelectedItem, setUser, setShoppingListContent } from '../../redux/actions/actions.js';
 import { removeItemFromArray } from '../ui_helpers.js';
+
+// data imports
+import { updateShoppingList } from '../../redux/funtionality/postPatchFunctions.js';
+import { getAllItemsWithTag } from '../../redux/funtionality/connectionMongo.js';
 
 // component imports
 import Loading from '../components/LoadingPage.js'
@@ -53,7 +57,9 @@ const ItemComponent = ({item, data}) => {
 function ItemsAtStore({route}) {
 // the View Items at Specified Store screen itself with its components
     const store = route.params.store
-    const shopping_list = useSelector((state)=> state.user.shopping_list_item);
+    const user = useSelector((state)=> state.user);
+    const [shopping_list, setShoppingList] = useState(useSelector((state)=> state.user.shopping_list_item))
+    const shopping_list_content = useSelector(state => state.shopping_list_content);
 
     const [loading, setLoading] = useState(true);
 
@@ -101,9 +107,17 @@ function ItemsAtStore({route}) {
         }
     }
 
-    const clearSelected = () => {
+    const clearSelected = async () => {
+        const allItems = await getAllItemsWithTag();
+
+        let updatedList = prepareShoppingList(shopping_list, allItems);
         for (const product of selected_products){
+            updatedList = removeSelectedItem(updatedList, product);
         }
+        const res = await updateShoppingList(user._id, updatedList)
+        dispatch(setUser(res));
+        setShoppingList(res.shopping_list_item)
+
         setSelectedItems([])
     };
 

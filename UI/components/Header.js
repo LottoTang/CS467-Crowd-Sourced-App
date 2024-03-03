@@ -19,6 +19,9 @@ import { removeSelectedItem, prepareShoppingList } from '../../redux/funtionalit
 import { setUser } from '../../redux/actions/actions.js';
 import { getAllItemsWithTag, getItem } from '../../redux/funtionality/connectionMongo.js';
 
+// data imports
+import { updateShoppingList } from '../../redux/funtionality/postPatchFunctions.js';
+
 // style imports
 import styles, {item_style, text_styles} from '../style.js';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -72,24 +75,12 @@ const headerFunc = ({navigation, route, options, back}) => {
                 },
                 {
                     text: 'Delete',
-                    onPress: () => {
-                        const updatedShoppingList = removeSelectedItem(shopping_list_content, route.params.product);
-                        
-                        const updateRequest = async ()=>{
-                            try{
-                                const response = await axios.patch(`http://10.0.2.2:3000/users/shopping-list-item/${user._id}`,
-                                updatedShoppingList
-                                ).then(result => {
-                                // if shopping_list updated, reset redux user
-                                dispatch(setUser(result.data));
-                                }).catch(error=> console.log(error));
-                                
-                            } catch(error){
-                                console.log(error);
-                            }
-                        };
-                        updateRequest();
-                        
+                    onPress: async () => {
+                        const updatedList = removeSelectedItem(shopping_list_content, route.params.product);
+
+                        const res = await updateShoppingList(user._id, updatedList)
+                        dispatch(setUser(res));
+
                         navigation.navigate("Home");
                     }
                 }
