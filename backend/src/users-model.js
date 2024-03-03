@@ -163,12 +163,9 @@ const lowerUserShoppingLevel = async _id => {
 };
 
 // UTILITY FUNCTION: Parse shopping_list_item with items.id
-
 // Expected input:  {"Products.name": ["brandA", "brandB"]}
 // Example input:   {"tomato sauce": ["Barilla, Ragu"]}
-
 // Expected output: {"Products.name": {["items_id1", "items_id2"]}}
-
 const parseShoppingListItem = async products => {
   const shoppingListItems = Object.entries(products);
   const shoppingList = {};
