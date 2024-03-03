@@ -15,7 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 
 // data imports
-import { fetchStores, fetchProduct, fetchPromotions, getItemByBarcode } from '../../redux/funtionality/connectionMongo.js';
+import { fetchStores, fetchProduct, getPromotionName, fetchPromotions, getItemByBarcode } from '../../redux/funtionality/connectionMongo.js';
 import { addProduct, updateBrands, createPromotion, addItem, updateItem } from '../../redux/funtionality/postPatchFunctions.js';
 
 // component imports
@@ -44,10 +44,13 @@ function AddTagsPage({route}) {
     const [price, setPrice] = useState(item.price);
     const [sale, setSale] = useState(item.promotion_id);
 
+    let price_color = text_styles.inputText.color
+    if (price == 0) price_color = text_styles.placeholder.color
+
     // data loading from database
     const [loading, setLoading] = useState(true)
     const [stores_dict, setStores] = useState({})
-    const [sales_dict, setSales] = useState({None: null})
+    const [sales_dict, setSales] = useState({})
     const [editable, setEditable] = useState(true)
 
     // new data to be posted on submit
@@ -70,11 +73,11 @@ function AddTagsPage({route}) {
             setStores(stores_dict)
 
             // retrieve all of the promotions, put them in a dict format {name: id}
-            const sales_dict = {None: null}
-            const all_promotions = await fetchPromotions()
+            const sales_dict = {}
+            const all_promotions = null // await fetchPromotions()
             if (all_promotions){
                 for (const promotion of all_promotions) {
-                    sales_dict[promotion.promotion_type] = promotion._id
+                    sales_dict[promotion] = promotion._id
                 }
                 setSales(sales_dict)
             }
@@ -88,10 +91,10 @@ function AddTagsPage({route}) {
     // once the store has been specified, check if the item already exists there
     useEffect(() => {
         const fetchData = async () => {
-            const found = await getItemByBarcode(barcode, store)
+            let store_id = "any"
+            if (store) store_id = stores_dict[store]
+            const found = await getItemByBarcode(barcode, store_id)
             if (found) {
-                setItem(found)
-
                 // disable editing item name and brand
                 setEditable(false)
 
@@ -99,8 +102,19 @@ function AddTagsPage({route}) {
                 setName(found.name)
                 setTags(found.product_tags)
                 setBrand(found.brand)
+            }
+            if (found && store) {
+                setItem(found)
                 setPrice(found.price)
-                setSale(all_promotions[found.promotion_id].promotion_type)
+
+                if (found.promotion_id){
+                    let promo = await getPromotionName(found.promotion_id)
+                    setSale(promo)
+                } else setSale("None")
+            } else {
+                setItem({name: '', store_id: '', brand: '', price: 0, product_tags: [], promotion_id: ''})
+                setPrice(0)
+                setSale("None")
             }
         }
         fetchData()
@@ -115,17 +129,21 @@ function AddTagsPage({route}) {
         if (!store || !name || tags.length == 0 || !brand || price == 0) {
             Alert.alert("Invalid Entry", "Please add all necessary information", [{text: 'Ok'}] );
         } else {
+            let final_promo = sales_dict[sale]
+            if (sale == "None") final_promo = null
+
             // create a new item with the provided data
             const new_item = {name: name, store_id: stores_dict[store], brand: brand,
-                            price: parseFloat(price).toFixed(2), product_tags: tags,
-                            promotion_id: sales_dict[sale], barcode_id: barcode,
+                            price: parseFloat(parseFloat(price).toFixed(2)), product_tags: tags,
+                            promotion_id: final_promo, barcode_id: barcode,
                             date: new Date(), user_id: user._id}
 
             // verify that this identical item doesn't already exist in database
             let identical = true
-            for (key in item)
-                if (key == "date" || key == "user_id") continue
-                if (new_item[key] != item[key]) identical = false
+            for (key in item) {
+                if (key === "date" || key === "user_id") continue
+                if (new_item[key] !== item[key]) identical = false
+            }
 
             if (identical) Alert.alert("Duplicate Entry", "This item is already up to date", [{text: 'Ok'}] )
             else {
@@ -137,8 +155,8 @@ function AddTagsPage({route}) {
                             addProduct(product, [new_brand])
                         // if product already exists, update that product to include new brand
                         } else {
-                            const product_obj = fetchProduct(product)
-                            updateBrands(product_obj._id, product_obj.brands.concat(new_brand))
+                            const product_obj = await fetchProduct(product)
+                            updateBrands(product_obj._id, new_brand)
                         }
                     }
                 // if no new brand, only need to iterate over new products, not all products
@@ -196,7 +214,7 @@ function AddTagsPage({route}) {
 
                     <View style={{width: "97%"}} >
                         <TextInput
-                            style={text_styles.inputText}
+                            style={[text_styles.inputText, {color: price_color}]}
                             value={price.toString()}
                             onChangeText={setPrice}
                             keyboardType={"numeric"}
