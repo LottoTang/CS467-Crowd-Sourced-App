@@ -13,12 +13,13 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 
 // function imports
-import { getShoppingListItemsInStore, getProductInShoppingListDetails, removeSelectedItem } from "../../redux/funtionality/helperFunctions";
-import { viewSelectedItem, setUser } from '../../redux/actions/actions.js';
+import { getShoppingListItemsInStore, getProductInShoppingListDetails, removeSelectedItem, prepareShoppingList } from "../../redux/funtionality/helperFunctions";
+import { viewSelectedItem, setUser, setShoppingListContent } from '../../redux/actions/actions.js';
 import { removeItemFromArray } from '../ui_helpers.js';
 
 // data imports
 import { updateShoppingList } from '../../redux/funtionality/postPatchFunctions.js';
+import { getAllItemsWithTag } from '../../redux/funtionality/connectionMongo.js';
 
 // component imports
 import Loading from '../components/LoadingPage.js'
@@ -57,7 +58,7 @@ function ItemsAtStore({route}) {
 // the View Items at Specified Store screen itself with its components
     const store = route.params.store
     const user = useSelector((state)=> state.user);
-    const shopping_list = useSelector((state)=> state.user.shopping_list_item);
+    const [shopping_list, setShoppingList] = useState(useSelector((state)=> state.user.shopping_list_item))
     const shopping_list_content = useSelector(state => state.shopping_list_content);
 
     const [loading, setLoading] = useState(true);
@@ -106,6 +107,9 @@ function ItemsAtStore({route}) {
         }
     }
 
+
+    const [allItems, setAllItems] = useState([]);
+
     const clearSelected = async () => {
         let updatedList = shopping_list_content
         for (const product of selected_products){
@@ -113,8 +117,19 @@ function ItemsAtStore({route}) {
         }
         const res = await updateShoppingList(user._id, updatedList)
         dispatch(setUser(res));
+
+        setShoppingList(res.shopping_list_item)
         setSelectedItems([])
+
+        getAllItemsWithTag(setAllItems);
     };
+
+    useEffect(() => {
+        if (allItems.length != 0){
+            const shoppingData = prepareShoppingList(shopping_list, allItems);
+            dispatch(setShoppingListContent(shoppingData));
+        }
+    }, [allItems])
 
 
     const list_data = [
