@@ -111,25 +111,19 @@ function ItemsAtStore({route}) {
     const [allItems, setAllItems] = useState([]);
 
     const clearSelected = async () => {
-        let updatedList = shopping_list_content
+        await getAllItemsWithTag(setAllItems);
+        console.log(allItems)
+
+        const updatedList = prepareShoppingList(shopping_list, allItems);
+        console.log(updatedList)
         for (const product of selected_products){
             updatedList = removeSelectedItem(updatedList, product);
         }
         const res = await updateShoppingList(user._id, updatedList)
         dispatch(setUser(res));
 
-        setShoppingList(res.shopping_list_item)
         setSelectedItems([])
-
-        getAllItemsWithTag(setAllItems);
     };
-
-    useEffect(() => {
-        if (allItems.length != 0){
-            const shoppingData = prepareShoppingList(shopping_list, allItems);
-            dispatch(setShoppingListContent(shoppingData));
-        }
-    }, [allItems])
 
 
     const list_data = [
