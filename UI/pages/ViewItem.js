@@ -13,7 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 
 // function imports
-import { getSelectedBrandsForProduct, getItemsList, getItemSorting, convertItemsOutput } from '../../redux/funtionality/helperFunctions';
+import { getSelectedBrandsForProduct, getItemsList, getItemSorting, convertItemsOutput, prepareShoppingList } from '../../redux/funtionality/helperFunctions';
 import { setShoppingListContent } from '../../redux/actions/actions.js';
 
 // data imports
@@ -33,6 +33,7 @@ function ViewItem() {
 // the View Item screen itself with its components
     const product = useSelector(state=> state.selected_item);
     const [items, setItems] = useState([]);
+    const [allItems, setAllItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigation = useNavigation();
     const dispatch = useDispatch();
@@ -55,34 +56,11 @@ function ViewItem() {
                 data.push(item)
             }
             
-            const captureData = {};
-            for (let value in shopping_list){
-                
-                const promises = shopping_list[value].map(async (id) => {
-                    const item = await getItem(id._id);
-                    return { productId: value, brand: item.brand };
-                });
-                const tempItems = await Promise.all(promises);
-                
-
-                const tempObj = {};
-                for (const { productId, brand } of tempItems) {
-                    //console.log(brand)
-                    if (!tempObj[productId]) {
-                        tempObj[productId] = [];
-                    }
-                    tempObj[productId].push(brand);
-                }
-
-                captureData[value] = tempObj[value];
-                //setStoreItems(tempObj);
-            }
-            
-            setStoreItems(captureData);
-            
             const reformatted_items = await convertItemsOutput(data)
             setItems(reformatted_items)
             setLoading(false)
+
+            getAllItemsWithTag(setAllItems);
         }
 
         fetchData()
@@ -96,7 +74,8 @@ function ViewItem() {
     const ranked_data = getItemSorting(items, ranking);
 
     // set the shopping list content
-    dispatch(setShoppingListContent(storeItems));
+    const shoppingData = prepareShoppingList(shopping_list, allItems);
+    dispatch(setShoppingListContent(shoppingData));
 
     const handleEditItem = (item) => {
         // Go to select brand page

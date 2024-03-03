@@ -18,7 +18,6 @@ import { returnLiveFeeds, filterLiveFeeds } from "../../redux/funtionality/helpe
 import { fetchStores, getAllLiveFeeds, fetchItems, fetchProduct } from '../../redux/funtionality/connectionMongo.js';
 
 // data imports
-import { stores, products, items, promotions} from "../../testData/testingData2";
 import { liveFeed } from "../../testData/liveFeedData";
 
 // component imports

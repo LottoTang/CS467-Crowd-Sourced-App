@@ -113,7 +113,6 @@ const CreateItem = ({suggestions, product}) => {
 
 function AddItems() {
 // the Add Item screen itself with its components
-    const all_products = useSelector((state)=>state.all_products);
     const [suggested_items, setSuggestedItems] = useState('');
     const [product_name, setProductName] = useState('');
 
