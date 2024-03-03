@@ -17,6 +17,9 @@ import { getShoppingListItemsInStore, getProductInShoppingListDetails } from "..
 import { viewSelectedItem, deleteItemInShoppingList } from '../../redux/actions/actions.js';
 import { removeItemFromArray } from '../ui_helpers.js';
 
+// component imports
+import Loading from '../components/LoadingPage.js'
+
 // style imports
 import styles, {item_style, text_styles, add_button} from '../style.js';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -50,8 +53,9 @@ const ItemComponent = ({item, data}) => {
 function ItemsAtStore({route}) {
 // the View Items at Specified Store screen itself with its components
     const store = route.params.store
-
     const shopping_list = useSelector((state)=> state.user.shopping_list_item);
+
+    const [loading, setLoading] = useState(true);
 
     // collect dictionary of items available/missing
     const [items_found, setFound] = useState([])
@@ -63,6 +67,8 @@ function ItemsAtStore({route}) {
             setFound(breakdown.items_available)
             setMissing(breakdown.items_missing)
             setUnselectedItems(breakdown.items_available)
+
+            setLoading(false);
         }
         fetchData()
     }, [])
@@ -123,6 +129,11 @@ function ItemsAtStore({route}) {
             func: handleSelect
         }
     ]
+
+    // Show loading screen while waiting for data
+    if (loading) {
+        return <Loading />
+    }
 
     return (
     <SafeAreaView style={styles.app}>

@@ -252,47 +252,6 @@ function getProductInShoppingListDetails(item_name, shopping_list){
     return product_details;
 }
 
-// Helper method to get the minimum price for an item in a store in the list of items
-async function getLowestPriceItem(items_list, store_id){
-    
-    let lowest_price = 10000;
-
-    // Iterate through the list of items
-    for (let item_id of items_list){
-        if (item_id) {
-            const item = await getItem(item_id._id)
-            if (item) {
-                if (item.store_id == store_id) {
-                    if (item.price < lowest_price){
-                        lowest_price = item.price;
-                    }
-                }
-            }
-        }
-
-        /*
-        // Check if available in target store
-        for (let itemDet in items[0]){
-            if(items[0][itemDet].store_id == store_id){
-                if (items[0][itemDet].price < lowest_price){
-                    lowest_price = items[0][itemDet].price;
-                }
-            }
-        }
-
-
-        // Previous schema design
-        if (items[items_list[item]].store == store_id){
-            if (items[items_list[item]].price < lowest_price){
-                lowest_price = items[items_list[item]].price;
-            }
-        }
-        */
-    }
-
-    return lowest_price;
-}
-
 
 // Method to return stores, number of items and total cost - Adjusted based on latest database schema
 async function getGoShoppingList(shopping_list, stores, city, state){
@@ -311,15 +270,6 @@ async function getGoShoppingList(shopping_list, stores, city, state){
                     _id: store._id
                 }
             }
-            /*
-            if (!(store in store_details)){
-                store_details[store] = {
-                    name: stores[store].name,
-                    total_cost: 0,
-                    num_items: 0,
-                };
-            }
-            */
         }
     }
 
@@ -330,15 +280,12 @@ async function getGoShoppingList(shopping_list, stores, city, state){
         const ids_list = shopping_list[shopping_item];
         //Get lowest price for an item in each store
 
-        for (let store in store_details){
-            const lowest_price = await getLowestPriceItem(ids_list, store);
-
-            if (lowest_price < 10000){
-                store_details[store].total_cost = store_details[store].total_cost + lowest_price;
-                store_details[store].num_items = store_details[store].num_items + 1;
-            }
+        for (const id of ids_list) {
+            const item = await getItem(id._id)
+            const store = store_details[item.store_id]
+            store.total_cost += item.price
+            store.num_items += 1
         }
-       
     }
 
     return store_details;
@@ -426,7 +373,7 @@ function getItemSorting(items, sorting){
 function returnLiveFeeds(feeds, stores, items, products){
 
     let feedResults = [];
-
+    
     for (let feed in feeds){
         if(!(feeds[feed].store_id in stores)) continue
         let feedInput = {
@@ -435,7 +382,8 @@ function returnLiveFeeds(feeds, stores, items, products){
             store: "",
             user: feeds[feed].user_id,
             date: feeds[feed].date, brand: "",
-            pricing: -1
+            pricing: -1,
+            promotion: null
         };
         feedInput.review = feeds[feed].review;
         
@@ -447,9 +395,9 @@ function returnLiveFeeds(feeds, stores, items, products){
 
         // Get item information
         for (let item in items){
-                
+            
             if (item == feeds[feed].item_id){
-
+                
                 feedInput.item = items[item].name;
                 feedInput.brand = items[item].brand;
 
@@ -457,6 +405,11 @@ function returnLiveFeeds(feeds, stores, items, products){
                 if (feeds[feed].price != undefined){
                     feeds[feed].review = items[item].name + " - " + items[item].brand + " $" + feeds[feed].price;
                     feedInput.review = feeds[feed].review;
+                }
+
+                // Check if item has a promotion 
+                if (items[item].promotion_id){
+                    feedInput.promotion = items[item].promotion_id;
                 }
                 
             }
@@ -481,7 +434,7 @@ function returnLiveFeeds(feeds, stores, items, products){
             finalFeed.push(feedResults[key]);
         }
     }
-    
+    //console.log(finalFeed);
     return finalFeed;
 }
 
@@ -587,14 +540,16 @@ function prepareShoppingList(currentList, allItems){
     const newShoppingList = {};
     
     for (let item in currentList){
-        newShoppingList[item] = [];
-        for (let itemId in allItems){
-            for (let code in currentList[item]){
-                if (currentList[item][code]._id == allItems[itemId]._id){
-                    newShoppingList[item].push(allItems[itemId].brand);
+        const brands = new Set();
+        for (let item_obj of allItems){
+            for (let id_obj of currentList[item]){
+                if (id_obj._id == item_obj._id){
+                    brands.add(item_obj.brand);
                 }
             }
         }
+        newShoppingList[item] = []
+        brands.forEach(brand => newShoppingList[item].push(brand));
     }
     
     return newShoppingList;
