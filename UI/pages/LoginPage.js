@@ -50,20 +50,26 @@ function LoginPage() {
                 ).then(async result => {
                     let user_obj = result.data
 
-                    console.log(user_obj.user_creation_date)
+                    const last_post = new Date(user_obj.user_creation_date)
+                    const last_downgrade = new Date() // user_obj.last_downgrade_date)
 
-                    // check if the user needs to be downgraded
-                    const millisecs_absent = (new Date()) - (new Date(user_obj.user_creation_date))
-                    const days_absent = millisecs_absent / 86400000
-                    const months_absent = Math.floor(days_absent / 30)
-
-                    console.log(months_absent)
-
-                    for (let i = 0; i < months_absent; i++) {
-                        user_obj = await decreaseUserLevel(user_obj._id);
+                    const getMonths = (date_1, date_2) => {
+                        const millisecs_absent = date_1 - date_2
+                        const days_absent = millisecs_absent / 86400000
+                        const months_absent = Math.floor(days_absent / 30)
+                        return months_absent
                     }
 
-                    console.log(user_obj)
+                    const total_downgrade = getMonths(new Date(), last_post)
+                    let already_downgraded = getMonths(last_downgrade, last_post)
+
+                    if (already_downgraded < 0) already_downgraded = 0
+
+                    let to_downgrade = total_downgrade - already_downgraded
+
+                    for (let i = 0; i < to_downgrade; i++) {
+                        user_obj = await decreaseUserLevel(user_obj._id, new Date());
+                    }
 
                     // if user is found, send to home page and set redux user
                     dispatch(setUser(user_obj));
