@@ -183,7 +183,7 @@ function AddTagsPage({route}) {
                     created_item = await addItem(new_item)
                 }
                 // Send post to backend live feeds
-                makeLiveFeedPost(created_item._id, created_item.store_id, "");
+                makeLiveFeedPost(created_item._id, created_item.store_id, "", created_item.price);
 
                 // Update latest post date and feed count for the user
                 updateLastPostDateForUser(user._id, new Date());

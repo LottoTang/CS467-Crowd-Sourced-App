@@ -103,12 +103,13 @@ async function updateShoppingList(user_id, new_list) {
 }
 
 // Method to make a new post
-async function makeLiveFeedPost(item_id, store_id, review){
+async function makeLiveFeedPost(item_id, store_id, review, price){
     try {
         const response = await axios.post(`http://10.0.2.2:3000/livefeeds`,{
             item_id: item_id,
             store_id: store_id,
-            review: review
+            review: review,
+            price: price
         }).then(result => console.log(result.config.data)).catch(error => console.log(error));
     } catch(error) {
         console.log(error);

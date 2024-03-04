@@ -73,7 +73,7 @@ function PostPage() {
         else if (review == undefined) Alert.alert("Invalid Update", "Please write an update.", [{text: 'Ok'}] );
         else {
             // Send post to backend live feeds
-            makeLiveFeedPost(null, storeID, review);
+            makeLiveFeedPost(null, storeID, review, null);
 
             // Update latest post date and feed count for the user
             updateLastPostDateForUser(user._id, new Date());
