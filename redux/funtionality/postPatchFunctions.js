@@ -139,11 +139,13 @@ async function updateLastPostDateForUser(user_id, date){
 }
 
 // Method to downgrade users level
-async function decreaseUserLevel(user_id){
+async function decreaseUserLevel(user_id, date){
     let res;
 
     try {
-        const response = await axios.patch(`http://10.0.2.2:3000/users/lower_shopping_level/${user_id}`)
+        const response = await axios.patch(`http://10.0.2.2:3000/users/lower_shopping_level/${user_id}`, {
+            date: date
+        })
         .then(result => {
             res = result.data;
             console.log("Shopper's level was downgraded")
