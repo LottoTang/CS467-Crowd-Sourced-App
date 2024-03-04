@@ -13,16 +13,15 @@ import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
+// function imports
+import { getUniqueStoreNames } from '../../redux/funtionality/helperFunctions.js';
+
 // data imports
-import { stores } from "../../testData/testingData2";
-import axios from 'axios';
+import { fetchStores } from '../../redux/funtionality/connectionMongo.js';
+import { makeLiveFeedPost, updateLastPostDateForUser, increaseItemCount } from '../../redux/funtionality/postPatchFunctions.js';
 
 // component imports
 import Dropdown from '../components/Dropdown.js'
-
-// import helpers
-import { postNewFeed, fetchStores, makeLiveFeedPost, updateLastPostDateForUser, increaseItemCount } from '../../redux/funtionality/connectionMongo.js';
-import { getUniqueStoreNames } from '../../redux/funtionality/helperFunctions.js';
 
 // style imports
 import styles, {item_style, text_styles, add_button} from '../style.js';
@@ -37,9 +36,7 @@ function PostPage() {
     const [dataReceived, setDataReceived] = useState(false);
     const [storeID, setStoreID] = useState("");
 
-    const navigation = useNavigation(); 
-
-    const todayDate = new Date();
+    const navigation = useNavigation();
 
     // Get all stores from database
     useEffect(()=>{
@@ -75,23 +72,16 @@ function PostPage() {
         if (store == undefined) Alert.alert("Invalid Store", "Please select a store.", [{text: 'Ok'}] );
         else if (review == undefined) Alert.alert("Invalid Update", "Please write an update.", [{text: 'Ok'}] );
         else {
-            // Handle form submission here, you can send the data to a backend or perform any other action.
-            const fetchData = async () => {
+            // Send post to backend live feeds
+            makeLiveFeedPost(null, storeID, review, null);
 
-                // Send post to live feeds
-                await makeLiveFeedPost(null, storeID, review);
-
-                // Update latest post date for the user 
-                await updateLastPostDateForUser(user._id, todayDate);
-
-                // Update post feeds count for the user 
-                await increaseItemCount(user._id);
-                
-            };
-            fetchData();
+            // Update latest post date and feed count for the user
+            updateLastPostDateForUser(user._id, new Date());
+            increaseItemCount(user._id);
             
             setStore();
             setReview();
+
             navigation.navigate("LiveFeed")
         }
     }

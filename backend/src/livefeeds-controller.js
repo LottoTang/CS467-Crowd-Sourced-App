@@ -13,7 +13,7 @@ const { createLivefeed, getLivefeedsByID, getAllLivefeeds, updateLivefeed, delet
 
 livefeedsRouter.post("/", async (req, res) => {
     try {
-        let newLivefeed = await createLivefeed(req.body.item_id, req.body.store_id, req.body.review);
+        let newLivefeed = await createLivefeed(req.body.item_id, req.body.store_id, req.body.review, req.body.price);
         res.status(201).json(newLivefeed);
     } catch (error) {
         console.error(error);

@@ -59,12 +59,19 @@ async function createPromotion(promotion_type) {
 
 // post a new item
 async function addItem(item) {
+    let res;
+
     try {
         const response = await axios.post(`http://10.0.2.2:3000/items`, item)
+        .then(result => {
+            res = result.data
+            })
         .catch(error => console.log(error))
     } catch(error) {
         console.error(error);
     };
+
+    return res
 }
 
 // update an existing item
@@ -95,4 +102,62 @@ async function updateShoppingList(user_id, new_list) {
     return res
 }
 
-export { addProduct, updateBrands, createPromotion, addItem, updateItem, updateShoppingList }
+// Method to make a new post
+async function makeLiveFeedPost(item_id, store_id, review, price){
+    try {
+        const response = await axios.post(`http://10.0.2.2:3000/livefeeds`,{
+            item_id: item_id,
+            store_id: store_id,
+            review: review,
+            price: price
+        }).then(result => console.log(result.config.data)).catch(error => console.log(error));
+    } catch(error) {
+        console.log(error);
+    }
+}
+
+// Method to increase posts count for the user and shopping level.
+async function increaseItemCount(user_id){
+    try {
+        const response = await axios.patch(`http://10.0.2.2:3000/users/shopping_level/${user_id}`)
+        .then(result=> console.log("Feeds count increased"))
+        .catch(error => console.log(error));
+    }catch(error){
+        console.log(error);
+    }
+}
+
+// Method to update users level
+async function updateLastPostDateForUser(user_id, date){
+    try{
+        const response = await axios.patch(`http://10.0.2.2:3000/users/${user_id}`,{
+            user_creation_date: date,
+        }).then(result=>console.log(result.config.data)).catch(error=>console.log(error));
+    } catch(error){
+        console.log(error);
+    }
+
+}
+
+// Method to downgrade users level
+async function decreaseUserLevel(user_id, date){
+    let res;
+
+    try {
+        const response = await axios.patch(`http://10.0.2.2:3000/users/lower_shopping_level/${user_id}`, {
+            date: date
+        })
+        .then(result => {
+            res = result.data;
+            console.log("Shopper's level was downgraded")
+            })
+        .catch(error=> console.log(error));
+    } catch (error) {
+        console.log(error);
+    }
+
+    return res
+}
+
+
+export { addProduct, updateBrands, createPromotion, addItem, updateItem, updateShoppingList, makeLiveFeedPost, increaseItemCount, updateLastPostDateForUser, decreaseUserLevel }

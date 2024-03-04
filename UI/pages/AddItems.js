@@ -10,10 +10,11 @@ import {
 } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // function imports
 import { giveSuggestedItems } from '../../redux/funtionality/helperFunctions.js';
+import { viewSelectedItem } from '../../redux/actions/actions.js';
 
 // data imports
 import { searchProducts } from '../../redux/funtionality/connectionMongo.js';
@@ -25,10 +26,12 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const ItemComponent = ({item}) => {
 // item component that represents one suggested item
+    const dispatch = useDispatch();
     const navigation = useNavigation();
 
     const handleAddItem = (item) => {
         // Go to select brand page
+        dispatch(viewSelectedItem(item));
         navigation.navigate('Select Brand', {product: item});
     };
 
@@ -58,7 +61,6 @@ const ItemComponent = ({item}) => {
 
 const SuggestionList = ({suggestions, search}) => {
 // list component for the suggestion list, including title
-    // TODO: replace the list with data pulled from querying database
 
     // leave a message for user when suggestions list is empty
     let msg = "Search for an item to see suggestions"
