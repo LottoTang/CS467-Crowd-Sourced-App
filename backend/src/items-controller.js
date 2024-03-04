@@ -74,6 +74,7 @@ itemsRouter.patch("/:id", async (req, res) => {
     const reqLength = Object.keys(req.body).length
     let promotion_change = false;
     let price_change = false;
+    let tag_change = false;
 
     let updatedItem;
     
@@ -84,10 +85,13 @@ itemsRouter.patch("/:id", async (req, res) => {
         if (keys[i] === "price") {
             price_change = true
         }
+        if (keys[i] === "product_tags") {
+            tag_change = true
+        }
     }
 
     try {
-        await updateItem(req.params.id, req.body.price, req.body.promotion_id, price_change, promotion_change);
+        await updateItem(req.params.id, req.body.price, req.body.promotion_id, req.body.product_tags, price_change, promotion_change, tag_change);
         res.status(204).end();
     } catch (error) {
         console.error(error);
