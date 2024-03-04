@@ -32,6 +32,16 @@ const createPromotion = async (promotion_type, start_time, end_time) => {
     })
 }
 
+const getAllPromotions = async () => {
+  try {
+      let found_promotions = await Promotions.find();
+      return found_promotions; 
+    } catch (error) {
+      console.error('Error finding entry:', error);
+      throw error; 
+    }
+}
+
 const getPromotionByID = async (promotion_id) => {
     try {
         let this_promotion = await Promotions.findOne({ _id: promotion_id });
@@ -92,5 +102,6 @@ module.exports = {
     getPromotionByID,
     deletePromotion,
     updatePromotion,
-    getPromotionBySubstring
+    getPromotionBySubstring,
+    getAllPromotions
 }

@@ -54,7 +54,6 @@ const createItem = async (
       console.error('Error saving entry:', error);
     });
 };
-
 const getAllItems = async item_id => {
   try {
     let these_items = await Items.find();
@@ -72,8 +71,6 @@ const getAllItems = async item_id => {
 const getItemByID = async item_id => {
   try {
     let this_item = await Items.findOne({_id: item_id});
-    // Handle the found item
-    // console.log('Entry found successfully:', this_item);
     return this_item; // Return the found item
   } catch (error) {
     // Handle the error

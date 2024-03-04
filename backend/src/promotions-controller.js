@@ -7,9 +7,19 @@ const app = express();
 const promotionsRouter = express.Router();
 const bodyParser = require('body-parser');
 
-const {createPromotion, getPromotionByID, deletePromotion, updatePromotion, getPromotionBySubstring} = require("./promotions-model.js");
+const {createPromotion, getPromotionByID, deletePromotion, updatePromotion, getPromotionBySubstring, getAllPromotions} = require("./promotions-model.js");
 
 promotionsRouter.use(bodyParser.json());
+
+promotionsRouter.get("/", async (req, res) => {
+    try {
+        let allPromotions = await getAllPromotions();
+        res.status(200).json(allPromotions);
+    } catch (error) {
+        console.error(error);
+        res.status(404).send({ error: 'No item with this item_id exists.'});
+    }
+})
 
 promotionsRouter.get("/search", async (req, res) => {
     // get all promotions with a substring in them
@@ -60,9 +70,6 @@ promotionsRouter.patch("/:id", async (req, res) => {
     let name_change = false;
     let start_change = false;
     let end_change = false;
-
-    let updatedItem;
-    console.log(keys)
     
     for (let i = 0; i < reqLength; i++) {
         if (keys[i] === "promotion_type") {
