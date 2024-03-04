@@ -9,7 +9,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
@@ -21,7 +21,8 @@ import axios from 'axios';
 import Dropdown from '../components/Dropdown.js'
 
 // import helpers
-import { postNewFeed } from '../../redux/funtionality/connectionMongo.js';
+import { postNewFeed, fetchStores, makeLiveFeedPost, updateLastPostDateForUser, increaseItemCount } from '../../redux/funtionality/connectionMongo.js';
+import { getUniqueStoreNames } from '../../redux/funtionality/helperFunctions.js';
 
 // style imports
 import styles, {item_style, text_styles, add_button} from '../style.js';
@@ -32,19 +33,63 @@ function PostPage() {
 
     const [store, setStore] = useState();
     const [review, setReview] = useState();
+    const [storesDropdown, setStoresDropdown] = useState([]);
+    const [dataReceived, setDataReceived] = useState(false);
+    const [storeID, setStoreID] = useState("");
 
     const navigation = useNavigation(); 
 
+    const todayDate = new Date();
+
+    // Get all stores from database
+    useEffect(()=>{
+
+        // Capture unique stores 
+        let storeDetails = [];
+
+        const populateStores = async()=>{
+            const response = await fetchStores();
+            storeDetails = getUniqueStoreNames(response);
+            setStoresDropdown(storeDetails);
+            setDataReceived(true);
+        }
+
+        populateStores();
+
+    }, []);
+
+    // Get the store ID for submitting a message 
+    useEffect(()=>{
+        if (store){
+            const index = store.indexOf("-");
+            const id = store.substring(index + 1);
+            setStoreID(id);
+        }
+    }, [store])
+
+    if (!dataReceived){
+        return (<Text>Loading...</Text>)
+    }
+    
     const handlePost = () => {
         if (store == undefined) Alert.alert("Invalid Store", "Please select a store.", [{text: 'Ok'}] );
         else if (review == undefined) Alert.alert("Invalid Update", "Please write an update.", [{text: 'Ok'}] );
         else {
             // Handle form submission here, you can send the data to a backend or perform any other action.
             const fetchData = async () => {
-                //const response = await postNewFeed(user, item=null, store, review);
+
+                // Send post to live feeds
+                await makeLiveFeedPost(null, storeID, review);
+
+                // Update latest post date for the user 
+                await updateLastPostDateForUser(user._id, todayDate);
+
+                // Update post feeds count for the user 
+                await increaseItemCount(user._id);
+                
             };
             fetchData();
-
+            
             setStore();
             setReview();
             navigation.navigate("LiveFeed")
@@ -52,9 +97,9 @@ function PostPage() {
     }
 
     const available_stores = []
-    for (const store_id in stores) {
-        const store = stores[store_id]
-        if (store.city == user.city && store.state == user.state) available_stores.push(store.name)
+    for (let store_count in storesDropdown){
+        const store = storesDropdown[store_count];
+        if (store.city == user.city && store.state == user.state) available_stores.push(store.name + " -" + store._id);
     }
 
 

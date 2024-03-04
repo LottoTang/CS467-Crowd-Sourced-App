@@ -557,7 +557,20 @@ function prepareShoppingList(currentList, allItems){
     return newShoppingList;
 }
 
+// Get a list of store details and return a list with unique store details
+function getUniqueStoreNames(storeData){
+
+    const setDetails = [];
+    for (let store in storeData){
+        const storeInfo = storeData[store];
+        const storeDescription = storeInfo.name +", "+storeInfo.city + ", " + storeInfo.state;
+        const storeInput = {_id: storeInfo._id, name: storeDescription, city: storeInfo.city, state: storeInfo.state };
+        setDetails.push(storeInput);
+    }
+    return setDetails;
+}
+
 export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForProduct, getItemsList }
 export { getShoppingListItemsInStore, getProductInShoppingListDetails, getGoShoppingList, getStoresSorting, getItemSorting }
 export { returnLiveFeeds, filterLiveFeeds, convertItemsOutput, removeSelectedItem, prepareShoppingListInput, getListOfBrandsForDB }
-export { prepareShoppingList }
+export { prepareShoppingList, getUniqueStoreNames }
