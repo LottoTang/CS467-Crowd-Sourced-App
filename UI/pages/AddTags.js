@@ -16,7 +16,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 // data imports
 import { fetchStores, fetchProduct, getPromotion, fetchPromotions, getItemByBarcode } from '../../redux/funtionality/connectionMongo.js';
-import { addProduct, updateBrands, createPromotion, addItem, updateItem } from '../../redux/funtionality/postPatchFunctions.js';
+import { addProduct, updateBrands, createPromotion, addItem, updateItem, makeLiveFeedPost, updateLastPostDateForUser, increaseItemCount } from '../../redux/funtionality/postPatchFunctions.js';
 
 // component imports
 import { StoresDropdown, TagsDropdown, BrandsDropdown, PromotionsDropdown, SaleDatePicker } from '../components/AddTagsComponents.js'
@@ -169,15 +169,25 @@ function AddTagsPage({route}) {
                     }
                 }
 
+                // create new promotion in database if necessary
                 if (new_sale && new_sale == sale) {
                     new_item.promotion_id = await createPromotion(new_sale)
                 }
+                let created_item = item;
+                // update the item if already existing
                 if (item._id) {
                     updateItem(item._id, new_item)
                 }
+                // create a new item if not already existing
                 else {
-                    addItem(new_item)
+                    created_item = await addItem(new_item)
                 }
+                // Send post to backend live feeds
+                makeLiveFeedPost(created_item._id, created_item.store_id, "");
+
+                // Update latest post date and feed count for the user
+                updateLastPostDateForUser(user._id, new Date());
+                increaseItemCount(user._id);
             }
 
             // reset scan tab and go back to shopping list

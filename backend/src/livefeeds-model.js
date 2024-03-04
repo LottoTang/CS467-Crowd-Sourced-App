@@ -11,9 +11,9 @@ const db = mongoose.connection;
 const livefeedsSchema = new mongoose.Schema({
   item_id:  { type: mongoose.Schema.Types.ObjectId, required: false }, 
   // replace store_id in schema with { type: mongoose.Schema.Types.ObjectId, ref: 'Stores', required: true }, once stores is done
-  store_id: { type: mongoose.Schema.Types.ObjectId, required: false },
+  store_id: { type: mongoose.Schema.Types.ObjectId, required: true },
   // replace with product_id in schema after products table implemented
-  review: { type: String, required: true },
+  review: { type: String, required: false },
 }, { versionKey: false });
 
 const Livefeeds = mongoose.model('Livefeeds', livefeedsSchema, 'Livefeeds');
