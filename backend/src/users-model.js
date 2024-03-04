@@ -132,7 +132,7 @@ const lowerUserShoppingLevel = async _id => {
       },
     },
   );
-  const userFeedItemCount = document.feed_item_count;
+  var userFeedItemCount = document.feed_item_count;
   const usersLevel = document.shopping_level;
   var userShoppingLevel = 1;
   switch (true) {

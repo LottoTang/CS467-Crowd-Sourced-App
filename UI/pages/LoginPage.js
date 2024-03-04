@@ -18,6 +18,7 @@ import { setUser } from '../../redux/actions/actions.js';
 
 // data imports
 import axios from 'axios';
+import { decreaseUserLevel } from '../../redux/funtionality/postPatchFunctions.js';
 
 // component imports
 import Loading from '../components/LoadingPage.js'
@@ -46,9 +47,26 @@ function LoginPage() {
             // test if the user is in the database
             try{
                 const response = await axios.get(`http://10.0.2.2:3000/users/checker/${user.sub}`, {}
-                ).then(result => {
+                ).then(async result => {
+                    let user_obj = result.data
+
+                    console.log(user_obj.user_creation_date)
+
+                    // check if the user needs to be downgraded
+                    const millisecs_absent = (new Date()) - (new Date(user_obj.user_creation_date))
+                    const days_absent = millisecs_absent / 86400000
+                    const months_absent = Math.floor(days_absent / 30)
+
+                    console.log(months_absent)
+
+                    for (let i = 0; i < months_absent; i++) {
+                        user_obj = await decreaseUserLevel(user_obj._id);
+                    }
+
+                    console.log(user_obj)
+
                     // if user is found, send to home page and set redux user
-                    dispatch(setUser(result.data));
+                    dispatch(setUser(user_obj));
                     navigation.navigate("Tabs")
                     })
                 .catch(error => {
