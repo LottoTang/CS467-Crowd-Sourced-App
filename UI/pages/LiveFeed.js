@@ -15,10 +15,9 @@ import { useSelector } from 'react-redux';
 
 // function imports
 import { returnLiveFeeds, filterLiveFeeds } from "../../redux/funtionality/helperFunctions";
-import { fetchStores, getAllLiveFeeds, fetchItems, fetchProduct } from '../../redux/funtionality/connectionMongo.js';
 
 // data imports
-import { liveFeed } from "../../testData/liveFeedData";
+import { fetchStores, searchStores, getAllLiveFeeds, fetchItems, fetchProduct } from '../../redux/funtionality/connectionMongo.js';
 
 // component imports
 import UpdatesList from '../components/UpdatesList.js'
@@ -50,9 +49,9 @@ const Popup = ({store_filter, setStores, post_filter, setPostTypes, stores}) => 
     for (const store_id in stores) {
         const store_name = stores[store_id].name
         store_names.push(store_name)
-        if (store_filter == "all") preselected_stores.push(store_name)
     }
     if (store_filter != "all") preselected_stores = store_filter
+    else preselected_stores = ["Any store"]
 
     const closeStorePopup = (selected_stores=null) => {
         if (selected_stores != null) {
@@ -63,6 +62,19 @@ const Popup = ({store_filter, setStores, post_filter, setPostTypes, stores}) => 
         }
         setStorePopup(false)
     }
+
+    // search functionality for the stores"
+    const [search, setSearch] = useState('');
+    const [suggested_items, setSuggestedItems] = useState(store_names);
+
+    // when the search text changes, call search stores and update list of options
+    useEffect(() =>{
+        const getData = async ()=> {
+            let data = await searchStores(search)
+            setSuggestedItems(data)
+        }
+        getData();
+    }, [search]);
 
 
     const [postTypePopup, setPostTypePopup] = useState(false)
@@ -89,10 +101,12 @@ const Popup = ({store_filter, setStores, post_filter, setPostTypes, stores}) => 
                 closePopup={selectFilter} />
             <PopupModal
                 popup={storePopup}
-                popup_type={"Select"}
-                data={store_names}
+                popup_type={["Searchable", "Select"]}
+                data={suggested_items}
                 closePopup={closeStorePopup}
                 preselected={preselected_stores}
+                search={search}
+                setSearch={setSearch}
             />
             <PopupModal
                 popup={postTypePopup}
