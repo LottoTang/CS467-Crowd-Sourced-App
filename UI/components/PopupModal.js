@@ -92,7 +92,8 @@ const PopupCheckList = ({data, preselected, close, select_type, popup_type, sear
     // if new option is created, add it and close the popup
     const add = (new_item) => {
         setNew(new_item)
-        close(selected_items.concat(new_item))
+        if (!selected_items.includes(new_item)) close(selected_items.concat(new_item))
+        else close(selected_items)
     }
 
     return (

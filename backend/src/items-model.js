@@ -122,7 +122,7 @@ const updateItem = async (
   item_id,
   new_price,
   new_promotion,
-  new_tag,
+  new_tags,
   price_change,
   promotion_change,
   tag_change
@@ -140,7 +140,7 @@ const updateItem = async (
   if (tag_change === true) {
     // will be query once promotion table in place
     let this_item = await Items.findOne({_id: item_id})
-    this_item.product_tags.push(new_tag);
+    for (const tag of new_tags) this_item.product_tags.push(tag);
 
     await Items.updateOne(
       {_id: item_id},

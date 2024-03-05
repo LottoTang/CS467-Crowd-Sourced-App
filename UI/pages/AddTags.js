@@ -59,7 +59,9 @@ function AddTagsPage({route}) {
     const [new_sale, setNewSale] = useState("")
 
     const addNewProduct = (product) => {
-        setNewProducts(new_products.concat([product]))
+        if (!new_products.includes(product)){
+            setNewProducts(new_products.concat([product]))
+        }
     }
 
     useEffect(() => {
@@ -165,7 +167,7 @@ function AddTagsPage({route}) {
                     for (const new_product of new_products) {
                         // verify that new product wasn't unchecked, in which case it isn't added
                         if (tags.includes(new_product)){
-                            addProduct(product, [brand])
+                            addProduct(new_product, [brand])
                         }
                     }
                 }
@@ -177,6 +179,8 @@ function AddTagsPage({route}) {
                 let created_item = item;
                 // update the item if already existing
                 if (item._id) {
+                    const new_tags = (new_item.product_tags).filter(tag => !(item.product_tags).includes(tag))
+                    new_item.product_tags = new_tags
                     updateItem(item._id, new_item)
                 }
                 // create a new item if not already existing
@@ -184,7 +188,7 @@ function AddTagsPage({route}) {
                     created_item = await addItem(new_item)
                 }
                 // Send post to backend live feeds
-                makeLiveFeedPost(created_item._id, created_item.store_id, "", created_item.price);
+                makeLiveFeedPost(created_item._id, new_item.store_id, "", new_item.price);
 
                 // Update latest post date and feed count for the user
                 updateLastPostDateForUser(user._id, new Date());
