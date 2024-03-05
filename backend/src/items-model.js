@@ -122,8 +122,10 @@ const updateItem = async (
   item_id,
   new_price,
   new_promotion,
+  new_tag,
   price_change,
   promotion_change,
+  tag_change
 ) => {
   if (price_change === true) {
     await Items.updateOne({_id: item_id}, {$set: {price: new_price}});
@@ -133,6 +135,16 @@ const updateItem = async (
     await Items.updateOne(
       {_id: item_id},
       {$set: {promotion_id: new_promotion}},
+    );
+  }
+  if (tag_change === true) {
+    // will be query once promotion table in place
+    let this_item = await Items.findOne({_id: item_id})
+    this_item.product_tags.push(new_tag);
+
+    await Items.updateOne(
+      {_id: item_id},
+      {$set: {product_tags: this_item.product_tags}},
     );
   }
 };
