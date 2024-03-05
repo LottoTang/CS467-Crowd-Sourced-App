@@ -350,8 +350,8 @@ function getItemSorting(items, sorting){
             //const name_a = stores[a.store].name.toUpperCase();
             //const name_b = stores[b.store].name.toUpperCase();
 
-            const name_a = a.name.toUpperCase();
-            const name_b = b.name.toUpperCase();
+            const name_a = a.store.toUpperCase();
+            const name_b = b.store.toUpperCase();
 
             if (name_a < name_b){
                 return -1;

@@ -33,11 +33,10 @@ function ViewItem() {
 // the View Item screen itself with its components
     const product = useSelector(state=> state.selected_item);
     const [items, setItems] = useState([]);
-    const [allItems, setAllItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    const [ranking, setRanking] = useState("price");
+    const [ranking, setRanking] = useState("Price");
     //const all_items = useSelector(state => state.all_items);
     const shopping_list = useSelector((state)=> state.user.shopping_list_item);
     const [popup, setPopup] = useState(false)
@@ -60,8 +59,11 @@ function ViewItem() {
             setItems(reformatted_items)
             setLoading(false)
 
+            // set the shopping list content
             const all_items = await getAllItemsWithTag();
-            setAllItems(all_items)
+
+            const shoppingData = prepareShoppingList(shopping_list, all_items);
+            dispatch(setShoppingListContent(shoppingData));
         }
 
         fetchData()
@@ -73,10 +75,6 @@ function ViewItem() {
 
     //const ranked_data = getItemSorting(items, ranking, stores);
     const ranked_data = getItemSorting(items, ranking);
-
-    // set the shopping list content
-    const shoppingData = prepareShoppingList(shopping_list, allItems);
-    dispatch(setShoppingListContent(shoppingData));
 
     const handleEditItem = (item) => {
         // Go to select brand page
