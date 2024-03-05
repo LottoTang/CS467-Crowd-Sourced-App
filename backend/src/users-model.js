@@ -20,6 +20,7 @@ const usersSchema = new mongoose.Schema(
     shopping_level: {type: Number, required: true},
     feed_item_count: {type: Number, required: true},
     user_creation_date: {type: Date, default: '2024-03-01'},
+    last_downgrade_date: {type: Date, default: '2024-01-01'},
   },
   {minimize: false},
 );
@@ -156,6 +157,7 @@ const lowerUserShoppingLevel = async _id => {
   // Update the new shopping level back to database
   const result = await Users.updateOne(
     {_id: _id},
+    {last_downgrade_date: Date.now()},
     {shopping_level: userShoppingLevel},
     {feed_item_count: userFeedItemCount},
   );
@@ -184,7 +186,7 @@ const parseShoppingListItem = async products => {
             },
             {_id: 1},
           );
-          shoppingList[productTag] = collection;
+          shoppingList[productTag].push(collection);
         } catch (err) {
           console.error(err);
         }
@@ -204,7 +206,6 @@ const parseShoppingListItem = async products => {
       }
     }
   }
-  console.log(shoppingList);
   return shoppingList;
 };
 
