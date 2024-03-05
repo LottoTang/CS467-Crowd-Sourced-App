@@ -23,6 +23,7 @@ import { liveFeed } from "../../testData/liveFeedData";
 // component imports
 import UpdatesList from '../components/UpdatesList.js'
 import PopupModal from '../components/PopupModal.js'
+import Loading from '../components/LoadingPage.js'
 
 // style imports
 import styles, { item_style, text_styles, add_button, large_button, popup_style } from '../style.js';
@@ -122,6 +123,7 @@ function LiveFeed() {
     const [allFeedData, setAllFeedData] = useState();
     const isFocused = useIsFocused();
 
+    const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState({metric: "all", store: "all", post: "all"});
 
     // Collect all data from database
@@ -180,6 +182,8 @@ function LiveFeed() {
                 }
             }
             setStoresList(filterStore);
+
+            setLoading(false);
         }
 
         collectData();
@@ -219,6 +223,10 @@ function LiveFeed() {
         setUpdatedData(newData);
     }, [filter])
 
+    // Wait for data from database to load
+    if (loading) {
+        return <Loading />
+    }
 
     return (
     <SafeAreaView style={styles.app}>
