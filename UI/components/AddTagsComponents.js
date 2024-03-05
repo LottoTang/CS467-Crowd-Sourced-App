@@ -26,7 +26,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import styles, {item_style, text_styles} from '../style.js';
 
 
-const StoresDropdown = ({store, setStore, stores}) => {
+const StoresDropdown = ({store, setStore}) => {
 // Dropdown popup that allows user to select a store input
     return (
         <View>
@@ -34,7 +34,7 @@ const StoresDropdown = ({store, setStore, stores}) => {
             <Dropdown
                 value={store}
                 setValue={setStore}
-                options={stores}
+                options={[]}
                 type={"store"}
                 searchFunc={searchStores}
             />
