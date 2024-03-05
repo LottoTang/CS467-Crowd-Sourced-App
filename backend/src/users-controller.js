@@ -135,7 +135,7 @@ usersRouter.patch('/shopping-list-item/:_id', async (req, res) => {
       try {
         const updateCount = await db.updateUser({_id: userID}, update);
         // If updateCount === 1, return the updated document
-        if (updateCount === 1) {
+        if (updateCount === 1 || updateCount === 0) {
           try {
             const document = await db.findUserById(userID);
             res.status(200).send(document);
