@@ -32,8 +32,8 @@ function Dropdown ({value, setValue, options, type, placeholder=null, alert=fals
     }
 
     // set up popup options
-    let popup_type = "Dropdown"
-    if (type != "store") popup_type = ["Dropdown", "Searchable"]
+    let popup_type = ["Dropdown", "Searchable"]
+    if (type != "store") popup_type = ["Dropdown", "Searchable", "Addable"]
     if (type == "product") popup_type = ["Dropdown", "Searchable", "Select"]
 
     // open popup if allowed, display alert message otherwise
