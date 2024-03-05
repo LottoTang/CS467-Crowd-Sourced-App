@@ -51,7 +51,7 @@ function LoginPage() {
                     let user_obj = result.data
 
                     const last_post = new Date(user_obj.user_creation_date)
-                    const last_downgrade = new Date() // user_obj.last_downgrade_date)
+                    const last_downgrade = new Date(user_obj.last_downgrade_date)
 
                     const getMonths = (date_1, date_2) => {
                         const millisecs_absent = date_1 - date_2
@@ -68,7 +68,7 @@ function LoginPage() {
                     let to_downgrade = total_downgrade - already_downgraded
 
                     for (let i = 0; i < to_downgrade; i++) {
-                        user_obj = await decreaseUserLevel(user_obj._id, new Date());
+                        user_obj = await decreaseUserLevel(user_obj._id,);
                     }
 
                     // if user is found, send to home page and set redux user
