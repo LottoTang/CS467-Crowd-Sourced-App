@@ -132,7 +132,6 @@ function AddTagsPage({route}) {
             Alert.alert("Invalid Entry", "Please add all necessary information", [{text: 'Ok'}] );
         } else {
             let final_promo = sales_dict[sale]
-            console.log(final_promo)
             if (sale == "None") final_promo = null
 
             // create a new item with the provided data
