@@ -91,9 +91,11 @@ const headerFunc = ({navigation, route, options, back}) => {
     return(
         <SafeAreaView style={[header_style.header, {height: header_height, borderBottomWidth: header_padding}]}>
             <View style={top_row}>
-                <Text onPress={navigation.goBack} style={header_style.text}>
-                    Back
-                </Text>
+                { route.name == "Home" ? <Text></Text> : (
+                    <Text onPress={navigation.goBack} style={header_style.text}>
+                        Back
+                    </Text>
+                )}
 
                 { show_user ? (
                     <Pressable style={styles.row} onPress={()=> navigation.navigate("Profile")}>
