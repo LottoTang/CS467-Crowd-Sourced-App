@@ -24,7 +24,7 @@ usersRouter.get('/checker/:_id', async (req, res) => {
     }
   } catch (err) {
     console.error(err);
-    res.status(500).send('Internal server error.');
+    res.status(500).send({Error: 'Internal server error.'});
   }
 });
 
@@ -61,12 +61,14 @@ usersRouter.post('/', async (req, res) => {
         res.status(201).send(user);
       } catch (err) {
         console.error(err);
-        res.status(500).send('Internal server error.');
+        res
+          .status(409)
+          .send({Error: 'Conflicts, email/username already used.'});
       }
     }
   } catch (err) {
     console.error(err);
-    res.status(500).send('Internal server error.');
+    res.status(500).send({Error: 'Internal server error.'});
   }
 });
 
@@ -93,17 +95,18 @@ usersRouter.patch('/:_id', async (req, res) => {
     if (req.body.username) update.username = req.body.username;
     if (req.body.city) update.city = req.body.city;
     if (req.body.state) update.state = req.body.state;
-    if (req.body.user_creation_date) update.user_creation_date = req.body.user_creation_date;
+    if (req.body.user_creation_date)
+      update.user_creation_date = req.body.user_creation_date;
     try {
       // If updateCount === 1, return the updated document
       const updateCount = await db.updateUser({_id: userID}, update);
-      if (updateCount === 1) {
+      if (updateCount === 0 || updateCount === 1) {
         try {
           const document = await db.findUserById(userID);
           res.status(200).send(document);
         } catch (err) {
           console.error(err);
-          res.status(404).send({Error: 'No user with this users._id exists.'});
+          res.status(500).send({Error: 'Internal server error.'});
         }
       }
     } catch (err) {
@@ -161,7 +164,7 @@ usersRouter.patch('/shopping-list-item/:_id', async (req, res) => {
 usersRouter.patch('/shopping_level/:_id', async (req, res) => {
   const userID = req.params._id;
   try {
-    const document = db.findUserById(userID);
+    const document = await db.findUserById(userID);
     try {
       const updateCount = await db.updateUserShoppingLevel(userID);
       if (updateCount === 1) {
@@ -187,7 +190,7 @@ usersRouter.patch('/shopping_level/:_id', async (req, res) => {
 usersRouter.patch('/lower_shopping_level/:_id', async (req, res) => {
   const userID = req.params._id;
   try {
-    const document = db.findUserById(userID);
+    const document = await db.findUserById(userID);
     try {
       const updateCount = await db.lowerUserShoppingLevel(userID);
       // updateCount: 0
