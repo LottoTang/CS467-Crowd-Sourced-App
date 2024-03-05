@@ -157,7 +157,6 @@ const lowerUserShoppingLevel = async _id => {
   // Update the new shopping level back to database
   const result = await Users.updateOne(
     {_id: _id},
-    {last_downgrade_date: Date.now()},
     {shopping_level: userShoppingLevel},
     {feed_item_count: userFeedItemCount},
   );
@@ -186,7 +185,7 @@ const parseShoppingListItem = async products => {
             },
             {_id: 1},
           );
-          shoppingList[productTag].push(collection);
+          collection.forEach(item => shoppingList[productTag].push(item));
         } catch (err) {
           console.error(err);
         }
