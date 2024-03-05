@@ -365,7 +365,23 @@ function getItemSorting(items, sorting){
     }
 
     return items;
-}   
+}
+
+function sortAlphabetically(list) {
+    list.sort((a, b) => {
+        const name_a = a.toUpperCase();
+        const name_b = b.toUpperCase();
+
+        if (name_a < name_b){
+            return -1;
+        } else if (name_a > name_b){
+            return 1;
+        } else {
+            return 1
+        }
+    });
+    return list
+}
 
 // Helper method to return the live feeds
 // The method should be looking at the feeds table, stores table, all items and products table
@@ -558,6 +574,6 @@ function prepareShoppingList(currentList, allItems){
 }
 
 export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForProduct, getItemsList }
-export { getShoppingListItemsInStore, getProductInShoppingListDetails, getGoShoppingList, getStoresSorting, getItemSorting }
+export { getShoppingListItemsInStore, getProductInShoppingListDetails, getGoShoppingList, getStoresSorting, getItemSorting, sortAlphabetically }
 export { returnLiveFeeds, filterLiveFeeds, convertItemsOutput, removeSelectedItem, prepareShoppingListInput, getListOfBrandsForDB }
 export { prepareShoppingList }

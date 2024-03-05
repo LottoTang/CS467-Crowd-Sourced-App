@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 // function imports
-import { giveSuggestedItems } from '../../redux/funtionality/helperFunctions.js';
+import { giveSuggestedItems, sortAlphabetically } from '../../redux/funtionality/helperFunctions.js';
 
 // data imports
 import { searchStores, searchProducts, fetchBrands, searchPromotions } from '../../redux/funtionality/connectionMongo.js';
@@ -73,7 +73,7 @@ const BrandsDropdown = ({tags, brand, setBrand, setNew, editable}) => {
                 const product_brands = await fetchBrands(tag)
                 product_brands.forEach(brand => {if (!brands.includes(brand)) brands.push(brand)})
             }
-            setBrands(brands)
+            setBrands(sortAlphabetically(brands))
         }
         fetchData()
     }, [tags])

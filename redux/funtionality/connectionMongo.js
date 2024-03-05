@@ -1,6 +1,7 @@
 // Handle connectivity with the database
 
 import axios from 'axios';
+import { sortAlphabetically } from "./helperFunctions";
 
 // fetch a user based on their id
 async function getUser(user_id) {
@@ -81,7 +82,7 @@ async function searchStores(store_name) {
             .catch(error => console.log(error))
     } catch(error) { console.error(error) };
 
-    return res
+    return sortAlphabetically(res)
 }
 
 // fetch all stores
@@ -135,7 +136,7 @@ async function searchProducts(product_name) {
         .catch(error => console.error(error));
     }catch(error){ console.error(error) };
 
-    return res
+    return sortAlphabetically(res)
 }
 
 // fetch the product object corresponding to the name
@@ -201,7 +202,7 @@ async function searchPromotions(search) {
             .catch(error => console.log(error))
     } catch(error) { console.error(error) };
 
-    return res
+    return sortAlphabetically(res)
 }
 
 
