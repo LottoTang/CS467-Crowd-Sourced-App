@@ -206,7 +206,7 @@ function AddTagsPage({route}) {
     <SafeAreaView style={styles.app}>
         <View style={[styles.container, {justifyContent: 'center'}]}>
             <ScrollView>
-                <StoresDropdown store={store} setStore={setStore} stores={Object.keys(stores_dict)} />
+                <StoresDropdown store={store} setStore={setStore} />
 
                 <Text style={label_text}>Item Name</Text>
                 <View style={item_style.concat({marginBottom: 15})}>

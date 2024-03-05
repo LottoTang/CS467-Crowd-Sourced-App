@@ -13,15 +13,13 @@ import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
-// function imports
-import { getUniqueStoreNames } from '../../redux/funtionality/helperFunctions.js';
-
 // data imports
-import { fetchStores } from '../../redux/funtionality/connectionMongo.js';
+import { fetchStores, searchStores } from '../../redux/funtionality/connectionMongo.js';
 import { makeLiveFeedPost, updateLastPostDateForUser, increaseItemCount } from '../../redux/funtionality/postPatchFunctions.js';
 
 // component imports
 import Dropdown from '../components/Dropdown.js'
+import Loading from '../components/LoadingPage.js'
 
 // style imports
 import styles, {item_style, text_styles, add_button} from '../style.js';
@@ -32,40 +30,28 @@ function PostPage() {
 
     const [store, setStore] = useState();
     const [review, setReview] = useState();
-    const [storesDropdown, setStoresDropdown] = useState([]);
-    const [dataReceived, setDataReceived] = useState(false);
-    const [storeID, setStoreID] = useState("");
+    const [stores_dict, setStores] = useState({})
+    const [loading, setLoading] = useState(true);
 
     const navigation = useNavigation();
 
     // Get all stores from database
     useEffect(()=>{
-
-        // Capture unique stores 
-        let storeDetails = [];
-
-        const populateStores = async()=>{
-            const response = await fetchStores();
-            storeDetails = getUniqueStoreNames(response);
-            setStoresDropdown(storeDetails);
-            setDataReceived(true);
+        const fetchData = async()=>{
+            // retrieve all of the stores in the user's area, put them in a dict format {name: id}
+            const stores_dict = {}
+            const stores = await fetchStores()
+            for (const store of stores) {
+                stores_dict[store.name] = store._id
+            }
+            setStores(stores_dict)
+            setLoading(false)
         }
-
-        populateStores();
-
+        fetchData();
     }, []);
 
-    // Get the store ID for submitting a message 
-    useEffect(()=>{
-        if (store){
-            const index = store.indexOf("-");
-            const id = store.substring(index + 1);
-            setStoreID(id);
-        }
-    }, [store])
-
-    if (!dataReceived){
-        return (<Text>Loading...</Text>)
+    if (loading){
+        return <Loading />
     }
     
     const handlePost = () => {
@@ -73,7 +59,7 @@ function PostPage() {
         else if (review == undefined) Alert.alert("Invalid Update", "Please write an update.", [{text: 'Ok'}] );
         else {
             // Send post to backend live feeds
-            makeLiveFeedPost(null, storeID, review, null);
+            makeLiveFeedPost(null, stores_dict[store], review, null);
 
             // Update latest post date and feed count for the user
             updateLastPostDateForUser(user._id, new Date());
@@ -86,19 +72,19 @@ function PostPage() {
         }
     }
 
-    const available_stores = []
-    for (let store_count in storesDropdown){
-        const store = storesDropdown[store_count];
-        if (store.city == user.city && store.state == user.state) available_stores.push(store.name + " -" + store._id);
-    }
-
 
     return (
     <SafeAreaView style={styles.app}>
         <View style={[styles.container, {justifyContent: 'center'}]}>
 
             <Text style={text_styles.smallTitle}>Store</Text>
-            <Dropdown value={store} setValue={setStore} options={available_stores} type={"store"}/>
+            <Dropdown
+                value={store}
+                setValue={setStore}
+                options={[]}
+                type={"store"}
+                searchFunc={searchStores}
+            />
 
             <Text style={text_styles.smallTitle}>Update</Text>
             <View style={item_style.concat({marginBottom: 15})}>
