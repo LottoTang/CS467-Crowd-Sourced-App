@@ -99,11 +99,14 @@ const PopupCheckList = ({data, preselected, close, select_type, popup_type, sear
         else close(selected_items)
     }
 
+    let addable = false
+    if (popup_type.includes("Addable")) addable = !data.includes(search)
+
     return (
         <View style={popup_style.style}>
             <View style={{maxHeight: "50%"}}>
                 { popup_type.includes("Searchable") ? (
-                    <SearchBar search={search} setSearch={setSearch} addable={!data.includes(search)} add={add} />
+                    <SearchBar search={search} setSearch={setSearch} addable={addable} add={add} />
                 ) : null }
                 <CheckList
                     data={data}
