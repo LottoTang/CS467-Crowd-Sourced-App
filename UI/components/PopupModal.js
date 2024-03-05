@@ -65,10 +65,13 @@ const PopupList = ({data, type, close, search, setSearch, setNew}) => {
         close(new_item)
     }
 
+    let addable = false
+    if (type.includes("Addable")) addable = !data.includes(search)
+
     return (
         <View style={popup_style.style}>
             { type.includes("Searchable") ? (
-                <SearchBar search={search} setSearch={setSearch} addable={!data.includes(search)} add={add}/>
+                <SearchBar search={search} setSearch={setSearch} addable={addable} add={add}/>
             ) : (
                 <Text style={text_styles.smallTitle}>{title}</Text>
             ) }

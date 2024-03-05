@@ -66,6 +66,24 @@ async function getStoreName(store_id) {
     return res
 }
 
+// fetch all stores related to a search
+async function searchStores(store_name) {
+    let res;
+
+    try {
+        const response = await axios.get(`http://10.0.2.2:3000/stores/search`, {
+                params: {
+                    name: store_name,
+                }
+            }).then(result => {
+                res = result.data
+                })
+            .catch(error => console.log(error))
+    } catch(error) { console.error(error) };
+
+    return res
+}
+
 // fetch all stores
 async function fetchStores() {
     let res;
@@ -254,6 +272,6 @@ async function getAllItemsWithTag(){
     return res
 }
 
-export { getUser, getItem, fetchItems, getStoreName, fetchStores, fetchBrands, searchProducts, fetchProduct };
+export { getUser, getItem, fetchItems, getStoreName, searchStores, fetchStores, fetchBrands, searchProducts, fetchProduct };
 
 export { getPromotion, fetchPromotions, searchPromotions, getItemByBarcode, getAllLiveFeeds, postNewFeed, getAllItemsWithTag };

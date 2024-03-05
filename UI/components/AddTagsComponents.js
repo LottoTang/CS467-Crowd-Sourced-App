@@ -16,7 +16,7 @@ import { useSelector } from 'react-redux';
 import { giveSuggestedItems } from '../../redux/funtionality/helperFunctions.js';
 
 // data imports
-import { searchProducts, fetchBrands, searchPromotions } from '../../redux/funtionality/connectionMongo.js';
+import { searchStores, searchProducts, fetchBrands, searchPromotions } from '../../redux/funtionality/connectionMongo.js';
 
 // component imports
 import Dropdown from '../components/Dropdown.js'
@@ -36,6 +36,7 @@ const StoresDropdown = ({store, setStore, stores}) => {
                 setValue={setStore}
                 options={stores}
                 type={"store"}
+                searchFunc={searchStores}
             />
         </View>
     )

@@ -64,18 +64,20 @@ storesRouter.get('/search', async (req, res) => {
   if (!storeQuery) {
     try {
       const allStoreList = await db.findAllStores();
-      res.status(200).send(allStoreList);
+      res.status(200).send(allStoreList.map(store => store.name));
     } catch (err) {
       console.error(err);
       res.status(500).send({Error: 'Internal server error.'});
     }
   }
-  try {
-    const storeList = await db.getStoreBySubstring(storeQuery);
-    res.status(200).send(storeList);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send({Error: 'Internal server error.'});
+  else {
+      try {
+        const storeList = await db.getStoreBySubstring(storeQuery);
+        res.status(200).send(storeList);
+      } catch (err) {
+        console.error(err);
+        res.status(500).send({Error: 'Internal server error.'});
+      }
   }
 });
 
