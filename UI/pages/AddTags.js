@@ -74,10 +74,10 @@ function AddTagsPage({route}) {
 
             // retrieve all of the promotions, put them in a dict format {name: id}
             const sales_dict = {}
-            const all_promotions = null // await fetchPromotions()
+            const all_promotions = await fetchPromotions()
             if (all_promotions){
                 for (const promotion of all_promotions) {
-                    sales_dict[promotion] = promotion._id
+                    sales_dict[promotion.promotion_type] = promotion._id
                 }
                 setSales(sales_dict)
             }
@@ -130,6 +130,7 @@ function AddTagsPage({route}) {
             Alert.alert("Invalid Entry", "Please add all necessary information", [{text: 'Ok'}] );
         } else {
             let final_promo = sales_dict[sale]
+            console.log(final_promo)
             if (sale == "None") final_promo = null
 
             // create a new item with the provided data

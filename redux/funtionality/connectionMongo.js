@@ -138,7 +138,7 @@ async function fetchProduct(product_name) {
     return res
 }
 
-// fetch a promotion from the given id and return the type
+// fetch a promotion from the given id
 async function getPromotion(promotion_id) {
     let res;
 
@@ -153,7 +153,22 @@ async function getPromotion(promotion_id) {
     return res
 }
 
-// fetch all promotions related to a search
+// get all promotions
+async function fetchPromotions() {
+    let res;
+
+    try{
+        const response = await axios.get(`http://10.0.2.2:3000/promotions/`, {}
+        ).then(result => {
+            res = result.data;
+            })
+        .catch(error => console.error(error));
+    }catch(error){ console.error(error) };
+
+    return res
+}
+
+// fetch all promotions related to a search (returns a list of types)
 async function searchPromotions(search) {
     let res;
 
@@ -239,6 +254,6 @@ async function getAllItemsWithTag(){
     return res
 }
 
-export { getUser, getItem, fetchItems, getStoreName, fetchStores, fetchBrands, searchProducts, fetchProduct, getPromotion, searchPromotions, getItemByBarcode, getAllLiveFeeds };
+export { getUser, getItem, fetchItems, getStoreName, fetchStores, fetchBrands, searchProducts, fetchProduct };
 
-export { postNewFeed, getAllItemsWithTag };
+export { getPromotion, fetchPromotions, searchPromotions, getItemByBarcode, getAllLiveFeeds, postNewFeed, getAllItemsWithTag };
