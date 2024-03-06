@@ -15,6 +15,8 @@ const livefeedsSchema = new mongoose.Schema({
   // replace with product_id in schema after products table implemented
   review: { type: String, required: false },
   price: {type: String, required: false},
+  username: {type: String, required: false},
+  date: {type: String, required: false},
 }, { versionKey: false });
 
 const Livefeeds = mongoose.model('Livefeeds', livefeedsSchema, 'Livefeeds');
@@ -25,13 +27,17 @@ const createLivefeed = async (
   store_id,
   review,
   price,
+  username,
+  date,
 ) => {
   // create new livefeed object to save to database
   const livefeed = new Livefeeds({
     item_id: item_id,
     store_id: store_id,
     review: review,
-    price: price
+    price: price,
+    username: username,
+    date: date,
   });
   return livefeed
     .save()

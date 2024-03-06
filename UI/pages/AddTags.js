@@ -22,6 +22,9 @@ import { addProduct, updateBrands, createPromotion, addItem, updateItem, makeLiv
 import { StoresDropdown, TagsDropdown, BrandsDropdown, PromotionsDropdown, SaleDatePicker } from '../components/AddTagsComponents.js'
 import Loading from '../components/LoadingPage.js'
 
+// helper methods 
+import { convertDateForPosts } from '../../redux/funtionality/helperFunctions.js';
+
 // style imports
 import styles, {item_style, text_styles} from '../style.js';
 
@@ -187,7 +190,8 @@ function AddTagsPage({route}) {
                     created_item = await addItem(new_item)
                 }
                 // Send post to backend live feeds
-                makeLiveFeedPost(created_item._id, new_item.store_id, "", new_item.price);
+                const today = convertDateForPosts(new Date());
+                makeLiveFeedPost(created_item._id, new_item.store_id, "", new_item.price, user.username, today);
 
                 // Update latest post date and feed count for the user
                 updateLastPostDateForUser(user._id, new Date());

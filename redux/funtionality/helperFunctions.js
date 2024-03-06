@@ -396,7 +396,7 @@ function returnLiveFeeds(feeds, stores, items, products){
             review: "",
             item: "",
             store: "",
-            user: feeds[feed].user_id,
+            user: feeds[feed].username,
             date: feeds[feed].date, brand: "",
             pricing: -1,
             promotion: null
@@ -573,7 +573,17 @@ function prepareShoppingList(currentList, allItems){
     return newShoppingList;
 }
 
+// Helper method to give a user friendly date
+function convertDateForPosts(date){
+
+    let year = date.getFullYear();
+    let month = String(date.getMonth() + 1).padStart(2, '0');
+    let day = String(date.getDate()).padStart(2, '0');
+    let formattedDate = `${year}-${month}-${day}`;
+    return formattedDate; 
+}
+
 export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForProduct, getItemsList }
 export { getShoppingListItemsInStore, getProductInShoppingListDetails, getGoShoppingList, getStoresSorting, getItemSorting, sortAlphabetically }
 export { returnLiveFeeds, filterLiveFeeds, convertItemsOutput, removeSelectedItem, prepareShoppingListInput, getListOfBrandsForDB }
-export { prepareShoppingList }
+export { prepareShoppingList, convertDateForPosts }
