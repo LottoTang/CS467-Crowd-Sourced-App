@@ -368,11 +368,9 @@ function getItemSorting(items, sorting){
 }
 
 function sortLiveFeeds(data) {
-    console.log(data)
     data.sort((a, b) => {
         const name_a = a.date;
         const name_b = b.date;
-        console.log(name_a, name_b)
 
         if (name_a > name_b){
             return -1;
@@ -468,7 +466,6 @@ function returnLiveFeeds(feeds, stores, items, products){
             finalFeed.push(feedResults[key]);
         }
     }
-    //console.log(finalFeed);
     return finalFeed;
 }
 
