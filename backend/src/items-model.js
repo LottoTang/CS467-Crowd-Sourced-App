@@ -19,7 +19,9 @@ const itemsSchema = new mongoose.Schema({
   brand: { type: String, required: true },
   price: { type: Number, required: true },
   barcode_id: { type: String, required: false },
-  promotion_id: { type: mongoose.Schema.Types.ObjectId, required: false }
+  promotion_id: { type: mongoose.Schema.Types.ObjectId, required: false },
+  username: {type: String, required: false},
+  date: {type: String, required: false},
 }, { versionKey: false });
 
 
@@ -32,6 +34,8 @@ const createItem = async (
   price,
   barcode_id,
   promotion_id,
+  username,
+  date,
 ) => {
 
   // create new item object to save to database
@@ -43,6 +47,8 @@ const createItem = async (
     price: price,
     barcode_id: barcode_id,
     promotion_id: promotion_id,
+    username: username,
+    date: date,
   });
   return item
     .save()
@@ -123,18 +129,20 @@ const updateItem = async (
   new_price,
   new_promotion,
   new_tags,
+  user,
+  date,
   price_change,
   promotion_change,
   tag_change
 ) => {
   if (price_change === true) {
-    await Items.updateOne({_id: item_id}, {$set: {price: new_price}});
+    await Items.updateOne({_id: item_id}, {$set: {price: new_price, username: user, date: date}});
   }
   if (promotion_change === true) {
     // will be query once promotion table in place
     await Items.updateOne(
       {_id: item_id},
-      {$set: {promotion_id: new_promotion}},
+      {$set: {promotion_id: new_promotion, username: user, date: date}},
     );
   }
   if (tag_change === true) {
@@ -144,7 +152,7 @@ const updateItem = async (
 
     await Items.updateOne(
       {_id: item_id},
-      {$set: {product_tags: this_item.product_tags}},
+      {$set: {product_tags: this_item.product_tags, username: user, date: date}},
     );
   }
 };

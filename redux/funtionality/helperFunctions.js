@@ -500,6 +500,8 @@ async function convertItemsOutput(databaseItems){
         }
         element.store = await getStoreName(item.store_id);
         if (!element.store) element.store = "Store not in database yet"
+        element.date = item.date
+        element.username = item.username
         output.push(element);
     }
 

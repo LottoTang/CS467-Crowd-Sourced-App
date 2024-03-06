@@ -30,9 +30,6 @@ const ItemComponent = ({item, stores_only}) => {
         width = "100%"
     }
 
-    time = item.date
-    user = item.user
-
     const promotion_id = item.promotion
     const [promotion, setPromotion] = useState()
 
@@ -57,7 +54,7 @@ const ItemComponent = ({item, stores_only}) => {
                     {subtitle}
                 </Text>
                 <Text style={[text_styles.footnote, {paddingTop: 0}]}>
-                    Last updated {time} ago by {user}
+                    Last updated {item.date} by {item.user}
                 </Text>
             </View>
             { item.pricing != -1 ? (
