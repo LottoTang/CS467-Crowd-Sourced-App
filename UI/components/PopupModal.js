@@ -65,10 +65,13 @@ const PopupList = ({data, type, close, search, setSearch, setNew}) => {
         close(new_item)
     }
 
+    let addable = false
+    if (type.includes("Addable")) addable = !data.includes(search)
+
     return (
         <View style={popup_style.style}>
             { type.includes("Searchable") ? (
-                <SearchBar search={search} setSearch={setSearch} addable={!data.includes(search)} add={add}/>
+                <SearchBar search={search} setSearch={setSearch} addable={addable} add={add}/>
             ) : (
                 <Text style={text_styles.smallTitle}>{title}</Text>
             ) }
@@ -92,14 +95,21 @@ const PopupCheckList = ({data, preselected, close, select_type, popup_type, sear
     // if new option is created, add it and close the popup
     const add = (new_item) => {
         setNew(new_item)
-        close(selected_items.concat(new_item))
+        if (!selected_items.includes(new_item)) close(selected_items.concat(new_item))
+        else close(selected_items)
     }
+
+    let addable = false
+    if (popup_type.includes("Addable")) addable = !data.includes(search)
+
+    let height = "50%"
+    if (addable) height = "65%"
 
     return (
         <View style={popup_style.style}>
-            <View style={{maxHeight: "65%"}}>
+            <View style={{maxHeight: height}}>
                 { popup_type.includes("Searchable") ? (
-                    <SearchBar search={search} setSearch={setSearch} addable={!data.includes(search)} add={add} />
+                    <SearchBar search={search} setSearch={setSearch} addable={addable} add={add} />
                 ) : null }
                 <CheckList
                     data={data}

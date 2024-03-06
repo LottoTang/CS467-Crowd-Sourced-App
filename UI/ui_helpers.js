@@ -4,8 +4,10 @@ function capitalizeTitle(title) {
 
     let capitalized_title = ''
     for (const word of words) {
-        const letter = word[0].toUpperCase()
-        capitalized_title = capitalized_title.concat(letter, word.slice(1, word.length), " ")
+        if (word){
+            const letter = word[0].toUpperCase()
+            capitalized_title = capitalized_title.concat(letter, word.slice(1, word.length), " ")
+        }
     };
 
     return capitalized_title

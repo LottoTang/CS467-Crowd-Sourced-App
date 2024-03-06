@@ -22,6 +22,9 @@ import { addProduct, updateBrands, createPromotion, addItem, updateItem, makeLiv
 import { StoresDropdown, TagsDropdown, BrandsDropdown, PromotionsDropdown, SaleDatePicker } from '../components/AddTagsComponents.js'
 import Loading from '../components/LoadingPage.js'
 
+// helper methods 
+import { convertDateForPosts } from '../../redux/funtionality/helperFunctions.js';
+
 // style imports
 import styles, {item_style, text_styles} from '../style.js';
 
@@ -59,7 +62,9 @@ function AddTagsPage({route}) {
     const [new_sale, setNewSale] = useState("")
 
     const addNewProduct = (product) => {
-        setNewProducts(new_products.concat([product]))
+        if (!new_products.includes(product)){
+            setNewProducts(new_products.concat([product]))
+        }
     }
 
     useEffect(() => {
@@ -74,10 +79,10 @@ function AddTagsPage({route}) {
 
             // retrieve all of the promotions, put them in a dict format {name: id}
             const sales_dict = {}
-            const all_promotions = null // await fetchPromotions()
+            const all_promotions = await fetchPromotions()
             if (all_promotions){
                 for (const promotion of all_promotions) {
-                    sales_dict[promotion] = promotion._id
+                    sales_dict[promotion.promotion_type] = promotion._id
                 }
                 setSales(sales_dict)
             }
@@ -164,7 +169,7 @@ function AddTagsPage({route}) {
                     for (const new_product of new_products) {
                         // verify that new product wasn't unchecked, in which case it isn't added
                         if (tags.includes(new_product)){
-                            addProduct(product, [brand])
+                            addProduct(new_product, [brand])
                         }
                     }
                 }
@@ -176,6 +181,8 @@ function AddTagsPage({route}) {
                 let created_item = item;
                 // update the item if already existing
                 if (item._id) {
+                    const new_tags = (new_item.product_tags).filter(tag => !(item.product_tags).includes(tag))
+                    new_item.product_tags = new_tags
                     updateItem(item._id, new_item)
                 }
                 // create a new item if not already existing
@@ -183,7 +190,8 @@ function AddTagsPage({route}) {
                     created_item = await addItem(new_item)
                 }
                 // Send post to backend live feeds
-                makeLiveFeedPost(created_item._id, created_item.store_id, "", created_item.price);
+                const today = convertDateForPosts(new Date());
+                makeLiveFeedPost(created_item._id, new_item.store_id, "", new_item.price, user.username, today);
 
                 // Update latest post date and feed count for the user
                 updateLastPostDateForUser(user._id, new Date());
@@ -201,7 +209,7 @@ function AddTagsPage({route}) {
     <SafeAreaView style={styles.app}>
         <View style={[styles.container, {justifyContent: 'center'}]}>
             <ScrollView>
-                <StoresDropdown store={store} setStore={setStore} stores={Object.keys(stores_dict)} />
+                <StoresDropdown store={store} setStore={setStore} />
 
                 <Text style={label_text}>Item Name</Text>
                 <View style={item_style.concat({marginBottom: 15})}>

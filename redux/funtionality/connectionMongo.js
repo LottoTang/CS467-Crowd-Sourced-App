@@ -1,6 +1,7 @@
 // Handle connectivity with the database
 
 import axios from 'axios';
+import { sortAlphabetically } from "./helperFunctions";
 
 // fetch a user based on their id
 async function getUser(user_id) {
@@ -66,6 +67,24 @@ async function getStoreName(store_id) {
     return res
 }
 
+// fetch all stores related to a search
+async function searchStores(store_name) {
+    let res;
+
+    try {
+        const response = await axios.get(`http://10.0.2.2:3000/stores/search`, {
+                params: {
+                    name: store_name,
+                }
+            }).then(result => {
+                res = result.data
+                })
+            .catch(error => console.log(error))
+    } catch(error) { console.error(error) };
+
+    return sortAlphabetically(res)
+}
+
 // fetch all stores
 async function fetchStores() {
     let res;
@@ -117,7 +136,7 @@ async function searchProducts(product_name) {
         .catch(error => console.error(error));
     }catch(error){ console.error(error) };
 
-    return res
+    return sortAlphabetically(res)
 }
 
 // fetch the product object corresponding to the name
@@ -138,7 +157,7 @@ async function fetchProduct(product_name) {
     return res
 }
 
-// fetch a promotion from the given id and return the type
+// fetch a promotion from the given id
 async function getPromotion(promotion_id) {
     let res;
 
@@ -153,7 +172,22 @@ async function getPromotion(promotion_id) {
     return res
 }
 
-// fetch all promotions related to a search
+// get all promotions
+async function fetchPromotions() {
+    let res;
+
+    try{
+        const response = await axios.get(`http://10.0.2.2:3000/promotions/`, {}
+        ).then(result => {
+            res = result.data;
+            })
+        .catch(error => console.error(error));
+    }catch(error){ console.error(error) };
+
+    return res
+}
+
+// fetch all promotions related to a search (returns a list of types)
 async function searchPromotions(search) {
     let res;
 
@@ -168,7 +202,7 @@ async function searchPromotions(search) {
             .catch(error => console.log(error))
     } catch(error) { console.error(error) };
 
-    return res
+    return sortAlphabetically(res)
 }
 
 
@@ -239,6 +273,6 @@ async function getAllItemsWithTag(){
     return res
 }
 
-export { getUser, getItem, fetchItems, getStoreName, fetchStores, fetchBrands, searchProducts, fetchProduct, getPromotion, searchPromotions, getItemByBarcode, getAllLiveFeeds };
+export { getUser, getItem, fetchItems, getStoreName, searchStores, fetchStores, fetchBrands, searchProducts, fetchProduct };
 
-export { postNewFeed, getAllItemsWithTag };
+export { getPromotion, fetchPromotions, searchPromotions, getItemByBarcode, getAllLiveFeeds, postNewFeed, getAllItemsWithTag };

@@ -186,7 +186,7 @@ const parseShoppingListItem = async products => {
             },
             {_id: 1},
           );
-          shoppingList[productTag].push(collection);
+          collection.forEach(item => shoppingList[productTag].push(item));
         } catch (err) {
           console.error(err);
         }

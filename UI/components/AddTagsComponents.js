@@ -13,10 +13,10 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 // function imports
-import { giveSuggestedItems } from '../../redux/funtionality/helperFunctions.js';
+import { giveSuggestedItems, sortAlphabetically } from '../../redux/funtionality/helperFunctions.js';
 
 // data imports
-import { searchProducts, fetchBrands, searchPromotions } from '../../redux/funtionality/connectionMongo.js';
+import { searchStores, searchProducts, fetchBrands, searchPromotions } from '../../redux/funtionality/connectionMongo.js';
 
 // component imports
 import Dropdown from '../components/Dropdown.js'
@@ -26,7 +26,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import styles, {item_style, text_styles} from '../style.js';
 
 
-const StoresDropdown = ({store, setStore, stores}) => {
+const StoresDropdown = ({store, setStore}) => {
 // Dropdown popup that allows user to select a store input
     return (
         <View>
@@ -34,8 +34,9 @@ const StoresDropdown = ({store, setStore, stores}) => {
             <Dropdown
                 value={store}
                 setValue={setStore}
-                options={stores}
+                options={[]}
                 type={"store"}
+                searchFunc={searchStores}
             />
         </View>
     )
@@ -72,7 +73,7 @@ const BrandsDropdown = ({tags, brand, setBrand, setNew, editable}) => {
                 const product_brands = await fetchBrands(tag)
                 product_brands.forEach(brand => {if (!brands.includes(brand)) brands.push(brand)})
             }
-            setBrands(brands)
+            setBrands(sortAlphabetically(brands))
         }
         fetchData()
     }, [tags])

@@ -18,13 +18,14 @@ import { viewSelectedItem } from '../../redux/actions/actions.js';
 
 // data imports
 import { searchProducts } from '../../redux/funtionality/connectionMongo.js';
+import { addProduct } from '../../redux/funtionality/postPatchFunctions.js';
 
 // style imports
 import styles, {item_style, text_styles, add_button} from '../style.js';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
-const ItemComponent = ({item}) => {
+const ItemComponent = ({item, create_product=()=>{}}) => {
 // item component that represents one suggested item
     const dispatch = useDispatch();
     const navigation = useNavigation();
@@ -32,6 +33,7 @@ const ItemComponent = ({item}) => {
     const handleAddItem = (item) => {
         // Go to select brand page
         dispatch(viewSelectedItem(item));
+        create_product(item, [])
         navigation.navigate('Select Brand', {product: item});
     };
 
@@ -99,13 +101,12 @@ const CreateItem = ({suggestions, product}) => {
     if (suggestions.includes(product)) return
 
     // if exact name is not suggested, allow user to create item
-    // TODO: a function may need to be passed to the ItemComponent to add the item to the database
     return (
         <View style={styles.bottom}>
             <View style={styles.row}>
                 <Text style={[text_styles.smallTitle, {alignSelf: 'center', paddingRight: 8, maxWidth: '21%'}]}>Create </Text>
                 <View style={{width: '76%'}} >
-                    <ItemComponent item={product} />
+                    <ItemComponent item={product} create_product={addProduct}/>
                 </View>
             </View>
         </View>

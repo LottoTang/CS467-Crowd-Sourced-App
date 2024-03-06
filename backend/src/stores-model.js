@@ -84,7 +84,8 @@ const readStoresFromCSV = async () => {
 // Input: Capitalize for every 1st letter in a word
 // e.g. "Trader's Joe", "Walmart Axxxx Bxxx Cxxxx"
 const getStoreBySubstring = async name => {
-  var this_store = await Stores.find({name: {$regex: name}});
+  var search = new RegExp(name,"i")
+  var this_store = await Stores.find({name: {$regex: search}});
   var storeNames = this_store.map(store => store.name);
   return storeNames;
 };

@@ -350,8 +350,8 @@ function getItemSorting(items, sorting){
             //const name_a = stores[a.store].name.toUpperCase();
             //const name_b = stores[b.store].name.toUpperCase();
 
-            const name_a = a.name.toUpperCase();
-            const name_b = b.name.toUpperCase();
+            const name_a = a.store.toUpperCase();
+            const name_b = b.store.toUpperCase();
 
             if (name_a < name_b){
                 return -1;
@@ -365,7 +365,23 @@ function getItemSorting(items, sorting){
     }
 
     return items;
-}   
+}
+
+function sortAlphabetically(list) {
+    list.sort((a, b) => {
+        const name_a = a.toUpperCase();
+        const name_b = b.toUpperCase();
+
+        if (name_a < name_b){
+            return -1;
+        } else if (name_a > name_b){
+            return 1;
+        } else {
+            return 1
+        }
+    });
+    return list
+}
 
 // Helper method to return the live feeds
 // The method should be looking at the feeds table, stores table, all items and products table
@@ -380,7 +396,7 @@ function returnLiveFeeds(feeds, stores, items, products){
             review: "",
             item: "",
             store: "",
-            user: feeds[feed].user_id,
+            user: feeds[feed].username,
             date: feeds[feed].date, brand: "",
             pricing: -1,
             promotion: null
@@ -557,20 +573,17 @@ function prepareShoppingList(currentList, allItems){
     return newShoppingList;
 }
 
-// Get a list of store details and return a list with unique store details
-function getUniqueStoreNames(storeData){
+// Helper method to give a user friendly date
+function convertDateForPosts(date){
 
-    const setDetails = [];
-    for (let store in storeData){
-        const storeInfo = storeData[store];
-        const storeDescription = storeInfo.name +", "+storeInfo.city + ", " + storeInfo.state;
-        const storeInput = {_id: storeInfo._id, name: storeDescription, city: storeInfo.city, state: storeInfo.state };
-        setDetails.push(storeInput);
-    }
-    return setDetails;
+    let year = date.getFullYear();
+    let month = String(date.getMonth() + 1).padStart(2, '0');
+    let day = String(date.getDate()).padStart(2, '0');
+    let formattedDate = `${year}-${month}-${day}`;
+    return formattedDate; 
 }
 
 export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForProduct, getItemsList }
-export { getShoppingListItemsInStore, getProductInShoppingListDetails, getGoShoppingList, getStoresSorting, getItemSorting }
+export { getShoppingListItemsInStore, getProductInShoppingListDetails, getGoShoppingList, getStoresSorting, getItemSorting, sortAlphabetically }
 export { returnLiveFeeds, filterLiveFeeds, convertItemsOutput, removeSelectedItem, prepareShoppingListInput, getListOfBrandsForDB }
-export { prepareShoppingList, getUniqueStoreNames }
+export { prepareShoppingList, convertDateForPosts }
