@@ -22,11 +22,9 @@ const ItemComponent = ({item}) => {
     const title = item.store;
     const subtitle = item.name
 
-    let width = "75%"
-
     return (
         <View style={item_style}>
-            <View style={[styles.wide_row, {alignSelf: 'center', maxWidth: width}]}>
+            <View style={[styles.wide_row, {alignSelf: 'center', maxWidth: '65%'}]}>
                 <Text style={[text_styles.smallTitle, view_style.largeText]}>
                     {title}
                 </Text>
