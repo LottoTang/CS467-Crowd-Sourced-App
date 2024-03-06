@@ -14,7 +14,7 @@ import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
 // function imports
-import { returnLiveFeeds, filterLiveFeeds } from "../../redux/funtionality/helperFunctions";
+import { returnLiveFeeds, filterLiveFeeds, sortLiveFeeds } from "../../redux/funtionality/helperFunctions";
 
 // data imports
 import { fetchStores, searchStores, getAllLiveFeeds, fetchItems, fetchProduct } from '../../redux/funtionality/connectionMongo.js';
@@ -182,7 +182,8 @@ function LiveFeed() {
             setAllProductData(allProducts);
             
             const result = returnLiveFeeds(allFeeds, allStores, allItems, allProducts);
-            setUpdatedData(result);
+            const finalData = sortLiveFeeds(result)
+            setUpdatedData(finalData);
             
             // Populate stores for filter
             const filterStore = {};
@@ -234,7 +235,8 @@ function LiveFeed() {
         // Recreate the copy feeds to avoid permanent change in the data
         const copyFeeds = returnLiveFeeds(allFeedData, allStoreData, allItemData, allProductData);
         const newData = filterLiveFeeds(copyFeeds, filter);
-        setUpdatedData(newData);
+        const finalData = sortLiveFeeds(newData)
+        setUpdatedData(finalData);
     }, [filter])
 
     // Wait for data from database to load
@@ -246,7 +248,7 @@ function LiveFeed() {
     <SafeAreaView style={styles.app}>
         <View style={styles.container}>
             <Popup store_filter={store_filter} setStores={setStores} post_filter={post_filter} setPostTypes={setPostTypes} stores={available_stores}/>
-            <View style={{height: '84%'}}>
+            <View style={{flex: 8}}>
                 <UpdatesList items={updatedData}/>
             </View>
             <View style={styles.bottom}>

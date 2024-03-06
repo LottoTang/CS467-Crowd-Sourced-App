@@ -367,6 +367,24 @@ function getItemSorting(items, sorting){
     return items;
 }
 
+function sortLiveFeeds(data) {
+    console.log(data)
+    data.sort((a, b) => {
+        const name_a = a.date;
+        const name_b = b.date;
+        console.log(name_a, name_b)
+
+        if (name_a > name_b){
+            return -1;
+        } else if (name_a < name_b){
+            return 1;
+        } else {
+            return 1
+        }
+    });
+    return data
+}
+
 function sortAlphabetically(list) {
     list.sort((a, b) => {
         const name_a = a.toUpperCase();
@@ -586,6 +604,6 @@ function convertDateForPosts(date){
 }
 
 export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForProduct, getItemsList }
-export { getShoppingListItemsInStore, getProductInShoppingListDetails, getGoShoppingList, getStoresSorting, getItemSorting, sortAlphabetically }
+export { getShoppingListItemsInStore, getProductInShoppingListDetails, getGoShoppingList, getStoresSorting, getItemSorting, sortLiveFeeds, sortAlphabetically }
 export { returnLiveFeeds, filterLiveFeeds, convertItemsOutput, removeSelectedItem, prepareShoppingListInput, getListOfBrandsForDB }
 export { prepareShoppingList, convertDateForPosts }
