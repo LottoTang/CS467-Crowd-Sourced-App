@@ -113,7 +113,7 @@ function SignUpPage({route}) {
 
             else {
                 try{
-                    const response = await reqFunc(`http://10.0.2.2:3000/users/${user_id}`,
+                    const response = await reqFunc(`http://${address}:3000/users/${user_id}`,
                         new_user
                     ).then(async result => {
                         dispatch(setUser(result.data));

@@ -8,7 +8,7 @@ async function getUser(user_id) {
     let res;
 
     try {
-        const response = await axios.get(`http://10.0.2.2:3000/users/${user_id}`, {}
+        const response = await axios.get(`http://${address}:3000/users/${user_id}`, {}
             ).then(result => {
                 res = result.data
                 })
@@ -23,7 +23,7 @@ async function getItem(item_id) {
     let res;
 
     try {
-        const response = await axios.get(`http://10.0.2.2:3000/items/${item_id}`, {}
+        const response = await axios.get(`http://${address}:3000/items/${item_id}`, {}
             ).then(result => {
                 res = result.data
                 })
@@ -38,7 +38,7 @@ async function fetchItems(product) {
     let res;
 
     try{
-        const response = await axios.get(`http://10.0.2.2:3000/items/`, {
+        const response = await axios.get(`http://${address}:3000/items/`, {
             params: {
                 tag: `${product}`,
             }
@@ -56,7 +56,7 @@ async function getStoreName(store_id) {
     let res;
 
     try{
-        const response = await axios.get(`http://10.0.2.2:3000/stores/${store_id}`, {}
+        const response = await axios.get(`http://${address}:3000/stores/${store_id}`, {}
         ).then(result => {
             res = result.data;
             })
@@ -72,7 +72,7 @@ async function searchStores(store_name) {
     let res;
 
     try {
-        const response = await axios.get(`http://10.0.2.2:3000/stores/search`, {
+        const response = await axios.get(`http://${address}:3000/stores/search`, {
                 params: {
                     name: store_name,
                 }
@@ -90,7 +90,7 @@ async function fetchStores() {
     let res;
 
     try {
-        const response = await axios.get(`http://10.0.2.2:3000/stores`
+        const response = await axios.get(`http://${address}:3000/stores`
             ).then(result => {
                 res = result.data
                 })
@@ -105,7 +105,7 @@ async function fetchBrands(product) {
     let res = [];
 
     try{
-        const response = await axios.get(`http://10.0.2.2:3000/products/brands`, {
+        const response = await axios.get(`http://${address}:3000/products/brands`, {
             params: {
                 name: `${product}`,
             }
@@ -126,7 +126,7 @@ async function searchProducts(product_name) {
     let res;
 
     try{
-        const response = await axios.get(`http://10.0.2.2:3000/products/search`, {
+        const response = await axios.get(`http://${address}:3000/products/search`, {
             params: {
                 name: `${product_name.toLowerCase()}`,
             }
@@ -144,7 +144,7 @@ async function fetchProduct(product_name) {
     let res;
 
     try{
-        const response = await axios.get(`http://10.0.2.2:3000/products/`, {
+        const response = await axios.get(`http://${address}:3000/products/`, {
             params: {
                 name: `${product_name.toLowerCase()}`,
             }
@@ -162,7 +162,7 @@ async function getPromotion(promotion_id) {
     let res;
 
     try{
-        const response = await axios.get(`http://10.0.2.2:3000/promotions/${promotion_id}`, {}
+        const response = await axios.get(`http://${address}:3000/promotions/${promotion_id}`, {}
         ).then(result => {
             res = result.data;
             })
@@ -177,7 +177,7 @@ async function fetchPromotions() {
     let res;
 
     try{
-        const response = await axios.get(`http://10.0.2.2:3000/promotions/`, {}
+        const response = await axios.get(`http://${address}:3000/promotions/`, {}
         ).then(result => {
             res = result.data;
             })
@@ -192,7 +192,7 @@ async function searchPromotions(search) {
     let res;
 
     try {
-        const response = await axios.get(`http://10.0.2.2:3000/promotions/search`, {
+        const response = await axios.get(`http://${address}:3000/promotions/search`, {
             params: {
                 promotion_type: search
             }
@@ -211,7 +211,7 @@ async function getItemByBarcode(barcode, store) {
     let res;
 
     try {
-        const response = await axios.get(`http://10.0.2.2:3000/items/barcode`, {
+        const response = await axios.get(`http://${address}:3000/items/barcode`, {
             params: {
                 barcode_id: barcode,
                 store_id: store
@@ -230,7 +230,7 @@ async function getAllLiveFeeds(){
 
     let data;
     try{
-        const response = await axios.get(`http://10.0.2.2:3000/livefeeds`)
+        const response = await axios.get(`http://${address}:3000/livefeeds`)
         .then(result => {
             data = result.data;
         }).catch(error => console.log(error));
@@ -244,7 +244,7 @@ async function getAllLiveFeeds(){
 // Send a new post to the database for a store
 async function postNewFeed(user, item, store, review){
     try{
-        const response = await axios.post(`http://10.0.2.2:3000/`, 
+        const response = await axios.post(`http://${address}:3000/`,
         {
             item_id: item,
             store_id: store,
@@ -262,7 +262,7 @@ async function getAllItemsWithTag(){
     let res;
 
     try{
-        const response =await axios.get(`http://10.0.2.2:3000/items/allitems`)
+        const response =await axios.get(`http://${address}:3000/items/allitems`)
         .then(result =>{
             res = result.data
         }).catch(error=> console.log(error));

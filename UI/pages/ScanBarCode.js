@@ -20,21 +20,15 @@ import styles, {item_style, text_styles, add_button} from '../style.js';
 
 
 const ScanBarCode = ()=>{
-
-    const [barcode, setBarcode] = useState("");
     const navigation = useNavigation();
 
     const handleBarcodeScanned = (event)=>{
         Vibration.vibrate(30);
-
-        // This will be activated once we have the app on the phone, for testing purposes we use the below
-        setBarcode(event.nativeEvent.codeStringValue);
-        navigation.navigate("Add Tags", {barcode: barcode});
+        navigation.navigate("Add Tags", {barcode: event.nativeEvent.codeStringValue});
     }
 
     const handlePictureTake = ()=>{
-        setBarcode("1224121221212");
-        navigation.navigate("Add Tags", {barcode: barcode});
+        navigation.navigate("Add Tags", {barcode: "1224121221212"});
     }
 
 
