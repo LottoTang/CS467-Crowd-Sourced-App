@@ -92,7 +92,7 @@ itemsRouter.patch("/:id", async (req, res) => {
     }
 
     try {
-        await updateItem(req.params.id, req.body.price, req.body.promotion_id, req.body.username, req.body.date, req.body.product_tags, price_change, promotion_change, tag_change);
+        await updateItem(req.params.id, req.body.price, req.body.promotion_id, req.body.product_tags, req.body.username, req.body.date, price_change, promotion_change, tag_change);
         res.status(204).end();
     } catch (error) {
         console.error(error);
