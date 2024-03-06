@@ -19,15 +19,10 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const ItemComponent = ({item}) => {
 // item component that holds either live feed post or item data
-    //const title = stores[item.store].name
     const title = item.store;
     const subtitle = item.name
 
     let width = "75%"
-
-    // TODO: replace this with data from the database; not sure how it's going to be pulled
-    const time = "4 hours"
-    const user = "shoppingpro50"
 
     return (
         <View style={item_style}>
@@ -39,7 +34,7 @@ const ItemComponent = ({item}) => {
                     {subtitle}
                 </Text>
                 <Text style={[text_styles.footnote, {paddingTop: 0}]}>
-                    Last updated {time} ago by {user}
+                    Last updated {item.date} by {item.username}
                 </Text>
             </View>
             { item.price ? (

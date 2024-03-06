@@ -137,11 +137,13 @@ function AddTagsPage({route}) {
             let final_promo = sales_dict[sale]
             if (sale == "None") final_promo = null
 
+            const today = convertDateForPosts(new Date());
+
             // create a new item with the provided data
             const new_item = {name: name, store_id: stores_dict[store], brand: brand,
                             price: parseFloat(parseFloat(price).toFixed(2)), product_tags: tags,
-                            promotion_id: final_promo, barcode_id: barcode,
-                            date: new Date(), user_id: user._id}
+                            promotion_id: final_promo, barcode_id: barcode, username: user.username,
+                            date: today}
 
             // verify that this identical item doesn't already exist in database
             let identical = true
@@ -190,7 +192,6 @@ function AddTagsPage({route}) {
                     created_item = await addItem(new_item)
                 }
                 // Send post to backend live feeds
-                const today = convertDateForPosts(new Date());
                 makeLiveFeedPost(created_item._id, new_item.store_id, "", new_item.price, user.username, today);
 
                 // Update latest post date and feed count for the user

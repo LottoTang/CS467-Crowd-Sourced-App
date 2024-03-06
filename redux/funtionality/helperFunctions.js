@@ -367,6 +367,22 @@ function getItemSorting(items, sorting){
     return items;
 }
 
+function sortLiveFeeds(data) {
+    data.sort((a, b) => {
+        const name_a = a.date;
+        const name_b = b.date;
+
+        if (name_a > name_b){
+            return -1;
+        } else if (name_a < name_b){
+            return 1;
+        } else {
+            return 1
+        }
+    });
+    return data
+}
+
 function sortAlphabetically(list) {
     list.sort((a, b) => {
         const name_a = a.toUpperCase();
@@ -450,7 +466,6 @@ function returnLiveFeeds(feeds, stores, items, products){
             finalFeed.push(feedResults[key]);
         }
     }
-    //console.log(finalFeed);
     return finalFeed;
 }
 
@@ -500,6 +515,8 @@ async function convertItemsOutput(databaseItems){
         }
         element.store = await getStoreName(item.store_id);
         if (!element.store) element.store = "Store not in database yet"
+        element.date = item.date
+        element.username = item.username
         output.push(element);
     }
 
@@ -584,6 +601,6 @@ function convertDateForPosts(date){
 }
 
 export { getBrandsList, giveSuggestedItems, recommendedStoresForTotalShoppingList, getSelectedBrandsForProduct, getItemsList }
-export { getShoppingListItemsInStore, getProductInShoppingListDetails, getGoShoppingList, getStoresSorting, getItemSorting, sortAlphabetically }
+export { getShoppingListItemsInStore, getProductInShoppingListDetails, getGoShoppingList, getStoresSorting, getItemSorting, sortLiveFeeds, sortAlphabetically }
 export { returnLiveFeeds, filterLiveFeeds, convertItemsOutput, removeSelectedItem, prepareShoppingListInput, getListOfBrandsForDB }
 export { prepareShoppingList, convertDateForPosts }
