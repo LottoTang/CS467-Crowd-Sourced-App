@@ -142,7 +142,7 @@ function AddTagsPage({route}) {
             // create a new item with the provided data
             const new_item = {name: name, store_id: stores_dict[store], brand: brand,
                             price: parseFloat(parseFloat(price).toFixed(2)), product_tags: tags,
-                            promotion_id: final_promo, barcode_id: barcode, username: user.username,
+                            promotion_id: final_promo, barcode_id: barcode, username: `${user.username} - ${user.shopping_level}`,
                             date: today}
 
             // verify that this identical item doesn't already exist in database
@@ -192,7 +192,7 @@ function AddTagsPage({route}) {
                     created_item = await addItem(new_item)
                 }
                 // Send post to backend live feeds
-                makeLiveFeedPost(created_item._id, new_item.store_id, "", new_item.price, user.username, today);
+                makeLiveFeedPost(created_item._id, new_item.store_id, "", new_item.price, `${user.username} - ${user.shopping_level}`, today);
 
                 // Update latest post date and feed count for the user
                 updateLastPostDateForUser(user._id, new Date());

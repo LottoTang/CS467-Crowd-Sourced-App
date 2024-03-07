@@ -18,16 +18,16 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const ItemComponent = ({item, stores_only}) => {
 // item component that holds either live feed post or item data
-    let title, subtitle, time, user, width;
+    let title, subtitle, width;
     if (item.pricing != -1){
         title = item.item
         subtitle = item.store
-        width = "75%"
+        width = 65
     }
     else {
         title = item.review
         subtitle = item.store
-        width = "100%"
+        width = 100
     }
 
     const promotion_id = item.promotion
@@ -38,27 +38,38 @@ const ItemComponent = ({item, stores_only}) => {
             if (promotion_id) {
                 const promo = await getPromotion(promotion_id)
                 setPromotion(promo.promotion_type)
-                width = "50%"
             }
         }
         fetchData()
     }, [item])
 
+    const user = item.user.split(" - ")
+
     return (
         <View style={item_style}>
-            <View style={[styles.wide_row, {alignSelf: 'center', maxWidth: width}]}>
+            <View style={[styles.wide_row, {alignSelf: 'center', maxWidth: `${width}%` }]}>
                 <Text style={[text_styles.smallTitle, view_style.largeText]}>
                     {title}
                 </Text>
                 <Text style={[text_styles.itemText, {paddingTop: 0, paddingBottom: 0, lineHeight: 15}]}>
                     {subtitle}
                 </Text>
-                <Text style={[text_styles.footnote, {paddingTop: 0}]}>
-                    Last updated {item.date} by {item.user}
-                </Text>
+                <View style={[styles.row, {justifyContent: "flex-start"}]} >
+                    <Text style={[text_styles.footnote, {paddingTop: 0, marginRight: 2}]}>
+                        Last updated {item.date} by
+                    </Text>
+                    <View style={[styles.row, {justifyContent: "flex-start"}]} >
+                        <Text style={view_style.number}>
+                            {user[1]}
+                        </Text>
+                        <Text style={[text_styles.footnote, {paddingTop: 0}]}>
+                            {user[0]}
+                        </Text>
+                    </View>
+                </View>
             </View>
             { item.pricing != -1 ? (
-                <View style={{alignSelf: 'center'}}>
+                <View style={{alignSelf: 'center', maxWidth: `${100-width}%` }}>
                     { promotion_id ? (
                         <Text style={[text_styles.itemText, {marginTop: 4, paddingBottom: 0, color: styles.headerColor.color, textAlign: 'right', lineHeight: 15}]}>
                             Sale: {promotion}!!
@@ -96,5 +107,22 @@ const view_style = StyleSheet.create({
         marginLeft: 0,
         marginTop: 8,
         lineHeight: 25,
+    },
+    number: {
+        fontSize: 9,
+        color: styles.textColor.color,
+        fontFamily: 'Ultra-Regular',
+        lineHeight: 6,
+
+        borderWidth: 1.5,
+        borderRadius: 20,
+        borderColor: styles.textColor.color,
+
+        paddingLeft: 3.5,
+        paddingTop: 6,
+
+        height: 13,
+        width: 13,
+        marginRight: 1
     },
 });

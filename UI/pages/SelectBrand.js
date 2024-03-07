@@ -16,7 +16,6 @@ import { getBrandsList, getListOfBrandsForDB, prepareShoppingList } from '../../
 import { setUser } from '../../redux/actions/actions.js';
 
 // data imports
-import axios from 'axios';
 import { fetchBrands, fetchItems, getAllItemsWithTag } from '../../redux/funtionality/connectionMongo.js';
 import { updateShoppingList } from '../../redux/funtionality/postPatchFunctions.js';
 

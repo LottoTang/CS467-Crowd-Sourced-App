@@ -32,7 +32,7 @@ const SearchBar = ({search, setSearch, addable, add}) => {
 
     // make space for the button next to text input if addable
     let width = "100%"
-    if (addable) width = "79%"
+    if (addable) width = "75%"
 
     return(
         <View>

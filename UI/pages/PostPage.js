@@ -63,7 +63,7 @@ function PostPage() {
         else {
             // Send post to backend live feeds
             const today = convertDateForPosts(new Date());
-            makeLiveFeedPost(null, stores_dict[store], review, null, user.username, today);
+            makeLiveFeedPost(null, stores_dict[store], review, null, `${user.username} - ${user.shopping_level}`, today);
 
             // Update latest post date and feed count for the user
             updateLastPostDateForUser(user._id, new Date());
