@@ -69,15 +69,14 @@ storesRouter.get('/search', async (req, res) => {
       console.error(err);
       res.status(500).send({Error: 'Internal server error.'});
     }
-  }
-  else {
-      try {
-        const storeList = await db.getStoreBySubstring(storeQuery);
-        res.status(200).send(storeList);
-      } catch (err) {
-        console.error(err);
-        res.status(500).send({Error: 'Internal server error.'});
-      }
+  } else {
+    try {
+      const storeList = await db.getStoreBySubstring(storeQuery);
+      res.status(200).send(storeList);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send({Error: 'Internal server error.'});
+    }
   }
 });
 
@@ -150,14 +149,14 @@ storesRouter.delete('/:_id', async (req, res) => {
 });
 
 // DELETE: Delete all Store (for internal testing only)
-storesRouter.delete('', async (req, res) => {
-  try {
-    const deleteCount = await db.deleteAll();
-    res.status(200).send({deleteCount: deleteCount});
-  } catch (err) {
-    console.error(err);
-    res.status(500).send({Error: 'Internal server error.'});
-  }
-});
+// storesRouter.delete('', async (req, res) => {
+//   try {
+//     const deleteCount = await db.deleteAll();
+//     res.status(200).send({deleteCount: deleteCount});
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send({Error: 'Internal server error.'});
+//   }
+// });
 
 module.exports = {storesRouter};
