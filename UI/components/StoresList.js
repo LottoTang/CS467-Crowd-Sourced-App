@@ -8,9 +8,11 @@ import {
 } from 'react-native';
 import { useState, useEffect } from 'react';
 
+// function imports
+import { convertDateForPosts } from '../../redux/funtionality/helperFunctions.js';
+
 // data imports
 import { stores, products, items, promotions} from "../../testData/testingData2";
-
 
 // style imports
 import styles, {item_style, text_styles,} from '../style.js';
@@ -25,6 +27,8 @@ const ItemComponent = ({item}) => {
     let user = [item.username, 1];
     if (item.username) user = item.username.split(" - ")
 
+    const date = convertDateForPosts(new Date(item.date))
+
     return (
         <View style={item_style}>
             <View style={[styles.wide_row, {alignSelf: 'center', maxWidth: '65%'}]}>
@@ -36,7 +40,7 @@ const ItemComponent = ({item}) => {
                 </Text>
                 <View style={[styles.row, {justifyContent: "flex-start"}]} >
                     <Text style={[text_styles.footnote, {paddingTop: 0, marginRight: 2}]}>
-                        Last updated {item.date} by
+                        Last updated {date} by
                     </Text>
                     <View style={[styles.row, {justifyContent: "flex-start"}]} >
                         <Text style={view_style.number}>

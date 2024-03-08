@@ -18,6 +18,7 @@ import { returnLiveFeeds, filterLiveFeeds, sortLiveFeeds } from "../../redux/fun
 
 // data imports
 import { fetchStores, searchStores, getAllLiveFeeds, fetchItems, fetchProduct } from '../../redux/funtionality/connectionMongo.js';
+import { deleteLiveFeed } from '../../redux/funtionality/postPatchFunctions.js';
 
 // component imports
 import UpdatesList from '../components/UpdatesList.js'
@@ -158,8 +159,13 @@ function LiveFeed() {
             setAllStoreData(allStores);
 
             // populate feeds data
-            for (let feed in feedsData){
-                allFeeds[feedsData[feed]._id] = feedsData[feed];
+            for (let feed of feedsData){
+                // check if the live feed was posted 2 more than 2 weeks ago
+                if ((new Date()).getTime() - (new Date(feed.date)).getTime() > 1209600000) {
+                    // delete feed if old (1209600000 is num millisecs in 2 weeks)
+                    deleteLiveFeed(feed._id)
+                }
+                else allFeeds[feed._id] = feed;
             }
             setAllFeedData(allFeeds);
 

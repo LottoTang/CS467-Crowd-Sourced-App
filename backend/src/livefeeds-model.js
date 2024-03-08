@@ -16,7 +16,7 @@ const livefeedsSchema = new mongoose.Schema({
   review: { type: String, required: false },
   price: {type: String, required: false},
   username: {type: String, required: false},
-  date: {type: String, required: false},
+  date: {type: Date, required: false},
 }, { versionKey: false });
 
 const Livefeeds = mongoose.model('Livefeeds', livefeedsSchema, 'Livefeeds');

@@ -138,7 +138,6 @@ async function updateLastPostDateForUser(user_id, date){
     } catch(error){
         console.log(error);
     }
-
 }
 
 // Method to downgrade users level
@@ -159,5 +158,16 @@ async function decreaseUserLevel(user_id){
     return res
 }
 
+// Method to remove old live feeds
+async function deleteLiveFeed(feed_id){
+    try{
+        const response = await axios.delete(`http://${address}:3000/livefeeds/${feed_id}`,
+        ).catch(error=>console.log(error));
+    } catch(error){
+        console.log(error);
+    }
+}
 
-export { addProduct, updateBrands, createPromotion, addItem, updateItem, updateShoppingList, makeLiveFeedPost, increaseItemCount, updateLastPostDateForUser, decreaseUserLevel }
+
+export { addProduct, updateBrands, createPromotion, addItem, updateItem, updateShoppingList,
+makeLiveFeedPost, increaseItemCount, updateLastPostDateForUser, decreaseUserLevel, deleteLiveFeed }
