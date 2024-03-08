@@ -17,9 +17,6 @@ import { useSelector } from 'react-redux';
 import { fetchStores, searchStores } from '../../redux/funtionality/connectionMongo.js';
 import { makeLiveFeedPost, updateLastPostDateForUser, increaseItemCount } from '../../redux/funtionality/postPatchFunctions.js';
 
-// helper imports
-import { convertDateForPosts } from '../../redux/funtionality/helperFunctions.js';
-
 // component imports
 import Dropdown from '../components/Dropdown.js'
 import Loading from '../components/LoadingPage.js'
@@ -62,7 +59,7 @@ function PostPage() {
         else if (review == undefined) Alert.alert("Invalid Update", "Please write an update.", [{text: 'Ok'}] );
         else {
             // Send post to backend live feeds
-            const today = convertDateForPosts(new Date());
+            const today = new Date();
             makeLiveFeedPost(null, stores_dict[store], review, null, `${user.username} - ${user.shopping_level}`, today);
 
             // Update latest post date and feed count for the user

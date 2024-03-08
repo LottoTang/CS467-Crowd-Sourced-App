@@ -8,6 +8,9 @@ import {
 } from 'react-native';
 import { useState, useEffect } from 'react';
 
+// function imports
+import { convertDateForPosts } from '../../redux/funtionality/helperFunctions.js';
+
 // data imports
 import { getPromotion } from '../../redux/funtionality/connectionMongo.js';
 
@@ -45,6 +48,8 @@ const ItemComponent = ({item, stores_only}) => {
 
     const user = item.user.split(" - ")
 
+    const date = convertDateForPosts(new Date(item.date))
+
     return (
         <View style={item_style}>
             <View style={[styles.wide_row, {alignSelf: 'center', maxWidth: `${width}%` }]}>
@@ -56,7 +61,7 @@ const ItemComponent = ({item, stores_only}) => {
                 </Text>
                 <View style={[styles.row, {justifyContent: "flex-start"}]} >
                     <Text style={[text_styles.footnote, {paddingTop: 0, marginRight: 2}]}>
-                        Last updated {item.date} by
+                        Last updated {date} by
                     </Text>
                     <View style={[styles.row, {justifyContent: "flex-start"}]} >
                         <Text style={view_style.number}>

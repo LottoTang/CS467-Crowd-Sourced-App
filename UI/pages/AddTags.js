@@ -22,9 +22,6 @@ import { addProduct, updateBrands, createPromotion, addItem, updateItem, makeLiv
 import { StoresDropdown, TagsDropdown, BrandsDropdown, PromotionsDropdown, SaleDatePicker } from '../components/AddTagsComponents.js'
 import Loading from '../components/LoadingPage.js'
 
-// helper methods 
-import { convertDateForPosts } from '../../redux/funtionality/helperFunctions.js';
-
 // style imports
 import styles, {item_style, text_styles} from '../style.js';
 
@@ -137,7 +134,7 @@ function AddTagsPage({route}) {
             let final_promo = sales_dict[sale]
             if (sale == "None") final_promo = null
 
-            const today = convertDateForPosts(new Date());
+            const today = new Date();
 
             // create a new item with the provided data
             const new_item = {name: name, store_id: stores_dict[store], brand: brand,

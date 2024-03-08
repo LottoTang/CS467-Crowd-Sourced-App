@@ -21,7 +21,7 @@ const itemsSchema = new mongoose.Schema({
   barcode_id: { type: String, required: false },
   promotion_id: { type: mongoose.Schema.Types.ObjectId, required: false },
   username: {type: String, required: false},
-  date: {type: String, required: false},
+  date: {type: Date, required: false},
 }, { versionKey: false });
 
 

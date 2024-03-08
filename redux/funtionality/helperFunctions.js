@@ -369,12 +369,12 @@ function getItemSorting(items, sorting){
 
 function sortLiveFeeds(data) {
     data.sort((a, b) => {
-        const name_a = a.date;
-        const name_b = b.date;
+        const time_a = (new Date(a.date)).getTime();
+        const time_b = (new Date(b.date)).getTime();
 
-        if (name_a > name_b){
+        if (time_a > time_b){
             return -1;
-        } else if (name_a < name_b){
+        } else if (time_a < time_b){
             return 1;
         } else {
             return 1
