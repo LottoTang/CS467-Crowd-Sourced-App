@@ -61,9 +61,7 @@ usersRouter.post('/', async (req, res) => {
         res.status(201).send(user);
       } catch (err) {
         console.error(err);
-        res
-          .status(409)
-          .send({Error: 'Conflicts, email/username already used.'});
+        res.status(500).send({Error: 'Internal server error.'});
       }
     }
   } catch (err) {
