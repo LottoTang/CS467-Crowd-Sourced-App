@@ -160,7 +160,9 @@ function LiveFeed() {
 
             // populate feeds data
             for (let feed of feedsData){
+                // check if the live feed was posted 2 more than 2 weeks ago
                 if ((new Date()).getTime() - (new Date(feed.date)).getTime() > 1209600000) {
+                    // delete feed if old (1209600000 is num millisecs in 2 weeks)
                     deleteLiveFeed(feed._id)
                 }
                 else allFeeds[feed._id] = feed;
