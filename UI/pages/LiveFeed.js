@@ -18,6 +18,7 @@ import { returnLiveFeeds, filterLiveFeeds, sortLiveFeeds } from "../../redux/fun
 
 // data imports
 import { fetchStores, searchStores, getAllLiveFeeds, fetchItems, fetchProduct } from '../../redux/funtionality/connectionMongo.js';
+import { deleteLiveFeed } from '../../redux/funtionality/postPatchFunctions.js';
 
 // component imports
 import UpdatesList from '../components/UpdatesList.js'
@@ -158,8 +159,11 @@ function LiveFeed() {
             setAllStoreData(allStores);
 
             // populate feeds data
-            for (let feed in feedsData){
-                allFeeds[feedsData[feed]._id] = feedsData[feed];
+            for (let feed of feedsData){
+                if ((new Date()).getTime() - (new Date(feed.date)).getTime() > 1209600000) {
+                    deleteLiveFeed(feed._id)
+                }
+                else allFeeds[feed._id] = feed;
             }
             setAllFeedData(allFeeds);
 
