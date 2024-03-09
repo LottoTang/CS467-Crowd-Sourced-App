@@ -3,7 +3,6 @@ import React from 'react';
 import {
   SafeAreaView,
   Alert,
-  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -12,14 +11,14 @@ import {
 } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // data imports
 import { fetchStores, fetchProduct, getPromotion, fetchPromotions, getItemByBarcode } from '../../redux/funtionality/connectionMongo.js';
 import { addProduct, updateBrands, createPromotion, addItem, updateItem, makeLiveFeedPost, updateLastPostDateForUser, increaseItemCount } from '../../redux/funtionality/postPatchFunctions.js';
 
 // component imports
-import { StoresDropdown, TagsDropdown, BrandsDropdown, PromotionsDropdown, SaleDatePicker } from '../components/AddTagsComponents.js'
+import { StoresDropdown, TagsDropdown, BrandsDropdown, PromotionsDropdown } from '../components/AddTagsComponents.js'
 import Loading from '../components/LoadingPage.js'
 
 // style imports

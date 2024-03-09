@@ -134,7 +134,7 @@ async function updateLastPostDateForUser(user_id, date){
     try{
         const response = await axios.patch(`http://${address}:3000/users/${user_id}`,{
             user_creation_date: date,
-        }).then(result=>console.log(result.config.data)).catch(error=>console.log(error));
+        }).catch(error=>console.log(error));
     } catch(error){
         console.log(error);
     }

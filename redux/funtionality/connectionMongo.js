@@ -258,7 +258,7 @@ async function postNewFeed(user, item, store, review){
 
 
 // Get all items from database and store them in a state using the set state method storeData
-async function getAllItemsWithTag(){
+async function getAllItems(){
     let res;
 
     try{
@@ -275,4 +275,4 @@ async function getAllItemsWithTag(){
 
 export { getUser, getItem, fetchItems, getStoreName, searchStores, fetchStores, fetchBrands, searchProducts, fetchProduct };
 
-export { getPromotion, fetchPromotions, searchPromotions, getItemByBarcode, getAllLiveFeeds, postNewFeed, getAllItemsWithTag };
+export { getPromotion, fetchPromotions, searchPromotions, getItemByBarcode, getAllLiveFeeds, postNewFeed, getAllItems };

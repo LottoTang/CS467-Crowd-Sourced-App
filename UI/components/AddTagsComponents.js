@@ -3,14 +3,11 @@
 // react imports
 import React from 'react';
 import {
-  Alert,
   Pressable,
-  StyleSheet,
   Text,
   View,
 } from 'react-native';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 
 // function imports
 import { giveSuggestedItems, sortAlphabetically } from '../../redux/funtionality/helperFunctions.js';
@@ -23,7 +20,7 @@ import Dropdown from '../components/Dropdown.js'
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 // style imports
-import styles, {item_style, text_styles} from '../style.js';
+import {item_style, text_styles} from '../style.js';
 
 
 const StoresDropdown = ({store, setStore}) => {

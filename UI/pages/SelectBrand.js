@@ -10,13 +10,12 @@ import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 
-
 // function imports
-import { getBrandsList, getListOfBrandsForDB, prepareShoppingList } from '../../redux/funtionality/helperFunctions';
+import { prepareShoppingList } from '../../redux/funtionality/helperFunctions';
 import { setUser } from '../../redux/actions/actions.js';
 
 // data imports
-import { fetchBrands, fetchItems, getAllItemsWithTag } from '../../redux/funtionality/connectionMongo.js';
+import { fetchBrands, getAllItems } from '../../redux/funtionality/connectionMongo.js';
 import { updateShoppingList } from '../../redux/funtionality/postPatchFunctions.js';
 
 // component imports
@@ -24,8 +23,6 @@ import CheckList from '../components/CheckList.js'
 
 // style imports
 import styles, {text_styles, add_button} from '../style.js';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { brandsList } from '../../testData/testingData.js';
 
 
 function SelectBrand({route}) {
@@ -42,7 +39,7 @@ function SelectBrand({route}) {
         const fillBrands = async ()=>{
             const brands = await fetchBrands(product)
             setAllBrands(brands)
-            const all_items = await getAllItemsWithTag();
+            const all_items = await getAllItems();
             setAllItems(all_items)
         }
         fillBrands();

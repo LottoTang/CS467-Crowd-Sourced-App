@@ -16,7 +16,7 @@ import { useSelector } from 'react-redux';
 import { getGoShoppingList, getStoresSorting } from "../../redux/funtionality/helperFunctions";
 
 // data imports
-import { fetchItems, fetchStores } from '../../redux/funtionality/connectionMongo.js';
+import { fetchStores } from '../../redux/funtionality/connectionMongo.js';
 
 // component imports
 import PopupModal from '../components/PopupModal.js'

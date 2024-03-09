@@ -2,8 +2,6 @@
 import React from 'react';
 import {
   SafeAreaView,
-  Alert,
-  FlatList,
   Pressable,
   StyleSheet,
   Text,
@@ -26,7 +24,7 @@ import PopupModal from '../components/PopupModal.js'
 import Loading from '../components/LoadingPage.js'
 
 // style imports
-import styles, { item_style, text_styles, add_button, large_button, popup_style } from '../style.js';
+import styles, { add_button, popup_style } from '../style.js';
 
  
 const Popup = ({store_filter, setStores, post_filter, setPostTypes, stores}) => {

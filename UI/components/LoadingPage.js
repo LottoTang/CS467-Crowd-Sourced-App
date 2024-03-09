@@ -10,6 +10,7 @@ import {
 // style imports
 import styles from '../style.js';
 
+
 function Loading () {
     return (
         <SafeAreaView style={styles.app}>

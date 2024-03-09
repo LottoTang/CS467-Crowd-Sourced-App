@@ -16,7 +16,6 @@ import { getPromotion } from '../../redux/funtionality/connectionMongo.js';
 
 // style imports
 import styles, {item_style, text_styles,} from '../style.js';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 const ItemComponent = ({item, stores_only}) => {
