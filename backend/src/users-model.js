@@ -75,7 +75,7 @@ const updateUserShoppingLevel = async _id => {
 
   // Max level reached
   if (document.shopping_level === 4) {
-    return;
+    return 0;
   }
 
   const userFeedItemCount = document.feed_item_count;
