@@ -47,7 +47,7 @@ function LoginPage() {
         if (token && user) {
             // test if the user is in the database
             try{
-                const response = await axios.get(`http://${address}:3000/users/checker/${user.sub}`, {}
+                const response = await axios.get(`http://${address}/users/checker/${user.sub}`, {}
                 ).then(async result => {
                     let user_obj = result.data
 
