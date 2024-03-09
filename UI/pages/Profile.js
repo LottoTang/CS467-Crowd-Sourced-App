@@ -37,7 +37,8 @@ function ProfilePage() {
     let text = "levels"
     if (master - user.shopping_level == 1) text = "level"
 
-    const level_names = ["Beginner Shopper", "Seasoned Shopper", "Experienced Shopper", "Master Shopper"]
+    let whole_text = `${master - user.shopping_level} ${text} to go to Master Shopper!`
+    if (user.shopping_level == 4) whole_text = "Congrats, you're a MASTER Shopper!"
 
     return (
     <SafeAreaView style={styles.app}>
@@ -57,7 +58,7 @@ function ProfilePage() {
                 </View>
             </View>
             <Text style={plainText}>
-                {master - user.shopping_level} {text} to go to Master Shopper!
+                {whole_text}
             </Text>
 
             <View style={{height: 50}}></View>

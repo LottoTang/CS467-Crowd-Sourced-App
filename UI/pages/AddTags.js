@@ -11,7 +11,10 @@ import {
 } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+// function imports
+import { setUser } from '../../redux/actions/actions.js';
 
 // data imports
 import { fetchStores, fetchProduct, getPromotion, fetchPromotions, getItemByBarcode } from '../../redux/funtionality/connectionMongo.js';
@@ -28,6 +31,7 @@ import styles, {item_style, text_styles} from '../style.js';
 function AddTagsPage({route}) {
 // the Add tags page screen itself with its component
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
     const barcode = route.params.barcode;
     const user = useSelector(state => state.user);
@@ -192,7 +196,16 @@ function AddTagsPage({route}) {
 
                 // Update latest post date and feed count for the user
                 updateLastPostDateForUser(user._id, new Date());
-                increaseItemCount(user._id);
+                const updated_user = await increaseItemCount(user._id);
+                const new_level = updated_user.shopping_level
+                if (new_level > user.shopping_level) {
+                    Alert.alert("Congratulations!",
+                        `Your shopping level has increased to level ${new_level}: ${level_names[new_level - 1]}`,
+                        [{text: 'Great!'}]
+                    );
+                }
+
+                dispatch(setUser(updated_user));
             }
 
             // reset scan tab and go back to shopping list

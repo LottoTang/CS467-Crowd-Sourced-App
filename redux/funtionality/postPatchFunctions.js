@@ -112,7 +112,7 @@ async function makeLiveFeedPost(item_id, store_id, review, price, username, date
             price: price,
             username: username,
             date: date,
-        }).then(result => console.log(result.config.data)).catch(error => console.log(error));
+        }).catch(error => console.log(error));
     } catch(error) {
         console.log(error);
     }
@@ -120,13 +120,20 @@ async function makeLiveFeedPost(item_id, store_id, review, price, username, date
 
 // Method to increase posts count for the user and shopping level.
 async function increaseItemCount(user_id){
+    let res;
+
     try {
         const response = await axios.patch(`http://${address}:3000/users/shopping_level/${user_id}`)
-        .then(result=> console.log("Feeds count increased"))
+        .then(result=> {
+            console.log("Feeds count increased")
+            res = result.data;
+            })
         .catch(error => console.log(error));
     }catch(error){
         console.log(error);
     }
+
+    return res
 }
 
 // Method to update users level
