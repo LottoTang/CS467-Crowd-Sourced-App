@@ -102,8 +102,8 @@ const view_style = StyleSheet.create({
         borderRadius: 20,
         borderColor: styles.textColor.color,
 
-        paddingLeft: 3.5,
-        paddingTop: 6,
+        textAlign: "center",
+        paddingTop: 6.25,
 
         height: 13,
         width: 13,
