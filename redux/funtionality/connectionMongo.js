@@ -241,22 +241,6 @@ async function getAllLiveFeeds(){
     return data;
 }
 
-// Send a new post to the database for a store
-async function postNewFeed(user, item, store, review){
-    try{
-        const response = await axios.post(`http://${address}/`,
-        {
-            item_id: item,
-            store_id: store,
-            review: review
-        }
-        ).then(result => console.log(result.data)).catch(error=> console.log(error));
-    }catch (error){
-        console.log(error);
-    }
-}
-
-
 // Get all items from database and store them in a state using the set state method storeData
 async function getAllItems(){
     let res;
@@ -275,4 +259,4 @@ async function getAllItems(){
 
 export { getUser, getItem, fetchItems, getStoreName, searchStores, fetchStores, fetchBrands, searchProducts, fetchProduct };
 
-export { getPromotion, fetchPromotions, searchPromotions, getItemByBarcode, getAllLiveFeeds, postNewFeed, getAllItems };
+export { getPromotion, fetchPromotions, searchPromotions, getItemByBarcode, getAllLiveFeeds, getAllItems };
