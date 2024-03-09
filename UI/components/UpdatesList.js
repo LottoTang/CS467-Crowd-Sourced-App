@@ -16,7 +16,6 @@ import { getPromotion } from '../../redux/funtionality/connectionMongo.js';
 
 // style imports
 import styles, {item_style, text_styles,} from '../style.js';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 const ItemComponent = ({item, stores_only}) => {
@@ -89,16 +88,24 @@ const ItemComponent = ({item, stores_only}) => {
     );
 };
 
-const UpdatesList = ({items, stores_only=false}) => {
+const UpdatesList = ({items, stores_only=false, getItems}) => {
 // list component composed of stores where item is found or updates to products and live feed reviews
+    const [refreshing, setRefreshing] = useState(false)
+    const refresh = async () => {
+        setRefreshing(true)
+        await getItems()
+        setRefreshing(false)
+    }
     return (
         <View>
             <FlatList
                 data={items}
                 keyExtractor={(item, index)=> index.toString()}
-                renderItem = { ({item}) =>
+                renderItem={ ({item}) =>
                     <ItemComponent item={item} stores_only={stores_only}/>
                 }
+                onRefresh={refresh}
+                refreshing={refreshing}
             />
         </View>
     );
@@ -123,8 +130,8 @@ const view_style = StyleSheet.create({
         borderRadius: 20,
         borderColor: styles.textColor.color,
 
-        paddingLeft: 3.5,
-        paddingTop: 6,
+        textAlign: "center",
+        paddingTop: 6.25,
 
         height: 13,
         width: 13,

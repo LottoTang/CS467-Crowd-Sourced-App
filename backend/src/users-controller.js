@@ -165,7 +165,7 @@ usersRouter.patch('/shopping_level/:_id', async (req, res) => {
     const document = await db.findUserById(userID);
     try {
       const updateCount = await db.updateUserShoppingLevel(userID);
-      if (updateCount === 1) {
+      if (updateCount === 0 || updateCount === 1) {
         try {
           const document = await db.findUserById(userID);
           res.status(200).send(document);

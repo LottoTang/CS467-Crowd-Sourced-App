@@ -5,18 +5,14 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
-  Text,
   Vibration,
   View,
 } from 'react-native';
-import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Camera, CameraType } from "react-native-camera-kit";
 
-//import TestImageFile from "./testImageFile";
-
 // style imports
-import styles, {item_style, text_styles, add_button} from '../style.js';
+import styles from '../style.js';
 
 
 const ScanBarCode = ()=>{

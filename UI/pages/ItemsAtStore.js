@@ -13,13 +13,13 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 
 // function imports
-import { getShoppingListItemsInStore, getProductInShoppingListDetails, removeSelectedItem, prepareShoppingList } from "../../redux/funtionality/helperFunctions";
-import { viewSelectedItem, setUser, setShoppingListContent } from '../../redux/actions/actions.js';
+import { getShoppingListItemsInStore, removeSelectedItem, prepareShoppingList } from "../../redux/funtionality/helperFunctions";
+import { viewSelectedItem, setUser } from '../../redux/actions/actions.js';
 import { removeItemFromArray } from '../ui_helpers.js';
 
 // data imports
 import { updateShoppingList } from '../../redux/funtionality/postPatchFunctions.js';
-import { getAllItemsWithTag } from '../../redux/funtionality/connectionMongo.js';
+import { getAllItems } from '../../redux/funtionality/connectionMongo.js';
 
 // component imports
 import Loading from '../components/LoadingPage.js'
@@ -108,7 +108,7 @@ function ItemsAtStore({route}) {
     }
 
     const clearSelected = async () => {
-        const allItems = await getAllItemsWithTag();
+        const allItems = await getAllItems();
 
         let updatedList = prepareShoppingList(shopping_list, allItems);
         for (const product of selected_products){

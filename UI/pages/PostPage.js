@@ -3,7 +3,6 @@ import React from 'react';
 import {
   SafeAreaView,
   Alert,
-  Pressable,
   StyleSheet,
   Text,
   TextInput,
@@ -11,7 +10,10 @@ import {
 } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+// function imports
+import { setUser } from '../../redux/actions/actions.js';
 
 // data imports
 import { fetchStores, searchStores } from '../../redux/funtionality/connectionMongo.js';
@@ -34,6 +36,7 @@ function PostPage() {
     const [loading, setLoading] = useState(true);
 
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
     // Get all stores from database
     useEffect(()=>{
@@ -54,7 +57,7 @@ function PostPage() {
         return <Loading />
     }
     
-    const handlePost = () => {
+    const handlePost = async () => {
         if (store == undefined) Alert.alert("Invalid Store", "Please select a store.", [{text: 'Ok'}] );
         else if (review == undefined) Alert.alert("Invalid Update", "Please write an update.", [{text: 'Ok'}] );
         else {
@@ -64,8 +67,16 @@ function PostPage() {
 
             // Update latest post date and feed count for the user
             updateLastPostDateForUser(user._id, new Date());
-            increaseItemCount(user._id);
-            
+            const updated_user = await increaseItemCount(user._id);
+            const new_level = updated_user.shopping_level
+            if (new_level > user.shopping_level) {
+                Alert.alert("Congratulations!",
+                    `Your shopping level has increased to level ${new_level}: ${level_names[new_level - 1]}`,
+                    [{text: 'Great!'}]
+                );
+            }
+
+            dispatch(setUser(updated_user));
             setStore();
             setReview();
 

@@ -4,6 +4,7 @@
 import React from 'react';
 import {
   SafeAreaView,
+  Alert,
   StyleSheet,
   Text,
   View,
@@ -46,7 +47,7 @@ function LoginPage() {
         if (token && user) {
             // test if the user is in the database
             try{
-                const response = await axios.get(`http://${address}:3000/users/checker/${user.sub}`, {}
+                const response = await axios.get(`http://${address}/users/checker/${user.sub}`, {}
                 ).then(async result => {
                     let user_obj = result.data
 
@@ -64,11 +65,22 @@ function LoginPage() {
                     let already_downgraded = getMonths(last_downgrade, last_post)
 
                     if (already_downgraded < 0) already_downgraded = 0
+                    if (total_downgrade > 3) total_downgrade = 3
 
                     let to_downgrade = total_downgrade - already_downgraded
 
                     for (let i = 0; i < to_downgrade; i++) {
+                        console.log(i)
                         user_obj = await decreaseUserLevel(user_obj._id,);
+                    }
+
+                    if (to_downgrade > 0){
+                        let plural = "levels"
+                        if (to_downgrade == 1) plural = "level"
+                        Alert.alert("Oh no!",
+                            `Looks like you have not posted in a while. Your shopping level has decreased by ${to_downgrade} ${plural}`,
+                            [{text: 'Ok'}]
+                        );
                     }
 
                     // if user is found, send to home page and set redux user

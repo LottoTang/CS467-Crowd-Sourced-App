@@ -19,7 +19,9 @@ import config from './auth0-configuration';
 
 
 function App(): React.JSX.Element {
-  global.address = "10.0.2.2"
+  global.address = "10.0.2.2:3000"
+  global.level_names = ["Beginner Shopper", "Seasoned Shopper", "Experienced Shopper", "Master Shopper"]
+
   return (
     <Auth0Provider domain={config.domain} clientId={config.clientId}>
       <Provider store={store}>

@@ -6,17 +6,12 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useState, useEffect } from 'react';
 
 // function imports
 import { convertDateForPosts } from '../../redux/funtionality/helperFunctions.js';
 
-// data imports
-import { stores, products, items, promotions} from "../../testData/testingData2";
-
 // style imports
 import styles, {item_style, text_styles,} from '../style.js';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 const ItemComponent = ({item}) => {
@@ -102,8 +97,8 @@ const view_style = StyleSheet.create({
         borderRadius: 20,
         borderColor: styles.textColor.color,
 
-        paddingLeft: 3.5,
-        paddingTop: 6,
+        textAlign: "center",
+        paddingTop: 6.25,
 
         height: 13,
         width: 13,

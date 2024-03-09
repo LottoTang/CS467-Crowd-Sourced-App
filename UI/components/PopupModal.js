@@ -1,11 +1,9 @@
 // react imports
 import React from 'react';
 import {
-  SafeAreaView,
   FlatList,
   Modal,
   Pressable,
-  StyleSheet,
   Text,
   TextInput,
   View,

@@ -2,8 +2,6 @@
 import React from 'react';
 import {
   SafeAreaView,
-  Alert,
-  FlatList,
   Pressable,
   StyleSheet,
   Text,
@@ -26,7 +24,7 @@ import PopupModal from '../components/PopupModal.js'
 import Loading from '../components/LoadingPage.js'
 
 // style imports
-import styles, { item_style, text_styles, add_button, large_button, popup_style } from '../style.js';
+import styles, { add_button, popup_style } from '../style.js';
 
  
 const Popup = ({store_filter, setStores, post_filter, setPostTypes, stores}) => {
@@ -141,75 +139,72 @@ function LiveFeed() {
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState({metric: "all", store: "all", post: "all"});
 
+    const collectData = async () =>{
+        const feedsData = await getAllLiveFeeds();
+        const storesData = await fetchStores();
+        const allItems = {};
+        const allProducts = {};
+        const allStores = {};
+        const allFeeds = {};
+
+        // populate store data
+        for (let store in storesData){
+            allStores[storesData[store]._id] = storesData[store];
+        }
+        setAllStoreData(allStores);
+
+        // populate feeds data
+        for (let feed of feedsData){
+            // check if the live feed was posted 2 more than 2 weeks ago
+            if ((new Date()).getTime() - (new Date(feed.date)).getTime() > 1209600000) {
+                // delete feed if old (1209600000 is num millisecs in 2 weeks)
+                deleteLiveFeed(feed._id)
+            }
+            else allFeeds[feed._id] = feed;
+        }
+        setAllFeedData(allFeeds);
+
+
+        // Get all items in shopping list and products in shopping list
+        for (let item in shoppingList){
+
+            // get item details
+            const itemData = await fetchItems(item);
+            for (let value in itemData){
+                allItems[itemData[value]._id] = itemData[value];
+            }
+
+            // get product details
+            const productData = await fetchProduct(item);
+            allProducts[productData._id] = productData;
+
+        }
+        setAllItemData(allItems);
+        setAllProductData(allProducts);
+
+        const result = returnLiveFeeds(allFeeds, allStores, allItems, allProducts);
+        const finalData = sortLiveFeeds(result)
+        setUpdatedData(finalData);
+
+        // Populate stores for filter
+        const filterStore = {};
+        for (let store in allStores){
+            if (allStores[store].city == user.city && allStores[store].state == user.state){
+                filterStore[allStores[store]._id] = {
+                    city: allStores[store].city,
+                    name: allStores[store].name,
+                    state: allStores[store].state,
+                };
+            }
+        }
+        setStoresList(filterStore);
+
+        setLoading(false);
+    }
+
     // Collect all data from database
     useEffect(()=>{
-        
-        const collectData = async () =>{
-            const feedsData = await getAllLiveFeeds();
-            const storesData = await fetchStores();
-            const allItems = {};
-            const allProducts = {};
-            const allStores = {};
-            const allFeeds = {};
-
-            // populate store data
-            for (let store in storesData){
-                allStores[storesData[store]._id] = storesData[store];
-            }
-            setAllStoreData(allStores);
-
-            // populate feeds data
-            for (let feed of feedsData){
-                // check if the live feed was posted 2 more than 2 weeks ago
-                if ((new Date()).getTime() - (new Date(feed.date)).getTime() > 1209600000) {
-                    // delete feed if old (1209600000 is num millisecs in 2 weeks)
-                    deleteLiveFeed(feed._id)
-                }
-                else allFeeds[feed._id] = feed;
-            }
-            setAllFeedData(allFeeds);
-
-
-            // Get all items in shopping list and products in shopping list
-            for (let item in shoppingList){
-
-                // get item details
-                const itemData = await fetchItems(item);
-                for (let value in itemData){
-                    allItems[itemData[value]._id] = itemData[value];
-                }
-
-                // get product details
-                const productData = await fetchProduct(item);
-                allProducts[productData._id] = productData;
-                
-            } 
-            setAllItemData(allItems);
-            setAllProductData(allProducts);
-            
-            const result = returnLiveFeeds(allFeeds, allStores, allItems, allProducts);
-            const finalData = sortLiveFeeds(result)
-            setUpdatedData(finalData);
-            
-            // Populate stores for filter
-            const filterStore = {};
-            for (let store in allStores){
-                if (allStores[store].city == user.city && allStores[store].state == user.state){
-                    filterStore[allStores[store]._id] = {
-                        city: allStores[store].city,
-                        name: allStores[store].name,
-                        state: allStores[store].state,
-                    };
-                }
-            }
-            setStoresList(filterStore);
-
-            setLoading(false);
-        }
-
         collectData();
-        
-
     },[isFocused]); 
     
 
@@ -255,7 +250,7 @@ function LiveFeed() {
         <View style={styles.container}>
             <Popup store_filter={store_filter} setStores={setStores} post_filter={post_filter} setPostTypes={setPostTypes} stores={available_stores}/>
             <View style={{flex: 8}}>
-                <UpdatesList items={updatedData}/>
+                <UpdatesList items={updatedData} getItems={collectData}/>
             </View>
             <View style={styles.bottom}>
                 <Text style={[add_button, feed_style.addButton]} onPress={()=>navigation.navigate("Post Page")}>

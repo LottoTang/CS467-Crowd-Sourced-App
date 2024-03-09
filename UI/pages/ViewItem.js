@@ -17,7 +17,7 @@ import { getSelectedBrandsForProduct, getItemsList, getItemSorting, convertItems
 import { setShoppingListContent } from '../../redux/actions/actions.js';
 
 // data imports
-import { getItem, fetchItems, fetchStores, getAllItemsWithTag } from '../../redux/funtionality/connectionMongo.js';
+import { getItem, getAllItems } from '../../redux/funtionality/connectionMongo.js';
 
 // component imports
 import StoresList from '../components/StoresList.js'
@@ -60,7 +60,7 @@ function ViewItem() {
             setLoading(false)
 
             // set the shopping list content
-            const all_items = await getAllItemsWithTag();
+            const all_items = await getAllItems();
 
             const shoppingData = prepareShoppingList(shopping_list, all_items);
             dispatch(setShoppingListContent(shoppingData));

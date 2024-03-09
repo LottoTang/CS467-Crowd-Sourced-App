@@ -8,14 +8,12 @@ import {
 } from 'react-native';
 import { useState, useEffect } from 'react'
 
-// function imports
-import { giveSuggestedItems } from '../../redux/funtionality/helperFunctions.js';
-
 // component imports
 import PopupModal from './PopupModal.js'
 
 // style imports
 import {item_style, text_styles} from '../style.js';
+
 
 function Dropdown ({value, setValue, options, type, placeholder=null, alert=false, alertMsg=[], searchFunc, setNew=()=>{}, new_values, editable=true}) {
 // Dropdown component is a selectable box similar to text input, that opens a popup when pressed

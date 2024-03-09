@@ -10,21 +10,20 @@ import {
 } from 'react-native';
 import {getHeaderTitle} from '@react-navigation/elements';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
-import { useEffect } from 'react';
 
 // function imports
 import { capitalizeTitle } from '../ui_helpers.js'
-import { removeSelectedItem, prepareShoppingList } from '../../redux/funtionality/helperFunctions.js';
+import { removeSelectedItem } from '../../redux/funtionality/helperFunctions.js';
 import { setUser } from '../../redux/actions/actions.js';
-import { getAllItemsWithTag, getItem } from '../../redux/funtionality/connectionMongo.js';
 
 // data imports
 import { updateShoppingList } from '../../redux/funtionality/postPatchFunctions.js';
+import axios from 'axios';
 
 // style imports
-import styles, {item_style, text_styles} from '../style.js';
+import styles, {text_styles} from '../style.js';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 
 const headerFunc = ({navigation, route, options, back}) => {
 // the Header at the top of each screen, including back button, title, and username
@@ -50,20 +49,6 @@ const headerFunc = ({navigation, route, options, back}) => {
 
 
     const dispatch = useDispatch();
-
-    /*
-    // Alternative method without using Redux but makes app too slow if shopping list is too large
-    const getItemData = ()=>{
-        const getData = async ()=>{
-            await getAllItemsWithTag(setAllItems);
-        }
-        
-        setTimeout(()=>{
-            getData();
-        }, 500);
-    }
-    getItemData();*/
-
 
     const deleteAlert = (item) => {
         Alert.alert(`Delete ${capitalizeTitle(item)}`,

@@ -18,10 +18,10 @@ import { setUser } from '../../redux/actions/actions.js';
 
 // data imports
 import axios from 'axios';
-import {getUser} from '../../redux/funtionality/connectionMongo.js'
 
 // style imports
 import styles, {item_style, text_styles} from '../style.js';
+
 
 function SignUpPage({route}) {
 // the Sign Up page screen itself with its component
@@ -113,7 +113,7 @@ function SignUpPage({route}) {
 
             else {
                 try{
-                    const response = await reqFunc(`http://${address}:3000/users/${user_id}`,
+                    const response = await reqFunc(`http://${address}/users/${user_id}`,
                         new_user
                     ).then(async result => {
                         dispatch(setUser(result.data));
