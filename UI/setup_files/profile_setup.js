@@ -6,12 +6,12 @@ import {
 } from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import headerFunc from './components/Header.js';
+import headerFunc from '../components/Header.js';
 import { useSelector } from 'react-redux';
 
-import ProfilePage from './pages/Profile.js'
-import SignUpPage from './pages/SignUpPage.js';
-import styles from './style.js';
+import ProfilePage from '../pages/Profile.js'
+import SignUpPage from '../pages/SignUpPage.js';
+import styles from '../style.js';
 
 const Stack = createNativeStackNavigator();
 

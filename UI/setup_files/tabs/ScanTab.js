@@ -1,11 +1,10 @@
 import * as React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import headerFunc from '../components/Header.js';
+import headerFunc from '../../components/Header.js';
 
-import ScanBarCode from '../pages/ScanBarCode.js';
-import AddTagsPage from '../pages/AddTags.js';
-import TestScanInput from '../pages/TestPages/TestScanInput.js';
+import ScanBarCode from '../../pages/ScanBarCode.js';
+import AddTagsPage from '../../pages/AddTags.js';
 
 
 const Stack = createNativeStackNavigator();
@@ -22,12 +21,6 @@ const ScanTab = () => {
               name="Add Tags"
               component={AddTagsPage}
               options={{title: 'Add Item Info'}}
-            />
-
-            <Stack.Screen
-                name="ScanInput"
-                component={TestScanInput}
-                options={{title: 'Input Details'}}
             />
         </Stack.Navigator>
     )
