@@ -9,7 +9,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { useAuth0 } from 'react-native-auth0';
@@ -33,6 +33,8 @@ function LoginPage() {
 
     const navigation = useNavigation();
     const dispatch = useDispatch();
+
+    const [message, setMessage] = useState("Signing you in...")
 
     const onLogin = async () => {
         await authorize({}, {});
@@ -94,6 +96,7 @@ function LoginPage() {
                     });
             } catch(error) {
                 console.error(error);
+                setMessage("There was an error signing you in")
             }
         }
     };
@@ -104,6 +107,18 @@ function LoginPage() {
 
     if (isLoading) {
         return <Loading />
+    }
+
+    if (user) {
+        return (
+            <SafeAreaView style={styles.app}>
+                <View style={[styles.container, {justifyContent: 'center'}]}>
+                    <Text style={login_style.title}>
+                        {message}
+                    </Text>
+                </View>
+            </SafeAreaView>
+        )
     }
 
     return (
