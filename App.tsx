@@ -12,7 +12,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import store from './redux/store/store.js';
 import { Provider } from 'react-redux';
 
-import appSetup from './UI/app_setup.js'
+import appSetup from './UI/setup_files/app_setup.js'
 
 import {useAuth0, Auth0Provider} from 'react-native-auth0';
 import config from './auth0-configuration';

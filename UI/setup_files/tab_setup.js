@@ -6,7 +6,7 @@ import ShoppingTab from './tabs/ShoppingTab.js';
 import ScanTab from './tabs/ScanTab.js';
 import LiveFeedTab from './tabs/LiveFeedTab.js';
 
-import styles from './style.js';
+import styles from '../style.js';
 
 const Tab = createBottomTabNavigator();
 
